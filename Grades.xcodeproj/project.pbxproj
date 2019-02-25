@@ -27,7 +27,7 @@
 		9608B9C022241BE000E1CEAF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9608B9C62224342700E1CEAF /* config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = config.plist; sourceTree = "<group>"; };
 		9608B9C82224364200E1CEAF /* EnvironmentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentConfiguration.swift; sourceTree = "<group>"; };
-		96520E912223D65F00AB6499 /* Classification dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Classification dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		96520E912223D65F00AB6499 /* DevGrades.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DevGrades.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96520E942223D65F00AB6499 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96520E962223D65F00AB6499 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		96520E9B2223D66000AB6499 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -67,7 +67,7 @@
 		96520E882223D65E00AB6499 = {
 			isa = PBXGroup;
 			children = (
-				96520E932223D65F00AB6499 /* Classification */,
+				96520E932223D65F00AB6499 /* Grades */,
 				96520E922223D65F00AB6499 /* Products */,
 				967D1E3F2223DDD3007E5217 /* Frameworks */,
 			);
@@ -76,12 +76,12 @@
 		96520E922223D65F00AB6499 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				96520E912223D65F00AB6499 /* Classification dev.app */,
+				96520E912223D65F00AB6499 /* DevGrades.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		96520E932223D65F00AB6499 /* Classification */ = {
+		96520E932223D65F00AB6499 /* Grades */ = {
 			isa = PBXGroup;
 			children = (
 				9608B9C522242CCB00E1CEAF /* Configuration */,
@@ -92,7 +92,7 @@
 				96520EA02223D66000AB6499 /* Info.plist */,
 				9608B9AB2223F10F00E1CEAF /* Localizable.strings */,
 			);
-			path = Classification;
+			path = Grades;
 			sourceTree = "<group>";
 		};
 		967D1E3F2223DDD3007E5217 /* Frameworks */ = {
@@ -116,9 +116,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		96520E902223D65F00AB6499 /* Classification */ = {
+		96520E902223D65F00AB6499 /* Grades */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 96520EA32223D66000AB6499 /* Build configuration list for PBXNativeTarget "Classification" */;
+			buildConfigurationList = 96520EA32223D66000AB6499 /* Build configuration list for PBXNativeTarget "Grades" */;
 			buildPhases = (
 				967D1E3E2223DCEE007E5217 /* Carthage */,
 				967D1E422223DE26007E5217 /* Carthage outdated */,
@@ -133,9 +133,9 @@
 			);
 			dependencies = (
 			);
-			name = Classification;
+			name = Grades;
 			productName = Classification;
-			productReference = 96520E912223D65F00AB6499 /* Classification dev.app */;
+			productReference = 96520E912223D65F00AB6499 /* DevGrades.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -153,7 +153,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 96520E8C2223D65F00AB6499 /* Build configuration list for PBXProject "Classification" */;
+			buildConfigurationList = 96520E8C2223D65F00AB6499 /* Build configuration list for PBXProject "Grades" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -166,7 +166,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				96520E902223D65F00AB6499 /* Classification */,
+				96520E902223D65F00AB6499 /* Grades */,
 			);
 		};
 /* End PBXProject section */
@@ -455,15 +455,15 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = Classification/Info.plist;
+				INFOPLIST_FILE = Grades/Info.plist;
 				INFOPLIST_PREFIX_HEADER = "$(PROJECT_DIR)/info_preprocess_header.h";
 				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.jiri.zdvomka.Classification;
-				PRODUCT_NAME = "Classification dev";
+				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.jiri.zdvomka.Grades;
+				PRODUCT_NAME = DevGrades;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -481,14 +481,14 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = Classification/Info.plist;
+				INFOPLIST_FILE = Grades/Info.plist;
 				INFOPLIST_PREFIX_HEADER = "$(PROJECT_DIR)/info_preprocess_header.h";
 				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.jiri.zdvomka.Classification;
+				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.jiri.zdvomka.Grades;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -498,7 +498,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		96520E8C2223D65F00AB6499 /* Build configuration list for PBXProject "Classification" */ = {
+		96520E8C2223D65F00AB6499 /* Build configuration list for PBXProject "Grades" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				96520EA12223D66000AB6499 /* Debug */,
@@ -507,7 +507,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		96520EA32223D66000AB6499 /* Build configuration list for PBXNativeTarget "Classification" */ = {
+		96520EA32223D66000AB6499 /* Build configuration list for PBXNativeTarget "Grades" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				96520EA42223D66000AB6499 /* Debug */,

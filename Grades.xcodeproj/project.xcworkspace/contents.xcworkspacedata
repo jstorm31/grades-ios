@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Classification.xcodeproj">
+      location = "self:/Users/jirizdvomka/XCode/classification-ios/Grades.xcodeproj">
    </FileRef>
 </Workspace>

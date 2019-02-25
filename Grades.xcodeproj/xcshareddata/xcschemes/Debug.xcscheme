@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "96520E902223D65F00AB6499"
-               BuildableName = "Classification.app"
-               BlueprintName = "Classification"
-               ReferencedContainer = "container:Classification.xcodeproj">
+               BuildableName = "Grades.app"
+               BlueprintName = "Grades"
+               ReferencedContainer = "container:Grades.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,16 +33,16 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "96520E902223D65F00AB6499"
-            BuildableName = "Classification.app"
-            BlueprintName = "Classification"
-            ReferencedContainer = "container:Classification.xcodeproj">
+            BuildableName = "Grades.app"
+            BlueprintName = "Grades"
+            ReferencedContainer = "container:Grades.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "96520E902223D65F00AB6499"
-            BuildableName = "Classification.app"
-            BlueprintName = "Classification"
-            ReferencedContainer = "container:Classification.xcodeproj">
+            BuildableName = "Grades.app"
+            BlueprintName = "Grades"
+            ReferencedContainer = "container:Grades.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "96520E902223D65F00AB6499"
-            BuildableName = "Classification.app"
-            BlueprintName = "Classification"
-            ReferencedContainer = "container:Classification.xcodeproj">
+            BuildableName = "Grades.app"
+            BlueprintName = "Grades"
+            ReferencedContainer = "container:Grades.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
