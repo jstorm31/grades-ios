@@ -25,7 +25,7 @@
 		9608B9BE22241BCD00E1CEAF /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9608B9BF22241BDC00E1CEAF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9608B9C022241BE000E1CEAF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		96520E912223D65F00AB6499 /* Classification.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Classification.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		96520E912223D65F00AB6499 /* Classification dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Classification dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		96520E942223D65F00AB6499 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96520E962223D65F00AB6499 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		96520E9B2223D66000AB6499 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,7 +65,7 @@
 		96520E922223D65F00AB6499 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				96520E912223D65F00AB6499 /* Classification.app */,
+				96520E912223D65F00AB6499 /* Classification dev.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -123,7 +123,7 @@
 			);
 			name = Classification;
 			productName = Classification;
-			productReference = 96520E912223D65F00AB6499 /* Classification.app */;
+			productReference = 96520E912223D65F00AB6499 /* Classification dev.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -450,7 +450,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.jiri.zdvomka.Classification;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Classification dev";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
