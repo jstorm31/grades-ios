@@ -17,7 +17,7 @@ class ViewController: UIViewController {
 		super.loadView()
 
 		let label = UILabel()
-		label.text = "Hello, world!"
+		label.text = (Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String) ?? ""
 		view.addSubview(label)
 		label.snp.makeConstraints { make in
 			make.center.equalToSuperview()
