@@ -7,12 +7,26 @@
 //
 
 import UIKit
+import SnapKit
 
 class ViewController: UIViewController {
+	
+	weak var myLabel: UILabel!
+	
+	override func loadView() {
+		super.loadView()
+		
+		let label = UILabel()
+		label.text = "Hello, world!"
+		view.addSubview(label)
+		label.snp.makeConstraints { make in
+			make.center.equalToSuperview()
+		}
+		self.myLabel = label
+	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		// Do any additional setup after loading the view, typically from a nib.
 	}
 
 
