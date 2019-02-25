@@ -17,7 +17,7 @@ class ViewController: UIViewController {
 		super.loadView()
 
 		let label = UILabel()
-		label.text = "\(NSLocalizedString("start.build_number", comment: "")): \((Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String) ?? "")"
+		label.text = "\(L10n.appVersion): \((Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String) ?? "")"
 		view.addSubview(label)
 		label.snp.makeConstraints { make in
 			make.center.equalToSuperview()
