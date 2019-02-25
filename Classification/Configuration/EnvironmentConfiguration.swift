@@ -37,10 +37,14 @@ final class EnvironmentConfiguration {
 	}
 }
 
+protocol NSClassificationConfiguration {
+	var authServerUrl: String { get }
+}
+
 // swiftlint:disable force_cast
 // Note: for debugging it is better for the app to crash if corresponding key
 //       is missing rather than providing default value
-extension EnvironmentConfiguration {
+extension EnvironmentConfiguration: NSClassificationConfiguration {
 	var authServerUrl: String {
 		return config["AuthServerUrl"] as! String
 	}

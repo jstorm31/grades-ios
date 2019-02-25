@@ -12,12 +12,22 @@ import SnapKit
 class ViewController: UIViewController {
 
 	weak var myLabel: UILabel!
-
+	
+	private let config: NSClassificationConfiguration = EnvironmentConfiguration()
+	
+//	init(config: NSClassificationConfiguration?) {
+//		self.config = config ?? EnvironmentConfiguration()
+//		super.init(nibName: nil, bundle: nil)
+//	}
+//
+//	required init?(coder aDecoder: NSCoder) {
+//		fatalError("init(coder:) has not been implemented")
+//	}
+	
 	override func loadView() {
 		super.loadView()
 
 		let label = UILabel()
-		label.text = "Hmmm"
 		view.addSubview(label)
 		label.snp.makeConstraints { make in
 			make.center.equalToSuperview()
@@ -27,8 +37,7 @@ class ViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		let config = EnvironmentConfiguration()
+		
 		print(config.authServerUrl)
 		myLabel.text = config.authServerUrl
 	}
