@@ -1,2 +1,1 @@
-# classification-ios
-CTU Classification app for iOS
+# Classification iOS app
