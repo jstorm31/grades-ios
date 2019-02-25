@@ -19,8 +19,6 @@
 
 /* Begin PBXFileReference section */
 		9608B9B02224149700E1CEAF /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
-		9608B9BB22241B9000E1CEAF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		9608B9BC22241B9000E1CEAF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		9608B9BD22241B9100E1CEAF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9608B9BE22241BCD00E1CEAF /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9608B9BF22241BDC00E1CEAF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -295,7 +293,6 @@
 		96520E982223D65F00AB6499 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				9608B9BB22241B9000E1CEAF /* en */,
 				9608B9BF22241BDC00E1CEAF /* en */,
 			);
 			name = Main.storyboard;
@@ -304,7 +301,6 @@
 		96520E9D2223D66000AB6499 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				9608B9BC22241B9000E1CEAF /* en */,
 				9608B9C022241BE000E1CEAF /* en */,
 			);
 			name = LaunchScreen.storyboard;
