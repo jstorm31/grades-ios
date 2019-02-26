@@ -1,4 +1,5 @@
-# Classification iOS app
+# Grades iOS
+Client mobile application for [grading server](https://grades.fit.cvut.cz/) on FIT CTU running on iOS platform.
 
 ## Dependency management
 The app uses [Carthage](https://github.com/Carthage/Carthage) package manager for dependency management. After cloning the repo, run `carthage bootstrap` to correctly install required frameworks.
