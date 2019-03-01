@@ -148,10 +148,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 96520EA32223D66000AB6499 /* Build configuration list for PBXNativeTarget "Grades" */;
 			buildPhases = (
-				967D1E3E2223DCEE007E5217 /* Carthage */,
-				967D1E422223DE26007E5217 /* Carthage outdated */,
 				967D1E522223E2F3007E5217 /* SwiftLint */,
 				9608B9C122241EC700E1CEAF /* SwiftGen */,
+				961A2FEE2229C59400A624DC /* SwiftFormat */,
+				967D1E3E2223DCEE007E5217 /* Carthage */,
+				967D1E422223DE26007E5217 /* Carthage outdated */,
 				9608B9A82223EB0900E1CEAF /* Generate preprocess header */,
 				96520E8D2223D65F00AB6499 /* Sources */,
 				96520E8E2223D65F00AB6499 /* Frameworks */,
@@ -253,6 +254,24 @@
 			shellPath = /bin/sh;
 			shellScript = "# Generate strings\nswiftgen\n";
 			showEnvVarsInLog = 0;
+		};
+		961A2FEE2229C59400A624DC /* SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftFormat;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftformat >/dev/null; then\n    swiftformat --swiftversion 4.2 Grades\nelse\n    echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
 		};
 		967D1E3E2223DCEE007E5217 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;

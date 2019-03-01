@@ -8,6 +8,7 @@ Additionally, you should have following frameworks installed system-wide:
 
  * [SwiftLint](https://github.com/realm/SwiftLint)
  * [SwiftGen](https://github.com/SwiftGen/SwiftGen)
+ * [SwiftFormat](https://github.com/nicklockwood/SwiftFormat)
 
 ## Configuration
 All configuration related files are located in `Configuration` folder. There are several files:
