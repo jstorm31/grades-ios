@@ -10,7 +10,18 @@ import Foundation
 import OAuthSwift
 import RxSwift
 
-enum AuthenticationError: Error {}
+enum AuthenticationError: Error {
+    case generic
+}
+
+extension AuthenticationError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .generic:
+            return L10n.Error.Auth.generic
+        }
+    }
+}
 
 class AuthenticationService {
     // MARK: properties
@@ -60,7 +71,12 @@ class AuthenticationService {
                                                 success: { _, _, _ in
                                                     observer.onCompleted()
                                                 }, failure: { error in
-                                                    observer.onError(error)
+                                                    #if DEBUG
+                                                        observer.onError(error)
+                                                    #endif
+                                                    observer.onError(
+                                                        AuthenticationError.generic
+                                                    )
             })
             return Disposables.create {
                 handle?.cancel()

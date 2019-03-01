@@ -15,6 +15,7 @@
 		961A2FD822293AEA00A624DC /* Common.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD722293AEA00A624DC /* Common.plist */; };
 		961A2FDE22294F4500A624DC /* PlistDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A2FDD22294F4500A624DC /* PlistDocument.swift */; };
 		961A2FE1222988D700A624DC /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A2FE0222988D700A624DC /* AuthenticationService.swift */; };
+		961A2FF12229D44A00A624DC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A2FF02229D44A00A624DC /* LoginViewModel.swift */; };
 		96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E942223D65F00AB6499 /* AppDelegate.swift */; };
 		96520E972223D65F00AB6499 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E962223D65F00AB6499 /* ViewController.swift */; };
 		96520E9A2223D65F00AB6499 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E982223D65F00AB6499 /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 		961A2FD722293AEA00A624DC /* Common.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Common.plist; sourceTree = "<group>"; };
 		961A2FDD22294F4500A624DC /* PlistDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistDocument.swift; sourceTree = "<group>"; };
 		961A2FE0222988D700A624DC /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		961A2FF02229D44A00A624DC /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		96520E912223D65F00AB6499 /* GradesDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GradesDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96520E942223D65F00AB6499 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96520E962223D65F00AB6499 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +90,14 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		961A2FEF2229D43900A624DC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				961A2FF02229D44A00A624DC /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		96520E882223D65E00AB6499 = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +118,7 @@
 		96520E932223D65F00AB6499 /* Grades */ = {
 			isa = PBXGroup;
 			children = (
+				961A2FEF2229D43900A624DC /* ViewModel */,
 				961A2FDF222988C500A624DC /* Services */,
 				9608B9C522242CCB00E1CEAF /* Configuration */,
 				9608B9AF2224148900E1CEAF /* Generated */,
@@ -348,6 +359,7 @@
 				961A2FE1222988D700A624DC /* AuthenticationService.swift in Sources */,
 				961A2FDE22294F4500A624DC /* PlistDocument.swift in Sources */,
 				96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */,
+				961A2FF12229D44A00A624DC /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,7 +13,7 @@ import UIKit
 class ViewController: UIViewController {
     weak var authButton: UIButton!
 
-    let auth = AuthenticationService()
+    let viewModel = LoginViewModel()
     let bag = DisposeBag()
 
     override func loadView() {
@@ -34,7 +34,7 @@ class ViewController: UIViewController {
         super.viewDidLoad() }
 
     @objc private func authButtonTapped(_: UIButton) {
-        auth.authenticate(useBuiltInSafari: true, viewController: self)
+        viewModel.authenticate(viewController: self)
             .subscribe(onError: { error in
                 print(error.localizedDescription)
             }, onCompleted: {

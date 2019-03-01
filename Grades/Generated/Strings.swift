@@ -13,6 +13,13 @@ import Foundation
 internal enum L10n {
     /// App version
     internal static let appVersion = L10n.tr("Localizable", "appVersion")
+
+    internal enum Error {
+        internal enum Auth {
+            /// There has been an error when authenticating.
+            internal static let generic = L10n.tr("Localizable", "error.auth.generic")
+        }
+    }
 }
 
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
