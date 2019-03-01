@@ -10,36 +10,30 @@ import UIKit
 import SnapKit
 
 class ViewController: UIViewController {
-
-	weak var myLabel: UILabel!
 	
-	private let config: NSClassificationConfiguration = EnvironmentConfiguration()
+	weak var authButton: UIButton!
 	
-//	init(config: NSClassificationConfiguration?) {
-//		self.config = config ?? EnvironmentConfiguration()
-//		super.init(nibName: nil, bundle: nil)
-//	}
-//
-//	required init?(coder aDecoder: NSCoder) {
-//		fatalError("init(coder:) has not been implemented")
-//	}
+	let auth = Authentication()
 	
 	override func loadView() {
 		super.loadView()
-
-		let label = UILabel()
-		view.addSubview(label)
-		label.snp.makeConstraints { make in
+		
+		let button = UIButton()
+		button.setTitleColor(.blue, for: .normal)
+		button.setTitle("Authenticate", for: .normal)
+		button.addTarget(self, action: #selector(authButtonTapped(_:)), for: .primaryActionTriggered)
+		view.addSubview(button)
+		button.snp.makeConstraints { make in
 			make.center.equalToSuperview()
 		}
-		self.myLabel = label
+		authButton = button
 	}
-
+	
 	override func viewDidLoad() {
-		super.viewDidLoad()
-		
-		print(config.authServerUrl)
-		myLabel.text = config.authServerUrl
+		super.viewDidLoad()	}
+	
+	@objc private func authButtonTapped(_ sender: UIButton) {
+		auth.authenticate(useBuiltInSafari: true, viewController: self)
 	}
-
+	
 }

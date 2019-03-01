@@ -10,12 +10,11 @@
 		9608B9AD2223F10F00E1CEAF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9608B9AB2223F10F00E1CEAF /* Localizable.strings */; };
 		9608B9B12224149700E1CEAF /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9608B9B02224149700E1CEAF /* Strings.swift */; };
 		9608B9C92224364200E1CEAF /* EnvironmentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9608B9C82224364200E1CEAF /* EnvironmentConfiguration.swift */; };
-		9614CF0E2228669F00FB4A05 /* Bagel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0D2228669F00FB4A05 /* Bagel.framework */; };
-		9614CF102228687400FB4A05 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0F2228687400FB4A05 /* CocoaAsyncSocket.framework */; };
 		961A2FD422293AD000A624DC /* Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD322293AD000A624DC /* Debug.plist */; };
 		961A2FD622293AE000A624DC /* Release.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD522293AE000A624DC /* Release.plist */; };
 		961A2FD822293AEA00A624DC /* Common.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD722293AEA00A624DC /* Common.plist */; };
 		961A2FDE22294F4500A624DC /* PlistDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A2FDD22294F4500A624DC /* PlistDocument.swift */; };
+		961A2FE1222988D700A624DC /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A2FE0222988D700A624DC /* Authentication.swift */; };
 		96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E942223D65F00AB6499 /* AppDelegate.swift */; };
 		96520E972223D65F00AB6499 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E962223D65F00AB6499 /* ViewController.swift */; };
 		96520E9A2223D65F00AB6499 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E982223D65F00AB6499 /* Main.storyboard */; };
@@ -38,6 +37,7 @@
 		961A2FD522293AE000A624DC /* Release.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Release.plist; sourceTree = "<group>"; };
 		961A2FD722293AEA00A624DC /* Common.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Common.plist; sourceTree = "<group>"; };
 		961A2FDD22294F4500A624DC /* PlistDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistDocument.swift; sourceTree = "<group>"; };
+		961A2FE0222988D700A624DC /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		96520E912223D65F00AB6499 /* GradesDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GradesDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96520E942223D65F00AB6499 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96520E962223D65F00AB6499 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -52,10 +52,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9614CF102228687400FB4A05 /* CocoaAsyncSocket.framework in Frameworks */,
 				967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */,
 				969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */,
-				9614CF0E2228669F00FB4A05 /* Bagel.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +80,14 @@
 			path = Configuration;
 			sourceTree = "<group>";
 		};
+		961A2FDF222988C500A624DC /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				961A2FE0222988D700A624DC /* Authentication.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		96520E882223D65E00AB6499 = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +108,7 @@
 		96520E932223D65F00AB6499 /* Grades */ = {
 			isa = PBXGroup;
 			children = (
+				961A2FDF222988C500A624DC /* Services */,
 				9608B9C522242CCB00E1CEAF /* Configuration */,
 				9608B9AF2224148900E1CEAF /* Generated */,
 				967D1E432223DE69007E5217 /* Resources */,
@@ -257,8 +264,6 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/OAuthSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Bagel.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/CocoaAsyncSocket.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
@@ -266,8 +271,6 @@
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SnapKit.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/OAuthSwift.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Bagel.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaAsyncSocket.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -319,6 +322,7 @@
 				96520E972223D65F00AB6499 /* ViewController.swift in Sources */,
 				9608B9B12224149700E1CEAF /* Strings.swift in Sources */,
 				9608B9C92224364200E1CEAF /* EnvironmentConfiguration.swift in Sources */,
+				961A2FE1222988D700A624DC /* Authentication.swift in Sources */,
 				961A2FDE22294F4500A624DC /* PlistDocument.swift in Sources */,
 				96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */,
 			);

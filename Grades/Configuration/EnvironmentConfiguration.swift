@@ -12,12 +12,14 @@ import Foundation
 
 final class EnvironmentConfiguration {
 	private let config: NSDictionary
+	
+	static let shared = EnvironmentConfiguration()
 
-	init(dictionary: NSDictionary) {
+	private init(dictionary: NSDictionary) {
 		config = dictionary
 	}
 
-	convenience init() {
+	private convenience init() {
 		let dict = NSMutableDictionary()
 		
 		let commonConfiguration = PlistDocument(path: "Common.plist").data
@@ -35,12 +37,14 @@ final class EnvironmentConfiguration {
 }
 
 struct Auth {
-	var serverUrl: String = ""
+	var authorizeUrl: String = ""
 	var tokenUrl: String = ""
 	var clientId: String = ""
 	var clientSecret: String = ""
 	var clientHash: String = ""
 	var callbackId: String = ""
+	var responseType: String = ""
+	var scope: String = ""
 	
 	var redirectUri: String {
 		return "\(Bundle.main.bundleIdentifier!)://\(callbackId)"
@@ -56,11 +60,13 @@ protocol NSClassificationConfiguration {
 //       is missing rather than providing default value
 extension EnvironmentConfiguration: NSClassificationConfiguration {
 	var auth: Auth {
-		return Auth(serverUrl: config["AuthorizeUrl"] as! String,
+		return Auth(authorizeUrl: config["AuthorizeUrl"] as! String,
 						tokenUrl: config["TokenUrl"] as! String,
 						clientId: config["ClientId"] as! String,
 						clientSecret: config["ClientSecret"] as! String,
 						clientHash: config["ClientHash"] as! String,
-						callbackId: config["CallbackKey"] as! String)
+						callbackId: config["CallbackKey"] as! String,
+						responseType: config["AuthResponseType"] as! String,
+						scope: config["AuthScope"] as! String)
 	}
 }
