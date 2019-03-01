@@ -9,14 +9,20 @@
 /* Begin PBXBuildFile section */
 		9608B9AD2223F10F00E1CEAF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9608B9AB2223F10F00E1CEAF /* Localizable.strings */; };
 		9608B9B12224149700E1CEAF /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9608B9B02224149700E1CEAF /* Strings.swift */; };
-		9608B9C72224342700E1CEAF /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9608B9C62224342700E1CEAF /* config.plist */; };
 		9608B9C92224364200E1CEAF /* EnvironmentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9608B9C82224364200E1CEAF /* EnvironmentConfiguration.swift */; };
+		961A2FD422293AD000A624DC /* Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD322293AD000A624DC /* Debug.plist */; };
+		961A2FD622293AE000A624DC /* Release.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD522293AE000A624DC /* Release.plist */; };
+		961A2FD822293AEA00A624DC /* Common.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD722293AEA00A624DC /* Common.plist */; };
+		961A2FDE22294F4500A624DC /* PlistDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A2FDD22294F4500A624DC /* PlistDocument.swift */; };
+		961A2FE1222988D700A624DC /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A2FE0222988D700A624DC /* AuthenticationService.swift */; };
+		961A2FF12229D44A00A624DC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A2FF02229D44A00A624DC /* LoginViewModel.swift */; };
 		96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E942223D65F00AB6499 /* AppDelegate.swift */; };
 		96520E972223D65F00AB6499 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E962223D65F00AB6499 /* ViewController.swift */; };
 		96520E9A2223D65F00AB6499 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E982223D65F00AB6499 /* Main.storyboard */; };
 		96520E9C2223D66000AB6499 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96520E9B2223D66000AB6499 /* Assets.xcassets */; };
 		96520E9F2223D66000AB6499 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E9D2223D66000AB6499 /* LaunchScreen.storyboard */; };
 		967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967D1E402223DDD3007E5217 /* SnapKit.framework */; };
+		969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 969398A92226D4A700841818 /* OAuthSwift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,14 +31,22 @@
 		9608B9BE22241BCD00E1CEAF /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9608B9BF22241BDC00E1CEAF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9608B9C022241BE000E1CEAF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		9608B9C62224342700E1CEAF /* config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = config.plist; sourceTree = "<group>"; };
 		9608B9C82224364200E1CEAF /* EnvironmentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentConfiguration.swift; sourceTree = "<group>"; };
-		96520E912223D65F00AB6499 /* DevGrades.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DevGrades.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9614CF0D2228669F00FB4A05 /* Bagel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bagel.framework; path = Carthage/Build/iOS/Bagel.framework; sourceTree = "<group>"; };
+		9614CF0F2228687400FB4A05 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
+		961A2FD322293AD000A624DC /* Debug.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
+		961A2FD522293AE000A624DC /* Release.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Release.plist; sourceTree = "<group>"; };
+		961A2FD722293AEA00A624DC /* Common.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Common.plist; sourceTree = "<group>"; };
+		961A2FDD22294F4500A624DC /* PlistDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistDocument.swift; sourceTree = "<group>"; };
+		961A2FE0222988D700A624DC /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		961A2FF02229D44A00A624DC /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		96520E912223D65F00AB6499 /* GradesDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GradesDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96520E942223D65F00AB6499 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96520E962223D65F00AB6499 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		96520E9B2223D66000AB6499 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96520EA02223D66000AB6499 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		967D1E402223DDD3007E5217 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		969398A92226D4A700841818 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +55,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */,
+				969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,10 +73,29 @@
 		9608B9C522242CCB00E1CEAF /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				9608B9C62224342700E1CEAF /* config.plist */,
 				9608B9C82224364200E1CEAF /* EnvironmentConfiguration.swift */,
+				961A2FD322293AD000A624DC /* Debug.plist */,
+				961A2FD522293AE000A624DC /* Release.plist */,
+				961A2FD722293AEA00A624DC /* Common.plist */,
+				961A2FDD22294F4500A624DC /* PlistDocument.swift */,
 			);
 			path = Configuration;
+			sourceTree = "<group>";
+		};
+		961A2FDF222988C500A624DC /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				961A2FE0222988D700A624DC /* AuthenticationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		961A2FEF2229D43900A624DC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				961A2FF02229D44A00A624DC /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		96520E882223D65E00AB6499 = {
@@ -76,7 +110,7 @@
 		96520E922223D65F00AB6499 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				96520E912223D65F00AB6499 /* DevGrades.app */,
+				96520E912223D65F00AB6499 /* GradesDev.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,6 +118,8 @@
 		96520E932223D65F00AB6499 /* Grades */ = {
 			isa = PBXGroup;
 			children = (
+				961A2FEF2229D43900A624DC /* ViewModel */,
+				961A2FDF222988C500A624DC /* Services */,
 				9608B9C522242CCB00E1CEAF /* Configuration */,
 				9608B9AF2224148900E1CEAF /* Generated */,
 				967D1E432223DE69007E5217 /* Resources */,
@@ -98,6 +134,9 @@
 		967D1E3F2223DDD3007E5217 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9614CF0F2228687400FB4A05 /* CocoaAsyncSocket.framework */,
+				9614CF0D2228669F00FB4A05 /* Bagel.framework */,
+				969398A92226D4A700841818 /* OAuthSwift.framework */,
 				967D1E402223DDD3007E5217 /* SnapKit.framework */,
 			);
 			name = Frameworks;
@@ -120,10 +159,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 96520EA32223D66000AB6499 /* Build configuration list for PBXNativeTarget "Grades" */;
 			buildPhases = (
-				967D1E3E2223DCEE007E5217 /* Carthage */,
-				967D1E422223DE26007E5217 /* Carthage outdated */,
 				967D1E522223E2F3007E5217 /* SwiftLint */,
 				9608B9C122241EC700E1CEAF /* SwiftGen */,
+				961A2FEE2229C59400A624DC /* SwiftFormat */,
+				967D1E3E2223DCEE007E5217 /* Carthage */,
+				967D1E422223DE26007E5217 /* Carthage outdated */,
 				9608B9A82223EB0900E1CEAF /* Generate preprocess header */,
 				96520E8D2223D65F00AB6499 /* Sources */,
 				96520E8E2223D65F00AB6499 /* Frameworks */,
@@ -135,7 +175,7 @@
 			);
 			name = Grades;
 			productName = Classification;
-			productReference = 96520E912223D65F00AB6499 /* DevGrades.app */;
+			productReference = 96520E912223D65F00AB6499 /* GradesDev.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -180,7 +220,9 @@
 				9608B9AD2223F10F00E1CEAF /* Localizable.strings in Resources */,
 				96520E9C2223D66000AB6499 /* Assets.xcassets in Resources */,
 				96520E9A2223D65F00AB6499 /* Main.storyboard in Resources */,
-				9608B9C72224342700E1CEAF /* config.plist in Resources */,
+				961A2FD422293AD000A624DC /* Debug.plist in Resources */,
+				961A2FD622293AE000A624DC /* Release.plist in Resources */,
+				961A2FD822293AEA00A624DC /* Common.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +266,24 @@
 			shellScript = "# Generate strings\nswiftgen\n";
 			showEnvVarsInLog = 0;
 		};
+		961A2FEE2229C59400A624DC /* SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftFormat;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftformat >/dev/null; then\n    swiftformat --swiftversion 4.2 Grades\nelse\n    echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
+		};
 		967D1E3E2223DCEE007E5217 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -233,12 +293,18 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/OAuthSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SnapKit.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/OAuthSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxCocoa.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -290,7 +356,10 @@
 				96520E972223D65F00AB6499 /* ViewController.swift in Sources */,
 				9608B9B12224149700E1CEAF /* Strings.swift in Sources */,
 				9608B9C92224364200E1CEAF /* EnvironmentConfiguration.swift in Sources */,
+				961A2FE1222988D700A624DC /* AuthenticationService.swift in Sources */,
+				961A2FDE22294F4500A624DC /* PlistDocument.swift in Sources */,
 				96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */,
+				961A2FF12229D44A00A624DC /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,8 +531,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.jiri.zdvomka.Grades;
-				PRODUCT_NAME = DevGrades;
+				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.Grades;
+				PRODUCT_NAME = GradesDev;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -488,7 +557,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.jiri.zdvomka.Grades;
+				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.Grades;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";

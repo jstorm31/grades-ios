@@ -54,6 +54,7 @@ Pods/
 # Carthage/Checkouts
 
 Carthage/Build
+Carthage/Checkouts
 
 # fastlane
 #
@@ -66,3 +67,7 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+.gitsecret/keys/random_seed
+
+# Configuration files
+Grades/Configuration/*.plist

@@ -6,40 +6,40 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
-import UIKit
+import RxSwift
 import SnapKit
+import UIKit
 
 class ViewController: UIViewController {
+    weak var authButton: UIButton!
 
-	weak var myLabel: UILabel!
-	
-	private let config: NSClassificationConfiguration = EnvironmentConfiguration()
-	
-//	init(config: NSClassificationConfiguration?) {
-//		self.config = config ?? EnvironmentConfiguration()
-//		super.init(nibName: nil, bundle: nil)
-//	}
-//
-//	required init?(coder aDecoder: NSCoder) {
-//		fatalError("init(coder:) has not been implemented")
-//	}
-	
-	override func loadView() {
-		super.loadView()
+    let viewModel = LoginViewModel()
+    let bag = DisposeBag()
 
-		let label = UILabel()
-		view.addSubview(label)
-		label.snp.makeConstraints { make in
-			make.center.equalToSuperview()
-		}
-		self.myLabel = label
-	}
+    override func loadView() {
+        super.loadView()
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		
-		print(config.authServerUrl)
-		myLabel.text = config.authServerUrl
-	}
+        let button = UIButton()
+        button.setTitleColor(.blue, for: .normal)
+        button.setTitle("Authenticate", for: .normal)
+        button.addTarget(self, action: #selector(authButtonTapped(_:)), for: .primaryActionTriggered)
+        view.addSubview(button)
+        button.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        authButton = button
+    }
 
+    override func viewDidLoad() {
+        super.viewDidLoad() }
+
+    @objc private func authButtonTapped(_: UIButton) {
+        viewModel.authenticate(viewController: self)
+            .subscribe(onError: { error in
+                print(error.localizedDescription)
+            }, onCompleted: {
+                print("Authenticated!")
+            })
+            .disposed(by: bag)
+    }
 }

@@ -1,1 +1,3 @@
 "appVersion" = "Verze aplikace";
+
+"error.auth.generic" = "Při autentizaci nastala chyba.";

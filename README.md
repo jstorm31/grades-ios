@@ -8,17 +8,21 @@ Additionally, you should have following frameworks installed system-wide:
 
  * [SwiftLint](https://github.com/realm/SwiftLint)
  * [SwiftGen](https://github.com/SwiftGen/SwiftGen)
+ * [SwiftFormat](https://github.com/nicklockwood/SwiftFormat)
 
 ## Configuration
-All configuration related files are located in `Configuration` folder. There are two files:
- * `config.plist` - all configuration for different environments and common configuration
- * `EnvironmentConfiguration` - class for extraction configuration from `config.plist` and providing strongly typed interface
+All configuration related files are located in `Configuration` folder. There are several files:
+ * `.plist` files - all configuration for different environments (one file for each) and common configuration
+ * `EnvironmentConfiguration` - class for extracting configuration from `.plist` files and providing strongly typed interface
 
- ### Adding value
- 1. Add key and value to `config.plist` to common or any environment
+ > **Important note**: All `plist` files are not checked to the repository, but are encrypted and stored in `.gitsecret` folder. This is achieved by [git-secret tool](https://git-secret.io/). Only validated contributors with gpg RSA key-pair can access these files.
+
+ ### Adding a value
+ 1. Add key and value to `plist` file (common or any environment)
  2. Provide new strongly typed variable in `EnvironmentConfiguration` extension
 
- ### Adding environment
+ ### Adding an environment
  1. Add environment in your project info
  2. Add correct string to `$(CONFIG_ENVIRONMENT)` in app's build settings
- 3. Add environment dictionary to root key of `config.plist` file
+ 3. Add `environment.plist` file
+ 4. `EnvironmentConfiguration` class may need update

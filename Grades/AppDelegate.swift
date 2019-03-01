@@ -6,33 +6,31 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import OAuthSwift
 import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
 
-	var window: UIWindow?
+    private let config: NSClassificationConfiguration = EnvironmentConfiguration.shared
 
-	// swiftlint:disable vertical_parameter_alignment
-	func application(_ application: UIApplication,
-						  didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-		// Override point for customization after application launch.
-		return true
-	}
+    // swiftlint:disable vertical_parameter_alignment
+    func application(_: UIApplication,
+                     didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        return true
+    }
 
-	func applicationWillResignActive(_ application: UIApplication) {
-	}
+    // swiftlint:disable identifier_name
+    func application(_: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        let sourceApp = options[.sourceApplication] as? String
+        let isOpenedBySafari = sourceApp == "com.apple.SafariViewService" || sourceApp == "com.apple.mobilesafari"
 
-	func applicationDidEnterBackground(_ application: UIApplication) {
-	}
+        if isOpenedBySafari, url.host == config.auth.callbackId {
+            OAuthSwift.handle(url: url)
+        }
 
-	func applicationWillEnterForeground(_ application: UIApplication) {
-	}
-
-	func applicationDidBecomeActive(_ application: UIApplication) {
-	}
-
-	func applicationWillTerminate(_ application: UIApplication) {
-	}
-
+        return true
+    }
 }

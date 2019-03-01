@@ -11,20 +11,28 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name
 internal enum L10n {
-  /// App version
-  internal static let appVersion = L10n.tr("Localizable", "appVersion")
+    /// App version
+    internal static let appVersion = L10n.tr("Localizable", "appVersion")
+
+    internal enum Error {
+        internal enum Auth {
+            /// There has been an error when authenticating.
+            internal static let generic = L10n.tr("Localizable", "error.auth.generic")
+        }
+    }
 }
+
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name
 
 // MARK: - Implementation Details
 
 extension L10n {
-  private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
-    // swiftlint:disable:next nslocalizedstring_key
-    let format = NSLocalizedString(key, tableName: table, bundle: Bundle(for: BundleToken.self), comment: "")
-    return String(format: format, locale: Locale.current, arguments: args)
-  }
+    private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
+        // swiftlint:disable:next nslocalizedstring_key
+        let format = NSLocalizedString(key, tableName: table, bundle: Bundle(for: BundleToken.self), comment: "")
+        return String(format: format, locale: Locale.current, arguments: args)
+    }
 }
 
 private final class BundleToken {}
