@@ -12,6 +12,20 @@ import UIKit
 extension UIColor {
     struct Theme {
         static let background = UIColor.white
+        static let primary = UIColor(hex: 0x9776C1)
+        static let secondary = UIColor(hex: 0x6763CE)
+
+        static var primaryGradient: CAGradientLayer {
+            let gradient: CAGradientLayer = CAGradientLayer()
+            let startColor = UIColor(hex: 0x8C72C4).cgColor
+            let endColor = UIColor(hex: 0x7468CA).cgColor
+
+            gradient.colors = [startColor, endColor]
+            gradient.startPoint = CGPoint(x: 0.0, y: 0.6)
+            gradient.endPoint = CGPoint(x: 0.75, y: 0.0)
+
+            return gradient
+        }
     }
 
     /// Create UIColor from RGB

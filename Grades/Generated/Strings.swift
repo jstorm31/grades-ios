@@ -14,6 +14,11 @@ internal enum L10n {
     /// App version
     internal static let appVersion = L10n.tr("Localizable", "appVersion")
 
+    internal enum Button {
+        /// Login
+        internal static let login = L10n.tr("Localizable", "button.login")
+    }
+
     internal enum Error {
         internal enum Auth {
             /// There has been an error when authenticating.
