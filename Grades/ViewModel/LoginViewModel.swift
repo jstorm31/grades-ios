@@ -8,11 +8,12 @@
 
 import Foundation
 import RxSwift
+import UIKit
 
 class LoginViewModel {
     private let authService = AuthenticationService()
 
-    func authenticate(viewController: ViewController) -> Observable<Void> {
+    func authenticate(viewController: UIViewController) -> Observable<Void> {
         return authService.authenticate(useBuiltInSafari: true, viewController: viewController)
     }
 }
