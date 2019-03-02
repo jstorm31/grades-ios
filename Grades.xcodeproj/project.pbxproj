@@ -29,6 +29,7 @@
 		96861079222AAE6F0069B81B /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96861078222AAE6F0069B81B /* RxCocoa.framework */; };
 		9686107C222AAED50069B81B /* UIPrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686107B222AAED50069B81B /* UIPrimaryButton.swift */; };
 		9686107E222AB4D40069B81B /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686107D222AB4D40069B81B /* UIView+.swift */; };
+		96861080222AEC680069B81B /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686107F222AEC680069B81B /* UIFont+.swift */; };
 		969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 969398A92226D4A700841818 /* OAuthSwift.framework */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		96861078222AAE6F0069B81B /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 		9686107B222AAED50069B81B /* UIPrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPrimaryButton.swift; sourceTree = "<group>"; };
 		9686107D222AB4D40069B81B /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		9686107F222AEC680069B81B /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		969398A92226D4A700841818 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -188,6 +190,7 @@
 			children = (
 				96861072222AA55F0069B81B /* UIColor+.swift */,
 				9686107D222AB4D40069B81B /* UIView+.swift */,
+				9686107F222AEC680069B81B /* UIFont+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				9608B9B12224149700E1CEAF /* Strings.swift in Sources */,
 				9686107C222AAED50069B81B /* UIPrimaryButton.swift in Sources */,
 				9608B9C92224364200E1CEAF /* EnvironmentConfiguration.swift in Sources */,
+				96861080222AEC680069B81B /* UIFont+.swift in Sources */,
 				961A2FE1222988D700A624DC /* AuthenticationService.swift in Sources */,
 				961A2FDE22294F4500A624DC /* PlistDocument.swift in Sources */,
 				96861070222AA4550069B81B /* BaseViewController.swift in Sources */,
