@@ -53,7 +53,7 @@ class AuthenticationService {
     // MARK: public methods
 
     /// Authenticate with CTU OAuth2.0 server
-    func authenticate(useBuiltInSafari: Bool = true, viewController: ViewController? = nil) -> Observable<Void> {
+    func authenticate(useBuiltInSafari: Bool = true, viewController: UIViewController? = nil) -> Observable<Void> {
         if useBuiltInSafari, let viewController = viewController {
             handler.authorizeURLHandler = SafariURLHandler(viewController: viewController, oauthSwift: handler)
         }

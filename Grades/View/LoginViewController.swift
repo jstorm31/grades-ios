@@ -10,7 +10,7 @@ import RxSwift
 import SnapKit
 import UIKit
 
-class ViewController: UIViewController {
+class LoginViewController: BaseViewController {
     weak var authButton: UIButton!
 
     let viewModel = LoginViewModel()
