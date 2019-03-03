@@ -10,14 +10,14 @@ import RxSwift
 import SnapKit
 import UIKit
 
-class LoginViewController: BaseViewController {
+class LoginViewController: BaseViewController, BindableType {
     // MARK: UI elements
 
     weak var loginButton: UIButton!
 
     // MARK: properties
 
-    let viewModel = LoginViewModel()
+    var viewModel: LoginViewModel!
     let bag = DisposeBag()
 
     // MARK: lifecycle methods
@@ -47,6 +47,10 @@ class LoginViewController: BaseViewController {
         }
         loginButton = button
     }
+
+    // MARK: methods
+
+    func bindViewModel() {}
 
     // MARK: events
 

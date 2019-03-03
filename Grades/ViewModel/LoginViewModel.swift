@@ -10,7 +10,8 @@ import Foundation
 import RxSwift
 import UIKit
 
-class LoginViewModel {
+struct LoginViewModel {
+    let sceneCoordinator: SceneCoordinatorType
     private let authService = AuthenticationService()
 
     func authenticate(viewController: UIViewController) -> Observable<Void> {
