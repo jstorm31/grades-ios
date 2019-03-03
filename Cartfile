@@ -1,3 +1,5 @@
 github "SnapKit/SnapKit" ~> 4.0.0
 github "OAuthSwift/OAuthSwift" ~> 1.2.0
 github "mchoe/SwiftSVG" ~> 2.0
+github "Alamofire/Alamofire" ~> 4.8.1
+github "OAuthSwift/OAuthSwiftAlamofire" ~> 0.2.0

@@ -6,7 +6,9 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import Alamofire
 import OAuthSwift
+import OAuthSwiftAlamofire
 import UIKit
 
 @UIApplicationMain
@@ -21,8 +23,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = LoginViewController()
 
+        // Authentication service
+        let authService = AuthenticationService()
+
+        // Connect Alamofire and OAuthSwift
+        let sessionManager = SessionManager.default
+        sessionManager.adapter = OAuthSwiftRequestAdapter(authService.handler)
+
+        // Scene coordinator
         let sceneCoordinator = SceneCoordinator(window: window!)
-        let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator)
+        let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator, authService: authService)
         let loginScreen = Scene.login(loginViewModel)
         sceneCoordinator.transition(to: loginScreen, type: .root)
 

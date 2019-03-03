@@ -12,7 +12,7 @@ import UIKit
 
 struct LoginViewModel {
     let sceneCoordinator: SceneCoordinatorType
-    private let authService = AuthenticationService()
+    let authService: AuthenticationService
 
     func authenticate(viewController: UIViewController) -> Observable<Void> {
         return authService.authenticate(useBuiltInSafari: true, viewController: viewController)

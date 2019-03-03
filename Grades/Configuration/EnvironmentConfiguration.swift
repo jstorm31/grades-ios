@@ -50,6 +50,15 @@ struct Auth {
     }
 }
 
+struct GradesAPIEndpoints {
+    let baseURL: String
+    var subjects = ""
+
+    init(baseURL: String) {
+        self.baseURL = baseURL
+    }
+}
+
 protocol NSClassificationConfiguration {
     var auth: Auth { get }
 }
@@ -67,5 +76,13 @@ extension EnvironmentConfiguration: NSClassificationConfiguration {
                     callbackId: config["CallbackKey"] as! String,
                     responseType: config["AuthResponseType"] as! String,
                     scope: config["AuthScope"] as! String)
+    }
+
+    var gradesAPI: GradesAPIEndpoints {
+        var api = GradesAPIEndpoints(baseURL: config["APIBaseURL"] as! String)
+
+        api.subjects = config["APIStudentsEP"] as! String + "/zdvomjir" // TODO: replace with dynamic username from KOSApi
+
+        return api
     }
 }

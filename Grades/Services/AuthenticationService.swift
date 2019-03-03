@@ -26,7 +26,7 @@ extension AuthenticationError: LocalizedError {
 class AuthenticationService {
     // MARK: properties
 
-    private let handler: OAuth2Swift
+    let handler: OAuth2Swift
     private let callbackUrl: URL
     private let authorizationHeader: String
     private let scope: String
@@ -34,6 +34,7 @@ class AuthenticationService {
     // MARK: initializers
 
     init(configuration: NSClassificationConfiguration) {
+        let configuration = EnvironmentConfiguration.shared
         callbackUrl = URL(string: configuration.auth.redirectUri)!
         authorizationHeader = "Basic \(configuration.auth.clientHash)"
         scope = configuration.auth.scope
