@@ -18,22 +18,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="FullTextLogo" translatesAutoresizingMaskIntoConstraints="NO" id="QsX-RX-cNC">
-                                <rect key="frame" x="67" y="232" width="241" height="202"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FullTextLogo" translatesAutoresizingMaskIntoConstraints="NO" id="QsX-RX-cNC">
+                                <rect key="frame" x="67" y="232.5" width="241" height="202"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="241" id="4gN-vl-1d4"/>
-                                    <constraint firstAttribute="height" constant="209" id="Tf5-ox-6Kw"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="b8U-Br-9jt"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="128" id="dJ5-4U-Asi"/>
+                                    <constraint firstAttribute="width" constant="241" id="711-P6-ajx"/>
+                                    <constraint firstAttribute="height" constant="202" id="T7H-u5-A2y"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="QsX-RX-cNC" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="249" id="H3d-hd-MkX"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QsX-RX-cNC" secondAttribute="trailing" constant="68" id="KZO-FI-Zc1"/>
-                            <constraint firstItem="QsX-RX-cNC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="67" id="PnW-cc-E7w"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="QsX-RX-cNC" secondAttribute="bottom" constant="270" id="kCf-vr-xL3"/>
+                            <constraint firstItem="QsX-RX-cNC" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="DFO-aT-vtV"/>
+                            <constraint firstItem="QsX-RX-cNC" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Srd-xz-ZdB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

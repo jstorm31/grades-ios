@@ -81,7 +81,7 @@ class SceneCoordinator: SceneCoordinatorType {
                 fatalError("can't navigate back from \(currentViewController)")
             }
             currentViewController = SceneCoordinator
-				.actualViewController(for: navigationController.viewControllers.last!)
+                .actualViewController(for: navigationController.viewControllers.last!)
         } else {
             fatalError("Not a modal, no navigation controller: can't navigate back from \(currentViewController)")
         }
