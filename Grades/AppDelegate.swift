@@ -21,6 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = LoginViewController()
 
+        let sceneCoordinator = SceneCoordinator(window: window!)
+        let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator)
+        let loginScreen = Scene.login(loginViewModel)
+        sceneCoordinator.transition(to: loginScreen, type: .root)
+
         return true
     }
 

@@ -10,14 +10,14 @@ import RxSwift
 import SnapKit
 import UIKit
 
-class LoginViewController: BaseViewController {
+class LoginViewController: BaseViewController, BindableType {
     // MARK: UI elements
 
     weak var loginButton: UIButton!
 
     // MARK: properties
 
-    let viewModel = LoginViewModel()
+    var viewModel: LoginViewModel!
     let bag = DisposeBag()
 
     // MARK: lifecycle methods
@@ -31,7 +31,7 @@ class LoginViewController: BaseViewController {
         view.addSubview(logoView)
         logoView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(160)
+            make.top.equalToSuperview().inset(view.frame.height * 0.2) // Relative inset
         }
 
         // Login button
@@ -43,10 +43,14 @@ class LoginViewController: BaseViewController {
             make.width.equalTo(180)
             make.height.equalTo(60)
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().inset(190)
+            make.bottom.equalToSuperview().inset(view.frame.height * 0.2)
         }
         loginButton = button
     }
+
+    // MARK: methods
+
+    func bindViewModel() {}
 
     // MARK: events
 
