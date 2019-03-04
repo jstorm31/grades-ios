@@ -10,6 +10,9 @@ import Alamofire
 import OAuthSwift
 import OAuthSwiftAlamofire
 import UIKit
+#if DEBUG
+    import Bagel
+#endif
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,6 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = LoginViewController()
 
+        // Bagel
+        #if DEBUG
+            Bagel.start()
+        #endif
+
         // Authentication service
         let authService = AuthenticationService()
 
@@ -32,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Scene coordinator
         let sceneCoordinator = SceneCoordinator(window: window!)
-        let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator, authService: authService)
+        let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator, authenticationService: authService)
         let loginScreen = Scene.login(loginViewModel)
         sceneCoordinator.transition(to: loginScreen, type: .root)
 

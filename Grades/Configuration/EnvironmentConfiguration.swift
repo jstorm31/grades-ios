@@ -50,17 +50,9 @@ struct Auth {
     }
 }
 
-struct GradesAPIEndpoints {
-    let baseURL: String
-    var subjects = ""
-
-    init(baseURL: String) {
-        self.baseURL = baseURL
-    }
-}
-
 protocol NSClassificationConfiguration {
     var auth: Auth { get }
+    var gradesAPI: [String: Any] { get }
 }
 
 // swiftlint:disable force_cast
@@ -78,11 +70,10 @@ extension EnvironmentConfiguration: NSClassificationConfiguration {
                     scope: config["AuthScope"] as! String)
     }
 
-    var gradesAPI: GradesAPIEndpoints {
-        var api = GradesAPIEndpoints(baseURL: config["APIBaseURL"] as! String)
+    var gradesAPI: [String: Any] {
+        var dict = config["APIEndpoints"] as! [String: Any]
+        dict["BaseURL"] = config["APIBaseURL"] as! String
 
-        api.subjects = config["APIStudentsEP"] as! String + "/zdvomjir" // TODO: replace with dynamic username from KOSApi
-
-        return api
+        return dict
     }
 }

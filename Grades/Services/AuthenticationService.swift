@@ -55,6 +55,7 @@ class AuthenticationService {
 
     /// Authenticate with CTU OAuth2.0 server
     func authenticate(useBuiltInSafari: Bool = true, viewController: UIViewController? = nil) -> Observable<Void> {
+        // TODDO: implement isLoading
         if useBuiltInSafari, let viewController = viewController {
             handler.authorizeURLHandler = SafariURLHandler(viewController: viewController, oauthSwift: handler)
         }
@@ -82,6 +83,6 @@ class AuthenticationService {
             return Disposables.create {
                 handle?.cancel()
             }
-        }.share()
+        }
     }
 }

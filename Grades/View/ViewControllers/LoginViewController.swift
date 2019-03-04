@@ -58,8 +58,6 @@ class LoginViewController: BaseViewController, BindableType {
         viewModel.authenticate(viewController: self)
             .subscribe(onError: { error in
                 print(error.localizedDescription)
-            }, onCompleted: {
-                print("Authenticated!")
             })
             .disposed(by: bag)
     }

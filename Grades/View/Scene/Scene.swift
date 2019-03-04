@@ -10,6 +10,7 @@ import UIKit
 
 enum Scene {
     case login(LoginViewModel)
+    case subjectList(SubjectListViewModel)
 }
 
 extension Scene {
@@ -17,6 +18,10 @@ extension Scene {
         switch self {
         case let .login(viewModel):
             var vc = LoginViewController()
+            vc.bindViewModel(to: viewModel)
+            return vc
+        case let .subjectList(viewModel):
+            var vc = SubjectListViewController()
             vc.bindViewModel(to: viewModel)
             return vc
         }
