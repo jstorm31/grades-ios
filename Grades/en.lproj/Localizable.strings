@@ -3,3 +3,5 @@
 "error.auth.generic" = "There has been an error when authenticating.";
 
 "button.login" = "Login";
+
+"subjectList.title" = "Subjects";

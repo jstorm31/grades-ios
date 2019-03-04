@@ -17,13 +17,14 @@ extension Scene {
     func viewController() -> UIViewController {
         switch self {
         case let .login(viewModel):
-            var vc = LoginViewController()
-            vc.bindViewModel(to: viewModel)
-            return vc
+            var loginVC = LoginViewController()
+            loginVC.bindViewModel(to: viewModel)
+            return loginVC
         case let .subjectList(viewModel):
-            var vc = SubjectListViewController()
-            vc.bindViewModel(to: viewModel)
-            return vc
+            var subjectListVC = SubjectListViewController()
+            subjectListVC.bindViewModel(to: viewModel)
+            let navController = UINavigationController(rootViewController: subjectListVC)
+            return navController
         }
     }
 }
