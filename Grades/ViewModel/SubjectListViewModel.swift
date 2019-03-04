@@ -10,7 +10,11 @@ import Foundation
 import RxSwift
 
 class SubjectListViewModel {
+    func fetchUser() -> Observable<User> {
+        return GradesAPI.getUser()
+    }
+
     func fetchSubjects() -> Observable<[Subject]> {
-        return GradesAPI.subjects()
+        return GradesAPI.getSubjects()
     }
 }

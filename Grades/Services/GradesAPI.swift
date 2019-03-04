@@ -14,7 +14,8 @@ import RxSwift
 typealias JSONObject = [String: Any]
 
 protocol GradesAPIProtocol {
-    static func subjects() -> Observable<[Subject]>
+    static func getSubjects() -> Observable<[Subject]>
+    static func getUser() -> Observable<User>
 }
 
 class GradesAPI: GradesAPIProtocol {
@@ -23,20 +24,26 @@ class GradesAPI: GradesAPIProtocol {
     // MARK: API endpoints
 
     private enum Endpoint {
+        case userInfo
+        case roles
         case students
 
         // swiftlint:disable force_cast
-        private static let baseURL = config["BaseURL"] as! String
+        private static let baseURL = config["BaseURL"]
 
         var value: String {
             switch self {
+            case .userInfo:
+                return Endpoint.createURL(config["UserInfo"])
+            case .roles:
+                return Endpoint.createURL(config["Roles"])
             case .students:
                 return Endpoint.createURL((config["Students"] as! String).replacingOccurrences(of: ":username", with: "zdvomjir")) // TODO: generic parameter replacement
             }
         }
 
-        private static func createURL(_ endpoint: String) -> String {
-            return "\(baseURL)\(endpoint)"
+        private static func createURL(_ endpoint: Any?) -> String {
+            return "\(baseURL as! String)\(endpoint as! String)"
         }
     }
 
@@ -51,15 +58,24 @@ class GradesAPI: GradesAPIProtocol {
 
     // MARK: Endpoint requests
 
-    static func subjects() -> Observable<[Subject]> {
-        return request(endpoint: .students, method: .get, parameters: nil) // TODO: add lang and semestr parameters
+    /// Fetch user info and roles
+    static func getUser() -> Observable<User> {
+        let userInfoObservable: Observable<UserInfo> = request(endpoint: Endpoint.userInfo, method: HTTPMethod.get)
+        let rolesObservable: Observable<UserRoles> = request(endpoint: Endpoint.roles, method: HTTPMethod.get)
+
+        return Observable<User>.zip(userInfoObservable, rolesObservable) { User(info: $0, roles: $1) }
+    }
+
+    /// Fetch subjects
+    static func getSubjects() -> Observable<[Subject]> {
+        return request(endpoint: .students, method: .get) // TODO: add lang and semestr parameters
     }
 
     // MARK: Support methods
 
     private static func request<T: Codable>(endpoint: Endpoint,
                                             method: HTTPMethod,
-                                            parameters: Parameters?) -> Observable<T> {
+                                            parameters: Parameters? = nil) -> Observable<T> {
         return Observable.create { observer in
             let request = Alamofire.request(endpoint.value,
                                             method: method,

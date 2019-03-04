@@ -6,8 +6,6 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
-import Foundation
-
 struct Subject: Codable {
     var courseCode: String
     var overviewItems: [OverviewItem]

@@ -71,7 +71,7 @@ extension EnvironmentConfiguration: NSClassificationConfiguration {
     }
 
     var gradesAPI: [String: Any] {
-        var dict = config["APIEndpoints"] as! [String: Any]
+        var dict = config["GradesAPIEndpoints"] as! [String: Any]
         dict["BaseURL"] = config["APIBaseURL"] as! String
 
         return dict

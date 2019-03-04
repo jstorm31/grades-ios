@@ -34,6 +34,12 @@ class SubjectListViewController: BaseViewController, BindableType {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        viewModel.fetchUser()
+            .subscribe(onNext: { user in
+                print(user)
+            })
+            .disposed(by: bag)
+
         viewModel.fetchSubjects()
             .subscribe(onNext: { json in
                 print("\n============= Success ================")
