@@ -9,12 +9,23 @@
 import Foundation
 import RxSwift
 
-struct SubjectListViewModel {
+struct CourseListViewModel {
     var user: Observable<User> {
         return GradesAPI.getUser()
     }
 
-    var subjects: Observable<[Subject]> {
-        return GradesAPI.getSubjects()
+    var subjects: Observable<[CourseGroup]> {
+        let subjects = GradesAPI.getCourses()
+        let roles = GradesAPI.getRoles()
+
+        let groupedSubjects = Observable<[CourseGroup]>
+            .zip(subjects, roles) { _, roles in
+                let groupedSubjects = [
+                    CourseGroup(header: "Studuji"),
+                    CourseGroup(header: "Učím"),
+                ]
+
+                for subjectCode in roles.studentCourses
+            }
     }
 }

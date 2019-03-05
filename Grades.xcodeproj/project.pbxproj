@@ -26,16 +26,15 @@
 		96520E9A2223D65F00AB6499 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E982223D65F00AB6499 /* Main.storyboard */; };
 		96520E9C2223D66000AB6499 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96520E9B2223D66000AB6499 /* Assets.xcassets */; };
 		96520E9F2223D66000AB6499 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E9D2223D66000AB6499 /* LaunchScreen.storyboard */; };
-		966ABB57222D986A007DD046 /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB56222D986A007DD046 /* Subject.swift */; };
+		966ABB57222D986A007DD046 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB56222D986A007DD046 /* Course.swift */; };
 		966ABB59222DA2DF007DD046 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB58222DA2DF007DD046 /* User.swift */; };
-		966ABB5D222DC302007DD046 /* SubjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB5C222DC302007DD046 /* SubjectListViewController.swift */; };
 		967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967D1E402223DDD3007E5217 /* SnapKit.framework */; };
 		9682A6B0222D1ABC00773E28 /* GradesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9682A6AF222D1ABC00773E28 /* GradesTests.swift */; };
 		9682A6B7222D1EAA00773E28 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961BCE82222C5A2200BD6663 /* Alamofire.framework */; };
 		9682A6BA222D1EAA00773E28 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96861078222AAE6F0069B81B /* RxCocoa.framework */; };
 		9682A6BB222D1EAA00773E28 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96861076222AAE6C0069B81B /* RxSwift.framework */; };
 		9682A6BC222D1EAA00773E28 /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9682A6A7222D19E800773E28 /* RxTest.framework */; };
-		9682A6BE222D1F7600773E28 /* SubjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9682A6BD222D1F7600773E28 /* SubjectListViewModel.swift */; };
+		9682A6BE222D1F7600773E28 /* CourseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9682A6BD222D1F7600773E28 /* CourseListViewModel.swift */; };
 		9682A6C5222D32B800773E28 /* Bagel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0D2228669F00FB4A05 /* Bagel.framework */; };
 		9682A6C6222D336800773E28 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0F2228687400FB4A05 /* CocoaAsyncSocket.framework */; };
 		96861070222AA4550069B81B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686106F222AA4550069B81B /* BaseViewController.swift */; };
@@ -51,6 +50,9 @@
 		96861089222B1A8C0069B81B /* SceneCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96861088222B1A8C0069B81B /* SceneCoordinatorType.swift */; };
 		9686108B222B1B210069B81B /* SceneTransitionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686108A222B1B210069B81B /* SceneTransitionType.swift */; };
 		969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 969398A92226D4A700841818 /* OAuthSwift.framework */; };
+		96A80A6F222F191F00986A90 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A80A6E222F191F00986A90 /* RxDataSources.framework */; };
+		96A80A71222F1B3000986A90 /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A80A70222F1B3000986A90 /* Differentiator.framework */; };
+		96A80A75222F1D0400986A90 /* CourseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A80A74222F1D0400986A90 /* CourseListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,15 +99,14 @@
 		96520E962223D65F00AB6499 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		96520E9B2223D66000AB6499 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96520EA02223D66000AB6499 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		966ABB56222D986A007DD046 /* Subject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
+		966ABB56222D986A007DD046 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		966ABB58222DA2DF007DD046 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		966ABB5C222DC302007DD046 /* SubjectListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectListViewController.swift; sourceTree = "<group>"; };
 		967D1E402223DDD3007E5217 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		9682A6A7222D19E800773E28 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/iOS/RxTest.framework; sourceTree = "<group>"; };
 		9682A6AD222D1ABC00773E28 /* GradesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GradesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9682A6AF222D1ABC00773E28 /* GradesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesTests.swift; sourceTree = "<group>"; };
 		9682A6B1222D1ABC00773E28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9682A6BD222D1F7600773E28 /* SubjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectListViewModel.swift; sourceTree = "<group>"; };
+		9682A6BD222D1F7600773E28 /* CourseListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewModel.swift; sourceTree = "<group>"; };
 		9686106F222AA4550069B81B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		96861072222AA55F0069B81B /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		96861074222AAE5F0069B81B /* SwiftSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSVG.framework; path = Carthage/Build/iOS/SwiftSVG.framework; sourceTree = "<group>"; };
@@ -119,6 +120,9 @@
 		96861088222B1A8C0069B81B /* SceneCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinatorType.swift; sourceTree = "<group>"; };
 		9686108A222B1B210069B81B /* SceneTransitionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneTransitionType.swift; sourceTree = "<group>"; };
 		969398A92226D4A700841818 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
+		96A80A6E222F191F00986A90 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
+		96A80A70222F1B3000986A90 /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
+		96A80A74222F1D0400986A90 /* CourseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +142,8 @@
 				969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */,
 				96861077222AAE6C0069B81B /* RxSwift.framework in Frameworks */,
 				96861079222AAE6F0069B81B /* RxCocoa.framework in Frameworks */,
+				96A80A6F222F191F00986A90 /* RxDataSources.framework in Frameworks */,
+				96A80A71222F1B3000986A90 /* Differentiator.framework in Frameworks */,
 				96861075222AAE5F0069B81B /* SwiftSVG.framework in Frameworks */,
 				961BCE85222C5F8300BD6663 /* OAuthSwiftAlamofire.framework in Frameworks */,
 				9682A6C6222D336800773E28 /* CocoaAsyncSocket.framework in Frameworks */,
@@ -192,7 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				961A2FF02229D44A00A624DC /* LoginViewModel.swift */,
-				9682A6BD222D1F7600773E28 /* SubjectListViewModel.swift */,
+				9682A6BD222D1F7600773E28 /* CourseListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -248,6 +254,8 @@
 		967D1E3F2223DDD3007E5217 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				96A80A70222F1B3000986A90 /* Differentiator.framework */,
+				96A80A6E222F191F00986A90 /* RxDataSources.framework */,
 				9682A6A7222D19E800773E28 /* RxTest.framework */,
 				961BCE84222C5F8300BD6663 /* OAuthSwiftAlamofire.framework */,
 				961BCE82222C5A2200BD6663 /* Alamofire.framework */,
@@ -314,7 +322,7 @@
 			children = (
 				96520E962223D65F00AB6499 /* LoginViewController.swift */,
 				9686106F222AA4550069B81B /* BaseViewController.swift */,
-				966ABB5C222DC302007DD046 /* SubjectListViewController.swift */,
+				96A80A74222F1D0400986A90 /* CourseListViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -323,7 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				96861084222AF2630069B81B /* BindableType.swift */,
-				966ABB56222D986A007DD046 /* Subject.swift */,
+				966ABB56222D986A007DD046 /* Course.swift */,
 				966ABB58222DA2DF007DD046 /* User.swift */,
 			);
 			path = Model;
@@ -550,6 +558,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxTest.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Bagel.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaAsyncSocket.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Differentiator.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
@@ -565,6 +575,8 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxTest.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Bagel.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaAsyncSocket.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxDataSources.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Differentiator.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -634,15 +646,15 @@
 				966ABB59222DA2DF007DD046 /* User.swift in Sources */,
 				96861070222AA4550069B81B /* BaseViewController.swift in Sources */,
 				96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */,
+				96A80A75222F1D0400986A90 /* CourseListViewController.swift in Sources */,
 				9686107E222AB4D40069B81B /* UIView+.swift in Sources */,
 				96861085222AF2630069B81B /* BindableType.swift in Sources */,
 				961A2FF12229D44A00A624DC /* LoginViewModel.swift in Sources */,
-				9682A6BE222D1F7600773E28 /* SubjectListViewModel.swift in Sources */,
-				966ABB57222D986A007DD046 /* Subject.swift in Sources */,
+				9682A6BE222D1F7600773E28 /* CourseListViewModel.swift in Sources */,
+				966ABB57222D986A007DD046 /* Course.swift in Sources */,
 				96861082222AEFE60069B81B /* Scene.swift in Sources */,
 				96861073222AA55F0069B81B /* UIColor+.swift in Sources */,
 				9686108B222B1B210069B81B /* SceneTransitionType.swift in Sources */,
-				966ABB5D222DC302007DD046 /* SubjectListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

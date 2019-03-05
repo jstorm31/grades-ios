@@ -14,8 +14,9 @@ import RxSwift
 typealias JSONObject = [String: Any]
 
 protocol GradesAPIProtocol {
-    static func getSubjects() -> Observable<[Subject]>
     static func getUser() -> Observable<User>
+    static func getRoles() -> Observable<UserRoles>
+    static func getCourses() -> Observable<[Course]>
 }
 
 class GradesAPI: GradesAPIProtocol {
@@ -61,13 +62,17 @@ class GradesAPI: GradesAPIProtocol {
     /// Fetch user info and roles
     static func getUser() -> Observable<User> {
         let userInfoObservable: Observable<UserInfo> = request(endpoint: Endpoint.userInfo, method: HTTPMethod.get)
-        let rolesObservable: Observable<UserRoles> = request(endpoint: Endpoint.roles, method: HTTPMethod.get)
+        let rolesObservable = getRoles() // TODO: roles at User might not be needed
 
         return Observable<User>.zip(userInfoObservable, rolesObservable) { User(info: $0, roles: $1) }
     }
 
+    static func getRoles() -> Observable<UserRoles> {
+        return request(endpoint: Endpoint.roles, method: HTTPMethod.get)
+    }
+
     /// Fetch subjects
-    static func getSubjects() -> Observable<[Subject]> {
+    static func getCourses() -> Observable<[Course]> {
         return request(endpoint: .students, method: .get) // TODO: add lang and semestr parameters
     }
 

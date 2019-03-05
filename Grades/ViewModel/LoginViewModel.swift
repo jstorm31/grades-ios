@@ -29,7 +29,7 @@ class LoginViewModel {
 
         subscription
             .subscribe(onCompleted: { [weak self] in
-                let subjectListViewModel = SubjectListViewModel()
+                let subjectListViewModel = CourseListViewModel()
                 self?.sceneCoordinator.transition(to: .subjectList(subjectListViewModel), type: .modal)
             })
             .disposed(by: bag)
