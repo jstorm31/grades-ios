@@ -23,8 +23,11 @@ class CourseListViewModelTests: XCTestCase {
 	}
 	
 	func testMapCoursesToRoles() {
-		viewModel.courses(sectionTitles: ["Studying", "Teaching"])
+		viewModel.courses.asObservable()
+			.skip(1) // Skip initial value
 			.subscribe(onNext: { groupedCourses in
+				XCTAssertEqual(groupedCourses.count, 2, "has two groups of subjects")
+				
 				let firstGroup = groupedCourses[0]
 				let dataMock = [
 					Course(courseCode: "BI-PST", overviewItems: [
@@ -36,11 +39,10 @@ class CourseListViewModelTests: XCTestCase {
 						OverviewItem(classificationType: "POINTS_TOTAL", value: nil)
 						])
 				]
-					
-				XCTAssertEqual(groupedCourses.count, 2, "has two groups of subjects")
+				
 				XCTAssertEqual(firstGroup.items.count, 2, "group has right number of courses")
 				XCTAssertEqual(firstGroup.header, "Studying", "has right header name")
-				XCTAssertEqual(firstGroup.items == dataMock, true)
+				XCTAssertTrue(firstGroup.items == dataMock)
 				
 			})
 			.disposed(by: bag)

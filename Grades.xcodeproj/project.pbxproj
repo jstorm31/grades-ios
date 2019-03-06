@@ -28,6 +28,10 @@
 		96520E9F2223D66000AB6499 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E9D2223D66000AB6499 /* LaunchScreen.storyboard */; };
 		96580714222FFA810065E23D /* CourseListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96580713222FFA810065E23D /* CourseListViewModelTests.swift */; };
 		9658071722300B2E0065E23D /* GradesAPIMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965807152230099D0065E23D /* GradesAPIMock.swift */; };
+		9658071922304B420065E23D /* Action.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658071822304B420065E23D /* Action.framework */; };
+		9658071B22304D5B0065E23D /* RxAtomic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658071A22304D5B0065E23D /* RxAtomic.framework */; };
+		9658071D223068940065E23D /* ObservableType+MonitorLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9658071C223068940065E23D /* ObservableType+MonitorLoading.swift */; };
+		9658071F22306CBD0065E23D /* RxSwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658071E22306CBD0065E23D /* RxSwiftExt.framework */; };
 		966ABB57222D986A007DD046 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB56222D986A007DD046 /* Course.swift */; };
 		966ABB59222DA2DF007DD046 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB58222DA2DF007DD046 /* User.swift */; };
 		967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967D1E402223DDD3007E5217 /* SnapKit.framework */; };
@@ -103,6 +107,10 @@
 		96520EA02223D66000AB6499 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96580713222FFA810065E23D /* CourseListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewModelTests.swift; sourceTree = "<group>"; };
 		965807152230099D0065E23D /* GradesAPIMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesAPIMock.swift; sourceTree = "<group>"; };
+		9658071822304B420065E23D /* Action.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Action.framework; path = Carthage/Build/iOS/Action.framework; sourceTree = "<group>"; };
+		9658071A22304D5B0065E23D /* RxAtomic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxAtomic.framework; path = Carthage/Build/iOS/RxAtomic.framework; sourceTree = "<group>"; };
+		9658071C223068940065E23D /* ObservableType+MonitorLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableType+MonitorLoading.swift"; sourceTree = "<group>"; };
+		9658071E22306CBD0065E23D /* RxSwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwiftExt.framework; path = Carthage/Build/iOS/RxSwiftExt.framework; sourceTree = "<group>"; };
 		966ABB56222D986A007DD046 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		966ABB58222DA2DF007DD046 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		967D1E402223DDD3007E5217 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
@@ -141,6 +149,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9658071922304B420065E23D /* Action.framework in Frameworks */,
 				961BCE83222C5A2200BD6663 /* Alamofire.framework in Frameworks */,
 				967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */,
 				969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */,
@@ -152,6 +161,8 @@
 				961BCE85222C5F8300BD6663 /* OAuthSwiftAlamofire.framework in Frameworks */,
 				9682A6C6222D336800773E28 /* CocoaAsyncSocket.framework in Frameworks */,
 				9682A6C5222D32B800773E28 /* Bagel.framework in Frameworks */,
+				9658071B22304D5B0065E23D /* RxAtomic.framework in Frameworks */,
+				9658071F22306CBD0065E23D /* RxSwiftExt.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +270,9 @@
 		967D1E3F2223DDD3007E5217 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9658071E22306CBD0065E23D /* RxSwiftExt.framework */,
+				9658071A22304D5B0065E23D /* RxAtomic.framework */,
+				9658071822304B420065E23D /* Action.framework */,
 				96A80A70222F1B3000986A90 /* Differentiator.framework */,
 				96A80A6E222F191F00986A90 /* RxDataSources.framework */,
 				9682A6A7222D19E800773E28 /* RxTest.framework */,
@@ -311,6 +325,7 @@
 				96861072222AA55F0069B81B /* UIColor+.swift */,
 				9686107D222AB4D40069B81B /* UIView+.swift */,
 				9686107F222AEC680069B81B /* UIFont+.swift */,
+				9658071C223068940065E23D /* ObservableType+MonitorLoading.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -566,6 +581,9 @@
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaAsyncSocket.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Differentiator.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Action.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxAtomic.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxSwiftExt.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
@@ -583,6 +601,9 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaAsyncSocket.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxDataSources.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Differentiator.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Action.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxAtomic.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwiftExt.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -661,6 +682,7 @@
 				966ABB57222D986A007DD046 /* Course.swift in Sources */,
 				96861082222AEFE60069B81B /* Scene.swift in Sources */,
 				96861073222AA55F0069B81B /* UIColor+.swift in Sources */,
+				9658071D223068940065E23D /* ObservableType+MonitorLoading.swift in Sources */,
 				9686108B222B1B210069B81B /* SceneTransitionType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
