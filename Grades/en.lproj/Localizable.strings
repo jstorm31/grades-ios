@@ -4,4 +4,6 @@
 
 "button.login" = "Login";
 
-"subjectList.title" = "Subjects";
+"courses.title" = "Courses";
+"courses.studying" = "Studying";
+"courses.teaching" = "Teaching";

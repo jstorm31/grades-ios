@@ -26,7 +26,7 @@ class CourseListViewController: UITableViewController, BindableType {
     override func loadView() {
         super.loadView()
 
-        navigationItem.title = L10n.SubjectList.title
+        navigationItem.title = L10n.Courses.title
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
 
@@ -39,6 +39,9 @@ class CourseListViewController: UITableViewController, BindableType {
     }
 
     func bindViewModel() {
-        viewModel.courses.bind(to: tableView.rx.items(dataSource: dataSource))
+        viewModel
+            .courses(sectionTitles: [L10n.Courses.studying, L10n.Courses.teaching])
+            .bind(to: tableView.rx.items(dataSource: dataSource))
+            .disposed(by: bag)
     }
 }

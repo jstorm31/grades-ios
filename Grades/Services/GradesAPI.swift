@@ -14,13 +14,16 @@ import RxSwift
 typealias JSONObject = [String: Any]
 
 protocol GradesAPIProtocol {
-    static func getUser() -> Observable<User>
-    static func getRoles() -> Observable<UserRoles>
-    static func getCourses() -> Observable<[Course]>
+    func getUser() -> Observable<User>
+    func getRoles() -> Observable<UserRoles>
+    func getCourses() -> Observable<[Course]>
 }
 
 class GradesAPI: GradesAPIProtocol {
+    static let shared = GradesAPI()
     private static let config = EnvironmentConfiguration.shared.gradesAPI
+
+    private init() {}
 
     // MARK: API endpoints
 
@@ -60,27 +63,29 @@ class GradesAPI: GradesAPIProtocol {
     // MARK: Endpoint requests
 
     /// Fetch user info and roles
-    static func getUser() -> Observable<User> {
+    func getUser() -> Observable<User> {
         let userInfoObservable: Observable<UserInfo> = request(endpoint: Endpoint.userInfo, method: HTTPMethod.get)
         let rolesObservable = getRoles() // TODO: roles at User might not be needed
 
-        return Observable<User>.zip(userInfoObservable, rolesObservable) { User(info: $0, roles: $1) }
+        return Observable<User>.zip(userInfoObservable, rolesObservable) {
+            User(info: $0, roles: $1)
+        }
     }
 
-    static func getRoles() -> Observable<UserRoles> {
+    func getRoles() -> Observable<UserRoles> {
         return request(endpoint: Endpoint.roles, method: HTTPMethod.get)
     }
 
     /// Fetch subjects
-    static func getCourses() -> Observable<[Course]> {
+    func getCourses() -> Observable<[Course]> {
         return request(endpoint: .students, method: .get) // TODO: add lang and semestr parameters
     }
 
     // MARK: Support methods
 
-    private static func request<T: Codable>(endpoint: Endpoint,
-                                            method: HTTPMethod,
-                                            parameters: Parameters? = nil) -> Observable<T> {
+    private func request<T: Codable>(endpoint: Endpoint,
+                                     method: HTTPMethod,
+                                     parameters: Parameters? = nil) -> Observable<T> {
         return Observable.create { observer in
             let request = Alamofire.request(endpoint.value,
                                             method: method,

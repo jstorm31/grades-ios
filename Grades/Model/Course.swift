@@ -13,9 +13,21 @@ struct Course: Codable {
     var overviewItems: [OverviewItem]
 }
 
+extension Course: Equatable {
+    static func == (lhs: Course, rhs: Course) -> Bool {
+        return lhs.courseCode == rhs.courseCode && lhs.overviewItems == rhs.overviewItems
+    }
+}
+
 struct OverviewItem: Codable {
     var classificationType: String
     var value: String?
+}
+
+extension OverviewItem: Equatable {
+    static func == (lhs: OverviewItem, rhs: OverviewItem) -> Bool {
+        return lhs.classificationType == rhs.classificationType && lhs.value == rhs.value
+    }
 }
 
 struct CourseGroup {
@@ -29,10 +41,5 @@ extension CourseGroup: SectionModelType {
     init(original: CourseGroup, items: [Item]) {
         self = original
         self.items = items
-    }
-
-    init(header: String) {
-        self.header = header
-        items = []
     }
 }

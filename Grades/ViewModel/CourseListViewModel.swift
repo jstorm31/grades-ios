@@ -9,41 +9,45 @@
 import Foundation
 import RxSwift
 
-struct CourseListViewModel {
-    var user: Observable<User> {
-        return GradesAPI.getUser()
+class CourseListViewModel {
+    private let api: GradesAPIProtocol
+
+    init(api: GradesAPIProtocol = GradesAPI.shared) {
+        self.api = api
     }
 
-    var courses: Observable<[CourseGroup]> {
-        let courses = GradesAPI.getCourses()
-        let roles = GradesAPI.getRoles()
+    var user: Observable<User> {
+        return api.getUser()
+    }
 
-        let groupedCourses = Observable<[CourseGroup]>
-            .zip(courses, roles) { courses, roles in
+    /// Returns courses grouped by role in sections
+    func courses(sectionTitles: [String]) -> Observable<[CourseGroup]> {
+        let courses = api.getCourses()
+        let roles = api.getRoles()
 
-                // TODO: create util function and test it
-                var groupedCourses: [CourseGroup] = [
-                    CourseGroup(header: "Studuji"),
-                    CourseGroup(header: "Učím"),
-                ]
-
-                // Map student courses
-                for courseCode in roles.studentCourses {
-                    if let course = courses.first(where: { $0.courseCode == courseCode }) {
-                        groupedCourses[0].items.append(course)
+        return Observable<[CourseGroup]>
+            .zip(courses, roles) { [unowned self] in
+                self.map(courses: $0, toRoles: $1)
+                    .enumerated()
+                    .map { offset, element in
+                        CourseGroup(header: sectionTitles[offset], items: element)
                     }
-                }
-
-                // Map teacher courses
-                for courseCode in roles.teacherCourses {
-                    if let course = courses.first(where: { $0.courseCode == courseCode }) {
-                        groupedCourses[1].items.append(course)
-                    }
-                }
-
-                return groupedCourses
             }
+    }
 
-        return groupedCourses
+    // MARK: methods
+
+    /// Map course details to their roles
+    private func map(courses: [Course], toRoles roles: UserRoles) -> [[Course]] {
+        // Create array from roles struct and map courses details to correct role
+        return [roles.studentCourses, roles.teacherCourses]
+            .map { courseGroup in
+                courseGroup.compactMap { courseCode in
+                    courses.first(where: {
+                        $0.courseCode == courseCode
+                    })
+                }
+            }
+            .filter { !$0.isEmpty }
     }
 }

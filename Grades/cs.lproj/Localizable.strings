@@ -4,5 +4,6 @@
 
 "button.login" = "Přihlásit se";
 
-"subjectList.title" = "Předměty";
-
+"courses.title" = "Předměty";
+"courses.studying" = "Studuji";
+"courses.teaching" = "Učím";

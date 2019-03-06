@@ -26,6 +26,8 @@
 		96520E9A2223D65F00AB6499 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E982223D65F00AB6499 /* Main.storyboard */; };
 		96520E9C2223D66000AB6499 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96520E9B2223D66000AB6499 /* Assets.xcassets */; };
 		96520E9F2223D66000AB6499 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E9D2223D66000AB6499 /* LaunchScreen.storyboard */; };
+		96580714222FFA810065E23D /* CourseListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96580713222FFA810065E23D /* CourseListViewModelTests.swift */; };
+		9658071722300B2E0065E23D /* GradesAPIMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965807152230099D0065E23D /* GradesAPIMock.swift */; };
 		966ABB57222D986A007DD046 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB56222D986A007DD046 /* Course.swift */; };
 		966ABB59222DA2DF007DD046 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB58222DA2DF007DD046 /* User.swift */; };
 		967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967D1E402223DDD3007E5217 /* SnapKit.framework */; };
@@ -99,6 +101,8 @@
 		96520E962223D65F00AB6499 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		96520E9B2223D66000AB6499 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96520EA02223D66000AB6499 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96580713222FFA810065E23D /* CourseListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewModelTests.swift; sourceTree = "<group>"; };
+		965807152230099D0065E23D /* GradesAPIMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesAPIMock.swift; sourceTree = "<group>"; };
 		966ABB56222D986A007DD046 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		966ABB58222DA2DF007DD046 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		967D1E402223DDD3007E5217 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
@@ -189,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				961A2FE0222988D700A624DC /* AuthenticationService.swift */,
+				965807152230099D0065E23D /* GradesAPIMock.swift */,
 				961BCE80222C515700BD6663 /* GradesAPI.swift */,
 			);
 			path = Services;
@@ -283,6 +288,7 @@
 		9682A6AE222D1ABC00773E28 /* GradesTests */ = {
 			isa = PBXGroup;
 			children = (
+				96580713222FFA810065E23D /* CourseListViewModelTests.swift */,
 				9682A6AF222D1ABC00773E28 /* GradesTests.swift */,
 				9682A6B1222D1ABC00773E28 /* Info.plist */,
 			);
@@ -641,6 +647,7 @@
 				9608B9C92224364200E1CEAF /* EnvironmentConfiguration.swift in Sources */,
 				961BCE81222C515700BD6663 /* GradesAPI.swift in Sources */,
 				96861080222AEC680069B81B /* UIFont+.swift in Sources */,
+				9658071722300B2E0065E23D /* GradesAPIMock.swift in Sources */,
 				961A2FE1222988D700A624DC /* AuthenticationService.swift in Sources */,
 				961A2FDE22294F4500A624DC /* PlistDocument.swift in Sources */,
 				966ABB59222DA2DF007DD046 /* User.swift in Sources */,
@@ -663,6 +670,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9682A6B0222D1ABC00773E28 /* GradesTests.swift in Sources */,
+				96580714222FFA810065E23D /* CourseListViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

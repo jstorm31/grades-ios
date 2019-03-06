@@ -16,6 +16,13 @@ class UserInfo: Codable {
         return "\(firstName) \(lastName)"
     }
 
+    init(userId: Int, username: String, firstName: String, lastName: String) {
+        self.userId = userId
+        self.username = username
+        self.firstName = firstName
+        self.lastName = lastName
+    }
+
     init(fromUserInfo info: UserInfo) {
         userId = info.userId
         username = info.username
