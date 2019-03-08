@@ -18,12 +18,6 @@ struct Course: Codable {
     }
 }
 
-extension Course: Equatable {
-    static func == (lhs: Course, rhs: Course) -> Bool {
-        return lhs.code == rhs.code && lhs.items == rhs.items
-    }
-}
-
 /// Type for grouping courses
 struct CourseGroup {
     var header: String

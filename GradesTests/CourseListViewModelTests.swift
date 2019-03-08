@@ -9,43 +9,60 @@
 import XCTest
 import RxSwift
 import RxTest
+import RxBlocking
 @testable import GradesDev
 
 class CourseListViewModelTests: XCTestCase {
 	var viewModel: CourseListViewModel!
-	let bag = DisposeBag()
+	var scheduler: ConcurrentDispatchQueueScheduler!
 	
 	override func setUp() {
 		viewModel = CourseListViewModel(api: GradesAPIMock())
+		scheduler = ConcurrentDispatchQueueScheduler(qos: .default)
 	}
 	
 	override func tearDown() {
 	}
 	
 	func testMapCoursesToRoles() {
-		viewModel.courses.asObservable()
-			.skip(1) // Skip initial value
-			.subscribe(onNext: { groupedCourses in
-				XCTAssertEqual(groupedCourses.count, 2, "has two groups of subjects")
-				
-				let firstGroup = groupedCourses[0]
-				let dataMock = [
-					Course(code: "BI-PST", items: [
-						OverviewItem(type: "ASSESMENT", value: nil),
-						OverviewItem(type: "POINTS_TOTAL", value: nil)
-						]),
-					Course(code: "BI-PPA", items: [
-						OverviewItem(type: "ASSESMENT", value: nil),
-						OverviewItem(type: "POINTS_TOTAL", value: nil)
-						])
-				]
-				
-				XCTAssertEqual(firstGroup.items.count, 2, "group has right number of courses")
-				XCTAssertEqual(firstGroup.header, "Studying", "has right header name")
-				XCTAssertTrue(firstGroup.items == dataMock)
-				
-			})
-			.disposed(by: bag)
+		viewModel = CourseListViewModel(api: GradesAPIMock())
+		
+		let coursesObservable = viewModel.courses.asObservable().subscribeOn(scheduler)
+		let coursesErrorObservable = viewModel.coursesError.asObservable().subscribeOn(scheduler)
+		
+		viewModel.bindOutput()
+		
+		do {
+			guard let result = try coursesObservable.toBlocking(timeout: 1.0).first() else { return }
+			guard let courseError = try coursesErrorObservable.toBlocking(timeout: 1).first() else { return }
+
+			XCTAssertTrue(courseError == nil, "emits no error")
+			XCTAssertEqual(result.count, 2, "has two groups of subjects")
+			XCTAssertEqual(result[0].header, "Studying", "has right header name")
+			XCTAssertEqual(result[0].items.count, 2, "has right data")
+		} catch {
+			XCTFail(error.localizedDescription)
+		}
+	}
+	
+	func testErrorHandling() {
+		viewModel = CourseListViewModel(api: GradesAPIMock(emitError: true))
+		
+		let coursesObservable = viewModel.courses.asObservable().subscribeOn(scheduler)
+		let coursesErrorObservable = viewModel.coursesError.asObservable().subscribeOn(scheduler)
+		
+		viewModel.bindOutput()
+		
+		do {
+			guard let courses = try coursesObservable.toBlocking(timeout: 1.0).first() else { return }
+			guard let courseError = try coursesErrorObservable.toBlocking(timeout: 1).first() else { return }
+			
+			XCTAssertTrue(courses.isEmpty, "emits no data")
+			XCTAssertTrue(courseError != nil, "emits error of right type")
+			
+		} catch {
+			XCTFail(error.localizedDescription)
+		}
 	}
 	
 }

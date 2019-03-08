@@ -34,9 +34,3 @@ struct OverviewItem: Codable {
         self.value = value
     }
 }
-
-extension OverviewItem: Equatable {
-    static func == (lhs: OverviewItem, rhs: OverviewItem) -> Bool {
-        return lhs.type == rhs.type && lhs.value == rhs.value
-    }
-}

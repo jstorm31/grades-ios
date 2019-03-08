@@ -30,17 +30,30 @@ class GradesAPIMock: GradesAPIProtocol {
         ])
     ]
 
+    private let emitError: Bool
+
+    init(emitError: Bool = false) {
+        self.emitError = emitError
+    }
+
     // MARK: methods
 
     func getUser() -> Observable<UserInfo> {
-        return Observable<UserInfo>.just(userInfo)
+        return Observable.just(userInfo)
     }
 
     func getRoles() -> Observable<UserRoles> {
-        return Observable<UserRoles>.just(userRoles)
+        return Observable.just(userRoles)
     }
 
     func getCourses() -> Observable<[Course]> {
-        return Observable.just(courses)
+        if emitError {
+            return Observable.create { observer in
+                observer.onError(ApiError.general)
+                return Disposables.create()
+            }
+        } else {
+            return Observable.just(courses)
+        }
     }
 }

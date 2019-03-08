@@ -10,6 +10,7 @@
 		9608B9AD2223F10F00E1CEAF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9608B9AB2223F10F00E1CEAF /* Localizable.strings */; };
 		9608B9B12224149700E1CEAF /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9608B9B02224149700E1CEAF /* Strings.swift */; };
 		9608B9C92224364200E1CEAF /* EnvironmentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9608B9C82224364200E1CEAF /* EnvironmentConfiguration.swift */; };
+		961789312232F65D007006E8 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961789302232F65D007006E8 /* RxBlocking.framework */; };
 		961A2FD422293AD000A624DC /* Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD322293AD000A624DC /* Debug.plist */; };
 		961A2FD622293AE000A624DC /* Release.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD522293AE000A624DC /* Release.plist */; };
 		961A2FD822293AEA00A624DC /* Common.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD722293AEA00A624DC /* Common.plist */; };
@@ -35,7 +36,6 @@
 		966ABB57222D986A007DD046 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB56222D986A007DD046 /* Course.swift */; };
 		966ABB59222DA2DF007DD046 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB58222DA2DF007DD046 /* User.swift */; };
 		967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967D1E402223DDD3007E5217 /* SnapKit.framework */; };
-		9682A6B0222D1ABC00773E28 /* GradesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9682A6AF222D1ABC00773E28 /* GradesTests.swift */; };
 		9682A6B7222D1EAA00773E28 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961BCE82222C5A2200BD6663 /* Alamofire.framework */; };
 		9682A6BA222D1EAA00773E28 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96861078222AAE6F0069B81B /* RxCocoa.framework */; };
 		9682A6BB222D1EAA00773E28 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96861076222AAE6C0069B81B /* RxSwift.framework */; };
@@ -93,6 +93,7 @@
 		9608B9C82224364200E1CEAF /* EnvironmentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentConfiguration.swift; sourceTree = "<group>"; };
 		9614CF0D2228669F00FB4A05 /* Bagel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bagel.framework; path = Carthage/Build/iOS/Bagel.framework; sourceTree = "<group>"; };
 		9614CF0F2228687400FB4A05 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
+		961789302232F65D007006E8 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
 		961A2FD322293AD000A624DC /* Debug.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
 		961A2FD522293AE000A624DC /* Release.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Release.plist; sourceTree = "<group>"; };
 		961A2FD722293AEA00A624DC /* Common.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Common.plist; sourceTree = "<group>"; };
@@ -122,7 +123,6 @@
 		967D1E402223DDD3007E5217 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		9682A6A7222D19E800773E28 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/iOS/RxTest.framework; sourceTree = "<group>"; };
 		9682A6AD222D1ABC00773E28 /* GradesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GradesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9682A6AF222D1ABC00773E28 /* GradesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesTests.swift; sourceTree = "<group>"; };
 		9682A6B1222D1ABC00773E28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9682A6BD222D1F7600773E28 /* CourseListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewModel.swift; sourceTree = "<group>"; };
 		9686106F222AA4550069B81B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +167,7 @@
 				969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */,
 				96861077222AAE6C0069B81B /* RxSwift.framework in Frameworks */,
 				96861079222AAE6F0069B81B /* RxCocoa.framework in Frameworks */,
+				961789312232F65D007006E8 /* RxBlocking.framework in Frameworks */,
 				96A80A6F222F191F00986A90 /* RxDataSources.framework in Frameworks */,
 				96A80A71222F1B3000986A90 /* Differentiator.framework in Frameworks */,
 				96861075222AAE5F0069B81B /* SwiftSVG.framework in Frameworks */,
@@ -285,6 +286,7 @@
 		967D1E3F2223DDD3007E5217 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				961789302232F65D007006E8 /* RxBlocking.framework */,
 				9699ABA12232902A006D2F73 /* ToastSwiftFramework.framework */,
 				9699AB9D22326B74006D2F73 /* Willow.framework */,
 				9658071E22306CBD0065E23D /* RxSwiftExt.framework */,
@@ -320,7 +322,6 @@
 			isa = PBXGroup;
 			children = (
 				96580713222FFA810065E23D /* CourseListViewModelTests.swift */,
-				9682A6AF222D1ABC00773E28 /* GradesTests.swift */,
 				9682A6B1222D1ABC00773E28 /* Info.plist */,
 			);
 			path = GradesTests;
@@ -613,6 +614,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwiftExt.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Willow.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/ToastSwiftFramework.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
@@ -635,6 +637,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwiftExt.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Willow.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/ToastSwiftFramework.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxBlocking.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -708,7 +711,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9682A6B0222D1ABC00773E28 /* GradesTests.swift in Sources */,
 				96580714222FFA810065E23D /* CourseListViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
