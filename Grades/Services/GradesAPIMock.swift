@@ -17,12 +17,12 @@ class GradesAPIMock: GradesAPIProtocol {
 
     var courses = [
         Course(code: "BI-PST", items: [
-            OverviewItem(type: "ASSESMENT", value: nil),
-            OverviewItem(type: "POINTS_TOTAL", value: nil),
+            OverviewItem(type: "ASSESMENT", value: "11"),
+            OverviewItem(type: "POINTS_TOTAL", value: "5"),
         ]),
         Course(code: "BI-PPA", items: [
             OverviewItem(type: "ASSESMENT", value: nil),
-            OverviewItem(type: "POINTS_TOTAL", value: nil),
+            OverviewItem(type: "POINTS_TOTAL", value: "4"),
         ]),
         Course(code: "MI-IOS", items: [
             OverviewItem(type: "ASSESMENT", value: nil),

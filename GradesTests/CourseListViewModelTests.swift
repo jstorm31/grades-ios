@@ -30,13 +30,13 @@ class CourseListViewModelTests: XCTestCase {
 				
 				let firstGroup = groupedCourses[0]
 				let dataMock = [
-					Course(courseCode: "BI-PST", overviewItems: [
-						OverviewItem(classificationType: "ASSESMENT", value: nil),
-						OverviewItem(classificationType: "POINTS_TOTAL", value: nil)
+					Course(code: "BI-PST", items: [
+						OverviewItem(type: "ASSESMENT", value: nil),
+						OverviewItem(type: "POINTS_TOTAL", value: nil)
 						]),
-					Course(courseCode: "BI-PPA", overviewItems: [
-						OverviewItem(classificationType: "ASSESMENT", value: nil),
-						OverviewItem(classificationType: "POINTS_TOTAL", value: nil)
+					Course(code: "BI-PPA", items: [
+						OverviewItem(type: "ASSESMENT", value: nil),
+						OverviewItem(type: "POINTS_TOTAL", value: nil)
 						])
 				]
 				

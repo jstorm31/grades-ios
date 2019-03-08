@@ -1,6 +1,7 @@
 "appVersion" = "Verze aplikace";
 
-"error.auth.generic" = "Při autentizaci nastala chyba.";
+"error.auth.generic" = "Nastala chyba při autentizaci";
+"error.api.generic" = "Nastala chyba při stahování dat.";
 
 "button.login" = "Přihlásit se";
 

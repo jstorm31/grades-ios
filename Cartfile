@@ -6,4 +6,6 @@ github "OAuthSwift/OAuthSwiftAlamofire" ~> 0.2.0
 github "RxSwiftCommunity/RxDataSources" ~> 3.0
 github "RxSwiftCommunity/Action" ~> 3.6.0
 github "RxSwiftCommunity/RxSwiftExt"
+github "Nike-Inc/Willow" ~> 5.0
+github "scalessec/Toast-Swift" ~> 4.0.0
 

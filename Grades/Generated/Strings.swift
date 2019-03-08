@@ -29,6 +29,11 @@ internal enum L10n {
     }
 
     internal enum Error {
+        internal enum Api {
+            /// There has been an error when trying to fetch data.
+            internal static let generic = L10n.tr("Localizable", "error.api.generic")
+        }
+
         internal enum Auth {
             /// There has been an error when authenticating.
             internal static let generic = L10n.tr("Localizable", "error.auth.generic")

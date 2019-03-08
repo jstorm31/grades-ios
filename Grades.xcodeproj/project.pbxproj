@@ -57,6 +57,10 @@
 		9686108B222B1B210069B81B /* SceneTransitionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686108A222B1B210069B81B /* SceneTransitionType.swift */; };
 		969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 969398A92226D4A700841818 /* OAuthSwift.framework */; };
 		9699AB99223256D2006D2F73 /* OverviewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699AB98223256D2006D2F73 /* OverviewItem.swift */; };
+		9699AB9C22326512006D2F73 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699AB9B22326512006D2F73 /* Log.swift */; };
+		9699AB9E22326B74006D2F73 /* Willow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9699AB9D22326B74006D2F73 /* Willow.framework */; };
+		9699ABA22232902A006D2F73 /* ToastSwiftFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9699ABA12232902A006D2F73 /* ToastSwiftFramework.framework */; };
+		9699ABA42232A2C7006D2F73 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699ABA32232A2C7006D2F73 /* ApiError.swift */; };
 		96A80A6F222F191F00986A90 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A80A6E222F191F00986A90 /* RxDataSources.framework */; };
 		96A80A71222F1B3000986A90 /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A80A70222F1B3000986A90 /* Differentiator.framework */; };
 		96A80A75222F1D0400986A90 /* CourseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A80A74222F1D0400986A90 /* CourseListViewController.swift */; };
@@ -134,6 +138,10 @@
 		9686108A222B1B210069B81B /* SceneTransitionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneTransitionType.swift; sourceTree = "<group>"; };
 		969398A92226D4A700841818 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
 		9699AB98223256D2006D2F73 /* OverviewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewItem.swift; sourceTree = "<group>"; };
+		9699AB9B22326512006D2F73 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		9699AB9D22326B74006D2F73 /* Willow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Willow.framework; path = Carthage/Build/iOS/Willow.framework; sourceTree = "<group>"; };
+		9699ABA12232902A006D2F73 /* ToastSwiftFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ToastSwiftFramework.framework; path = Carthage/Build/iOS/ToastSwiftFramework.framework; sourceTree = "<group>"; };
+		9699ABA32232A2C7006D2F73 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		96A80A6E222F191F00986A90 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		96A80A70222F1B3000986A90 /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
 		96A80A74222F1D0400986A90 /* CourseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewController.swift; sourceTree = "<group>"; };
@@ -161,8 +169,10 @@
 				96A80A71222F1B3000986A90 /* Differentiator.framework in Frameworks */,
 				96861075222AAE5F0069B81B /* SwiftSVG.framework in Frameworks */,
 				961BCE85222C5F8300BD6663 /* OAuthSwiftAlamofire.framework in Frameworks */,
+				9699ABA22232902A006D2F73 /* ToastSwiftFramework.framework in Frameworks */,
 				9682A6C6222D336800773E28 /* CocoaAsyncSocket.framework in Frameworks */,
 				9682A6C5222D32B800773E28 /* Bagel.framework in Frameworks */,
+				9699AB9E22326B74006D2F73 /* Willow.framework in Frameworks */,
 				9658071B22304D5B0065E23D /* RxAtomic.framework in Frameworks */,
 				9658071F22306CBD0065E23D /* RxSwiftExt.framework in Frameworks */,
 			);
@@ -254,6 +264,7 @@
 		96520E932223D65F00AB6499 /* Grades */ = {
 			isa = PBXGroup;
 			children = (
+				9699AB9A22326506006D2F73 /* Utilitis */,
 				96861086222B15B40069B81B /* Model */,
 				96861071222AA5420069B81B /* Extension */,
 				9686106E222AA42D0069B81B /* View */,
@@ -272,6 +283,8 @@
 		967D1E3F2223DDD3007E5217 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9699ABA12232902A006D2F73 /* ToastSwiftFramework.framework */,
+				9699AB9D22326B74006D2F73 /* Willow.framework */,
 				9658071E22306CBD0065E23D /* RxSwiftExt.framework */,
 				9658071A22304D5B0065E23D /* RxAtomic.framework */,
 				9658071822304B420065E23D /* Action.framework */,
@@ -357,6 +370,7 @@
 				966ABB56222D986A007DD046 /* Course.swift */,
 				966ABB58222DA2DF007DD046 /* User.swift */,
 				9699AB98223256D2006D2F73 /* OverviewItem.swift */,
+				9699ABA32232A2C7006D2F73 /* ApiError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -370,6 +384,14 @@
 				961BCE70222C32DD00BD6663 /* SceneCoordinator.swift */,
 			);
 			path = Scene;
+			sourceTree = "<group>";
+		};
+		9699AB9A22326506006D2F73 /* Utilitis */ = {
+			isa = PBXGroup;
+			children = (
+				9699AB9B22326512006D2F73 /* Log.swift */,
+			);
+			path = Utilitis;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -587,6 +609,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Action.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxAtomic.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwiftExt.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Willow.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ToastSwiftFramework.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
@@ -607,6 +631,8 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Action.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxAtomic.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwiftExt.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Willow.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/ToastSwiftFramework.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -665,6 +691,7 @@
 			files = (
 				96520E972223D65F00AB6499 /* LoginViewController.swift in Sources */,
 				9608B9B12224149700E1CEAF /* Strings.swift in Sources */,
+				9699AB9C22326512006D2F73 /* Log.swift in Sources */,
 				961BCE71222C32DD00BD6663 /* SceneCoordinator.swift in Sources */,
 				96861089222B1A8C0069B81B /* SceneCoordinatorType.swift in Sources */,
 				9686107C222AAED50069B81B /* UIPrimaryButton.swift in Sources */,
@@ -685,6 +712,7 @@
 				9682A6BE222D1F7600773E28 /* CourseListViewModel.swift in Sources */,
 				966ABB57222D986A007DD046 /* Course.swift in Sources */,
 				96861082222AEFE60069B81B /* Scene.swift in Sources */,
+				9699ABA42232A2C7006D2F73 /* ApiError.swift in Sources */,
 				96861073222AA55F0069B81B /* UIColor+.swift in Sources */,
 				9658071D223068940065E23D /* ObservableType+MonitorLoading.swift in Sources */,
 				9686108B222B1B210069B81B /* SceneTransitionType.swift in Sources */,

@@ -51,15 +51,6 @@ class GradesAPI: GradesAPIProtocol {
         }
     }
 
-    // MARK: API errors
-
-    enum Errors: Int, Error {
-        case unauthorized = 401
-        case forbidden = 403
-        case notFound = 404
-        case unprocessableData
-    }
-
     // MARK: Endpoint requests
 
     /// Fetch user info and roles
@@ -103,14 +94,16 @@ class GradesAPI: GradesAPIProtocol {
                             observer.onNext(decoded)
                             observer.onCompleted()
                         } catch {
-                            print(error)
-                            observer.onError(Errors.unprocessableData)
+                            Log.error("GradesAPI.request: Could not decode external data.")
+                            observer.onError(ApiError.undecodableData)
                         }
                     } else {
-                        observer.onError(Errors.unprocessableData)
+                        Log.error("GradesAPI.request: Could not proccess response")
+                        observer.onError(ApiError.unprocessableData)
                     }
                 case let .failure(error):
-                    observer.onError(error) // TODO: map to custom errors
+                    Log.error("GradesAPI.request: External API error: \(error.localizedDescription)")
+                    observer.onError(ApiError.getError(forCode: response.response?.statusCode ?? 0))
                 }
             }
 

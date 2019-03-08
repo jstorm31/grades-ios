@@ -10,6 +10,7 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 import RxSwiftExt
+import SwiftSVG
 import UIKit
 
 // TODO: add UI test
@@ -48,6 +49,18 @@ class CourseListViewController: UITableViewController, BindableType {
 
     func bindViewModel() {
         let courses = viewModel.courses.monitorLoading().share()
+
+        viewModel.coursesError.asObservable()
+            .subscribe(onNext: { [weak self] error in
+                if let `self` = self {
+                    self.tableView.refreshControl?.endRefreshing()
+
+                    DispatchQueue.main.async {
+                        self.navigationController?.view.makeCustomToast(error?.localizedDescription, type: .danger, position: .center)
+                    }
+                }
+            })
+            .disposed(by: bag)
 
         courses
             .data()

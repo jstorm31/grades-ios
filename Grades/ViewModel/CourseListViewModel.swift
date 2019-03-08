@@ -25,22 +25,30 @@ class CourseListViewModel {
     }
 
     let courses = BehaviorRelay<[CourseGroup]>(value: [])
+    let coursesError = BehaviorRelay<Error?>(value: nil)
 
     // MARK: methods
 
     func bindOutput() {
         getCourses()
+            .catchError { [weak self] error in
+                if let `self` = self {
+                    Observable.just(error).bind(to: self.coursesError).disposed(by: self.bag)
+                }
+
+                return Observable.just([])
+            }
             .bind(to: courses)
             .disposed(by: bag)
     }
 
     /// Fetches courses from api and transforms them to right format
     private func getCourses() -> Observable<[CourseGroup]> {
-        let courses = api.getCourses()
-        let roles = api.getRoles()
+//        let courses = api.getCourses()
+//        let roles = api.getRoles()
 
         return Observable<[CourseGroup]>
-            .zip(courses, roles) { [unowned self] courses, roles in
+            .zip(api.getCourses(), api.getRoles()) { [unowned self] courses, roles in
                 let sectionTitles = [L10n.Courses.studying, L10n.Courses.teaching]
 
                 return self.map(courses: courses, toRoles: roles)
