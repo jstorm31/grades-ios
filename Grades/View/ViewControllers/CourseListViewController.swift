@@ -32,13 +32,13 @@ class CourseListViewController: UITableViewController, BindableType {
         navigationItem.title = L10n.Courses.title
 
         tableView.refreshControl = UIRefreshControl()
-        tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
+        tableView.refreshControl!.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.refreshControl?.beginRefreshing()
+        tableView.refreshControl!.beginRefreshing()
         viewModel.bindOutput()
 
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
@@ -52,12 +52,8 @@ class CourseListViewController: UITableViewController, BindableType {
 
         viewModel.coursesError.asObservable()
             .subscribe(onNext: { [weak self] error in
-                if let `self` = self {
-                    self.tableView.refreshControl?.endRefreshing()
-
-                    DispatchQueue.main.async {
-                        self.navigationController?.view.makeCustomToast(error?.localizedDescription, type: .danger, position: .center)
-                    }
+                DispatchQueue.main.async {
+                    self?.navigationController?.view.makeCustomToast(error?.localizedDescription, type: .danger, position: .center)
                 }
             })
             .disposed(by: bag)
@@ -70,14 +66,7 @@ class CourseListViewController: UITableViewController, BindableType {
 
         courses
             .loading()
-            .subscribe(onNext: { [weak self] isLoading in
-                // TODO: create Rx extension for refreshControl
-                if isLoading {
-                    self?.tableView.refreshControl?.beginRefreshing()
-                } else {
-                    self?.tableView.refreshControl?.endRefreshing()
-                }
-            })
+            .bind(to: tableView.refreshControl!.rx.isRefreshing)
             .disposed(by: bag)
     }
 

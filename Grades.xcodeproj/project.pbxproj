@@ -61,6 +61,7 @@
 		9699AB9E22326B74006D2F73 /* Willow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9699AB9D22326B74006D2F73 /* Willow.framework */; };
 		9699ABA22232902A006D2F73 /* ToastSwiftFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9699ABA12232902A006D2F73 /* ToastSwiftFramework.framework */; };
 		9699ABA42232A2C7006D2F73 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699ABA32232A2C7006D2F73 /* ApiError.swift */; };
+		9699ABA62232B489006D2F73 /* RefreshControl+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699ABA52232B489006D2F73 /* RefreshControl+Rx.swift */; };
 		96A80A6F222F191F00986A90 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A80A6E222F191F00986A90 /* RxDataSources.framework */; };
 		96A80A71222F1B3000986A90 /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A80A70222F1B3000986A90 /* Differentiator.framework */; };
 		96A80A75222F1D0400986A90 /* CourseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A80A74222F1D0400986A90 /* CourseListViewController.swift */; };
@@ -142,6 +143,7 @@
 		9699AB9D22326B74006D2F73 /* Willow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Willow.framework; path = Carthage/Build/iOS/Willow.framework; sourceTree = "<group>"; };
 		9699ABA12232902A006D2F73 /* ToastSwiftFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ToastSwiftFramework.framework; path = Carthage/Build/iOS/ToastSwiftFramework.framework; sourceTree = "<group>"; };
 		9699ABA32232A2C7006D2F73 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		9699ABA52232B489006D2F73 /* RefreshControl+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RefreshControl+Rx.swift"; sourceTree = "<group>"; };
 		96A80A6E222F191F00986A90 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		96A80A70222F1B3000986A90 /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
 		96A80A74222F1D0400986A90 /* CourseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewController.swift; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 				9686107D222AB4D40069B81B /* UIView+.swift */,
 				9686107F222AEC680069B81B /* UIFont+.swift */,
 				9658071C223068940065E23D /* ObservableType+MonitorLoading.swift */,
+				9699ABA52232B489006D2F73 /* RefreshControl+Rx.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -696,6 +699,7 @@
 				96861089222B1A8C0069B81B /* SceneCoordinatorType.swift in Sources */,
 				9686107C222AAED50069B81B /* UIPrimaryButton.swift in Sources */,
 				9608B9C92224364200E1CEAF /* EnvironmentConfiguration.swift in Sources */,
+				9699ABA62232B489006D2F73 /* RefreshControl+Rx.swift in Sources */,
 				961BCE81222C515700BD6663 /* GradesAPI.swift in Sources */,
 				96861080222AEC680069B81B /* UIFont+.swift in Sources */,
 				9658071722300B2E0065E23D /* GradesAPIMock.swift in Sources */,
