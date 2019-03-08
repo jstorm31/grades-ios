@@ -10,9 +10,8 @@ import Alamofire
 import OAuthSwift
 import OAuthSwiftAlamofire
 import UIKit
-#if DEBUG
-    import Bagel
-#endif
+
+import Bagel // TODO: remove on release
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,10 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = LoginViewController()
 
-        // Bagel
-        #if DEBUG
-            Bagel.start()
-        #endif
+        Bagel.start() // TODO: remove on release
 
         // Authentication service
         let authService = AuthenticationService()

@@ -16,17 +16,17 @@ class GradesAPIMock: GradesAPIProtocol {
     var userInfo = UserInfo(userId: 14, username: "mockuser", firstName: "Ondřej", lastName: "Krátký")
 
     var courses = [
-        Course(courseCode: "BI-PST", overviewItems: [
-            OverviewItem(classificationType: "ASSESMENT", value: nil),
-            OverviewItem(classificationType: "POINTS_TOTAL", value: nil),
+        Course(code: "BI-PST", items: [
+            OverviewItem(type: "ASSESMENT", value: nil),
+            OverviewItem(type: "POINTS_TOTAL", value: nil),
         ]),
-        Course(courseCode: "BI-PPA", overviewItems: [
-            OverviewItem(classificationType: "ASSESMENT", value: nil),
-            OverviewItem(classificationType: "POINTS_TOTAL", value: nil),
+        Course(code: "BI-PPA", items: [
+            OverviewItem(type: "ASSESMENT", value: nil),
+            OverviewItem(type: "POINTS_TOTAL", value: nil),
         ]),
-        Course(courseCode: "MI-IOS", overviewItems: [
-            OverviewItem(classificationType: "ASSESMENT", value: nil),
-            OverviewItem(classificationType: "POINTS_TOTAL", value: nil),
+        Course(code: "MI-IOS", items: [
+            OverviewItem(type: "ASSESMENT", value: nil),
+            OverviewItem(type: "POINTS_TOTAL", value: nil),
         ]),
     ]
 

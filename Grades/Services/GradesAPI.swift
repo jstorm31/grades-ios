@@ -87,6 +87,7 @@ class GradesAPI: GradesAPIProtocol {
                                      method: HTTPMethod,
                                      parameters: Parameters? = nil) -> Observable<T> {
         return Observable.create { observer in
+            // TODO: consider using native networking
             let request = Alamofire.request(endpoint.value,
                                             method: method,
                                             parameters: parameters,

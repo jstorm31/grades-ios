@@ -9,27 +9,22 @@
 import RxDataSources
 
 struct Course: Codable {
-    var courseCode: String
-    var overviewItems: [OverviewItem]
+    var code: String
+    var items: [OverviewItem]
+
+    enum CodingKeys: String, CodingKey {
+        case code = "courseCode"
+        case items = "overviewItems"
+    }
 }
 
 extension Course: Equatable {
     static func == (lhs: Course, rhs: Course) -> Bool {
-        return lhs.courseCode == rhs.courseCode && lhs.overviewItems == rhs.overviewItems
+        return lhs.code == rhs.code && lhs.items == rhs.items
     }
 }
 
-struct OverviewItem: Codable {
-    var classificationType: String
-    var value: String?
-}
-
-extension OverviewItem: Equatable {
-    static func == (lhs: OverviewItem, rhs: OverviewItem) -> Bool {
-        return lhs.classificationType == rhs.classificationType && lhs.value == rhs.value
-    }
-}
-
+/// Type for grouping courses
 struct CourseGroup {
     var header: String
     var items: [Course]

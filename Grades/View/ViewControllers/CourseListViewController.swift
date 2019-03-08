@@ -20,7 +20,7 @@ class CourseListViewController: UITableViewController, BindableType {
     let dataSource = RxTableViewSectionedReloadDataSource<CourseGroup>(
         configureCell: { _, tableView, indexPath, item in
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-            cell.textLabel?.text = item.courseCode
+            cell.textLabel?.text = item.code
             return cell
         }
     )
@@ -29,7 +29,7 @@ class CourseListViewController: UITableViewController, BindableType {
         super.loadView()
 
         navigationItem.title = L10n.Courses.title
-		
+
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
     }
@@ -58,7 +58,7 @@ class CourseListViewController: UITableViewController, BindableType {
         courses
             .loading()
             .subscribe(onNext: { [weak self] isLoading in
-				// TODO: create Rx extension for refreshControl
+                // TODO: create Rx extension for refreshControl
                 if isLoading {
                     self?.tableView.refreshControl?.beginRefreshing()
                 } else {

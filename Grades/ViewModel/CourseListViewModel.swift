@@ -56,9 +56,9 @@ class CourseListViewModel {
         // Create array from roles struct and map courses details to correct role
         return [roles.studentCourses, roles.teacherCourses]
             .map { courseGroup in
-                courseGroup.compactMap { courseCode in
+                courseGroup.compactMap { code in
                     courses.first(where: {
-                        $0.courseCode == courseCode
+                        $0.code == code
                     })
                 }
             }
