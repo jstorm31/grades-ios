@@ -18,7 +18,7 @@ class GradesAPIMock: GradesAPIProtocol {
     var courses = [
         Course(code: "BI-PST", items: [
             OverviewItem(type: "ASSESMENT", value: "11"),
-            OverviewItem(type: "POINTS_TOTAL", value: "5"),
+            OverviewItem(type: "POINTS_TOTAL", value: "5")
         ]),
         Course(code: "BI-PPA", items: [
             OverviewItem(type: "ASSESMENT", value: nil),
@@ -26,14 +26,14 @@ class GradesAPIMock: GradesAPIProtocol {
         ]),
         Course(code: "MI-IOS", items: [
             OverviewItem(type: "ASSESMENT", value: nil),
-            OverviewItem(type: "POINTS_TOTAL", value: nil),
-        ]),
+            OverviewItem(type: "POINTS_TOTAL", value: nil)
+        ])
     ]
 
     // MARK: methods
 
-    func getUser() -> Observable<User> {
-        return Observable<User>.just(User(info: userInfo, roles: userRoles))
+    func getUser() -> Observable<UserInfo> {
+        return Observable<UserInfo>.just(userInfo)
     }
 
     func getRoles() -> Observable<UserRoles> {

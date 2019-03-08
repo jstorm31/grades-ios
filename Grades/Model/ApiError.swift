@@ -15,6 +15,7 @@ enum ApiError: Int, Error {
     case general = 0
     case unprocessableData = 1
     case undecodableData = 2
+    case undefinedUser = 3
 
     static func getError(forCode code: Int) -> ApiError {
         switch code {

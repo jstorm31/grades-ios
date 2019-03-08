@@ -45,6 +45,4 @@ extension UIView {
     func makeCustomToast(_ message: String?, type: ToastStyleType, position: ToastPosition = ToastPosition.bottom) {
         makeToast(message, duration: 4.0, position: position, style: type.style)
     }
-
-    func makeErrorToast(message _: String) {}
 }

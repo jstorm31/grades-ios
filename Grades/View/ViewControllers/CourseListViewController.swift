@@ -31,14 +31,14 @@ class CourseListViewController: UITableViewController, BindableType {
 
         navigationItem.title = L10n.Courses.title
 
-        tableView.refreshControl = UIRefreshControl()
+		tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl!.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.refreshControl!.beginRefreshing()
+		tableView.refreshControl!.beginRefreshing() // TODO: find out better solution for initial load
         viewModel.bindOutput()
 
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")

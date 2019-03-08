@@ -14,13 +14,13 @@ import RxSwift
 typealias JSONObject = [String: Any]
 
 protocol GradesAPIProtocol {
-    func getUser() -> Observable<User>
+    func getUser() -> Observable<UserInfo>
     func getRoles() -> Observable<UserRoles>
     func getCourses() -> Observable<[Course]>
 }
 
 class GradesAPI: GradesAPIProtocol {
-    static let shared = GradesAPI()
+    static let shared = GradesAPI() // TODO: replace with dependenci injection
     private static let config = EnvironmentConfiguration.shared.gradesAPI
 
     private init() {}
@@ -30,7 +30,7 @@ class GradesAPI: GradesAPIProtocol {
     private enum Endpoint {
         case userInfo
         case roles
-        case students
+        case courses(String)
 
         // swiftlint:disable force_cast
         private static let baseURL = config["BaseURL"]
@@ -41,8 +41,9 @@ class GradesAPI: GradesAPIProtocol {
                 return Endpoint.createURL(config["UserInfo"])
             case .roles:
                 return Endpoint.createURL(config["Roles"])
-            case .students:
-                return Endpoint.createURL((config["Students"] as! String).replacingOccurrences(of: ":username", with: "zdvomjir")) // TODO: generic parameter replacement
+            case let .courses(username):
+                let url = (config["Courses"] as! String).replacingOccurrences(of: ":username", with: username)
+                return Endpoint.createURL(url)
             }
         }
 
@@ -54,22 +55,19 @@ class GradesAPI: GradesAPIProtocol {
     // MARK: Endpoint requests
 
     /// Fetch user info and roles
-    func getUser() -> Observable<User> {
-        let userInfoObservable: Observable<UserInfo> = request(endpoint: Endpoint.userInfo, method: HTTPMethod.get)
-        let rolesObservable = getRoles() // TODO: roles at User might not be needed
-
-        return Observable<User>.zip(userInfoObservable, rolesObservable) {
-            User(info: $0, roles: $1)
-        }
+    func getUser() -> Observable<UserInfo> {
+        return request(endpoint: Endpoint.userInfo, method: HTTPMethod.get)
     }
 
+    /// Fetch user roles
     func getRoles() -> Observable<UserRoles> {
         return request(endpoint: Endpoint.roles, method: HTTPMethod.get)
     }
 
     /// Fetch subjects
     func getCourses() -> Observable<[Course]> {
-        return request(endpoint: .students, method: .get) // TODO: add lang and semestr parameters
+        let username = AuthenticationService.shared.user!.username
+        return request(endpoint: .courses(username), method: .get) // TODO: add lang and semestr parameters
     }
 
     // MARK: Support methods
@@ -98,7 +96,7 @@ class GradesAPI: GradesAPIProtocol {
                             observer.onError(ApiError.undecodableData)
                         }
                     } else {
-                        Log.error("GradesAPI.request: Could not proccess response")
+                        Log.error("GradesAPI.request: Could not proccess response.")
                         observer.onError(ApiError.unprocessableData)
                     }
                 case let .failure(error):

@@ -27,16 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Bagel.start() // TODO: remove on release
 
-        // Authentication service
-        let authService = AuthenticationService()
-
         // Connect Alamofire and OAuthSwift
         let sessionManager = SessionManager.default
-        sessionManager.adapter = OAuthSwiftRequestAdapter(authService.handler)
+        sessionManager.adapter = OAuthSwiftRequestAdapter(AuthenticationService.shared.handler)
 
         // Scene coordinator
         let sceneCoordinator = SceneCoordinator(window: window!)
-        let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator, authenticationService: authService)
+        let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator)
         let loginScreen = Scene.login(loginViewModel)
         sceneCoordinator.transition(to: loginScreen, type: .root)
 

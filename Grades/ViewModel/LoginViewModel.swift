@@ -14,24 +14,33 @@ class LoginViewModel {
     // MARK: properties
 
     let sceneCoordinator: SceneCoordinatorType
-    let authService: AuthenticationService
+    let authService = AuthenticationService.shared
     private let bag = DisposeBag()
+
+    let isLoading = PublishSubject<Bool>()
 
     // MARK: methods
 
-    init(sceneCoordinator: SceneCoordinatorType, authenticationService: AuthenticationService) {
+    init(sceneCoordinator: SceneCoordinatorType) {
         self.sceneCoordinator = sceneCoordinator
-        authService = authenticationService
     }
 
     func authenticate(viewController: UIViewController) -> Observable<Void> {
-        let subscription = authService.authenticate(useBuiltInSafari: false, viewController: viewController).share()
+        let subscription = authService
+            .authenticate(useBuiltInSafari: false, viewController: viewController)
+            .share()
 
         subscription
             .subscribe(onCompleted: { [weak self] in
                 let subjectListViewModel = CourseListViewModel()
                 self?.sceneCoordinator.transition(to: .subjectList(subjectListViewModel), type: .modal)
             })
+            .disposed(by: bag)
+
+        subscription
+            .monitorLoading()
+            .loading()
+            .bind(to: isLoading)
             .disposed(by: bag)
 
         return subscription

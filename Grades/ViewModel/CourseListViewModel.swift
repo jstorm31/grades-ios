@@ -20,10 +20,6 @@ class CourseListViewModel {
 
     // MARK: output
 
-    var user: Observable<User> {
-        return api.getUser()
-    }
-
     let courses = BehaviorRelay<[CourseGroup]>(value: [])
     let coursesError = BehaviorRelay<Error?>(value: nil)
 
@@ -44,9 +40,6 @@ class CourseListViewModel {
 
     /// Fetches courses from api and transforms them to right format
     private func getCourses() -> Observable<[CourseGroup]> {
-//        let courses = api.getCourses()
-//        let roles = api.getRoles()
-
         return Observable<[CourseGroup]>
             .zip(api.getCourses(), api.getRoles()) { [unowned self] courses, roles in
                 let sectionTitles = [L10n.Courses.studying, L10n.Courses.teaching]

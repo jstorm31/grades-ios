@@ -24,16 +24,19 @@ extension AuthenticationError: LocalizedError {
 }
 
 class AuthenticationService {
-    // MARK: properties
+    static let shared = AuthenticationService()
 
     let handler: OAuth2Swift
     private let callbackUrl: URL
     private let authorizationHeader: String
     private let scope: String
+    private let bag = DisposeBag()
+
+    var user: UserInfo?
 
     // MARK: initializers
 
-    init(configuration: NSClassificationConfiguration) {
+    private init(configuration: NSClassificationConfiguration) {
         let configuration = EnvironmentConfiguration.shared
         callbackUrl = URL(string: configuration.auth.redirectUri)!
         authorizationHeader = "Basic \(configuration.auth.clientHash)"
@@ -47,7 +50,7 @@ class AuthenticationService {
         handler.allowMissingStateCheck = true
     }
 
-    convenience init() {
+    private convenience init() {
         self.init(configuration: EnvironmentConfiguration.shared)
     }
 
@@ -66,20 +69,30 @@ class AuthenticationService {
                 return Disposables.create()
             }
 
-            let handle = self.handler.authorize(withCallbackURL: self.callbackUrl,
-                                                scope: self.scope,
-                                                state: "",
-                                                headers: ["Authorization": self.authorizationHeader],
-                                                success: { _, _, _ in
-                                                    observer.onCompleted()
-                                                }, failure: { error in
-                                                    #if DEBUG
-                                                        observer.onError(error)
-                                                    #endif
-                                                    observer.onError(
-                                                        AuthenticationError.generic
-                                                    )
-            })
+            // Authorize
+            let handle = self.handler
+                .authorize(withCallbackURL: self.callbackUrl,
+                           scope: self.scope,
+                           state: "",
+                           headers: ["Authorization": self.authorizationHeader],
+                           success: { _, _, _ in
+                               // Get user info
+                               GradesAPI.shared.getUser()
+                                   .subscribe(onNext: { [weak self] user in
+                                       Log.debug(user.username)
+                                       self?.user = user
+                                       observer.onCompleted()
+                                   })
+                                   .disposed(by: self.bag)
+                           }, failure: { error in
+                               #if DEBUG
+                                   observer.onError(error)
+                               #endif
+                               observer.onError(
+                                   AuthenticationError.generic
+                               )
+                })
+
             return Disposables.create {
                 handle?.cancel()
             }
