@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+@testable import GradesDev
 
 class GradesAPIMock: GradesAPIProtocol {
     // MARK: mock data with default values
