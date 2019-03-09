@@ -6,8 +6,12 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import Alamofire
 import OAuthSwift
+import OAuthSwiftAlamofire
 import UIKit
+
+import Bagel // TODO: remove on release
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +25,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = LoginViewController()
 
+        Bagel.start() // TODO: remove on release
+
+        // Connect Alamofire and OAuthSwift
+        let sessionManager = SessionManager.default
+        sessionManager.adapter = OAuthSwiftRequestAdapter(AuthenticationService.shared.handler)
+
+        // Scene coordinator
         let sceneCoordinator = SceneCoordinator(window: window!)
         let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator)
         let loginScreen = Scene.login(loginViewModel)

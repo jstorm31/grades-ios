@@ -10,6 +10,7 @@
 		9608B9AD2223F10F00E1CEAF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9608B9AB2223F10F00E1CEAF /* Localizable.strings */; };
 		9608B9B12224149700E1CEAF /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9608B9B02224149700E1CEAF /* Strings.swift */; };
 		9608B9C92224364200E1CEAF /* EnvironmentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9608B9C82224364200E1CEAF /* EnvironmentConfiguration.swift */; };
+		961789312232F65D007006E8 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961789302232F65D007006E8 /* RxBlocking.framework */; };
 		961A2FD422293AD000A624DC /* Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD322293AD000A624DC /* Debug.plist */; };
 		961A2FD622293AE000A624DC /* Release.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD522293AE000A624DC /* Release.plist */; };
 		961A2FD822293AEA00A624DC /* Common.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD722293AEA00A624DC /* Common.plist */; };
@@ -18,12 +19,30 @@
 		961A2FF12229D44A00A624DC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A2FF02229D44A00A624DC /* LoginViewModel.swift */; };
 		961BCE71222C32DD00BD6663 /* SceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BCE70222C32DD00BD6663 /* SceneCoordinator.swift */; };
 		961BCE79222C3D8E00BD6663 /* GradesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BCE78222C3D8E00BD6663 /* GradesUITests.swift */; };
+		961BCE81222C515700BD6663 /* GradesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BCE80222C515700BD6663 /* GradesAPI.swift */; };
+		961BCE83222C5A2200BD6663 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961BCE82222C5A2200BD6663 /* Alamofire.framework */; };
+		961BCE85222C5F8300BD6663 /* OAuthSwiftAlamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961BCE84222C5F8300BD6663 /* OAuthSwiftAlamofire.framework */; };
 		96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E942223D65F00AB6499 /* AppDelegate.swift */; };
 		96520E972223D65F00AB6499 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E962223D65F00AB6499 /* LoginViewController.swift */; };
 		96520E9A2223D65F00AB6499 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E982223D65F00AB6499 /* Main.storyboard */; };
 		96520E9C2223D66000AB6499 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96520E9B2223D66000AB6499 /* Assets.xcassets */; };
 		96520E9F2223D66000AB6499 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E9D2223D66000AB6499 /* LaunchScreen.storyboard */; };
+		96580714222FFA810065E23D /* CourseListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96580713222FFA810065E23D /* CourseListViewModelTests.swift */; };
+		9658071722300B2E0065E23D /* GradesAPIMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965807152230099D0065E23D /* GradesAPIMock.swift */; };
+		9658071922304B420065E23D /* Action.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658071822304B420065E23D /* Action.framework */; };
+		9658071B22304D5B0065E23D /* RxAtomic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658071A22304D5B0065E23D /* RxAtomic.framework */; };
+		9658071D223068940065E23D /* ObservableType+MonitorLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9658071C223068940065E23D /* ObservableType+MonitorLoading.swift */; };
+		9658071F22306CBD0065E23D /* RxSwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658071E22306CBD0065E23D /* RxSwiftExt.framework */; };
+		966ABB57222D986A007DD046 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB56222D986A007DD046 /* Course.swift */; };
+		966ABB59222DA2DF007DD046 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB58222DA2DF007DD046 /* User.swift */; };
 		967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967D1E402223DDD3007E5217 /* SnapKit.framework */; };
+		9682A6B7222D1EAA00773E28 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961BCE82222C5A2200BD6663 /* Alamofire.framework */; };
+		9682A6BA222D1EAA00773E28 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96861078222AAE6F0069B81B /* RxCocoa.framework */; };
+		9682A6BB222D1EAA00773E28 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96861076222AAE6C0069B81B /* RxSwift.framework */; };
+		9682A6BC222D1EAA00773E28 /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9682A6A7222D19E800773E28 /* RxTest.framework */; };
+		9682A6BE222D1F7600773E28 /* CourseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9682A6BD222D1F7600773E28 /* CourseListViewModel.swift */; };
+		9682A6C5222D32B800773E28 /* Bagel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0D2228669F00FB4A05 /* Bagel.framework */; };
+		9682A6C6222D336800773E28 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0F2228687400FB4A05 /* CocoaAsyncSocket.framework */; };
 		96861070222AA4550069B81B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686106F222AA4550069B81B /* BaseViewController.swift */; };
 		96861073222AA55F0069B81B /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96861072222AA55F0069B81B /* UIColor+.swift */; };
 		96861075222AAE5F0069B81B /* SwiftSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96861074222AAE5F0069B81B /* SwiftSVG.framework */; };
@@ -37,10 +56,26 @@
 		96861089222B1A8C0069B81B /* SceneCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96861088222B1A8C0069B81B /* SceneCoordinatorType.swift */; };
 		9686108B222B1B210069B81B /* SceneTransitionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686108A222B1B210069B81B /* SceneTransitionType.swift */; };
 		969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 969398A92226D4A700841818 /* OAuthSwift.framework */; };
+		9699AB99223256D2006D2F73 /* OverviewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699AB98223256D2006D2F73 /* OverviewItem.swift */; };
+		9699AB9C22326512006D2F73 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699AB9B22326512006D2F73 /* Log.swift */; };
+		9699AB9E22326B74006D2F73 /* Willow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9699AB9D22326B74006D2F73 /* Willow.framework */; };
+		9699ABA22232902A006D2F73 /* ToastSwiftFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9699ABA12232902A006D2F73 /* ToastSwiftFramework.framework */; };
+		9699ABA42232A2C7006D2F73 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699ABA32232A2C7006D2F73 /* ApiError.swift */; };
+		9699ABA82232C091006D2F73 /* UIView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699ABA72232C091006D2F73 /* UIView+Rx.swift */; };
+		96A80A6F222F191F00986A90 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A80A6E222F191F00986A90 /* RxDataSources.framework */; };
+		96A80A71222F1B3000986A90 /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A80A70222F1B3000986A90 /* Differentiator.framework */; };
+		96A80A75222F1D0400986A90 /* CourseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A80A74222F1D0400986A90 /* CourseListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		961BCE7B222C3D8E00BD6663 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96520E892223D65F00AB6499 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96520E902223D65F00AB6499;
+			remoteInfo = Grades;
+		};
+		9682A6B2222D1ABC00773E28 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 96520E892223D65F00AB6499 /* Project object */;
 			proxyType = 1;
@@ -58,6 +93,7 @@
 		9608B9C82224364200E1CEAF /* EnvironmentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentConfiguration.swift; sourceTree = "<group>"; };
 		9614CF0D2228669F00FB4A05 /* Bagel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bagel.framework; path = Carthage/Build/iOS/Bagel.framework; sourceTree = "<group>"; };
 		9614CF0F2228687400FB4A05 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
+		961789302232F65D007006E8 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
 		961A2FD322293AD000A624DC /* Debug.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
 		961A2FD522293AE000A624DC /* Release.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Release.plist; sourceTree = "<group>"; };
 		961A2FD722293AEA00A624DC /* Common.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Common.plist; sourceTree = "<group>"; };
@@ -68,12 +104,27 @@
 		961BCE76222C3D8E00BD6663 /* GradesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GradesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		961BCE78222C3D8E00BD6663 /* GradesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesUITests.swift; sourceTree = "<group>"; };
 		961BCE7A222C3D8E00BD6663 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		961BCE80222C515700BD6663 /* GradesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesAPI.swift; sourceTree = "<group>"; };
+		961BCE82222C5A2200BD6663 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		961BCE84222C5F8300BD6663 /* OAuthSwiftAlamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwiftAlamofire.framework; path = Carthage/Build/iOS/OAuthSwiftAlamofire.framework; sourceTree = "<group>"; };
 		96520E912223D65F00AB6499 /* GradesDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GradesDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96520E942223D65F00AB6499 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96520E962223D65F00AB6499 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		96520E9B2223D66000AB6499 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96520EA02223D66000AB6499 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96580713222FFA810065E23D /* CourseListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewModelTests.swift; sourceTree = "<group>"; };
+		965807152230099D0065E23D /* GradesAPIMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesAPIMock.swift; sourceTree = "<group>"; };
+		9658071822304B420065E23D /* Action.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Action.framework; path = Carthage/Build/iOS/Action.framework; sourceTree = "<group>"; };
+		9658071A22304D5B0065E23D /* RxAtomic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxAtomic.framework; path = Carthage/Build/iOS/RxAtomic.framework; sourceTree = "<group>"; };
+		9658071C223068940065E23D /* ObservableType+MonitorLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableType+MonitorLoading.swift"; sourceTree = "<group>"; };
+		9658071E22306CBD0065E23D /* RxSwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwiftExt.framework; path = Carthage/Build/iOS/RxSwiftExt.framework; sourceTree = "<group>"; };
+		966ABB56222D986A007DD046 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
+		966ABB58222DA2DF007DD046 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		967D1E402223DDD3007E5217 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		9682A6A7222D19E800773E28 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/iOS/RxTest.framework; sourceTree = "<group>"; };
+		9682A6AD222D1ABC00773E28 /* GradesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GradesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9682A6B1222D1ABC00773E28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9682A6BD222D1F7600773E28 /* CourseListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewModel.swift; sourceTree = "<group>"; };
 		9686106F222AA4550069B81B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		96861072222AA55F0069B81B /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		96861074222AAE5F0069B81B /* SwiftSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSVG.framework; path = Carthage/Build/iOS/SwiftSVG.framework; sourceTree = "<group>"; };
@@ -87,6 +138,15 @@
 		96861088222B1A8C0069B81B /* SceneCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinatorType.swift; sourceTree = "<group>"; };
 		9686108A222B1B210069B81B /* SceneTransitionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneTransitionType.swift; sourceTree = "<group>"; };
 		969398A92226D4A700841818 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
+		9699AB98223256D2006D2F73 /* OverviewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewItem.swift; sourceTree = "<group>"; };
+		9699AB9B22326512006D2F73 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		9699AB9D22326B74006D2F73 /* Willow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Willow.framework; path = Carthage/Build/iOS/Willow.framework; sourceTree = "<group>"; };
+		9699ABA12232902A006D2F73 /* ToastSwiftFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ToastSwiftFramework.framework; path = Carthage/Build/iOS/ToastSwiftFramework.framework; sourceTree = "<group>"; };
+		9699ABA32232A2C7006D2F73 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		9699ABA72232C091006D2F73 /* UIView+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Rx.swift"; sourceTree = "<group>"; };
+		96A80A6E222F191F00986A90 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
+		96A80A70222F1B3000986A90 /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
+		96A80A74222F1D0400986A90 /* CourseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,11 +161,34 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9658071922304B420065E23D /* Action.framework in Frameworks */,
+				961BCE83222C5A2200BD6663 /* Alamofire.framework in Frameworks */,
 				967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */,
 				969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */,
 				96861077222AAE6C0069B81B /* RxSwift.framework in Frameworks */,
 				96861079222AAE6F0069B81B /* RxCocoa.framework in Frameworks */,
+				961789312232F65D007006E8 /* RxBlocking.framework in Frameworks */,
+				96A80A6F222F191F00986A90 /* RxDataSources.framework in Frameworks */,
+				96A80A71222F1B3000986A90 /* Differentiator.framework in Frameworks */,
 				96861075222AAE5F0069B81B /* SwiftSVG.framework in Frameworks */,
+				961BCE85222C5F8300BD6663 /* OAuthSwiftAlamofire.framework in Frameworks */,
+				9699ABA22232902A006D2F73 /* ToastSwiftFramework.framework in Frameworks */,
+				9682A6C6222D336800773E28 /* CocoaAsyncSocket.framework in Frameworks */,
+				9682A6C5222D32B800773E28 /* Bagel.framework in Frameworks */,
+				9699AB9E22326B74006D2F73 /* Willow.framework in Frameworks */,
+				9658071B22304D5B0065E23D /* RxAtomic.framework in Frameworks */,
+				9658071F22306CBD0065E23D /* RxSwiftExt.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9682A6AA222D1ABC00773E28 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9682A6B7222D1EAA00773E28 /* Alamofire.framework in Frameworks */,
+				9682A6BA222D1EAA00773E28 /* RxCocoa.framework in Frameworks */,
+				9682A6BB222D1EAA00773E28 /* RxSwift.framework in Frameworks */,
+				9682A6BC222D1EAA00773E28 /* RxTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,6 +219,8 @@
 			isa = PBXGroup;
 			children = (
 				961A2FE0222988D700A624DC /* AuthenticationService.swift */,
+				965807152230099D0065E23D /* GradesAPIMock.swift */,
+				961BCE80222C515700BD6663 /* GradesAPI.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -144,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				961A2FF02229D44A00A624DC /* LoginViewModel.swift */,
+				9682A6BD222D1F7600773E28 /* CourseListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -162,6 +248,7 @@
 			children = (
 				96520E932223D65F00AB6499 /* Grades */,
 				961BCE77222C3D8E00BD6663 /* GradesUITests */,
+				9682A6AE222D1ABC00773E28 /* GradesTests */,
 				96520E922223D65F00AB6499 /* Products */,
 				967D1E3F2223DDD3007E5217 /* Frameworks */,
 			);
@@ -172,6 +259,7 @@
 			children = (
 				96520E912223D65F00AB6499 /* GradesDev.app */,
 				961BCE76222C3D8E00BD6663 /* GradesUITests.xctest */,
+				9682A6AD222D1ABC00773E28 /* GradesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -179,6 +267,7 @@
 		96520E932223D65F00AB6499 /* Grades */ = {
 			isa = PBXGroup;
 			children = (
+				9699AB9A22326506006D2F73 /* Utilitis */,
 				96861086222B15B40069B81B /* Model */,
 				96861071222AA5420069B81B /* Extension */,
 				9686106E222AA42D0069B81B /* View */,
@@ -197,6 +286,17 @@
 		967D1E3F2223DDD3007E5217 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				961789302232F65D007006E8 /* RxBlocking.framework */,
+				9699ABA12232902A006D2F73 /* ToastSwiftFramework.framework */,
+				9699AB9D22326B74006D2F73 /* Willow.framework */,
+				9658071E22306CBD0065E23D /* RxSwiftExt.framework */,
+				9658071A22304D5B0065E23D /* RxAtomic.framework */,
+				9658071822304B420065E23D /* Action.framework */,
+				96A80A70222F1B3000986A90 /* Differentiator.framework */,
+				96A80A6E222F191F00986A90 /* RxDataSources.framework */,
+				9682A6A7222D19E800773E28 /* RxTest.framework */,
+				961BCE84222C5F8300BD6663 /* OAuthSwiftAlamofire.framework */,
+				961BCE82222C5A2200BD6663 /* Alamofire.framework */,
 				96861078222AAE6F0069B81B /* RxCocoa.framework */,
 				96861076222AAE6C0069B81B /* RxSwift.framework */,
 				96861074222AAE5F0069B81B /* SwiftSVG.framework */,
@@ -218,6 +318,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		9682A6AE222D1ABC00773E28 /* GradesTests */ = {
+			isa = PBXGroup;
+			children = (
+				96580713222FFA810065E23D /* CourseListViewModelTests.swift */,
+				9682A6B1222D1ABC00773E28 /* Info.plist */,
+			);
+			path = GradesTests;
+			sourceTree = "<group>";
+		};
 		9686106E222AA42D0069B81B /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,6 +343,8 @@
 				96861072222AA55F0069B81B /* UIColor+.swift */,
 				9686107D222AB4D40069B81B /* UIView+.swift */,
 				9686107F222AEC680069B81B /* UIFont+.swift */,
+				9658071C223068940065E23D /* ObservableType+MonitorLoading.swift */,
+				9699ABA72232C091006D2F73 /* UIView+Rx.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -251,6 +362,7 @@
 			children = (
 				96520E962223D65F00AB6499 /* LoginViewController.swift */,
 				9686106F222AA4550069B81B /* BaseViewController.swift */,
+				96A80A74222F1D0400986A90 /* CourseListViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -259,6 +371,10 @@
 			isa = PBXGroup;
 			children = (
 				96861084222AF2630069B81B /* BindableType.swift */,
+				966ABB56222D986A007DD046 /* Course.swift */,
+				966ABB58222DA2DF007DD046 /* User.swift */,
+				9699AB98223256D2006D2F73 /* OverviewItem.swift */,
+				9699ABA32232A2C7006D2F73 /* ApiError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -272,6 +388,14 @@
 				961BCE70222C32DD00BD6663 /* SceneCoordinator.swift */,
 			);
 			path = Scene;
+			sourceTree = "<group>";
+		};
+		9699AB9A22326506006D2F73 /* Utilitis */ = {
+			isa = PBXGroup;
+			children = (
+				9699AB9B22326512006D2F73 /* Log.swift */,
+			);
+			path = Utilitis;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,7 +427,6 @@
 				9608B9C122241EC700E1CEAF /* SwiftGen */,
 				961A2FEE2229C59400A624DC /* SwiftFormat */,
 				967D1E3E2223DCEE007E5217 /* Carthage */,
-				967D1E422223DE26007E5217 /* Carthage outdated */,
 				9608B9A82223EB0900E1CEAF /* Generate preprocess header */,
 				96520E8D2223D65F00AB6499 /* Sources */,
 				96520E8E2223D65F00AB6499 /* Frameworks */,
@@ -317,6 +440,24 @@
 			productName = Classification;
 			productReference = 96520E912223D65F00AB6499 /* GradesDev.app */;
 			productType = "com.apple.product-type.application";
+		};
+		9682A6AC222D1ABC00773E28 /* GradesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9682A6B4222D1ABC00773E28 /* Build configuration list for PBXNativeTarget "GradesTests" */;
+			buildPhases = (
+				9682A6A9222D1ABC00773E28 /* Sources */,
+				9682A6AA222D1ABC00773E28 /* Frameworks */,
+				9682A6AB222D1ABC00773E28 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9682A6B3222D1ABC00773E28 /* PBXTargetDependency */,
+			);
+			name = GradesTests;
+			productName = GradesTests;
+			productReference = 9682A6AD222D1ABC00773E28 /* GradesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -335,6 +476,10 @@
 					96520E902223D65F00AB6499 = {
 						CreatedOnToolsVersion = 10.1;
 					};
+					9682A6AC222D1ABC00773E28 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 96520E902223D65F00AB6499;
+					};
 				};
 			};
 			buildConfigurationList = 96520E8C2223D65F00AB6499 /* Build configuration list for PBXProject "Grades" */;
@@ -351,6 +496,7 @@
 			projectRoot = "";
 			targets = (
 				96520E902223D65F00AB6499 /* Grades */,
+				9682A6AC222D1ABC00773E28 /* GradesTests */,
 				961BCE75222C3D8E00BD6663 /* GradesUITests */,
 			);
 		};
@@ -375,6 +521,13 @@
 				961A2FD422293AD000A624DC /* Debug.plist in Resources */,
 				961A2FD622293AE000A624DC /* Release.plist in Resources */,
 				961A2FD822293AEA00A624DC /* Common.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9682A6AB222D1ABC00773E28 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,7 +587,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftformat >/dev/null; then\n    swiftformat --swiftversion 4.2 Grades\nelse\n    echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
+			shellScript = "if which swiftformat >/dev/null; then\n    swiftformat --disable trailingCommas --swiftversion 4.2 Grades\nelse\n    echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
 		};
 		967D1E3E2223DCEE007E5217 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -449,6 +602,19 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftSVG.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/OAuthSwiftAlamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxTest.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Bagel.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/CocoaAsyncSocket.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Differentiator.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Action.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxAtomic.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxSwiftExt.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Willow.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ToastSwiftFramework.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
@@ -459,28 +625,23 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxCocoa.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftSVG.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/OAuthSwiftAlamofire.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxTest.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Bagel.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaAsyncSocket.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxDataSources.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Differentiator.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Action.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxAtomic.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwiftExt.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Willow.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/ToastSwiftFramework.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxBlocking.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
-		};
-		967D1E422223DE26007E5217 /* Carthage outdated */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Carthage outdated";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage outdated --xcode-warnings\n";
 		};
 		967D1E522223E2F3007E5217 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -517,21 +678,40 @@
 			files = (
 				96520E972223D65F00AB6499 /* LoginViewController.swift in Sources */,
 				9608B9B12224149700E1CEAF /* Strings.swift in Sources */,
+				9699AB9C22326512006D2F73 /* Log.swift in Sources */,
 				961BCE71222C32DD00BD6663 /* SceneCoordinator.swift in Sources */,
 				96861089222B1A8C0069B81B /* SceneCoordinatorType.swift in Sources */,
+				9699ABA82232C091006D2F73 /* UIView+Rx.swift in Sources */,
 				9686107C222AAED50069B81B /* UIPrimaryButton.swift in Sources */,
 				9608B9C92224364200E1CEAF /* EnvironmentConfiguration.swift in Sources */,
+				961BCE81222C515700BD6663 /* GradesAPI.swift in Sources */,
 				96861080222AEC680069B81B /* UIFont+.swift in Sources */,
+				9658071722300B2E0065E23D /* GradesAPIMock.swift in Sources */,
 				961A2FE1222988D700A624DC /* AuthenticationService.swift in Sources */,
 				961A2FDE22294F4500A624DC /* PlistDocument.swift in Sources */,
+				966ABB59222DA2DF007DD046 /* User.swift in Sources */,
 				96861070222AA4550069B81B /* BaseViewController.swift in Sources */,
 				96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */,
+				96A80A75222F1D0400986A90 /* CourseListViewController.swift in Sources */,
 				9686107E222AB4D40069B81B /* UIView+.swift in Sources */,
+				9699AB99223256D2006D2F73 /* OverviewItem.swift in Sources */,
 				96861085222AF2630069B81B /* BindableType.swift in Sources */,
 				961A2FF12229D44A00A624DC /* LoginViewModel.swift in Sources */,
+				9682A6BE222D1F7600773E28 /* CourseListViewModel.swift in Sources */,
+				966ABB57222D986A007DD046 /* Course.swift in Sources */,
 				96861082222AEFE60069B81B /* Scene.swift in Sources */,
+				9699ABA42232A2C7006D2F73 /* ApiError.swift in Sources */,
 				96861073222AA55F0069B81B /* UIColor+.swift in Sources */,
+				9658071D223068940065E23D /* ObservableType+MonitorLoading.swift in Sources */,
 				9686108B222B1B210069B81B /* SceneTransitionType.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9682A6A9222D1ABC00773E28 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96580714222FFA810065E23D /* CourseListViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,6 +722,11 @@
 			isa = PBXTargetDependency;
 			target = 96520E902223D65F00AB6499 /* Grades */;
 			targetProxy = 961BCE7B222C3D8E00BD6663 /* PBXContainerItemProxy */;
+		};
+		9682A6B3222D1ABC00773E28 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96520E902223D65F00AB6499 /* Grades */;
+			targetProxy = 9682A6B2222D1ABC00773E28 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -782,6 +967,54 @@
 			};
 			name = Release;
 		};
+		9682A6B5222D1ABC00773E28 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FKAQE2Z826;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = GradesTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.jiri.zdvomka.GradesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GradesDev.app/GradesDev";
+			};
+			name = Debug;
+		};
+		9682A6B6222D1ABC00773E28 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FKAQE2Z826;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = GradesTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.jiri.zdvomka.GradesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GradesDev.app/GradesDev";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -808,6 +1041,15 @@
 			buildConfigurations = (
 				96520EA42223D66000AB6499 /* Debug */,
 				96520EA52223D66000AB6499 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9682A6B4222D1ABC00773E28 /* Build configuration list for PBXNativeTarget "GradesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9682A6B5222D1ABC00773E28 /* Debug */,
+				9682A6B6222D1ABC00773E28 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

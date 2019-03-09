@@ -19,7 +19,21 @@ internal enum L10n {
         internal static let login = L10n.tr("Localizable", "button.login")
     }
 
+    internal enum Courses {
+        /// Studying
+        internal static let studying = L10n.tr("Localizable", "courses.studying")
+        /// Teaching
+        internal static let teaching = L10n.tr("Localizable", "courses.teaching")
+        /// Courses
+        internal static let title = L10n.tr("Localizable", "courses.title")
+    }
+
     internal enum Error {
+        internal enum Api {
+            /// There has been an error when trying to fetch data.
+            internal static let generic = L10n.tr("Localizable", "error.api.generic")
+        }
+
         internal enum Auth {
             /// There has been an error when authenticating.
             internal static let generic = L10n.tr("Localizable", "error.auth.generic")

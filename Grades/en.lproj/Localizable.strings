@@ -1,5 +1,10 @@
 "appVersion" = "App version";
 
 "error.auth.generic" = "There has been an error when authenticating.";
+"error.api.generic" = "There has been an error when trying to fetch data.";
 
 "button.login" = "Login";
+
+"courses.title" = "Courses";
+"courses.studying" = "Studying";
+"courses.teaching" = "Teaching";

@@ -10,11 +10,39 @@ import Foundation
 import RxSwift
 import UIKit
 
-struct LoginViewModel {
+class LoginViewModel {
+    // MARK: properties
+
     let sceneCoordinator: SceneCoordinatorType
-    private let authService = AuthenticationService()
+    let authService = AuthenticationService.shared
+    private let bag = DisposeBag()
+
+    let isLoading = PublishSubject<Bool>()
+
+    // MARK: methods
+
+    init(sceneCoordinator: SceneCoordinatorType) {
+        self.sceneCoordinator = sceneCoordinator
+    }
 
     func authenticate(viewController: UIViewController) -> Observable<Void> {
-        return authService.authenticate(useBuiltInSafari: true, viewController: viewController)
+        let subscription = authService
+            .authenticate(useBuiltInSafari: false, viewController: viewController)
+            .share()
+
+        subscription
+            .subscribe(onCompleted: { [weak self] in
+                let subjectListViewModel = CourseListViewModel()
+                self?.sceneCoordinator.transition(to: .subjectList(subjectListViewModel), type: .modal)
+            })
+            .disposed(by: bag)
+
+        subscription
+            .monitorLoading()
+            .loading()
+            .bind(to: isLoading)
+            .disposed(by: bag)
+
+        return subscription
     }
 }

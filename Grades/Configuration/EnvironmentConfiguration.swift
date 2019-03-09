@@ -52,6 +52,7 @@ struct Auth {
 
 protocol NSClassificationConfiguration {
     var auth: Auth { get }
+    var gradesAPI: [String: Any] { get }
 }
 
 // swiftlint:disable force_cast
@@ -67,5 +68,12 @@ extension EnvironmentConfiguration: NSClassificationConfiguration {
                     callbackId: config["CallbackKey"] as! String,
                     responseType: config["AuthResponseType"] as! String,
                     scope: config["AuthScope"] as! String)
+    }
+
+    var gradesAPI: [String: Any] {
+        var dict = config["GradesAPIEndpoints"] as! [String: Any]
+        dict["BaseURL"] = config["GradesApiUrl"] as! String
+
+        return dict
     }
 }
