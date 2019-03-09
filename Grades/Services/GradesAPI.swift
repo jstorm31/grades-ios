@@ -23,6 +23,8 @@ class GradesAPI: GradesAPIProtocol {
         return config["BaseURL"]!
     }
 
+    var user: User?
+
     init(httpService: HttpServiceProtocol, configuration: EnvironmentConfiguration) {
         config = configuration.gradesAPI
         self.httpService = httpService

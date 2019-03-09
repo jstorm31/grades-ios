@@ -51,10 +51,15 @@ class LoginViewController: BaseViewController, BindableType {
     // MARK: methods
 
     func bindViewModel() {
-        viewModel
-            .isLoading
+        viewModel.isLoading
             .asDriver(onErrorJustReturn: false)
             .drive(view.rx.refreshing)
+            .disposed(by: bag)
+
+        viewModel.authError.asObservable()
+            .subscribe(onNext: { [weak self] error in
+                self?.view.makeCustomToast(error.localizedDescription, type: .danger)
+            })
             .disposed(by: bag)
     }
 
@@ -62,9 +67,5 @@ class LoginViewController: BaseViewController, BindableType {
 
     @objc private func authButtonTapped(_: UIButton) {
         viewModel.authenticate(viewController: self)
-            .subscribe(onError: { [weak self] error in
-                self?.view.makeCustomToast(error.localizedDescription, type: .danger)
-            })
-            .disposed(by: bag)
     }
 }

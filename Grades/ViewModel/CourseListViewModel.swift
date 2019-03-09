@@ -13,9 +13,11 @@ import RxSwift
 class CourseListViewModel {
     private let api: GradesAPIProtocol
     private let bag = DisposeBag()
+    private let user: UserInfo
 
-    init(api: GradesAPIProtocol) {
+    init(api: GradesAPIProtocol, user: UserInfo) {
         self.api = api
+        self.user = user
     }
 
     // MARK: output
@@ -41,9 +43,7 @@ class CourseListViewModel {
     /// Fetches courses from api and transforms them to right format
     private func getCourses() -> Observable<[CourseGroup]> {
         let roles = api.getRoles()
-        let courses = api.getUser() // TODO: store username in state
-            .map { $0.username }
-            .flatMap(api.getCourses)
+        let courses = api.getCourses(username: user.username)
 
         return Observable<[CourseGroup]>
             .zip(courses, roles) { [unowned self] courses, roles in

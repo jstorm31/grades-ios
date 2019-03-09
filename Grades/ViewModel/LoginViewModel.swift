@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxCocoa
 import RxSwift
 import UIKit
 
@@ -19,6 +20,7 @@ class LoginViewModel {
     private let bag = DisposeBag()
 
     let isLoading = PublishSubject<Bool>()
+    let authError = PublishSubject<Error>()
 
     // MARK: methods
 
@@ -28,26 +30,34 @@ class LoginViewModel {
         authService = AuthenticationService(configuration: configuration)
     }
 
-    func authenticate(viewController: UIViewController) -> Observable<Void> {
-        let subscription = authService
+    func authenticate(viewController: UIViewController) {
+        authService
             .authenticate(useBuiltInSafari: false, viewController: viewController)
-            .do(onCompleted: { [weak self] in
+            .do(onError: { [weak self] error in
+                guard let `self` = self else { return }
+                Observable.just(error).bind(to: self.authError).disposed(by: self.bag)
+            }, onCompleted: { [weak self] in
                 guard let `self` = self else { return }
 
                 let httpService = HttpService(client: self.authService.handler.client)
                 let gradesApi = GradesAPI(httpService: httpService, configuration: self.config)
 
-                let subjectListViewModel = CourseListViewModel(api: gradesApi)
-                self.sceneCoordinator.transition(to: .subjectList(subjectListViewModel), type: .modal)
-            })
-            .share()
+                gradesApi.getUser()
+                    .subscribe(onNext: { [weak self] userInfo in
+                        guard let `self` = self else { return }
 
-        subscription
+                        // Transition to course list scene
+                        let courseListViewModel = CourseListViewModel(api: gradesApi, user: userInfo)
+                        self.sceneCoordinator.transition(to: .subjectList(courseListViewModel), type: .modal)
+                    }, onError: { [weak self] error in
+                        guard let `self` = self else { return }
+                        Observable.just(error).bind(to: self.authError).disposed(by: self.bag)
+                    })
+                    .disposed(by: self.bag)
+            })
             .monitorLoading()
             .loading()
             .bind(to: isLoading)
             .disposed(by: bag)
-
-        return subscription
     }
 }
