@@ -24,20 +24,15 @@ extension AuthenticationError: LocalizedError {
 }
 
 class AuthenticationService {
-    static let shared = AuthenticationService()
-
     let handler: OAuth2Swift
     private let callbackUrl: URL
     private let authorizationHeader: String
     private let scope: String
     private let bag = DisposeBag()
 
-    var user: UserInfo?
-
     // MARK: initializers
 
-    private init(configuration: NSClassificationConfiguration) {
-        let configuration = EnvironmentConfiguration.shared
+    init(configuration: EnvironmentConfiguration) {
         callbackUrl = URL(string: configuration.auth.redirectUri)!
         authorizationHeader = "Basic \(configuration.auth.clientHash)"
         scope = configuration.auth.scope
@@ -48,10 +43,6 @@ class AuthenticationService {
                               accessTokenUrl: configuration.auth.tokenUrl,
                               responseType: configuration.auth.responseType)
         handler.allowMissingStateCheck = true
-    }
-
-    private convenience init() {
-        self.init(configuration: EnvironmentConfiguration.shared)
     }
 
     // MARK: public methods
@@ -76,15 +67,9 @@ class AuthenticationService {
                            state: "",
                            headers: ["Authorization": self.authorizationHeader],
                            success: { _, _, _ in
-                               // Get user info
-                               GradesAPI.shared.getUser()
-                                   .subscribe(onNext: { [weak self] user in
-                                       Log.debug(user.username)
-                                       self?.user = user
-                                       observer.onCompleted()
-                                   })
-                                   .disposed(by: self.bag)
+                               observer.onCompleted()
                            }, failure: { error in
+                               Log.error("AuthenticationService.authenticate: Authentication error.")
                                #if DEBUG
                                    observer.onError(error)
                                #endif

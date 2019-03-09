@@ -17,7 +17,7 @@ import Bagel // TODO: remove on release
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
-    private let config: NSClassificationConfiguration = EnvironmentConfiguration.shared
+    private let config = EnvironmentConfiguration()
 
     func application(_: UIApplication,
                      didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -27,13 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Bagel.start() // TODO: remove on release
 
-        // Connect Alamofire and OAuthSwift
-        let sessionManager = SessionManager.default
-        sessionManager.adapter = OAuthSwiftRequestAdapter(AuthenticationService.shared.handler)
-
-        // Scene coordinator
         let sceneCoordinator = SceneCoordinator(window: window!)
-        let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator)
+        let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator, configuration: config)
         let loginScreen = Scene.login(loginViewModel)
         sceneCoordinator.transition(to: loginScreen, type: .root)
 

@@ -14,7 +14,7 @@ class CourseListViewModel {
     private let api: GradesAPIProtocol
     private let bag = DisposeBag()
 
-    init(api: GradesAPIProtocol = GradesAPI.shared) {
+    init(api: GradesAPIProtocol) {
         self.api = api
     }
 

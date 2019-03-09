@@ -22,6 +22,7 @@
 		961BCE81222C515700BD6663 /* GradesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BCE80222C515700BD6663 /* GradesAPI.swift */; };
 		961BCE83222C5A2200BD6663 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961BCE82222C5A2200BD6663 /* Alamofire.framework */; };
 		961BCE85222C5F8300BD6663 /* OAuthSwiftAlamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961BCE84222C5F8300BD6663 /* OAuthSwiftAlamofire.framework */; };
+		963C62842233B7C000B01818 /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963C62832233B7C000B01818 /* HttpService.swift */; };
 		96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E942223D65F00AB6499 /* AppDelegate.swift */; };
 		96520E972223D65F00AB6499 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E962223D65F00AB6499 /* LoginViewController.swift */; };
 		96520E9A2223D65F00AB6499 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E982223D65F00AB6499 /* Main.storyboard */; };
@@ -107,6 +108,7 @@
 		961BCE80222C515700BD6663 /* GradesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesAPI.swift; sourceTree = "<group>"; };
 		961BCE82222C5A2200BD6663 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		961BCE84222C5F8300BD6663 /* OAuthSwiftAlamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwiftAlamofire.framework; path = Carthage/Build/iOS/OAuthSwiftAlamofire.framework; sourceTree = "<group>"; };
+		963C62832233B7C000B01818 /* HttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpService.swift; sourceTree = "<group>"; };
 		96520E912223D65F00AB6499 /* GradesDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GradesDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96520E942223D65F00AB6499 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96520E962223D65F00AB6499 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				961A2FE0222988D700A624DC /* AuthenticationService.swift */,
 				965807152230099D0065E23D /* GradesAPIMock.swift */,
 				961BCE80222C515700BD6663 /* GradesAPI.swift */,
+				963C62832233B7C000B01818 /* HttpService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -690,6 +693,7 @@
 				961A2FE1222988D700A624DC /* AuthenticationService.swift in Sources */,
 				961A2FDE22294F4500A624DC /* PlistDocument.swift in Sources */,
 				966ABB59222DA2DF007DD046 /* User.swift in Sources */,
+				963C62842233B7C000B01818 /* HttpService.swift in Sources */,
 				96861070222AA4550069B81B /* BaseViewController.swift in Sources */,
 				96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */,
 				96A80A75222F1D0400986A90 /* CourseListViewController.swift in Sources */,

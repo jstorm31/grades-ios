@@ -14,15 +14,18 @@ class LoginViewModel {
     // MARK: properties
 
     let sceneCoordinator: SceneCoordinatorType
-    let authService = AuthenticationService.shared
+    let authService: AuthenticationService
+    let config: EnvironmentConfiguration
     private let bag = DisposeBag()
 
     let isLoading = PublishSubject<Bool>()
 
     // MARK: methods
 
-    init(sceneCoordinator: SceneCoordinatorType) {
+    init(sceneCoordinator: SceneCoordinatorType, configuration: EnvironmentConfiguration) {
         self.sceneCoordinator = sceneCoordinator
+        config = configuration
+        authService = AuthenticationService(configuration: configuration)
     }
 
     func authenticate(viewController: UIViewController) -> Observable<Void> {
@@ -32,8 +35,13 @@ class LoginViewModel {
 
         subscription
             .subscribe(onCompleted: { [weak self] in
-                let subjectListViewModel = CourseListViewModel()
-                self?.sceneCoordinator.transition(to: .subjectList(subjectListViewModel), type: .modal)
+                guard let `self` = self else { return }
+
+                let httpService = HttpService(client: self.authService.handler.client)
+                let gradesApi = GradesAPI(httpService: httpService, configuration: self.config)
+
+                let subjectListViewModel = CourseListViewModel(api: gradesApi)
+                self.sceneCoordinator.transition(to: .subjectList(subjectListViewModel), type: .modal)
             })
             .disposed(by: bag)
 
