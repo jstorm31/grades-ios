@@ -6,9 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
-import Alamofire
 import OAuthSwift
-import OAuthSwiftAlamofire
 import UIKit
 
 import Bagel // TODO: remove on release

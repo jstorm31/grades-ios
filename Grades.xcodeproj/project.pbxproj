@@ -20,8 +20,6 @@
 		961BCE71222C32DD00BD6663 /* SceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BCE70222C32DD00BD6663 /* SceneCoordinator.swift */; };
 		961BCE79222C3D8E00BD6663 /* GradesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BCE78222C3D8E00BD6663 /* GradesUITests.swift */; };
 		961BCE81222C515700BD6663 /* GradesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BCE80222C515700BD6663 /* GradesAPI.swift */; };
-		961BCE83222C5A2200BD6663 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961BCE82222C5A2200BD6663 /* Alamofire.framework */; };
-		961BCE85222C5F8300BD6663 /* OAuthSwiftAlamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961BCE84222C5F8300BD6663 /* OAuthSwiftAlamofire.framework */; };
 		963C62842233B7C000B01818 /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963C62832233B7C000B01818 /* HttpService.swift */; };
 		96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E942223D65F00AB6499 /* AppDelegate.swift */; };
 		96520E972223D65F00AB6499 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E962223D65F00AB6499 /* LoginViewController.swift */; };
@@ -37,8 +35,6 @@
 		966ABB57222D986A007DD046 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB56222D986A007DD046 /* Course.swift */; };
 		966ABB59222DA2DF007DD046 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB58222DA2DF007DD046 /* User.swift */; };
 		967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967D1E402223DDD3007E5217 /* SnapKit.framework */; };
-		9682A6B7222D1EAA00773E28 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961BCE82222C5A2200BD6663 /* Alamofire.framework */; };
-		9682A6BA222D1EAA00773E28 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96861078222AAE6F0069B81B /* RxCocoa.framework */; };
 		9682A6BB222D1EAA00773E28 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96861076222AAE6C0069B81B /* RxSwift.framework */; };
 		9682A6BC222D1EAA00773E28 /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9682A6A7222D19E800773E28 /* RxTest.framework */; };
 		9682A6BE222D1F7600773E28 /* CourseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9682A6BD222D1F7600773E28 /* CourseListViewModel.swift */; };
@@ -164,7 +160,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9658071922304B420065E23D /* Action.framework in Frameworks */,
-				961BCE83222C5A2200BD6663 /* Alamofire.framework in Frameworks */,
 				967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */,
 				969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */,
 				96861077222AAE6C0069B81B /* RxSwift.framework in Frameworks */,
@@ -173,7 +168,6 @@
 				96A80A6F222F191F00986A90 /* RxDataSources.framework in Frameworks */,
 				96A80A71222F1B3000986A90 /* Differentiator.framework in Frameworks */,
 				96861075222AAE5F0069B81B /* SwiftSVG.framework in Frameworks */,
-				961BCE85222C5F8300BD6663 /* OAuthSwiftAlamofire.framework in Frameworks */,
 				9699ABA22232902A006D2F73 /* ToastSwiftFramework.framework in Frameworks */,
 				9682A6C6222D336800773E28 /* CocoaAsyncSocket.framework in Frameworks */,
 				9682A6C5222D32B800773E28 /* Bagel.framework in Frameworks */,
@@ -187,8 +181,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9682A6B7222D1EAA00773E28 /* Alamofire.framework in Frameworks */,
-				9682A6BA222D1EAA00773E28 /* RxCocoa.framework in Frameworks */,
 				9682A6BB222D1EAA00773E28 /* RxSwift.framework in Frameworks */,
 				9682A6BC222D1EAA00773E28 /* RxTest.framework in Frameworks */,
 			);
@@ -605,8 +597,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftSVG.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/OAuthSwiftAlamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxTest.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Bagel.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaAsyncSocket.framework",
@@ -628,8 +618,6 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxCocoa.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftSVG.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/OAuthSwiftAlamofire.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxTest.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Bagel.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaAsyncSocket.framework",

@@ -19,7 +19,7 @@ protocol HttpServiceProtocol {
 }
 
 class HttpService: HttpServiceProtocol {
-    private weak var client: OAuthSwiftClient?
+    private let client: OAuthSwiftClient
 
     required init(client: OAuthSwiftClient) {
         self.client = client
@@ -28,7 +28,7 @@ class HttpService: HttpServiceProtocol {
     /// Make HTTP GET request and return Observable of given type that emits request reuslt
     func get<T>(url: URL, parameters: HttpParameters? = nil) -> Observable<T> where T: Decodable {
         return Observable.create { [weak self] observer in
-            self?.client?.request(url, method: .GET, parameters: parameters ?? [:], success: { response in
+            self?.client.request(url, method: .GET, parameters: parameters ?? [:], success: { response in
                 let data = response.data
 
                 do {

@@ -41,7 +41,7 @@ class CourseListViewModel {
     /// Fetches courses from api and transforms them to right format
     private func getCourses() -> Observable<[CourseGroup]> {
         let roles = api.getRoles()
-		let courses = api.getUser() // TODO: store username in state
+        let courses = api.getUser() // TODO: store username in state
             .map { $0.username }
             .flatMap(api.getCourses)
 
