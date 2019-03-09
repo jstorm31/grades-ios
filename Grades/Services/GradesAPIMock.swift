@@ -46,7 +46,7 @@ class GradesAPIMock: GradesAPIProtocol {
         return Observable.just(userRoles)
     }
 
-    func getCourses() -> Observable<[Course]> {
+    func getCourses(username _: String) -> Observable<[Course]> {
         if emitError {
             return Observable.create { observer in
                 observer.onError(ApiError.general)

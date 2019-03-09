@@ -40,8 +40,13 @@ class CourseListViewModel {
 
     /// Fetches courses from api and transforms them to right format
     private func getCourses() -> Observable<[CourseGroup]> {
+        let roles = api.getRoles()
+		let courses = api.getUser() // TODO: store username in state
+            .map { $0.username }
+            .flatMap(api.getCourses)
+
         return Observable<[CourseGroup]>
-            .zip(api.getCourses(), api.getRoles()) { [unowned self] courses, roles in
+            .zip(courses, roles) { [unowned self] courses, roles in
                 let sectionTitles = [L10n.Courses.studying, L10n.Courses.teaching]
 
                 return self.map(courses: courses, toRoles: roles)

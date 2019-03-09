@@ -12,7 +12,7 @@ import RxSwift
 protocol GradesAPIProtocol {
     func getUser() -> Observable<UserInfo>
     func getRoles() -> Observable<UserRoles>
-    func getCourses() -> Observable<[Course]>
+    func getCourses(username: String) -> Observable<[Course]>
 }
 
 class GradesAPI: GradesAPIProtocol {
@@ -49,19 +49,8 @@ class GradesAPI: GradesAPIProtocol {
     }
 
     /// Fetch subjects for current user
-    func getCourses() -> Observable<[Course]> {
-        return httpService.get(url: createURL(from: .courses("zdvomjir")), parameters: nil)
-
-        // TODO: add lang and semestr parameters
-        //		return getUser()
-        //			.flatMap { [weak self] user in
-        //				guard let `self` = self else {
-        //					throw ApiError.general
-        //				}
-//
-        //				return self.httpService
-        //					.get(url: (self.createURL(from: .courses(user.username))), parameters: nil)
-        //			}
+    func getCourses(username: String) -> Observable<[Course]> {
+        return httpService.get(url: createURL(from: .courses(username)), parameters: nil)
     }
 
     // MARK: helpers
