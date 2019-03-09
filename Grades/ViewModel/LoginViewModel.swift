@@ -31,10 +31,7 @@ class LoginViewModel {
     func authenticate(viewController: UIViewController) -> Observable<Void> {
         let subscription = authService
             .authenticate(useBuiltInSafari: false, viewController: viewController)
-            .share()
-
-        subscription
-            .subscribe(onCompleted: { [weak self] in
+            .do(onCompleted: { [weak self] in
                 guard let `self` = self else { return }
 
                 let httpService = HttpService(client: self.authService.handler.client)
@@ -43,7 +40,7 @@ class LoginViewModel {
                 let subjectListViewModel = CourseListViewModel(api: gradesApi)
                 self.sceneCoordinator.transition(to: .subjectList(subjectListViewModel), type: .modal)
             })
-            .disposed(by: bag)
+            .share()
 
         subscription
             .monitorLoading()
