@@ -14,6 +14,19 @@ class CourseListCell: UITableViewCell {
     var subtitle: UILabel!
     var rightLabel: UILabel!
 
+    var course: Course? {
+        didSet {
+            guard let course = course else { return }
+
+            title.text = course.code
+            subtitle.text = course.name
+
+            if let points = course.totalPoints {
+                rightLabel.text = "\(points) \(L10n.Courses.points)"
+            }
+        }
+    }
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         loadUI()
@@ -59,6 +72,7 @@ class CourseListCell: UITableViewCell {
         self.subtitle = subtitle
 
         let rightLabel = UILabel()
+        rightLabel.text = ""
         rightLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.Grades.cellSubtitle)
         rightLabel.adjustsFontForContentSizeCategory = true
         rightLabel.textColor = UIColor.Theme.grayText

@@ -20,6 +20,8 @@ internal enum L10n {
     }
 
     internal enum Courses {
+        /// p
+        internal static let points = L10n.tr("Localizable", "courses.points")
         /// Studying
         internal static let studying = L10n.tr("Localizable", "courses.studying")
         /// Teaching

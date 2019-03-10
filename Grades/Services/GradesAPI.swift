@@ -53,6 +53,9 @@ class GradesAPI: GradesAPIProtocol {
     /// Fetch subjects for current user
     func getCourses(username: String) -> Observable<[Course]> {
         return httpService.get(url: createURL(from: .courses(username)), parameters: nil)
+            .map { (rawCourses: [RawCourse]) -> [Course] in
+                rawCourses.map { (course: RawCourse) -> Course in Course(fromRawCourse: course) }
+            }
     }
 
     // MARK: helpers

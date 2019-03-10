@@ -15,10 +15,9 @@ import UIKit
 
 // TODO: add UI test
 class CourseListViewController: UIViewController, BindableType {
-	
-	private var tableView: UITableView!
-	
-	var viewModel: CourseListViewModel!
+    private var tableView: UITableView!
+
+    var viewModel: CourseListViewModel!
     var bag = DisposeBag()
 
     let dataSource = CourseListViewController.dataSource()
@@ -27,18 +26,18 @@ class CourseListViewController: UIViewController, BindableType {
         super.loadView()
 
         navigationItem.title = L10n.Courses.title
-		
-		let tableView = UITableView()
-		tableView.register(CourseListCell.self, forCellReuseIdentifier: "Cell")
-		tableView.delegate = self
-		view.addSubview(tableView)
-		tableView.snp.makeConstraints { make in
-			make.edges.equalToSuperview()
-		}
-		self.tableView = tableView
-		
-		tableView.refreshControl = UIRefreshControl()
-		tableView.refreshControl!.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
+
+        let tableView = UITableView()
+        tableView.register(CourseListCell.self, forCellReuseIdentifier: "Cell")
+        tableView.delegate = self
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        self.tableView = tableView
+
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl!.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
     }
 
     override func viewDidLoad() {
@@ -84,9 +83,7 @@ extension CourseListViewController {
             configureCell: { _, tableView, indexPath, item in
                 // swiftlint:disable force_cast
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CourseListCell
-                cell.title.text = item.code
-                cell.subtitle.text = "Název předmětu"
-                cell.rightLabel.text = "15 b."
+                cell.course = item
                 return cell
             },
             titleForHeaderInSection: { dataSource, index in
@@ -97,7 +94,7 @@ extension CourseListViewController {
 }
 
 extension CourseListViewController: UITableViewDelegate {
-	func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-		return 90
-	}
+    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
+        return 90
+    }
 }

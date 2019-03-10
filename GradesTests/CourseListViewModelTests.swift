@@ -37,7 +37,7 @@ class CourseListViewModelTests: XCTestCase {
 		do {
 			guard let result = try coursesObservable.toBlocking(timeout: 1.0).first() else { return }
 			guard let courseError = try coursesErrorObservable.toBlocking(timeout: 1).first() else { return }
-
+			
 			XCTAssertTrue(courseError == nil, "emits no error")
 			XCTAssertEqual(result.count, 2, "has two groups of subjects")
 			XCTAssertEqual(result[0].header, "Studying", "has right header name")
