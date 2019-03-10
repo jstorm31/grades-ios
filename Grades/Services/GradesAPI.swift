@@ -25,7 +25,7 @@ class GradesAPI: GradesAPIProtocol {
 
     var user: User?
 
-    init(httpService: HttpServiceProtocol, configuration: EnvironmentConfiguration) {
+    init(httpService: HttpServiceProtocol, configuration: NSClassificationConfiguration) {
         config = configuration.gradesAPI
         self.httpService = httpService
     }

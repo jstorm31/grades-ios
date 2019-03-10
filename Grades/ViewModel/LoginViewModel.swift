@@ -15,49 +15,37 @@ class LoginViewModel {
     // MARK: properties
 
     let sceneCoordinator: SceneCoordinatorType
-    let authService: AuthenticationService
-    let config: EnvironmentConfiguration
+    let authService: AuthenticationServiceProtocol
+    let httpService: HttpServiceProtocol
+    let gradesApi: GradesAPIProtocol
+    let config: NSClassificationConfiguration
     private let bag = DisposeBag()
-
-    let isLoading = PublishSubject<Bool>()
-    let authError = PublishSubject<Error>()
 
     // MARK: methods
 
-    init(sceneCoordinator: SceneCoordinatorType, configuration: EnvironmentConfiguration) {
+    init(sceneCoordinator: SceneCoordinatorType,
+         configuration: NSClassificationConfiguration,
+         authenticationService: AuthenticationServiceProtocol,
+         httpService: HttpServiceProtocol,
+         gradesApi: GradesAPIProtocol) {
         self.sceneCoordinator = sceneCoordinator
+        self.httpService = httpService
+        self.gradesApi = gradesApi
         config = configuration
-        authService = AuthenticationService(configuration: configuration)
+        authService = authenticationService
     }
 
-    func authenticate(viewController: UIViewController) {
-        authService
+    func authenticate(viewController: UIViewController) -> Observable<UserInfo> {
+        return authService
             .authenticate(useBuiltInSafari: false, viewController: viewController)
-            .do(onError: { [weak self] error in
+            .map { _ in Void() }
+            .flatMap(gradesApi.getUser)
+            .do(onNext: { [weak self] userInfo in
                 guard let `self` = self else { return }
-                Observable.just(error).bind(to: self.authError).disposed(by: self.bag)
-            }, onCompleted: { [weak self] in
-                guard let `self` = self else { return }
 
-                let httpService = HttpService(client: self.authService.handler.client)
-                let gradesApi = GradesAPI(httpService: httpService, configuration: self.config)
-
-                gradesApi.getUser()
-                    .subscribe(onNext: { [weak self] userInfo in
-                        guard let `self` = self else { return }
-
-                        // Transition to course list scene
-                        let courseListViewModel = CourseListViewModel(api: gradesApi, user: userInfo)
-                        self.sceneCoordinator.transition(to: .subjectList(courseListViewModel), type: .modal)
-                    }, onError: { [weak self] error in
-                        guard let `self` = self else { return }
-                        Observable.just(error).bind(to: self.authError).disposed(by: self.bag)
-                    })
-                    .disposed(by: self.bag)
+                // Transition to course list scene
+                let courseListViewModel = CourseListViewModel(api: self.gradesApi, user: userInfo)
+                self.sceneCoordinator.transition(to: .courseList(courseListViewModel), type: .modal)
             })
-            .monitorLoading()
-            .loading()
-            .bind(to: isLoading)
-            .disposed(by: bag)
     }
 }

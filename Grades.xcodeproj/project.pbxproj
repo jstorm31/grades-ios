@@ -22,6 +22,12 @@
 		961BCE81222C515700BD6663 /* GradesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BCE80222C515700BD6663 /* GradesAPI.swift */; };
 		963C62842233B7C000B01818 /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963C62832233B7C000B01818 /* HttpService.swift */; };
 		963C628B22341FDC00B01818 /* GradesAPIMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965807152230099D0065E23D /* GradesAPIMock.swift */; };
+		963C628D22342ED300B01818 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963C628C22342ED300B01818 /* LoginViewModelTests.swift */; };
+		963C62902234307300B01818 /* EnvironmentConfigurationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963C628F2234307300B01818 /* EnvironmentConfigurationMock.swift */; };
+		963C62922234314200B01818 /* SceneCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963C62912234314200B01818 /* SceneCoordinatorMock.swift */; };
+		963C62942234328900B01818 /* AuthenticationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963C62932234328900B01818 /* AuthenticationError.swift */; };
+		963C6296223432FD00B01818 /* AuthenticationServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963C6295223432FD00B01818 /* AuthenticationServiceMock.swift */; };
+		963C62982234542E00B01818 /* HttpServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963C62972234542E00B01818 /* HttpServiceMock.swift */; };
 		96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E942223D65F00AB6499 /* AppDelegate.swift */; };
 		96520E972223D65F00AB6499 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E962223D65F00AB6499 /* LoginViewController.swift */; };
 		96520E9A2223D65F00AB6499 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E982223D65F00AB6499 /* Main.storyboard */; };
@@ -105,6 +111,12 @@
 		961BCE82222C5A2200BD6663 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		961BCE84222C5F8300BD6663 /* OAuthSwiftAlamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwiftAlamofire.framework; path = Carthage/Build/iOS/OAuthSwiftAlamofire.framework; sourceTree = "<group>"; };
 		963C62832233B7C000B01818 /* HttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpService.swift; sourceTree = "<group>"; };
+		963C628C22342ED300B01818 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
+		963C628F2234307300B01818 /* EnvironmentConfigurationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentConfigurationMock.swift; sourceTree = "<group>"; };
+		963C62912234314200B01818 /* SceneCoordinatorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinatorMock.swift; sourceTree = "<group>"; };
+		963C62932234328900B01818 /* AuthenticationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationError.swift; sourceTree = "<group>"; };
+		963C6295223432FD00B01818 /* AuthenticationServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationServiceMock.swift; sourceTree = "<group>"; };
+		963C62972234542E00B01818 /* HttpServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpServiceMock.swift; sourceTree = "<group>"; };
 		96520E912223D65F00AB6499 /* GradesDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GradesDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96520E942223D65F00AB6499 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96520E962223D65F00AB6499 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -237,6 +249,18 @@
 			path = GradesUITests;
 			sourceTree = "<group>";
 		};
+		963C628E22342FF800B01818 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				965807152230099D0065E23D /* GradesAPIMock.swift */,
+				963C628F2234307300B01818 /* EnvironmentConfigurationMock.swift */,
+				963C62912234314200B01818 /* SceneCoordinatorMock.swift */,
+				963C6295223432FD00B01818 /* AuthenticationServiceMock.swift */,
+				963C62972234542E00B01818 /* HttpServiceMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		96520E882223D65E00AB6499 = {
 			isa = PBXGroup;
 			children = (
@@ -315,9 +339,10 @@
 		9682A6AE222D1ABC00773E28 /* GradesTests */ = {
 			isa = PBXGroup;
 			children = (
-				965807152230099D0065E23D /* GradesAPIMock.swift */,
+				963C628E22342FF800B01818 /* Mocks */,
 				96580713222FFA810065E23D /* CourseListViewModelTests.swift */,
 				9682A6B1222D1ABC00773E28 /* Info.plist */,
+				963C628C22342ED300B01818 /* LoginViewModelTests.swift */,
 			);
 			path = GradesTests;
 			sourceTree = "<group>";
@@ -370,6 +395,7 @@
 				966ABB58222DA2DF007DD046 /* User.swift */,
 				9699AB98223256D2006D2F73 /* OverviewItem.swift */,
 				9699ABA32232A2C7006D2F73 /* ApiError.swift */,
+				963C62932234328900B01818 /* AuthenticationError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -667,6 +693,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				963C62942234328900B01818 /* AuthenticationError.swift in Sources */,
 				96520E972223D65F00AB6499 /* LoginViewController.swift in Sources */,
 				9608B9B12224149700E1CEAF /* Strings.swift in Sources */,
 				9699AB9C22326512006D2F73 /* Log.swift in Sources */,
@@ -702,8 +729,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				963C62902234307300B01818 /* EnvironmentConfigurationMock.swift in Sources */,
+				963C628D22342ED300B01818 /* LoginViewModelTests.swift in Sources */,
 				963C628B22341FDC00B01818 /* GradesAPIMock.swift in Sources */,
+				963C62982234542E00B01818 /* HttpServiceMock.swift in Sources */,
 				96580714222FFA810065E23D /* CourseListViewModelTests.swift in Sources */,
+				963C62922234314200B01818 /* SceneCoordinatorMock.swift in Sources */,
+				963C6296223432FD00B01818 /* AuthenticationServiceMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

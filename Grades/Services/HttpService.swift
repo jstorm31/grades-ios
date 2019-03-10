@@ -21,7 +21,7 @@ protocol HttpServiceProtocol {
 class HttpService: HttpServiceProtocol {
     private let client: OAuthSwiftClient
 
-    required init(client: OAuthSwiftClient) {
+    init(client: OAuthSwiftClient) {
         self.client = client
     }
 

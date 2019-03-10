@@ -11,10 +11,16 @@ import RxSwift
 
 class GradesAPIMock: GradesAPIProtocol {
     // MARK: mock data with default values
+	var result = Result.success
+	
+	enum Result {
+		case success
+		case failure
+	}
 
     var userRoles = UserRoles(studentCourses: ["BI-PST", "BI-PPA"], teacherCourses: ["BI-ZMA", "MI-IOS"])
 
-    var userInfo = UserInfo(userId: 14, username: "mockuser", firstName: "Ondřej", lastName: "Krátký")
+    static var userInfo = UserInfo(userId: 14, username: "mockuser", firstName: "Ondřej", lastName: "Krátký")
 
     var courses = [
         Course(code: "BI-PST", items: [
@@ -31,16 +37,16 @@ class GradesAPIMock: GradesAPIProtocol {
         ])
     ]
 
-    private let emitError: Bool
-
-    init(emitError: Bool = false) {
-        self.emitError = emitError
-    }
 
     // MARK: methods
 
     func getUser() -> Observable<UserInfo> {
-        return Observable.just(userInfo)
+		switch result {
+		case .success:
+			return Observable.just(GradesAPIMock.userInfo)
+		case .failure:
+			return Observable.error(ApiError.general)
+		}
     }
 
     func getRoles() -> Observable<UserRoles> {
@@ -48,13 +54,14 @@ class GradesAPIMock: GradesAPIProtocol {
     }
 
     func getCourses(username _: String) -> Observable<[Course]> {
-        if emitError {
-            return Observable.create { observer in
-                observer.onError(ApiError.general)
-                return Disposables.create()
-            }
-        } else {
-            return Observable.just(courses)
-        }
+		switch result {
+		case .success:
+			return Observable.just(courses)
+		case .failure:
+			return Observable.create { observer in
+				observer.onError(ApiError.general)
+				return Disposables.create()
+			}
+		}
     }
 }
