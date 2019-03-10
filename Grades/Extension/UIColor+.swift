@@ -14,6 +14,8 @@ extension UIColor {
         static let background = UIColor.white
         static let primary = UIColor(hex: 0x9776C1)
         static let secondary = UIColor(hex: 0x6763CE)
+        static let text = UIColor(hex: 0x515151)
+        static let grayText = UIColor(hex: 0x2D2D2D)
 
         static let success = UIColor(hex: 0x73C0A2)
         static let danger = UIColor(hex: 0xCB544B)

@@ -38,6 +38,7 @@
 		9658071B22304D5B0065E23D /* RxAtomic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658071A22304D5B0065E23D /* RxAtomic.framework */; };
 		9658071D223068940065E23D /* ObservableType+MonitorLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9658071C223068940065E23D /* ObservableType+MonitorLoading.swift */; };
 		9658071F22306CBD0065E23D /* RxSwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658071E22306CBD0065E23D /* RxSwiftExt.framework */; };
+		965ADAEB223569C500AA8CF4 /* CourseListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965ADAEA223569C500AA8CF4 /* CourseListCell.swift */; };
 		966ABB57222D986A007DD046 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB56222D986A007DD046 /* Course.swift */; };
 		966ABB59222DA2DF007DD046 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB58222DA2DF007DD046 /* User.swift */; };
 		967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967D1E402223DDD3007E5217 /* SnapKit.framework */; };
@@ -128,6 +129,7 @@
 		9658071A22304D5B0065E23D /* RxAtomic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxAtomic.framework; path = Carthage/Build/iOS/RxAtomic.framework; sourceTree = "<group>"; };
 		9658071C223068940065E23D /* ObservableType+MonitorLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableType+MonitorLoading.swift"; sourceTree = "<group>"; };
 		9658071E22306CBD0065E23D /* RxSwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwiftExt.framework; path = Carthage/Build/iOS/RxSwiftExt.framework; sourceTree = "<group>"; };
+		965ADAEA223569C500AA8CF4 /* CourseListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListCell.swift; sourceTree = "<group>"; };
 		966ABB56222D986A007DD046 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		966ABB58222DA2DF007DD046 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		967D1E402223DDD3007E5217 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
@@ -301,6 +303,14 @@
 			path = Grades;
 			sourceTree = "<group>";
 		};
+		965ADAE92235698100AA8CF4 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				965ADAEA223569C500AA8CF4 /* CourseListCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		967D1E3F2223DDD3007E5217 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -350,8 +360,9 @@
 		9686106E222AA42D0069B81B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				965ADAE92235698100AA8CF4 /* Cell */,
 				96861087222B1A670069B81B /* Scene */,
-				96861083222AEFED0069B81B /* ViewControllers */,
+				96861083222AEFED0069B81B /* ViewController */,
 				9686107A222AAEAA0069B81B /* UIElements */,
 			);
 			path = View;
@@ -377,14 +388,14 @@
 			path = UIElements;
 			sourceTree = "<group>";
 		};
-		96861083222AEFED0069B81B /* ViewControllers */ = {
+		96861083222AEFED0069B81B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				96520E962223D65F00AB6499 /* LoginViewController.swift */,
 				9686106F222AA4550069B81B /* BaseViewController.swift */,
 				96A80A74222F1D0400986A90 /* CourseListViewController.swift */,
 			);
-			path = ViewControllers;
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		96861086222B15B40069B81B /* Model */ = {
@@ -713,6 +724,7 @@
 				96A80A75222F1D0400986A90 /* CourseListViewController.swift in Sources */,
 				9686107E222AB4D40069B81B /* UIView+.swift in Sources */,
 				9699AB99223256D2006D2F73 /* OverviewItem.swift in Sources */,
+				965ADAEB223569C500AA8CF4 /* CourseListCell.swift in Sources */,
 				96861085222AF2630069B81B /* BindableType.swift in Sources */,
 				961A2FF12229D44A00A624DC /* LoginViewModel.swift in Sources */,
 				9682A6BE222D1F7600773E28 /* CourseListViewModel.swift in Sources */,
