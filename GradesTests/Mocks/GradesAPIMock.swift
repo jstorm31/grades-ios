@@ -12,19 +12,14 @@ import RxSwift
 class GradesAPIMock: GradesAPIProtocol {
     // MARK: mock data with default values
 	var result = Result.success
-	
-	enum Result {
-		case success
-		case failure
-	}
 
     var userRoles = UserRoles(studentCourses: ["BI-PST", "BI-PPA"], teacherCourses: ["BI-ZMA", "MI-IOS"])
 
     static var userInfo = UserInfo(userId: 14, username: "mockuser", firstName: "Ondřej", lastName: "Krátký")
 
     var courses = [
-		Course(code: "BI-PST", totalPoints: "14"),
 		Course(code: "BI-PPA", totalPoints: "7"),
+		Course(code: "BI-PST", totalPoints: "14"),
 		Course(code: "MI-IOS", totalPoints: nil)
     ]
 

@@ -43,8 +43,10 @@ class LoginViewModel {
             .do(onNext: { [weak self] userInfo in
                 guard let `self` = self else { return }
 
+                let kosApi = KosApi(client: self.authService.handler.client, configuration: self.config.kosAPI)
+                let courseListViewModel = CourseListViewModel(gradesApi: self.gradesApi, kosApi: kosApi, user: userInfo)
+
                 // Transition to course list scene
-                let courseListViewModel = CourseListViewModel(api: self.gradesApi, user: userInfo)
                 self.sceneCoordinator.transition(to: .courseList(courseListViewModel), type: .modal)
             })
     }

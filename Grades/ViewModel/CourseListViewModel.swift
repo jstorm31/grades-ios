@@ -11,12 +11,14 @@ import RxCocoa
 import RxSwift
 
 class CourseListViewModel {
-    private let api: GradesAPIProtocol
+    private let gradesApi: GradesAPIProtocol
+    private let kosApi: KosApiProtocol
     private let bag = DisposeBag()
     private let user: UserInfo
 
-    init(api: GradesAPIProtocol, user: UserInfo) {
-        self.api = api
+    init(gradesApi: GradesAPIProtocol, kosApi: KosApiProtocol, user: UserInfo) {
+        self.gradesApi = gradesApi
+        self.kosApi = kosApi
         self.user = user
     }
 
@@ -42,8 +44,26 @@ class CourseListViewModel {
 
     /// Fetches courses from api and transforms them to right format
     private func getCourses() -> Observable<[CourseGroup]> {
-        let roles = api.getRoles()
-        let courses = api.getCourses(username: user.username)
+        let roles = gradesApi.getRoles()
+
+        // Fetch courses and for each one, fetch his full name from kosApi
+        let courses = gradesApi
+            .getCourses(username: user.username)
+            .map { courses in
+                courses.map { [weak self] (course: Course) -> Course in
+                    guard let `self` = self else { return course }
+
+                    var courseWithName = Course(fromCourse: course)
+                    self.kosApi.getCourseName(code: course.code)
+                        .subscribe(onNext: { name in
+                            Log.debug("Name fetched: \(name)")
+                            courseWithName.name = name
+                        })
+                        .disposed(by: self.bag)
+                    Log.debug("Course returned: \(courseWithName.code)")
+                    return courseWithName
+                }
+            }
 
         return Observable<[CourseGroup]>
             .zip(courses, roles) { [unowned self] courses, roles in

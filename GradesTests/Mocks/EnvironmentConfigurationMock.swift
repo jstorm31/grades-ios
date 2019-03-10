@@ -9,9 +9,11 @@
 @testable import GradesDev
 
 struct EnvironmentConfigurationMock: NSClassificationConfiguration {
+	
 	var auth: Auth {
 		return Auth()
 	}
 	
 	var gradesAPI: [String: String] = [:]
+	var kosAPI: [String : String] = [:]
 }

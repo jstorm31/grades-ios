@@ -16,19 +16,19 @@ protocol GradesAPIProtocol {
 }
 
 class GradesAPI: GradesAPIProtocol {
-    private let config: [String: String]
-    private let httpService: HttpServiceProtocol
+    let config: [String: String]
+    let httpService: HttpServiceProtocol
 
-    private var baseUrl: String {
+    var baseUrl: String {
         return config["BaseURL"]!
     }
 
-    var user: User?
-
-    init(httpService: HttpServiceProtocol, configuration: NSClassificationConfiguration) {
-        config = configuration.gradesAPI
+    init(httpService: HttpServiceProtocol, configuration: [String: String]) {
+        config = configuration
         self.httpService = httpService
     }
+
+    var user: User?
 
     // MARK: API endpoints
 

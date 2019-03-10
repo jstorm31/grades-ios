@@ -19,6 +19,10 @@ struct RawCourse: Decodable {
     }
 }
 
+struct RawKosCourse: Decodable {
+    var name: String
+}
+
 struct Course {
     var code: String
     var name: String = "Course name" // TODO: fetch from kosAPI
@@ -27,6 +31,12 @@ struct Course {
     init(code: String, totalPoints: String? = nil) {
         self.code = code
         self.totalPoints = totalPoints
+    }
+
+    init(fromCourse course: Course) {
+        code = course.code
+        name = course.name
+        totalPoints = course.totalPoints
     }
 
     init(fromRawCourse rawCourse: RawCourse) {
