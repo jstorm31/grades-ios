@@ -10,7 +10,7 @@ import UIKit
 
 enum Scene {
     case login(LoginViewModel)
-    case subjectList(CourseListViewModel)
+    case courseList(CourseListViewModel)
 }
 
 extension Scene {
@@ -20,7 +20,7 @@ extension Scene {
             var loginVC = LoginViewController()
             loginVC.bindViewModel(to: viewModel)
             return loginVC
-        case let .subjectList(viewModel):
+        case let .courseList(viewModel):
             var subjectListVC = CourseListViewController()
             subjectListVC.bindViewModel(to: viewModel)
             let navController = UINavigationController(rootViewController: subjectListVC)

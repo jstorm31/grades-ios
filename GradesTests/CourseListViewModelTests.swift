@@ -15,18 +15,20 @@ import RxBlocking
 class CourseListViewModelTests: XCTestCase {
 	var viewModel: CourseListViewModel!
 	var scheduler: ConcurrentDispatchQueueScheduler!
+	var mockUser: UserInfo!
+	var gradesApiMock: GradesAPIMock!
 	
 	override func setUp() {
-		viewModel = CourseListViewModel(api: GradesAPIMock())
+		mockUser = GradesAPIMock.userInfo
 		scheduler = ConcurrentDispatchQueueScheduler(qos: .default)
+		gradesApiMock = GradesAPIMock()
+		viewModel = CourseListViewModel(api: gradesApiMock, user: mockUser)
 	}
 	
 	override func tearDown() {
 	}
 	
 	func testMapCoursesToRoles() {
-		viewModel = CourseListViewModel(api: GradesAPIMock())
-		
 		let coursesObservable = viewModel.courses.asObservable().subscribeOn(scheduler)
 		let coursesErrorObservable = viewModel.coursesError.asObservable().subscribeOn(scheduler)
 		
@@ -46,7 +48,7 @@ class CourseListViewModelTests: XCTestCase {
 	}
 	
 	func testErrorHandling() {
-		viewModel = CourseListViewModel(api: GradesAPIMock(emitError: true))
+		gradesApiMock.result = .failure
 		
 		let coursesObservable = viewModel.courses.asObservable().subscribeOn(scheduler)
 		let coursesErrorObservable = viewModel.coursesError.asObservable().subscribeOn(scheduler)
@@ -58,8 +60,7 @@ class CourseListViewModelTests: XCTestCase {
 			guard let courseError = try coursesErrorObservable.toBlocking(timeout: 1).first() else { return }
 			
 			XCTAssertTrue(courses.isEmpty, "emits no data")
-			XCTAssertTrue(courseError != nil, "emits error of right type")
-			
+			XCTAssertNotNil(courseError, "emits error of right type")
 		} catch {
 			XCTFail(error.localizedDescription)
 		}

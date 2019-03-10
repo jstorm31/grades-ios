@@ -13,13 +13,11 @@ import Foundation
 final class EnvironmentConfiguration {
     private let config: NSDictionary
 
-    static let shared = EnvironmentConfiguration()
-
     private init(dictionary: NSDictionary) {
         config = dictionary
     }
 
-    private convenience init() {
+    convenience init() {
         let dict = NSMutableDictionary()
 
         let commonConfiguration = PlistDocument(path: "Common.plist").data
@@ -52,7 +50,7 @@ struct Auth {
 
 protocol NSClassificationConfiguration {
     var auth: Auth { get }
-    var gradesAPI: [String: Any] { get }
+    var gradesAPI: [String: String] { get }
 }
 
 // swiftlint:disable force_cast
@@ -70,9 +68,9 @@ extension EnvironmentConfiguration: NSClassificationConfiguration {
                     scope: config["AuthScope"] as! String)
     }
 
-    var gradesAPI: [String: Any] {
-        var dict = config["GradesAPIEndpoints"] as! [String: Any]
-        dict["BaseURL"] = config["GradesApiUrl"] as! String
+    var gradesAPI: [String: String] {
+        var dict = config["GradesAPIEndpoints"] as! [String: String]
+        dict["BaseURL"] = config["GradesApiUrl"] as? String
 
         return dict
     }

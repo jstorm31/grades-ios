@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxCocoa
 import RxSwift
 import UIKit
 
@@ -14,35 +15,37 @@ class LoginViewModel {
     // MARK: properties
 
     let sceneCoordinator: SceneCoordinatorType
-    let authService = AuthenticationService.shared
+    let authService: AuthenticationServiceProtocol
+    let httpService: HttpServiceProtocol
+    let gradesApi: GradesAPIProtocol
+    let config: NSClassificationConfiguration
     private let bag = DisposeBag()
-
-    let isLoading = PublishSubject<Bool>()
 
     // MARK: methods
 
-    init(sceneCoordinator: SceneCoordinatorType) {
+    init(sceneCoordinator: SceneCoordinatorType,
+         configuration: NSClassificationConfiguration,
+         authenticationService: AuthenticationServiceProtocol,
+         httpService: HttpServiceProtocol,
+         gradesApi: GradesAPIProtocol) {
         self.sceneCoordinator = sceneCoordinator
+        self.httpService = httpService
+        self.gradesApi = gradesApi
+        config = configuration
+        authService = authenticationService
     }
 
-    func authenticate(viewController: UIViewController) -> Observable<Void> {
-        let subscription = authService
+    func authenticate(viewController: UIViewController) -> Observable<UserInfo> {
+        return authService
             .authenticate(useBuiltInSafari: false, viewController: viewController)
-            .share()
+            .map { _ in Void() }
+            .flatMap(gradesApi.getUser)
+            .do(onNext: { [weak self] userInfo in
+                guard let `self` = self else { return }
 
-        subscription
-            .subscribe(onCompleted: { [weak self] in
-                let subjectListViewModel = CourseListViewModel()
-                self?.sceneCoordinator.transition(to: .subjectList(subjectListViewModel), type: .modal)
+                // Transition to course list scene
+                let courseListViewModel = CourseListViewModel(api: self.gradesApi, user: userInfo)
+                self.sceneCoordinator.transition(to: .courseList(courseListViewModel), type: .modal)
             })
-            .disposed(by: bag)
-
-        subscription
-            .monitorLoading()
-            .loading()
-            .bind(to: isLoading)
-            .disposed(by: bag)
-
-        return subscription
     }
 }

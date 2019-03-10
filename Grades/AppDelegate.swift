@@ -6,9 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
-import Alamofire
 import OAuthSwift
-import OAuthSwiftAlamofire
 import UIKit
 
 import Bagel // TODO: remove on release
@@ -17,7 +15,7 @@ import Bagel // TODO: remove on release
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
-    private let config: NSClassificationConfiguration = EnvironmentConfiguration.shared
+    private let config = EnvironmentConfiguration()
 
     func application(_: UIApplication,
                      didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -27,13 +25,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Bagel.start() // TODO: remove on release
 
-        // Connect Alamofire and OAuthSwift
-        let sessionManager = SessionManager.default
-        sessionManager.adapter = OAuthSwiftRequestAdapter(AuthenticationService.shared.handler)
-
-        // Scene coordinator
+        // LoginViewModel dependencies initialization
         let sceneCoordinator = SceneCoordinator(window: window!)
-        let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator)
+        let authService = AuthenticationService(configuration: config)
+        let httpService = HttpService(client: authService.handler.client)
+        let gradesApi = GradesAPI(httpService: httpService, configuration: config)
+
+        let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator,
+                                            configuration: config,
+                                            authenticationService: authService,
+                                            httpService: httpService,
+                                            gradesApi: gradesApi)
         let loginScreen = Scene.login(loginViewModel)
         sceneCoordinator.transition(to: loginScreen, type: .root)
 
