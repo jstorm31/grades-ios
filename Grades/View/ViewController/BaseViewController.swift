@@ -33,6 +33,7 @@ class BaseViewController: UIViewController {
         ]
 
         navigationItem.largeTitleDisplayMode = .always
+        extendedLayoutIncludesOpaqueBars = true
 
         // Default toast style
         var toastStyle = ToastStyle()
