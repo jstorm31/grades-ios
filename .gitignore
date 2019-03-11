@@ -71,3 +71,6 @@ fastlane/test_output
 
 # Configuration files
 Grades/Configuration/*.plist
+
+info_preprocess_header.h
+
