@@ -2,7 +2,6 @@
 
 import Foundation
 import RxSwift
-import RxSwiftExt
 
 public protocol LoadingDataConvertible {
     /// Type of element in event

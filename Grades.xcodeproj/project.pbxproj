@@ -75,6 +75,8 @@
 		96A80A75222F1D0400986A90 /* CourseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A80A74222F1D0400986A90 /* CourseListViewController.swift */; };
 		96B20DA32236692E004794BE /* CourseDetailStudentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA22236692E004794BE /* CourseDetailStudentViewModel.swift */; };
 		96B20DA5223669CC004794BE /* CourseDetailStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */; };
+		96B20DA72236C838004794BE /* UINavigationBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA62236C838004794BE /* UINavigationBar+.swift */; };
+		96B20DAB2236CEA9004794BE /* CAGradeintLayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DAA2236CEA9004794BE /* CAGradeintLayer+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,6 +173,8 @@
 		96A80A74222F1D0400986A90 /* CourseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewController.swift; sourceTree = "<group>"; };
 		96B20DA22236692E004794BE /* CourseDetailStudentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewModel.swift; sourceTree = "<group>"; };
 		96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewController.swift; sourceTree = "<group>"; };
+		96B20DA62236C838004794BE /* UINavigationBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+.swift"; sourceTree = "<group>"; };
+		96B20DAA2236CEA9004794BE /* CAGradeintLayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CAGradeintLayer+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -400,6 +404,8 @@
 				9686107F222AEC680069B81B /* UIFont+.swift */,
 				9658071C223068940065E23D /* ObservableType+MonitorLoading.swift */,
 				9699ABA72232C091006D2F73 /* UIView+Rx.swift */,
+				96B20DA62236C838004794BE /* UINavigationBar+.swift */,
+				96B20DAA2236CEA9004794BE /* CAGradeintLayer+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -738,6 +744,7 @@
 				961BCE71222C32DD00BD6663 /* SceneCoordinator.swift in Sources */,
 				96B20DA5223669CC004794BE /* CourseDetailStudentViewController.swift in Sources */,
 				96861089222B1A8C0069B81B /* SceneCoordinatorType.swift in Sources */,
+				96B20DA72236C838004794BE /* UINavigationBar+.swift in Sources */,
 				9699ABA82232C091006D2F73 /* UIView+Rx.swift in Sources */,
 				9686107C222AAED50069B81B /* UIPrimaryButton.swift in Sources */,
 				9608B9C92224364200E1CEAF /* EnvironmentConfiguration.swift in Sources */,
@@ -764,6 +771,7 @@
 				96861073222AA55F0069B81B /* UIColor+.swift in Sources */,
 				9658071D223068940065E23D /* ObservableType+MonitorLoading.swift in Sources */,
 				9686108B222B1B210069B81B /* SceneTransitionType.swift in Sources */,
+				96B20DAB2236CEA9004794BE /* CAGradeintLayer+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
