@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let sceneCoordinator = SceneCoordinator(window: window!)
         let authService = AuthenticationService(configuration: config)
         let httpService = HttpService(client: authService.handler.client)
-        let gradesApi = GradesAPI(httpService: httpService, configuration: config)
+        let gradesApi = GradesAPI(httpService: httpService, configuration: config.gradesAPI)
 
         let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator,
                                             configuration: config,

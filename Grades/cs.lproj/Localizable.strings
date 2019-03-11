@@ -5,6 +5,8 @@
 
 "button.login" = "Přihlásit se";
 
-"courses.title" = "Předměty";
+"courses.fetching" = "Načítání kurzů";
+"courses.title" = "Kurzy";
 "courses.studying" = "Studuji";
 "courses.teaching" = "Učím";
+"courses.points" = "b";

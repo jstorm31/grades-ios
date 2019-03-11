@@ -18,7 +18,7 @@ protocol HttpServiceProtocol {
     func get<T: Decodable>(url: URL, parameters: HttpParameters?) -> Observable<T>
 }
 
-class HttpService: HttpServiceProtocol {
+class HttpService: NSObject, HttpServiceProtocol {
     private let client: OAuthSwiftClient
 
     init(client: OAuthSwiftClient) {

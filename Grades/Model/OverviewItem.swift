@@ -6,7 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
-struct OverviewItem: Codable {
+struct OverviewItem: Decodable {
     var type: String
     var value: String?
 

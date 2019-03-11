@@ -12,12 +12,7 @@ import OAuthSwift
 
 class AuthenticationServiceMock: AuthenticationServiceProtocol {
 	let handler: OAuth2Swift
-	var result: MockResult = .success
-	
-	enum MockResult {
-		case success
-		case failure
-	}
+	var result = Result.success
 	
 	init() {
 		handler = OAuth2Swift(consumerKey: "",

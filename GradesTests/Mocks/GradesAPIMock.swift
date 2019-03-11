@@ -12,29 +12,15 @@ import RxSwift
 class GradesAPIMock: GradesAPIProtocol {
     // MARK: mock data with default values
 	var result = Result.success
-	
-	enum Result {
-		case success
-		case failure
-	}
 
-    var userRoles = UserRoles(studentCourses: ["BI-PST", "BI-PPA"], teacherCourses: ["BI-ZMA", "MI-IOS"])
+    var userRoles = UserRoles(studentCourses: ["BI-PPA", "BI-PST"], teacherCourses: ["BI-ZMA", "MI-IOS"])
 
     static var userInfo = UserInfo(userId: 14, username: "mockuser", firstName: "Ondřej", lastName: "Krátký")
 
     var courses = [
-        Course(code: "BI-PST", items: [
-            OverviewItem(type: "ASSESMENT", value: "11"),
-            OverviewItem(type: "POINTS_TOTAL", value: "5")
-        ]),
-        Course(code: "BI-PPA", items: [
-            OverviewItem(type: "ASSESMENT", value: nil),
-            OverviewItem(type: "POINTS_TOTAL", value: "4"),
-        ]),
-        Course(code: "MI-IOS", items: [
-            OverviewItem(type: "ASSESMENT", value: nil),
-            OverviewItem(type: "POINTS_TOTAL", value: nil)
-        ])
+		Course(code: "BI-PPA", totalPoints: "7"),
+		Course(code: "BI-PST", totalPoints: "14"),
+		Course(code: "MI-IOS", totalPoints: nil)
     ]
 
 
@@ -58,10 +44,7 @@ class GradesAPIMock: GradesAPIProtocol {
 		case .success:
 			return Observable.just(courses)
 		case .failure:
-			return Observable.create { observer in
-				observer.onError(ApiError.general)
-				return Disposables.create()
-			}
+			return Observable.error(ApiError.general)
 		}
     }
 }

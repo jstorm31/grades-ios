@@ -17,12 +17,14 @@ class CourseListViewModelTests: XCTestCase {
 	var scheduler: ConcurrentDispatchQueueScheduler!
 	var mockUser: UserInfo!
 	var gradesApiMock: GradesAPIMock!
+	var kosApiMock: KosApiMock!
 	
 	override func setUp() {
 		mockUser = GradesAPIMock.userInfo
 		scheduler = ConcurrentDispatchQueueScheduler(qos: .default)
 		gradesApiMock = GradesAPIMock()
-		viewModel = CourseListViewModel(api: gradesApiMock, user: mockUser)
+		kosApiMock = KosApiMock()
+		viewModel = CourseListViewModel(gradesApi: gradesApiMock, kosApi: kosApiMock, user: mockUser)
 	}
 	
 	override func tearDown() {
@@ -37,11 +39,13 @@ class CourseListViewModelTests: XCTestCase {
 		do {
 			guard let result = try coursesObservable.toBlocking(timeout: 1.0).first() else { return }
 			guard let courseError = try coursesErrorObservable.toBlocking(timeout: 1).first() else { return }
-
+			
 			XCTAssertTrue(courseError == nil, "emits no error")
 			XCTAssertEqual(result.count, 2, "has two groups of subjects")
 			XCTAssertEqual(result[0].header, "Studying", "has right header name")
 			XCTAssertEqual(result[0].items.count, 2, "has right data")
+			XCTAssertEqual(result[0].items[1].code, "BI-PST")
+			XCTAssertEqual(result[0].items[1].name, "Pravděpodobnost a statistika")
 		} catch {
 			XCTFail(error.localizedDescription)
 		}
