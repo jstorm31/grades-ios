@@ -14,12 +14,13 @@ class BaseViewController: UIViewController {
         super.loadView()
         view.backgroundColor = UIColor.Theme.background
 
-		// Style navigation bar
+        // Style navigation bar
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.setBarTintColor(
-			gradient: UIColor.Theme.primaryGradient,
-			size: CGSize(width: UIScreen.main.bounds.size.width, height: 1))
+            gradient: UIColor.Theme.primaryGradient,
+            size: CGSize(width: UIScreen.main.bounds.size.width, height: 1)
+        )
 
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.titleTextAttributes = [

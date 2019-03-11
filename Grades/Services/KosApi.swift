@@ -45,8 +45,8 @@ class KosApi: KosApiProtocol {
                 let parser = XMLParser(data: response.data)
                 parser.delegate = courseParser
 
-                if parser.parse(), let name = courseParser.courseName {
-                    observer.onNext(name)
+                if parser.parse() {
+                    observer.onNext(courseParser.courseName)
                     observer.onCompleted()
                 } else {
                     Log.error("GradesAPI.request: Could not proccess response data to JSON.")
