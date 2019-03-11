@@ -40,7 +40,6 @@ struct Course {
     }
 
     init(fromRawCourse rawCourse: RawCourse) {
-        Log.debug("RawCourse: \(rawCourse)")
         code = rawCourse.code
         if let overviewItem = rawCourse.items.first(where: { $0.type == "POINTS_TOTAL" }) {
             totalPoints = overviewItem.value

@@ -5,6 +5,7 @@
 
 "button.login" = "Login";
 
+"courses.fetching" = "Fetching courses";
 "courses.title" = "Courses";
 "courses.studying" = "Studying";
 "courses.teaching" = "Teaching";

@@ -13,7 +13,7 @@ class GradesAPIMock: GradesAPIProtocol {
     // MARK: mock data with default values
 	var result = Result.success
 
-    var userRoles = UserRoles(studentCourses: ["BI-PST", "BI-PPA"], teacherCourses: ["BI-ZMA", "MI-IOS"])
+    var userRoles = UserRoles(studentCourses: ["BI-PPA", "BI-PST"], teacherCourses: ["BI-ZMA", "MI-IOS"])
 
     static var userInfo = UserInfo(userId: 14, username: "mockuser", firstName: "Ondřej", lastName: "Krátký")
 

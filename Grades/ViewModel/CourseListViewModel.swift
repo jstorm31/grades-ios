@@ -44,50 +44,42 @@ class CourseListViewModel {
 
     /// Fetches courses from api and transforms them to right format
     private func getCourses() -> Observable<[CourseGroup]> {
-        let roles = gradesApi.getRoles()
+        return gradesApi.getCourses(username: user.username)
 
-        // Fetch courses and for each one, fetch his full name from kosApi
-        let courses = gradesApi
-            .getCourses(username: user.username)
-            .map { courses in
-                courses.map { [weak self] (course: Course) -> Course in
-                    guard let `self` = self else { return course }
+            // Fetch course name from kosAPI for each course
+            .flatMap { (courses: [Course]) -> Observable<[Course]> in
+                Observable.from(courses).flatMap { [weak self] (course: Course) -> Observable<Course> in
+                    guard let `self` = self else { return .empty() }
 
-                    var courseWithName = Course(fromCourse: course)
-                    self.kosApi.getCourseName(code: course.code)
-                        .subscribe(onNext: { name in
-                            Log.debug("Name fetched: \(name)")
+                    return self.kosApi.getCourseName(code: course.code)
+                        .map { (name: String) -> Course in
+                            var courseWithName = Course(fromCourse: course)
                             courseWithName.name = name
-                        })
-                        .disposed(by: self.bag)
-                    Log.debug("Course returned: \(courseWithName.code)")
-                    return courseWithName
-                }
+                            return courseWithName
+                        }
+                }.toArray()
             }
 
-        return Observable<[CourseGroup]>
-            .zip(courses, roles) { [unowned self] courses, roles in
+            // Fetch courses grouped by user role and zip it with courses
+            .zip(with: gradesApi.getRoles()) { (courses: [Course], roles: UserRoles) -> [CourseGroup] in
                 let sectionTitles = [L10n.Courses.studying, L10n.Courses.teaching]
 
-                return self.map(courses: courses, toRoles: roles)
+                // Map courses to roles
+                return [roles.studentCourses, roles.teacherCourses]
+                    .map { courseGroup in
+                        courseGroup.compactMap { code in
+                            courses.first(where: {
+                                $0.code == code
+                            })
+                        }
+                    }
+                    .filter { !$0.isEmpty }
                     .enumerated()
+
+                    // Map to [CourseGroup]
                     .map { offset, element in
                         CourseGroup(header: sectionTitles[offset], items: element)
                     }
             }
-    }
-
-    /// Map course details to their roles
-    private func map(courses: [Course], toRoles roles: UserRoles) -> [[Course]] {
-        // Create array from roles struct and map courses details to correct role
-        return [roles.studentCourses, roles.teacherCourses]
-            .map { courseGroup in
-                courseGroup.compactMap { code in
-                    courses.first(where: {
-                        $0.code == code
-                    })
-                }
-            }
-            .filter { !$0.isEmpty }
     }
 }

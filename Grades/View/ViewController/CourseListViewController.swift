@@ -36,15 +36,18 @@ class CourseListViewController: UIViewController, BindableType {
         }
         self.tableView = tableView
 
-        tableView.refreshControl = UIRefreshControl()
-        tableView.refreshControl!.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = UIColor.Theme.grayText
+        refreshControl.attributedTitle = NSAttributedString(string: L10n.Courses.fetching)
+        refreshControl.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
+        tableView.refreshControl = refreshControl
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         viewModel.bindOutput()
-        tableView.refreshControl!.beginRefreshing() // TODO: find out better solution for initial load
+		tableView.refreshControl!.beginRefreshing() // TODO: find out better solution for initial load
     }
 
     func bindViewModel() {
