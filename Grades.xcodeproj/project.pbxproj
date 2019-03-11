@@ -77,6 +77,7 @@
 		96B20DA5223669CC004794BE /* CourseDetailStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */; };
 		96B20DA72236C838004794BE /* UINavigationBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA62236C838004794BE /* UINavigationBar+.swift */; };
 		96B20DAB2236CEA9004794BE /* CAGradeintLayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DAA2236CEA9004794BE /* CAGradeintLayer+.swift */; };
+		96B20DAD2236DE64004794BE /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DAC2236DE64004794BE /* UINavigationController+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -175,6 +176,7 @@
 		96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewController.swift; sourceTree = "<group>"; };
 		96B20DA62236C838004794BE /* UINavigationBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+.swift"; sourceTree = "<group>"; };
 		96B20DAA2236CEA9004794BE /* CAGradeintLayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CAGradeintLayer+.swift"; sourceTree = "<group>"; };
+		96B20DAC2236DE64004794BE /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -406,6 +408,7 @@
 				9699ABA72232C091006D2F73 /* UIView+Rx.swift */,
 				96B20DA62236C838004794BE /* UINavigationBar+.swift */,
 				96B20DAA2236CEA9004794BE /* CAGradeintLayer+.swift */,
+				96B20DAC2236DE64004794BE /* UINavigationController+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -747,6 +750,7 @@
 				96B20DA72236C838004794BE /* UINavigationBar+.swift in Sources */,
 				9699ABA82232C091006D2F73 /* UIView+Rx.swift in Sources */,
 				9686107C222AAED50069B81B /* UIPrimaryButton.swift in Sources */,
+				96B20DAD2236DE64004794BE /* UINavigationController+.swift in Sources */,
 				9608B9C92224364200E1CEAF /* EnvironmentConfiguration.swift in Sources */,
 				961BCE81222C515700BD6663 /* GradesAPI.swift in Sources */,
 				96861080222AEC680069B81B /* UIFont+.swift in Sources */,
