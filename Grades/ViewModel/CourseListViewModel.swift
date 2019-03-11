@@ -11,15 +11,17 @@ import RxCocoa
 import RxSwift
 
 class CourseListViewModel {
+    private let sceneCoordinator: SceneCoordinatorType
     private let gradesApi: GradesAPIProtocol
     private let kosApi: KosApiProtocol
-    private let bag = DisposeBag()
     private let user: UserInfo
+    private let bag = DisposeBag()
 
-    init(gradesApi: GradesAPIProtocol, kosApi: KosApiProtocol, user: UserInfo) {
+    init(sceneCoordinator: SceneCoordinatorType, gradesApi: GradesAPIProtocol, kosApi: KosApiProtocol, user: UserInfo) {
         self.gradesApi = gradesApi
         self.kosApi = kosApi
         self.user = user
+        self.sceneCoordinator = sceneCoordinator
     }
 
     // MARK: output
@@ -81,5 +83,12 @@ class CourseListViewModel {
                         CourseGroup(header: sectionTitles[offset], items: element)
                     }
             }
+    }
+
+    func onItemSelection(section: Int, item: Int) {
+        let course = courses.value[section].items[item]
+        let courseDetailVM = CourseDetailStudentViewModel(course: course, coordinator: sceneCoordinator)
+
+        sceneCoordinator.transition(to: .courseDetailStudent(courseDetailVM), type: .push)
     }
 }

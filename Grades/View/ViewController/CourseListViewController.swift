@@ -43,11 +43,17 @@ class CourseListViewController: UIViewController, BindableType {
         tableView.refreshControl = refreshControl
     }
 
+    override func viewWillAppear(_: Bool) {
+        if let index = self.tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: index, animated: true)
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         viewModel.bindOutput()
-		tableView.refreshControl!.beginRefreshing() // TODO: find out better solution for initial load
+        tableView.refreshControl!.beginRefreshing() // TODO: find out better solution for initial load
     }
 
     func bindViewModel() {
@@ -63,15 +69,19 @@ class CourseListViewController: UIViewController, BindableType {
             })
             .disposed(by: bag)
 
-        courses
-            .data()
+        courses.data()
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
 
-        courses
-            .loading()
+        courses.loading()
             .bind(to: tableView.refreshControl!.rx.isRefreshing)
+            .disposed(by: bag)
+
+        tableView.rx.itemSelected.asDriver()
+            .drive(onNext: { [weak self] indexPath in
+                self?.viewModel.onItemSelection(section: indexPath.section, item: indexPath.item)
+            })
             .disposed(by: bag)
     }
 

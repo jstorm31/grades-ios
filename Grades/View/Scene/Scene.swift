@@ -11,6 +11,7 @@ import UIKit
 enum Scene {
     case login(LoginViewModel)
     case courseList(CourseListViewModel)
+    case courseDetailStudent(CourseDetailStudentViewModel)
 }
 
 extension Scene {
@@ -20,11 +21,17 @@ extension Scene {
             var loginVC = LoginViewController()
             loginVC.bindViewModel(to: viewModel)
             return loginVC
+
         case let .courseList(viewModel):
-            var subjectListVC = CourseListViewController()
-            subjectListVC.bindViewModel(to: viewModel)
-            let navController = UINavigationController(rootViewController: subjectListVC)
+            var courseListVC = CourseListViewController()
+            let navController = UINavigationController(rootViewController: courseListVC)
+            courseListVC.bindViewModel(to: viewModel)
             return navController
+
+        case let .courseDetailStudent(viewModel):
+            var courseDetailStudentVC = CourseDetailStudentViewController()
+            courseDetailStudentVC.bindViewModel(to: viewModel)
+            return courseDetailStudentVC
         }
     }
 }

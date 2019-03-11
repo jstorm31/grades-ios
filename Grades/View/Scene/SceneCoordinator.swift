@@ -64,6 +64,7 @@ class SceneCoordinator: SceneCoordinatorType {
     @discardableResult
     func pop(animated: Bool) -> Completable {
         let subject = PublishSubject<Void>()
+
         if let presenter = currentViewController.presentingViewController {
             // dismiss a modal controller
             currentViewController.dismiss(animated: animated) {
@@ -88,5 +89,15 @@ class SceneCoordinator: SceneCoordinatorType {
         return subject.asObservable()
             .take(1)
             .ignoreElements()
+    }
+
+    @discardableResult
+    func didPop() -> Completable {
+        if let navigationController = currentViewController.navigationController {
+            currentViewController = SceneCoordinator
+                .actualViewController(for: navigationController.viewControllers.last!)
+        }
+
+        return Completable.empty()
     }
 }
