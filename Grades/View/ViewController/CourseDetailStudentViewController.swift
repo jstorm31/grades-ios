@@ -8,14 +8,16 @@
 
 import Action
 import RxCocoa
+import RxSwift
 import UIKit
 
 class CourseDetailStudentViewController: BaseViewController, BindableType {
     var viewModel: CourseDetailStudentViewModel!
+    private let bag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = viewModel.course.code
+        navigationItem.title = viewModel.courseCode
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -26,5 +28,13 @@ class CourseDetailStudentViewController: BaseViewController, BindableType {
         }
     }
 
-    func bindViewModel() {}
+    func bindViewModel() {
+        viewModel.classifications
+            .subscribe(onNext: {
+                Log.info("Received: \($0)")
+            }, onError: {
+                Log.error("\($0)")
+            })
+            .disposed(by: bag)
+    }
 }

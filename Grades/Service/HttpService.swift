@@ -36,11 +36,11 @@ class HttpService: NSObject, HttpServiceProtocol {
                     observer.onNext(decodedResponse)
                     observer.onCompleted()
                 } catch {
-                    Log.error("GradesAPI.request: Could not proccess response data to JSON.")
+                    Log.error("HttpService.request: Could not proccess response data to JSON.\n\(error)\n")
                     observer.onError(ApiError.unprocessableData)
                 }
             }, failure: { error in
-                Log.error("GradesAPI.request: External API error: \(error.localizedDescription)")
+                Log.error("HttpService.request: External API error: \(error.localizedDescription)")
                 observer.onError(ApiError.getError(forCode: error.errorCode))
             })
 

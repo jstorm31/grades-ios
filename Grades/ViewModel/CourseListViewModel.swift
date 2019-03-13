@@ -87,7 +87,8 @@ class CourseListViewModel: BaseViewModel {
 
     func onItemSelection(section: Int, item: Int) {
         let course = courses.value[section].items[item]
-        let courseDetailVM = CourseDetailStudentViewModel(course: course, coordinator: sceneCoordinator)
+        let repository = CourseStudentRepository(username: user.username, code: course.code, name: course.name, gradesApi: gradesApi)
+        let courseDetailVM = CourseDetailStudentViewModel(coordinator: sceneCoordinator, repository: repository)
 
         sceneCoordinator.transition(to: .courseDetailStudent(courseDetailVM), type: .push)
     }

@@ -8,6 +8,8 @@
 
 import RxDataSources
 
+// TODO: refactor to use only GradesAPI dependency
+
 /// Raw course representation for decoding from JSON
 struct RawCourse: Decodable {
     var code: String
@@ -19,13 +21,24 @@ struct RawCourse: Decodable {
     }
 }
 
+// Replace RawCourse with this ↙️
+struct CourseRaw: Decodable {
+    var code: String
+    var name: String?
+
+    enum CodingKeys: String, CodingKey {
+        case code = "courseCode"
+        case name = "courseName"
+    }
+}
+
 struct RawKosCourse: Decodable {
     var name: String
 }
 
 struct Course {
     var code: String
-    var name: String = "Course name" // TODO: fetch from kosAPI
+    var name: String?
     var totalPoints: String?
 
     init(code: String, totalPoints: String? = nil) {

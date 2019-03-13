@@ -16,7 +16,7 @@ class BaseViewController: UIViewController {
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        Log.info("Allocated ViewController: \(self)")
+        NSLog("ℹ️ Allocated ViewController: \(self)")
     }
 
     required init?(coder: NSCoder) {
@@ -24,7 +24,7 @@ class BaseViewController: UIViewController {
     }
 
     deinit {
-        Log.info("Deallocated ViewController: \(self)")
+        NSLog("ℹ️ Deallocated ViewController: \(self)")
     }
 
     override func loadView() {

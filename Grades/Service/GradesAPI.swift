@@ -13,13 +13,15 @@ protocol GradesAPIProtocol {
     func getUser() -> Observable<UserInfo>
     func getRoles() -> Observable<UserRoles>
     func getCourses(username: String) -> Observable<[Course]>
+    func getCourse(code: String) -> Observable<CourseRaw>
+    func getCourseStudentClassification(username: String, code: String) -> Observable<CourseStudent>
 }
 
 class GradesAPI: GradesAPIProtocol {
-    let config: [String: String]
-    let httpService: HttpServiceProtocol
+    private let config: [String: String]
+    private let httpService: HttpServiceProtocol
 
-    var baseUrl: String {
+    private var baseUrl: String {
         return config["BaseURL"]!
     }
 
@@ -28,14 +30,14 @@ class GradesAPI: GradesAPIProtocol {
         self.httpService = httpService
     }
 
-    var user: User?
-
     // MARK: API endpoints
 
     private enum Endpoint {
         case userInfo
         case roles
         case courses(String)
+        case course(String)
+        case studentCourse(String, String)
     }
 
     // MARK: Endpoint requests
@@ -50,12 +52,22 @@ class GradesAPI: GradesAPIProtocol {
         return httpService.get(url: createURL(from: .roles), parameters: nil)
     }
 
-    /// Fetch subjects for current user
+    /// Fetch courses for current user
     func getCourses(username: String) -> Observable<[Course]> {
         return httpService.get(url: createURL(from: .courses(username)), parameters: nil)
             .map { (rawCourses: [RawCourse]) -> [Course] in
                 rawCourses.map { (course: RawCourse) -> Course in Course(fromRawCourse: course) }
             }
+    }
+
+    /// Fetch course detail
+    func getCourse(code: String) -> Observable<CourseRaw> {
+        return httpService.get(url: createURL(from: .course(code)), parameters: nil)
+    }
+
+    /// Fetch course classification for student
+    func getCourseStudentClassification(username: String, code: String) -> Observable<CourseStudent> {
+        return httpService.get(url: createURL(from: .studentCourse(username, code)), parameters: ["showHidden": false])
     }
 
     // MARK: helpers
@@ -68,8 +80,14 @@ class GradesAPI: GradesAPIProtocol {
             endpointValue = config["UserInfo"]!
         case .roles:
             endpointValue = config["Roles"]!
+        case let .course(code):
+            endpointValue = config["Course"]!.replacingOccurrences(of: ":code", with: code)
         case let .courses(username):
             endpointValue = config["Courses"]!.replacingOccurrences(of: ":username", with: username)
+        case let .studentCourse(username, code):
+            endpointValue = config["StudentCourse"]!
+                .replacingOccurrences(of: ":username", with: username)
+                .replacingOccurrences(of: ":code", with: code)
         }
 
         return URL(string: "\(baseUrl)\(endpointValue)")!
