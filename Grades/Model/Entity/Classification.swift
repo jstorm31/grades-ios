@@ -6,6 +6,8 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import RxDataSources
+
 struct Classification: Decodable {
     var text: [ClassificationText]
     var scope: String?
@@ -22,6 +24,20 @@ struct Classification: Decodable {
 }
 
 struct ClassificationText: Decodable {
-    var identifier: String?
+    var identifier: String
     var name: String?
+}
+
+struct GroupedClassification {
+    var header: String
+    var items: [Classification]
+}
+
+extension GroupedClassification: SectionModelType {
+    typealias Item = Classification
+
+    init(original: GroupedClassification, items: [Item]) {
+        self = original
+        self.items = items
+    }
 }

@@ -14,9 +14,7 @@ import SwiftSVG
 import UIKit
 
 // TODO: add UI test
-class CourseListViewController: BaseViewController, BindableType {
-    private var tableView: UITableView!
-
+class CourseListViewController: BaseTableViewController, BindableType {
     var viewModel: CourseListViewModel!
     private let bag = DisposeBag()
 
@@ -24,32 +22,19 @@ class CourseListViewController: BaseViewController, BindableType {
 
     override func loadView() {
         super.loadView()
-
-        navigationItem.title = L10n.Courses.title
-
-        let tableView = UITableView()
-        tableView.register(CourseListCell.self, forCellReuseIdentifier: "Cell")
-        tableView.delegate = self
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        self.tableView = tableView
-
-        let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .white
-        refreshControl.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
-        tableView.refreshControl = refreshControl
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
     }
 
     override func viewWillAppear(_: Bool) {
-        if let index = self.tableView.indexPathForSelectedRow {
+        if let index = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: index, animated: true)
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        tableView.register(CourseListCell.self, forCellReuseIdentifier: "CourseCell")
 
         navigationController?.view.makeToastActivity(.center)
         viewModel.bindOutput()
@@ -106,7 +91,7 @@ extension CourseListViewController {
         return RxTableViewSectionedReloadDataSource<CourseGroup>(
             configureCell: { _, tableView, indexPath, item in
                 // swiftlint:disable force_cast
-                let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CourseListCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseListCell
                 cell.course = item
                 return cell
             },

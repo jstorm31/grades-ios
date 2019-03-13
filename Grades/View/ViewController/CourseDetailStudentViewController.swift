@@ -8,16 +8,29 @@
 
 import Action
 import RxCocoa
+import RxDataSources
 import RxSwift
 import UIKit
 
-class CourseDetailStudentViewController: BaseViewController, BindableType {
+class CourseDetailStudentViewController: UITableViewController, BindableType {
     var viewModel: CourseDetailStudentViewModel!
     private let bag = DisposeBag()
+
+    private var dataSource: RxTableViewSectionedReloadDataSource<GroupedClassification> {
+        return RxTableViewSectionedReloadDataSource<GroupedClassification>(
+            configureCell: { [weak self] _, _, indexPath, item in
+                // swiftlint:disable force_cast
+                let cell = self?.tableView.dequeueReusableCell(withIdentifier: "ClassificationCell", for: indexPath) as! ClassificationCell
+                cell.classification = item
+                return cell
+            }
+        )
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = viewModel.courseCode
+        tableView.register(ClassificationCell.self, forCellReuseIdentifier: "ClassificationCell")
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -30,17 +43,20 @@ class CourseDetailStudentViewController: BaseViewController, BindableType {
 
     func bindViewModel() {
         viewModel.classifications
-            .subscribe(onNext: {
-                Log.info("Received: \($0)")
-            })
+            .map { [GroupedClassification(header: "Klasifikace", items: $0)] }
+            .asDriver(onErrorJustReturn: [])
+            .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
 
         viewModel.error.asObserver()
             .subscribe(onNext: { [weak self] error in
-                self?.navigationController?.view.makeCustomToast(error?.localizedDescription,
-                                                                 type: .danger,
-                                                                 position: .center)
+                self?.navigationController?.view
+                    .makeCustomToast(error?.localizedDescription, type: .danger, position: .center)
             })
             .disposed(by: bag)
+    }
+
+    override func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
+        return 40
     }
 }

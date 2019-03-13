@@ -36,10 +36,6 @@ class CourseListCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-
     /// Set and load appearance
     func loadUI() {
         let containerView = UIView()
@@ -59,7 +55,7 @@ class CourseListCell: UITableViewCell {
         self.title = title
 
         let subtitle = UILabel()
-        subtitle.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.Grades.cellSubtitle)
+        subtitle.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.Grades.body)
         subtitle.adjustsFontForContentSizeCategory = true
         subtitle.textColor = UIColor.Theme.grayText
         containerView.addSubview(subtitle)
@@ -71,7 +67,7 @@ class CourseListCell: UITableViewCell {
 
         let rightLabel = UILabel()
         rightLabel.text = ""
-        rightLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.Grades.cellSubtitle)
+        rightLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.Grades.body)
         rightLabel.adjustsFontForContentSizeCategory = true
         rightLabel.textColor = UIColor.Theme.grayText
         containerView.addSubview(rightLabel)
