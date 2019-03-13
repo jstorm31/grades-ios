@@ -10,11 +10,11 @@ import Foundation
 
 class CourseXMLParser: NSObject {
     private var elementName: String = ""
-    var courseName: String?
+    var courseName: String = ""
 }
 
 extension CourseXMLParser: XMLParserDelegate {
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI _: String?, qualifiedName _: String?, attributes _: [String: String] = [:]) {
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI _: String?, qualifiedName: String?, attributes: [String: String] = [:]) {
         self.elementName = elementName
     }
 
@@ -25,8 +25,8 @@ extension CourseXMLParser: XMLParserDelegate {
     func parser(_: XMLParser, foundCharacters string: String) {
         let data = string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
 
-        if !data.isEmpty, elementName == "name" {
-            courseName = data
+        if !data.isEmpty, elementName == "atom:title" {
+            courseName += data
         }
     }
 }

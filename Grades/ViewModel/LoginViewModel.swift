@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 import UIKit
 
-class LoginViewModel {
+class LoginViewModel: BaseViewModel {
     // MARK: properties
 
     let sceneCoordinator: SceneCoordinatorType
@@ -44,7 +44,7 @@ class LoginViewModel {
                 guard let `self` = self else { return }
 
                 let kosApi = KosApi(client: self.authService.handler.client, configuration: self.config.kosAPI)
-                let courseListViewModel = CourseListViewModel(gradesApi: self.gradesApi, kosApi: kosApi, user: userInfo)
+                let courseListViewModel = CourseListViewModel(sceneCoordinator: self.sceneCoordinator, gradesApi: self.gradesApi, kosApi: kosApi, user: userInfo)
 
                 // Transition to course list scene
                 self.sceneCoordinator.transition(to: .courseList(courseListViewModel), type: .modal)

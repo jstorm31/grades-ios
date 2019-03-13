@@ -17,6 +17,10 @@ protocol SceneCoordinatorType {
     /// pop scene from navigation stack or dismiss current modal
     @discardableResult
     func pop(animated: Bool) -> Completable
+
+    /// Sets scene's current ViewController after poped from scene
+    @discardableResult
+    func didPop() -> Completable
 }
 
 extension SceneCoordinatorType {

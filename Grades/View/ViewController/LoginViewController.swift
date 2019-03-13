@@ -18,7 +18,7 @@ class LoginViewController: BaseViewController, BindableType {
     // MARK: properties
 
     var viewModel: LoginViewModel!
-    let bag = DisposeBag()
+    private let bag = DisposeBag()
 
     // MARK: lifecycle methods
 

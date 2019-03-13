@@ -14,13 +14,13 @@ import SwiftSVG
 import UIKit
 
 // TODO: add UI test
-class CourseListViewController: UIViewController, BindableType {
+class CourseListViewController: BaseViewController, BindableType {
     private var tableView: UITableView!
 
     var viewModel: CourseListViewModel!
-    var bag = DisposeBag()
+    private let bag = DisposeBag()
 
-    let dataSource = CourseListViewController.dataSource()
+    private let dataSource = CourseListViewController.dataSource()
 
     override func loadView() {
         super.loadView()
@@ -37,17 +37,22 @@ class CourseListViewController: UIViewController, BindableType {
         self.tableView = tableView
 
         let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = UIColor.Theme.grayText
-        refreshControl.attributedTitle = NSAttributedString(string: L10n.Courses.fetching)
+        refreshControl.tintColor = .white
         refreshControl.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
         tableView.refreshControl = refreshControl
+    }
+
+    override func viewWillAppear(_: Bool) {
+        if let index = self.tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: index, animated: true)
+        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.view.makeToastActivity(.center)
         viewModel.bindOutput()
-		tableView.refreshControl!.beginRefreshing() // TODO: find out better solution for initial load
     }
 
     func bindViewModel() {
@@ -63,15 +68,31 @@ class CourseListViewController: UIViewController, BindableType {
             })
             .disposed(by: bag)
 
-        courses
-            .data()
+        courses.data()
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
 
-        courses
-            .loading()
-            .bind(to: tableView.refreshControl!.rx.isRefreshing)
+        // Initial activity
+        courses.loading()
+            .take(1)
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { [weak self] isLoading in
+                if !isLoading {
+                    self?.navigationController?.view.hideToastActivity()
+                }
+            })
+            .disposed(by: bag)
+
+        courses.loading()
+            .asDriver(onErrorJustReturn: false)
+            .drive(tableView.refreshControl!.rx.isRefreshing)
+            .disposed(by: bag)
+
+        tableView.rx.itemSelected.asDriver()
+            .drive(onNext: { [weak self] indexPath in
+                self?.viewModel.onItemSelection(section: indexPath.section, item: indexPath.item)
+            })
             .disposed(by: bag)
     }
 
