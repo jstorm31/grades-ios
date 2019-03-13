@@ -10,7 +10,7 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-class CourseListViewModel {
+class CourseListViewModel: BaseViewModel {
     private let sceneCoordinator: SceneCoordinatorType
     private let gradesApi: GradesAPIProtocol
     private let kosApi: KosApiProtocol

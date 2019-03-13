@@ -78,6 +78,7 @@
 		96B20DA72236C838004794BE /* UINavigationBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA62236C838004794BE /* UINavigationBar+.swift */; };
 		96B20DAB2236CEA9004794BE /* CAGradeintLayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DAA2236CEA9004794BE /* CAGradeintLayer+.swift */; };
 		96B20DAD2236DE64004794BE /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DAC2236DE64004794BE /* UINavigationController+.swift */; };
+		96F3A3732239080B00FB63EF /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A3722239080B00FB63EF /* BaseViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,6 +178,7 @@
 		96B20DA62236C838004794BE /* UINavigationBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+.swift"; sourceTree = "<group>"; };
 		96B20DAA2236CEA9004794BE /* CAGradeintLayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CAGradeintLayer+.swift"; sourceTree = "<group>"; };
 		96B20DAC2236DE64004794BE /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
+		96F3A3722239080B00FB63EF /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,6 +260,7 @@
 				961A2FF02229D44A00A624DC /* LoginViewModel.swift */,
 				9682A6BD222D1F7600773E28 /* CourseListViewModel.swift */,
 				96B20DA22236692E004794BE /* CourseDetailStudentViewModel.swift */,
+				96F3A3722239080B00FB63EF /* BaseViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -772,6 +775,7 @@
 				966ABB57222D986A007DD046 /* Course.swift in Sources */,
 				96861082222AEFE60069B81B /* Scene.swift in Sources */,
 				9699ABA42232A2C7006D2F73 /* ApiError.swift in Sources */,
+				96F3A3732239080B00FB63EF /* BaseViewModel.swift in Sources */,
 				96861073222AA55F0069B81B /* UIColor+.swift in Sources */,
 				9658071D223068940065E23D /* ObservableType+MonitorLoading.swift in Sources */,
 				9686108B222B1B210069B81B /* SceneTransitionType.swift in Sources */,

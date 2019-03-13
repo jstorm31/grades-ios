@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 import UIKit
 
-class LoginViewModel {
+class LoginViewModel: BaseViewModel {
     // MARK: properties
 
     let sceneCoordinator: SceneCoordinatorType

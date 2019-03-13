@@ -10,6 +10,23 @@ import ToastSwiftFramework
 import UIKit
 
 class BaseViewController: UIViewController {
+    convenience init() {
+        self.init(nibName: nil, bundle: nil)
+    }
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        Log.info("Allocated ViewController: \(self)")
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+    deinit {
+        Log.info("Deallocated ViewController: \(self)")
+    }
+
     override func loadView() {
         super.loadView()
         view.backgroundColor = UIColor.Theme.background

@@ -9,7 +9,7 @@
 import Action
 import RxSwift
 
-struct CourseDetailStudentViewModel {
+class CourseDetailStudentViewModel: BaseViewModel {
     var course: Course
     let coordinator: SceneCoordinatorType
 

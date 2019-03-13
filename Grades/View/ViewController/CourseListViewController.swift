@@ -18,9 +18,9 @@ class CourseListViewController: BaseViewController, BindableType {
     private var tableView: UITableView!
 
     var viewModel: CourseListViewModel!
-    var bag = DisposeBag()
+    private let bag = DisposeBag()
 
-    let dataSource = CourseListViewController.dataSource()
+    private let dataSource = CourseListViewController.dataSource()
 
     override func loadView() {
         super.loadView()
