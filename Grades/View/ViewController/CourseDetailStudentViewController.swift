@@ -32,8 +32,14 @@ class CourseDetailStudentViewController: BaseViewController, BindableType {
         viewModel.classifications
             .subscribe(onNext: {
                 Log.info("Received: \($0)")
-            }, onError: {
-                Log.error("\($0)")
+            })
+            .disposed(by: bag)
+
+        viewModel.error.asObserver()
+            .subscribe(onNext: { [weak self] error in
+                self?.navigationController?.view.makeCustomToast(error?.localizedDescription,
+                                                                 type: .danger,
+                                                                 position: .center)
             })
             .disposed(by: bag)
     }

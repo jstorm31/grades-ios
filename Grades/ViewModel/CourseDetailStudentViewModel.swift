@@ -48,14 +48,12 @@ class CourseDetailStudentViewModel: BaseViewModel {
 
         courseSubscription
             .monitorLoading()
-            .errors()
-            .bind(to: error)
-            .disposed(by: bag)
-
-        courseSubscription
-            .monitorLoading()
             .loading()
             .bind(to: isLoading)
+            .disposed(by: bag)
+
+        repository.error
+            .bind(to: error)
             .disposed(by: bag)
     }
 }

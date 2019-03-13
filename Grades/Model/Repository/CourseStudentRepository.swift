@@ -19,7 +19,8 @@ class CourseStudentRepository: CourseStudentRepositoryProtocol {
 
     let code: String
     let name: String?
-    lazy var course = BehaviorRelay<CourseStudent?>(value: nil)
+    var course = BehaviorRelay<CourseStudent?>(value: nil)
+    lazy var error = BehaviorSubject<Error?>(value: nil)
 
     init(username: String, code: String, name: String?, gradesApi: GradesAPIProtocol) {
         self.code = code
@@ -33,8 +34,16 @@ class CourseStudentRepository: CourseStudentRepositoryProtocol {
 
     /// Fetch course detail and student classification, merge and bind as CourseStudent
     private func getCourseDetail(username: String, courseCode: String) {
-        gradesApi.getCourseStudentClassification(username: username, code: courseCode)
+        let coursesSubscription = gradesApi.getCourseStudentClassification(username: username, code: courseCode).share()
+
+        coursesSubscription
             .bind(to: course)
+            .disposed(by: bag)
+
+        coursesSubscription
+            .monitorLoading()
+            .errors()
+            .bind(to: error)
             .disposed(by: bag)
     }
 }
