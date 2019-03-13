@@ -82,6 +82,7 @@
 		96F3A37922390F6800FB63EF /* CourseStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A37822390F6800FB63EF /* CourseStudent.swift */; };
 		96F3A37B22390FF200FB63EF /* Classification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A37A22390FF200FB63EF /* Classification.swift */; };
 		96F3A37D2239124F00FB63EF /* CourseStudentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A37C2239124F00FB63EF /* CourseStudentRepository.swift */; };
+		96F3A3812239A84F00FB63EF /* DynamicValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A3802239A84F00FB63EF /* DynamicValue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,6 +186,7 @@
 		96F3A37822390F6800FB63EF /* CourseStudent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStudent.swift; sourceTree = "<group>"; };
 		96F3A37A22390FF200FB63EF /* Classification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classification.swift; sourceTree = "<group>"; };
 		96F3A37C2239124F00FB63EF /* CourseStudentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStudentRepository.swift; sourceTree = "<group>"; };
+		96F3A3802239A84F00FB63EF /* DynamicValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicValue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -480,6 +482,7 @@
 				9699AB98223256D2006D2F73 /* OverviewItem.swift */,
 				96F3A37822390F6800FB63EF /* CourseStudent.swift */,
 				96F3A37A22390FF200FB63EF /* Classification.swift */,
+				96F3A3802239A84F00FB63EF /* DynamicValue.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -796,6 +799,7 @@
 				9686107C222AAED50069B81B /* UIPrimaryButton.swift in Sources */,
 				96B20DAD2236DE64004794BE /* UINavigationController+.swift in Sources */,
 				9608B9C92224364200E1CEAF /* EnvironmentConfiguration.swift in Sources */,
+				96F3A3812239A84F00FB63EF /* DynamicValue.swift in Sources */,
 				961BCE81222C515700BD6663 /* GradesAPI.swift in Sources */,
 				96F3A37922390F6800FB63EF /* CourseStudent.swift in Sources */,
 				96861080222AEC680069B81B /* UIFont+.swift in Sources */,
