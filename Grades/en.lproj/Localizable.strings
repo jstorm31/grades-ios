@@ -10,3 +10,5 @@
 "courses.studying" = "Studying";
 "courses.teaching" = "Teaching";
 "courses.points" = "p";
+
+"classification.notRated" = "Not rated";

@@ -36,7 +36,7 @@ class KosApi: KosApiProtocol {
         var parameters: OAuthSwift.Parameters = [:]
 
         if let locale = Locale.current.languageCode {
-            parameters.add(["lang": locale])
+            parameters = ["lang": locale]
         }
 
         return Observable.create { [weak self] observer in

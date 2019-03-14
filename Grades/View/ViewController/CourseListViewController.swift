@@ -10,7 +10,6 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 import RxSwiftExt
-import SwiftSVG
 import UIKit
 
 // TODO: add UI test
@@ -22,6 +21,8 @@ class CourseListViewController: BaseTableViewController, BindableType {
 
     override func loadView() {
         super.loadView()
+
+        navigationItem.title = L10n.Courses.title
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
     }
 

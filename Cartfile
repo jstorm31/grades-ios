@@ -1,6 +1,5 @@
 github "SnapKit/SnapKit" ~> 4.0.0
 github "OAuthSwift/OAuthSwift" ~> 1.2.0
-github "mchoe/SwiftSVG" ~> 2.0
 github "RxSwiftCommunity/RxDataSources" ~> 3.0
 github "RxSwiftCommunity/Action" ~> 3.6.0
 github "RxSwiftCommunity/RxSwiftExt"

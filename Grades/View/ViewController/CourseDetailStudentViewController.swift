@@ -57,6 +57,6 @@ class CourseDetailStudentViewController: UITableViewController, BindableType {
     }
 
     override func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-        return 40
+        return 60
     }
 }

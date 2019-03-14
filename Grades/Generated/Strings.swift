@@ -19,6 +19,11 @@ internal enum L10n {
         internal static let login = L10n.tr("Localizable", "button.login")
     }
 
+    internal enum Classification {
+        /// Not rated
+        internal static let notRated = L10n.tr("Localizable", "classification.notRated")
+    }
+
     internal enum Courses {
         /// Fetching courses
         internal static let fetching = L10n.tr("Localizable", "courses.fetching")
