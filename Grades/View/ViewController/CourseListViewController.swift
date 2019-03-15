@@ -19,6 +19,7 @@ class CourseListViewController: BaseTableViewController, BindableType {
 
     override func loadView() {
         super.loadView()
+        loadView(hasTableHeaderView: false)
 
         navigationItem.title = L10n.Courses.title
         tableView.register(CourseListCell.self, forCellReuseIdentifier: "CourseCell")

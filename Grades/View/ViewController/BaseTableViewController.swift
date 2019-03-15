@@ -14,13 +14,31 @@ import UIKit
 class BaseTableViewController: BaseViewController {
     var tableView: UITableView!
 
-    override func loadView() {
+    func loadView(hasTableHeaderView: Bool = false) {
         super.loadView()
 
         let tableView = UITableView()
         view.addSubview(tableView)
+
+        let headerHeight = 80
+        if hasTableHeaderView {
+            let container = UIView()
+            tableView.tableHeaderView = container
+            container.snp.makeConstraints { make in
+                make.top.equalToSuperview()
+                make.leading.trailing.equalToSuperview().inset(20)
+                make.width.equalToSuperview().inset(20)
+                make.height.equalTo(headerHeight)
+            }
+        }
+
         tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            if hasTableHeaderView {
+                make.top.equalToSuperview().offset(headerHeight)
+                make.leading.trailing.bottom.equalToSuperview()
+            } else {
+                make.edges.equalToSuperview()
+            }
         }
         self.tableView = tableView
 
@@ -33,7 +51,7 @@ class BaseTableViewController: BaseViewController {
         self.tableView.contentInsetAdjustmentBehavior = .always
         tableView.refreshControl!.sizeToFit()
         let top = self.tableView.adjustedContentInset.top
-        let y = tableView.refreshControl!.frame.maxY + top
+        let y = tableView.refreshControl!.frame.maxY + top + CGFloat(integerLiteral: headerHeight)
         self.tableView.setContentOffset(CGPoint(x: 0, y: -y), animated: true)
     }
 

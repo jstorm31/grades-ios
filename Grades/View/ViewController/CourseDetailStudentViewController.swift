@@ -36,6 +36,7 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
 
     override func loadView() {
         super.loadView()
+        loadView(hasTableHeaderView: true)
 
         navigationItem.title = viewModel.courseCode
         tableView.register(ClassificationCell.self, forCellReuseIdentifier: "ClassificationCell")
@@ -100,20 +101,12 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
     }
 
     private func loadUI() {
-        let container = UIView()
-        tableView.tableHeaderView = container
-        container.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(20)
-            make.width.equalToSuperview().inset(20)
-            make.height.equalTo(45)
-        }
-
         // Header label
         let header = UILabel()
         header.text = L10n.Classification.total
         header.font = UIFont.Grades.cellTitle
         header.textColor = UIColor.Theme.text
-        container.addSubview(header)
+        tableView.tableHeaderView?.addSubview(header)
         header.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.centerY.equalToSuperview()
@@ -125,7 +118,7 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
         grade.font = UIFont.Grades.display
         grade.textColor = UIColor.Theme.text
         grade.textAlignment = .right
-        container.addSubview(grade)
+        tableView.tableHeaderView?.addSubview(grade)
         grade.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview()
@@ -137,7 +130,7 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
         points.font = UIFont.Grades.body
         points.textColor = UIColor.Theme.text
         points.textAlignment = .right
-        container.addSubview(points)
+        tableView.tableHeaderView?.addSubview(points)
         points.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalTo(headerGradeLabel.snp.leading).offset(-13)
