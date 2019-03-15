@@ -13,11 +13,12 @@ import UIKit
 class LoginViewController: BaseViewController, BindableType {
     // MARK: UI elements
 
-    weak var loginButton: UIButton!
+    var loginButton: UIButton!
 
     // MARK: properties
 
     var viewModel: LoginViewModel!
+    private let activityIndicator = ActivityIndicator()
     private let bag = DisposeBag()
 
     // MARK: lifecycle methods
@@ -50,25 +51,24 @@ class LoginViewController: BaseViewController, BindableType {
 
     // MARK: methods
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        activityIndicator.asDriver()
+            .drive(view.rx.refreshing)
+            .disposed(by: bag)
+    }
+
     func bindViewModel() {}
 
     // MARK: events
 
     @objc private func authButtonTapped(_: UIButton) {
-        let subscription = viewModel.authenticate(viewController: self)
-            .share()
-
-        subscription
+        viewModel.authenticate(viewController: self)
+            .trackActivity(activityIndicator)
             .subscribe(onError: { [weak self] error in
                 self?.view.makeCustomToast(error.localizedDescription, type: .danger)
             })
-            .disposed(by: bag)
-
-        subscription
-            .monitorLoading()
-            .loading()
-            .asDriver(onErrorJustReturn: false)
-            .drive(view.rx.refreshing)
             .disposed(by: bag)
     }
 }

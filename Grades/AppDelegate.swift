@@ -9,8 +9,6 @@
 import OAuthSwift
 import UIKit
 
-import Bagel // TODO: remove on release
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
@@ -22,8 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.rootViewController = LoginViewController()
-
-        Bagel.start() // TODO: remove on release
 
         // LoginViewModel dependencies initialization
         let sceneCoordinator = SceneCoordinator(window: window!)

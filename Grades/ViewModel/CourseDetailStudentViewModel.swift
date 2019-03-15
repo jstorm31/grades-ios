@@ -18,9 +18,8 @@ class CourseDetailStudentViewModel: BaseViewModel {
     let courseCode: String
     let courseName: String?
     let classifications = BehaviorRelay<[GroupedClassification]>(value: [])
+    let isFetching = BehaviorRelay<Bool>(value: false)
     let error = BehaviorSubject<Error?>(value: nil)
-    let isLoading = PublishSubject<Bool>()
-
     var onBack: CocoaAction
 
     init(coordinator: SceneCoordinatorType, repository: CourseStudentRepository) {
@@ -35,24 +34,19 @@ class CourseDetailStudentViewModel: BaseViewModel {
         }
 
         super.init()
-        bindOutput()
     }
 
-    private func bindOutput() {
-        let classification = repository.groupedClassifications.asObservable().share()
-
-        classification
+    func bindOutput() {
+        repository.groupedClassifications
+            .map {
+                $0.filter {
+                    $0.type != ClassificationType.pointsTotal.rawValue && $0.type != ClassificationType.finalScore.rawValue
+                }
+            }
             .bind(to: classifications)
             .disposed(by: bag)
 
-        classification
-            .monitorLoading()
-            .loading()
-            .bind(to: isLoading)
-            .disposed(by: bag)
-
-        repository.error
-            .bind(to: error)
-            .disposed(by: bag)
+        repository.isFetching.bind(to: isFetching).disposed(by: bag)
+        repository.error.bind(to: error).disposed(by: bag)
     }
 }

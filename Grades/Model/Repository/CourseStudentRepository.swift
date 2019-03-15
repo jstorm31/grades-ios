@@ -15,19 +15,27 @@ protocol CourseStudentRepositoryProtocol {
 
 class CourseStudentRepository: CourseStudentRepositoryProtocol {
     private let gradesApi: GradesAPIProtocol
+    private let activityIndicator = ActivityIndicator()
     private let bag = DisposeBag()
 
     let code: String
     let name: String?
 
-    var course = BehaviorRelay<CourseStudent?>(value: nil)
-    var groupedClassifications = BehaviorSubject<[GroupedClassification]>(value: [])
-    lazy var error = BehaviorSubject<Error?>(value: nil)
+    let course = BehaviorRelay<CourseStudent?>(value: nil)
+    let groupedClassifications = BehaviorSubject<[GroupedClassification]>(value: [])
+    let isFetching = BehaviorRelay<Bool>(value: false)
+    let error = BehaviorSubject<Error?>(value: nil)
 
     init(username: String, code: String, name: String?, gradesApi: GradesAPIProtocol) {
         self.code = code
         self.name = name
         self.gradesApi = gradesApi
+
+        activityIndicator
+            .distinctUntilChanged()
+            .asObservable()
+            .bind(to: isFetching)
+            .disposed(by: bag)
 
         getCourseDetail(username: username, courseCode: code)
     }
@@ -36,7 +44,9 @@ class CourseStudentRepository: CourseStudentRepositoryProtocol {
 
     /// Fetch course detail and student classification, merge and bind as CourseStudent
     private func getCourseDetail(username: String, courseCode: String) {
-        let coursesSubscription = gradesApi.getCourseStudentClassification(username: username, code: courseCode).share()
+        let coursesSubscription = gradesApi.getCourseStudentClassification(username: username, code: courseCode)
+            .trackActivity(activityIndicator)
+            .share()
 
         coursesSubscription
             .bind(to: course)
@@ -49,12 +59,6 @@ class CourseStudentRepository: CourseStudentRepositoryProtocol {
                 self?.groupedClassifications.onNext($0)
             })
             .disposed(by: bag)
-
-        coursesSubscription
-            .monitorLoading()
-            .errors()
-            .bind(to: error)
-            .disposed(by: bag)
     }
 
     /// Groups classifications by their root parent classification
@@ -62,7 +66,7 @@ class CourseStudentRepository: CourseStudentRepositoryProtocol {
         let childs = classifications.filter { $0.parentId != nil }
         var groups = classifications
             .filter { $0.parentId == nil }
-            .map { GroupedClassification(id: $0.id, header: $0.getLocalizedText(), totalValue: $0.value, items: []) }
+            .map { GroupedClassification(fromClassification: $0) }
 
         for item in childs {
             let rootId = findRootClassification(forChild: item, inClassifications: classifications)

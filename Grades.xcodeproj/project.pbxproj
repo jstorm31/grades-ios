@@ -10,7 +10,6 @@
 		9608B9AD2223F10F00E1CEAF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9608B9AB2223F10F00E1CEAF /* Localizable.strings */; };
 		9608B9B12224149700E1CEAF /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9608B9B02224149700E1CEAF /* Strings.swift */; };
 		9608B9C92224364200E1CEAF /* EnvironmentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9608B9C82224364200E1CEAF /* EnvironmentConfiguration.swift */; };
-		961789312232F65D007006E8 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961789302232F65D007006E8 /* RxBlocking.framework */; };
 		961A2FD422293AD000A624DC /* Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD322293AD000A624DC /* Debug.plist */; };
 		961A2FD622293AE000A624DC /* Release.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD522293AE000A624DC /* Release.plist */; };
 		961A2FD822293AEA00A624DC /* Common.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD722293AEA00A624DC /* Common.plist */; };
@@ -35,9 +34,6 @@
 		96520E9F2223D66000AB6499 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E9D2223D66000AB6499 /* LaunchScreen.storyboard */; };
 		96580714222FFA810065E23D /* CourseListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96580713222FFA810065E23D /* CourseListViewModelTests.swift */; };
 		9658071922304B420065E23D /* Action.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658071822304B420065E23D /* Action.framework */; };
-		9658071B22304D5B0065E23D /* RxAtomic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658071A22304D5B0065E23D /* RxAtomic.framework */; };
-		9658071D223068940065E23D /* ObservableType+MonitorLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9658071C223068940065E23D /* ObservableType+MonitorLoading.swift */; };
-		9658071F22306CBD0065E23D /* RxSwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658071E22306CBD0065E23D /* RxSwiftExt.framework */; };
 		965ADAEB223569C500AA8CF4 /* CourseListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965ADAEA223569C500AA8CF4 /* CourseListCell.swift */; };
 		965ADAED2235930D00AA8CF4 /* KosApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965ADAEC2235930D00AA8CF4 /* KosApi.swift */; };
 		965ADAF12235973100AA8CF4 /* KosApiMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965ADAF02235973100AA8CF4 /* KosApiMock.swift */; };
@@ -49,8 +45,6 @@
 		9682A6BB222D1EAA00773E28 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96861076222AAE6C0069B81B /* RxSwift.framework */; };
 		9682A6BC222D1EAA00773E28 /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9682A6A7222D19E800773E28 /* RxTest.framework */; };
 		9682A6BE222D1F7600773E28 /* CourseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9682A6BD222D1F7600773E28 /* CourseListViewModel.swift */; };
-		9682A6C5222D32B800773E28 /* Bagel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0D2228669F00FB4A05 /* Bagel.framework */; };
-		9682A6C6222D336800773E28 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0F2228687400FB4A05 /* CocoaAsyncSocket.framework */; };
 		96861070222AA4550069B81B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686106F222AA4550069B81B /* BaseViewController.swift */; };
 		96861073222AA55F0069B81B /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96861072222AA55F0069B81B /* UIColor+.swift */; };
 		96861077222AAE6C0069B81B /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96861076222AAE6C0069B81B /* RxSwift.framework */; };
@@ -66,9 +60,12 @@
 		96939EDD223AD8A500A49E57 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EDC223AD8A500A49E57 /* Double+.swift */; };
 		96939EE1223B970600A49E57 /* CourseStudentRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EE0223B970600A49E57 /* CourseStudentRepositoryTests.swift */; };
 		96939EE4223B98BA00A49E57 /* CourseStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EE3223B98BA00A49E57 /* CourseStudent.swift */; };
+		96939EE6223BB97500A49E57 /* ClassificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EE5223BB97500A49E57 /* ClassificationType.swift */; };
+		96939EE7223BC61900A49E57 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961789302232F65D007006E8 /* RxBlocking.framework */; };
+		96939EEB223BDAE600A49E57 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EEA223BDAE600A49E57 /* ActivityIndicator.swift */; };
+		96939EEC223BDCCC00A49E57 /* RxAtomic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658071A22304D5B0065E23D /* RxAtomic.framework */; };
 		9699AB99223256D2006D2F73 /* OverviewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699AB98223256D2006D2F73 /* OverviewItem.swift */; };
 		9699AB9C22326512006D2F73 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699AB9B22326512006D2F73 /* Log.swift */; };
-		9699AB9E22326B74006D2F73 /* Willow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9699AB9D22326B74006D2F73 /* Willow.framework */; };
 		9699ABA22232902A006D2F73 /* ToastSwiftFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9699ABA12232902A006D2F73 /* ToastSwiftFramework.framework */; };
 		9699ABA42232A2C7006D2F73 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699ABA32232A2C7006D2F73 /* ApiError.swift */; };
 		9699ABA82232C091006D2F73 /* UIView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699ABA72232C091006D2F73 /* UIView+Rx.swift */; };
@@ -145,7 +142,6 @@
 		965807152230099D0065E23D /* GradesAPIMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesAPIMock.swift; sourceTree = "<group>"; };
 		9658071822304B420065E23D /* Action.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Action.framework; path = Carthage/Build/iOS/Action.framework; sourceTree = "<group>"; };
 		9658071A22304D5B0065E23D /* RxAtomic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxAtomic.framework; path = Carthage/Build/iOS/RxAtomic.framework; sourceTree = "<group>"; };
-		9658071C223068940065E23D /* ObservableType+MonitorLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableType+MonitorLoading.swift"; sourceTree = "<group>"; };
 		9658071E22306CBD0065E23D /* RxSwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwiftExt.framework; path = Carthage/Build/iOS/RxSwiftExt.framework; sourceTree = "<group>"; };
 		965ADAEA223569C500AA8CF4 /* CourseListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListCell.swift; sourceTree = "<group>"; };
 		965ADAEC2235930D00AA8CF4 /* KosApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KosApi.swift; sourceTree = "<group>"; };
@@ -175,6 +171,9 @@
 		96939EDC223AD8A500A49E57 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		96939EE0223B970600A49E57 /* CourseStudentRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStudentRepositoryTests.swift; sourceTree = "<group>"; };
 		96939EE3223B98BA00A49E57 /* CourseStudent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStudent.swift; sourceTree = "<group>"; };
+		96939EE5223BB97500A49E57 /* ClassificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationType.swift; sourceTree = "<group>"; };
+		96939EE8223BC84600A49E57 /* RxSwiftUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwiftUtilities.framework; path = Carthage/Build/iOS/RxSwiftUtilities.framework; sourceTree = "<group>"; };
+		96939EEA223BDAE600A49E57 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		9699AB98223256D2006D2F73 /* OverviewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewItem.swift; sourceTree = "<group>"; };
 		9699AB9B22326512006D2F73 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		9699AB9D22326B74006D2F73 /* Willow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Willow.framework; path = Carthage/Build/iOS/Willow.framework; sourceTree = "<group>"; };
@@ -210,20 +209,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96939EEC223BDCCC00A49E57 /* RxAtomic.framework in Frameworks */,
 				9658071922304B420065E23D /* Action.framework in Frameworks */,
 				967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */,
 				969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */,
 				96861077222AAE6C0069B81B /* RxSwift.framework in Frameworks */,
 				96861079222AAE6F0069B81B /* RxCocoa.framework in Frameworks */,
-				961789312232F65D007006E8 /* RxBlocking.framework in Frameworks */,
 				96A80A6F222F191F00986A90 /* RxDataSources.framework in Frameworks */,
 				96A80A71222F1B3000986A90 /* Differentiator.framework in Frameworks */,
 				9699ABA22232902A006D2F73 /* ToastSwiftFramework.framework in Frameworks */,
-				9682A6C6222D336800773E28 /* CocoaAsyncSocket.framework in Frameworks */,
-				9682A6C5222D32B800773E28 /* Bagel.framework in Frameworks */,
-				9699AB9E22326B74006D2F73 /* Willow.framework in Frameworks */,
-				9658071B22304D5B0065E23D /* RxAtomic.framework in Frameworks */,
-				9658071F22306CBD0065E23D /* RxSwiftExt.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +227,7 @@
 			files = (
 				9682A6BB222D1EAA00773E28 /* RxSwift.framework in Frameworks */,
 				9682A6BC222D1EAA00773E28 /* RxTest.framework in Frameworks */,
+				96939EE7223BC61900A49E57 /* RxBlocking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +358,7 @@
 		967D1E3F2223DDD3007E5217 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				96939EE8223BC84600A49E57 /* RxSwiftUtilities.framework */,
 				961789302232F65D007006E8 /* RxBlocking.framework */,
 				9699ABA12232902A006D2F73 /* ToastSwiftFramework.framework */,
 				9699AB9D22326B74006D2F73 /* Willow.framework */,
@@ -426,12 +422,12 @@
 				96861072222AA55F0069B81B /* UIColor+.swift */,
 				9686107D222AB4D40069B81B /* UIView+.swift */,
 				9686107F222AEC680069B81B /* UIFont+.swift */,
-				9658071C223068940065E23D /* ObservableType+MonitorLoading.swift */,
 				9699ABA72232C091006D2F73 /* UIView+Rx.swift */,
 				96B20DA62236C838004794BE /* UINavigationBar+.swift */,
 				96B20DAA2236CEA9004794BE /* CAGradeintLayer+.swift */,
 				96B20DAC2236DE64004794BE /* UINavigationController+.swift */,
 				96939EDC223AD8A500A49E57 /* Double+.swift */,
+				96939EEA223BDAE600A49E57 /* ActivityIndicator.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -504,6 +500,7 @@
 				96F3A37822390F6800FB63EF /* CourseStudent.swift */,
 				96F3A37A22390FF200FB63EF /* Classification.swift */,
 				96F3A3802239A84F00FB63EF /* DynamicValue.swift */,
+				96939EE5223BB97500A49E57 /* ClassificationType.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -737,16 +734,12 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxTest.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Bagel.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/CocoaAsyncSocket.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Differentiator.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Action.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxAtomic.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxSwiftExt.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Willow.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/ToastSwiftFramework.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxAtomic.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
@@ -757,16 +750,12 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxCocoa.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxTest.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Bagel.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaAsyncSocket.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxDataSources.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Differentiator.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Action.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxAtomic.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwiftExt.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Willow.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/ToastSwiftFramework.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxBlocking.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxAtomic.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -817,6 +806,7 @@
 				9699ABA82232C091006D2F73 /* UIView+Rx.swift in Sources */,
 				9686107C222AAED50069B81B /* UIPrimaryButton.swift in Sources */,
 				96B20DAD2236DE64004794BE /* UINavigationController+.swift in Sources */,
+				96939EEB223BDAE600A49E57 /* ActivityIndicator.swift in Sources */,
 				9608B9C92224364200E1CEAF /* EnvironmentConfiguration.swift in Sources */,
 				96F3A3812239A84F00FB63EF /* DynamicValue.swift in Sources */,
 				961BCE81222C515700BD6663 /* GradesAPI.swift in Sources */,
@@ -836,6 +826,7 @@
 				96A80A75222F1D0400986A90 /* CourseListViewController.swift in Sources */,
 				9686107E222AB4D40069B81B /* UIView+.swift in Sources */,
 				9699AB99223256D2006D2F73 /* OverviewItem.swift in Sources */,
+				96939EE6223BB97500A49E57 /* ClassificationType.swift in Sources */,
 				965ADAEB223569C500AA8CF4 /* CourseListCell.swift in Sources */,
 				96861085222AF2630069B81B /* BindableType.swift in Sources */,
 				961A2FF12229D44A00A624DC /* LoginViewModel.swift in Sources */,
@@ -846,7 +837,6 @@
 				96F3A3732239080B00FB63EF /* BaseViewModel.swift in Sources */,
 				96861073222AA55F0069B81B /* UIColor+.swift in Sources */,
 				96F3A3832239B02E00FB63EF /* ClassificationCell.swift in Sources */,
-				9658071D223068940065E23D /* ObservableType+MonitorLoading.swift in Sources */,
 				9686108B222B1B210069B81B /* SceneTransitionType.swift in Sources */,
 				96F3A3852239B4B200FB63EF /* BaseTableViewController.swift in Sources */,
 				96B20DAB2236CEA9004794BE /* CAGradeintLayer+.swift in Sources */,

@@ -49,8 +49,17 @@ struct ClassificationText: Codable {
 struct GroupedClassification {
     var id: Int
     var header: String
+    var type: String?
     var totalValue: DynamicValue?
     var items: [Classification]
+
+    init(fromClassification classification: Classification, items: [Classification] = []) {
+        id = classification.id
+        header = classification.getLocalizedText()
+        type = classification.type
+        totalValue = classification.value
+        self.items = items
+    }
 }
 
 extension GroupedClassification: SectionModelType {

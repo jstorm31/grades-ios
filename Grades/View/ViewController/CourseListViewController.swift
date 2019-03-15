@@ -9,10 +9,8 @@
 import RxCocoa
 import RxDataSources
 import RxSwift
-import RxSwiftExt
 import UIKit
 
-// TODO: add UI test
 class CourseListViewController: BaseTableViewController, BindableType {
     var viewModel: CourseListViewModel!
     private let bag = DisposeBag()
@@ -23,26 +21,34 @@ class CourseListViewController: BaseTableViewController, BindableType {
         super.loadView()
 
         navigationItem.title = L10n.Courses.title
+        tableView.register(CourseListCell.self, forCellReuseIdentifier: "CourseCell")
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
-    }
-
-    override func viewWillAppear(_: Bool) {
-        if let index = tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: index, animated: true)
-        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.register(CourseListCell.self, forCellReuseIdentifier: "CourseCell")
+        tableView.rx.itemSelected.asDriver()
+            .drive(onNext: { [weak self] indexPath in
+                self?.viewModel.onItemSelection(section: indexPath.section, item: indexPath.item)
+            })
+            .disposed(by: bag)
+    }
 
-        navigationController?.view.makeToastActivity(.center)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         viewModel.bindOutput()
     }
 
     func bindViewModel() {
-        let courses = viewModel.courses.monitorLoading().share()
+        viewModel.courses
+            .asDriver(onErrorJustReturn: [])
+            .drive(tableView.rx.items(dataSource: dataSource))
+            .disposed(by: bag)
+
+        viewModel.isFetchingCourses.asDriver()
+            .drive(tableView.refreshControl!.rx.isRefreshing)
+            .disposed(by: bag)
 
         viewModel.coursesError.asObservable()
             .subscribe(onNext: { [weak self] error in
@@ -51,33 +57,6 @@ class CourseListViewController: BaseTableViewController, BindableType {
                                                                      type: .danger,
                                                                      position: .center)
                 }
-            })
-            .disposed(by: bag)
-
-        courses.data()
-            .asDriver(onErrorJustReturn: [])
-            .drive(tableView.rx.items(dataSource: dataSource))
-            .disposed(by: bag)
-
-        // Initial activity
-        courses.loading()
-            .take(1)
-            .asDriver(onErrorJustReturn: false)
-            .drive(onNext: { [weak self] isLoading in
-                if !isLoading {
-                    self?.navigationController?.view.hideToastActivity()
-                }
-            })
-            .disposed(by: bag)
-
-        courses.loading()
-            .asDriver(onErrorJustReturn: false)
-            .drive(tableView.refreshControl!.rx.isRefreshing)
-            .disposed(by: bag)
-
-        tableView.rx.itemSelected.asDriver()
-            .drive(onNext: { [weak self] indexPath in
-                self?.viewModel.onItemSelection(section: indexPath.section, item: indexPath.item)
             })
             .disposed(by: bag)
     }

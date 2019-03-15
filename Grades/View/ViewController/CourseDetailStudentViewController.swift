@@ -12,15 +12,15 @@ import RxDataSources
 import RxSwift
 import UIKit
 
-class CourseDetailStudentViewController: UITableViewController, BindableType {
+class CourseDetailStudentViewController: BaseTableViewController, BindableType {
     var viewModel: CourseDetailStudentViewModel!
     private let bag = DisposeBag()
 
     private var dataSource: RxTableViewSectionedReloadDataSource<GroupedClassification> {
         return RxTableViewSectionedReloadDataSource<GroupedClassification>(
-            configureCell: { [weak self] _, _, indexPath, item in
+            configureCell: { _, tableView, indexPath, item in
                 // swiftlint:disable force_cast
-                let cell = self?.tableView.dequeueReusableCell(withIdentifier: "ClassificationCell", for: indexPath) as! ClassificationCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ClassificationCell", for: indexPath) as! ClassificationCell
                 cell.classification = item
                 return cell
             },
@@ -30,10 +30,21 @@ class CourseDetailStudentViewController: UITableViewController, BindableType {
         )
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func loadView() {
+        super.loadView()
+
         navigationItem.title = viewModel.courseCode
         tableView.register(ClassificationCell.self, forCellReuseIdentifier: "ClassificationCell")
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.bindOutput()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -45,9 +56,14 @@ class CourseDetailStudentViewController: UITableViewController, BindableType {
     }
 
     func bindViewModel() {
+        Log.info("Binded ViewModel")
         viewModel.classifications
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: dataSource))
+            .disposed(by: bag)
+
+        viewModel.isFetching.asDriver()
+            .drive(tableView.refreshControl!.rx.isRefreshing)
             .disposed(by: bag)
 
         viewModel.error.asObserver()
@@ -58,7 +74,13 @@ class CourseDetailStudentViewController: UITableViewController, BindableType {
             .disposed(by: bag)
     }
 
-    override func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
+    @objc private func refreshControlPulled(_: UIRefreshControl) {
+        viewModel.bindOutput()
+    }
+}
+
+extension CourseDetailStudentViewController: UITableViewDelegate {
+    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         return 60
     }
 }
