@@ -18,6 +18,8 @@ class CourseDetailStudentViewModel: BaseViewModel {
     let courseCode: String
     let courseName: String?
     let classifications = BehaviorRelay<[GroupedClassification]>(value: [])
+    let totalPoints = BehaviorRelay<Double?>(value: nil)
+    let totalGrade = BehaviorRelay<String?>(value: nil)
     let isFetching = BehaviorRelay<Bool>(value: false)
     let error = BehaviorSubject<Error?>(value: nil)
     var onBack: CocoaAction
@@ -48,6 +50,9 @@ class CourseDetailStudentViewModel: BaseViewModel {
 
         repository.isFetching.bind(to: isFetching).disposed(by: bag)
         repository.error.bind(to: error).disposed(by: bag)
+
+        totalGrade.accept("F")
+        totalPoints.accept(14.5)
 
         repository.bindOutput()
     }

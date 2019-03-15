@@ -23,7 +23,8 @@ extension UIColor {
 
         static let lightGreen = UIColor(hex: 0x45D75E)
         static let yellow = UIColor(hex: 0xFFCC00)
-        static let red = UIColor(hex: 0xFF3B30)
+        static let orange = UIColor(hex: 0xFF9500)
+        static let darkOrange = UIColor(hex: 0xBA6D00)
 
         static var primaryGradient: CAGradientLayer {
             let gradient: CAGradientLayer = CAGradientLayer()

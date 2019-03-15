@@ -66,6 +66,7 @@
 		96939EEC223BDCCC00A49E57 /* RxAtomic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658071A22304D5B0065E23D /* RxAtomic.framework */; };
 		96939EED223C09A100A49E57 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0F2228687400FB4A05 /* CocoaAsyncSocket.framework */; };
 		96939EEE223C09A400A49E57 /* Bagel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0D2228669F00FB4A05 /* Bagel.framework */; };
+		96939EF0223C1FEE00A49E57 /* Unwrap+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EEF223C1FEE00A49E57 /* Unwrap+.swift */; };
 		9699AB99223256D2006D2F73 /* OverviewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699AB98223256D2006D2F73 /* OverviewItem.swift */; };
 		9699AB9C22326512006D2F73 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699AB9B22326512006D2F73 /* Log.swift */; };
 		9699ABA22232902A006D2F73 /* ToastSwiftFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9699ABA12232902A006D2F73 /* ToastSwiftFramework.framework */; };
@@ -176,6 +177,7 @@
 		96939EE5223BB97500A49E57 /* ClassificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationType.swift; sourceTree = "<group>"; };
 		96939EE8223BC84600A49E57 /* RxSwiftUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwiftUtilities.framework; path = Carthage/Build/iOS/RxSwiftUtilities.framework; sourceTree = "<group>"; };
 		96939EEA223BDAE600A49E57 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		96939EEF223C1FEE00A49E57 /* Unwrap+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Unwrap+.swift"; sourceTree = "<group>"; };
 		9699AB98223256D2006D2F73 /* OverviewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewItem.swift; sourceTree = "<group>"; };
 		9699AB9B22326512006D2F73 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		9699AB9D22326B74006D2F73 /* Willow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Willow.framework; path = Carthage/Build/iOS/Willow.framework; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 				96B20DAC2236DE64004794BE /* UINavigationController+.swift */,
 				96939EDC223AD8A500A49E57 /* Double+.swift */,
 				96939EEA223BDAE600A49E57 /* ActivityIndicator.swift */,
+				96939EEF223C1FEE00A49E57 /* Unwrap+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -848,6 +851,7 @@
 				9686108B222B1B210069B81B /* SceneTransitionType.swift in Sources */,
 				96F3A3852239B4B200FB63EF /* BaseTableViewController.swift in Sources */,
 				96B20DAB2236CEA9004794BE /* CAGradeintLayer+.swift in Sources */,
+				96939EF0223C1FEE00A49E57 /* Unwrap+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

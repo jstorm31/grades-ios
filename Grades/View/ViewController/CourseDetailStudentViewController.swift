@@ -51,9 +51,6 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.bindOutput()
-
-        headerPointsLabel.text = "54 b"
-        headerGradeLabel.text = "A"
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -79,6 +76,22 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
                 self?.navigationController?.view
                     .makeCustomToast(error?.localizedDescription, type: .danger, position: .center)
             })
+            .disposed(by: bag)
+
+        viewModel.totalPoints
+            .unwrap()
+            .map { "\($0) \(L10n.Courses.points)" }
+            .asDriver(onErrorJustReturn: "")
+            .drive(headerPointsLabel.rx.text)
+            .disposed(by: bag)
+
+        viewModel.totalGrade
+            .unwrap()
+            .do(onNext: { [weak self] grade in
+                self?.setGradeColor(forGrade: grade)
+            })
+            .asDriver(onErrorJustReturn: "")
+            .drive(headerGradeLabel.rx.text)
             .disposed(by: bag)
     }
 
@@ -114,7 +127,6 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
         grade.textAlignment = .right
         container.addSubview(grade)
         grade.snp.makeConstraints { make in
-            make.width.equalTo(25)
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview()
         }
@@ -131,6 +143,27 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
             make.trailing.equalTo(headerGradeLabel.snp.leading).offset(-13)
         }
         headerPointsLabel = points
+    }
+
+    private func setGradeColor(forGrade grade: String) {
+        let color: UIColor
+
+        switch grade {
+        case "A":
+            color = UIColor.Theme.lightGreen
+        case "B":
+            color = UIColor.Theme.success
+        case "C":
+            color = UIColor.Theme.yellow
+        case "D":
+            color = UIColor.Theme.orange
+        case "E":
+            color = UIColor.Theme.darkOrange
+        default:
+            color = UIColor.Theme.danger
+        }
+
+        headerGradeLabel.textColor = color
     }
 }
 
