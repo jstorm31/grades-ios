@@ -12,6 +12,7 @@ import RxCocoa
 
 class CourseStudentRepositoryMock: CourseStudentRepositoryProtocol {
 	private let bag = DisposeBag()
+	var emitError = false
 	
 	let code: String
 	let username: String
@@ -52,6 +53,6 @@ class CourseStudentRepositoryMock: CourseStudentRepositoryProtocol {
 		
 		isFetching.onNext(false)
 		
-		error.onNext(nil)
+		error.onNext(emitError ? ApiError.general : nil)
 	}
 }
