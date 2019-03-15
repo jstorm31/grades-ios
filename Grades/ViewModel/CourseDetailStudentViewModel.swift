@@ -17,7 +17,7 @@ class CourseDetailStudentViewModel: BaseViewModel {
 
     let courseCode: String
     let courseName: String?
-    let classifications = BehaviorRelay<[Classification]>(value: [])
+    let classifications = BehaviorRelay<[GroupedClassification]>(value: [])
     let error = BehaviorSubject<Error?>(value: nil)
     let isLoading = PublishSubject<Bool>()
 
@@ -39,14 +39,13 @@ class CourseDetailStudentViewModel: BaseViewModel {
     }
 
     private func bindOutput() {
-        let courseSubscription = repository.course.unwrap().asObservable().share()
+        let classification = repository.groupedClassifications.asObservable().share()
 
-        courseSubscription
-            .map { $0.classifications }
+        classification
             .bind(to: classifications)
             .disposed(by: bag)
 
-        courseSubscription
+        classification
             .monitorLoading()
             .loading()
             .bind(to: isLoading)

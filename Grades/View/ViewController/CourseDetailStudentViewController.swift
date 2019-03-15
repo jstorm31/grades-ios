@@ -23,6 +23,9 @@ class CourseDetailStudentViewController: UITableViewController, BindableType {
                 let cell = self?.tableView.dequeueReusableCell(withIdentifier: "ClassificationCell", for: indexPath) as! ClassificationCell
                 cell.classification = item
                 return cell
+            },
+            titleForHeaderInSection: { dataSource, index in
+                dataSource.sectionModels[index].header
             }
         )
     }
@@ -43,7 +46,6 @@ class CourseDetailStudentViewController: UITableViewController, BindableType {
 
     func bindViewModel() {
         viewModel.classifications
-            .map { [GroupedClassification(header: "Klasifikace", items: $0)] }
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: bag)

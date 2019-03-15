@@ -64,6 +64,8 @@
 		9686108B222B1B210069B81B /* SceneTransitionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686108A222B1B210069B81B /* SceneTransitionType.swift */; };
 		969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 969398A92226D4A700841818 /* OAuthSwift.framework */; };
 		96939EDD223AD8A500A49E57 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EDC223AD8A500A49E57 /* Double+.swift */; };
+		96939EE1223B970600A49E57 /* CourseStudentRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EE0223B970600A49E57 /* CourseStudentRepositoryTests.swift */; };
+		96939EE4223B98BA00A49E57 /* CourseStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EE3223B98BA00A49E57 /* CourseStudent.swift */; };
 		9699AB99223256D2006D2F73 /* OverviewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699AB98223256D2006D2F73 /* OverviewItem.swift */; };
 		9699AB9C22326512006D2F73 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699AB9B22326512006D2F73 /* Log.swift */; };
 		9699AB9E22326B74006D2F73 /* Willow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9699AB9D22326B74006D2F73 /* Willow.framework */; };
@@ -171,6 +173,8 @@
 		9686108A222B1B210069B81B /* SceneTransitionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneTransitionType.swift; sourceTree = "<group>"; };
 		969398A92226D4A700841818 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
 		96939EDC223AD8A500A49E57 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
+		96939EE0223B970600A49E57 /* CourseStudentRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStudentRepositoryTests.swift; sourceTree = "<group>"; };
+		96939EE3223B98BA00A49E57 /* CourseStudent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStudent.swift; sourceTree = "<group>"; };
 		9699AB98223256D2006D2F73 /* OverviewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewItem.swift; sourceTree = "<group>"; };
 		9699AB9B22326512006D2F73 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		9699AB9D22326B74006D2F73 /* Willow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Willow.framework; path = Carthage/Build/iOS/Willow.framework; sourceTree = "<group>"; };
@@ -286,7 +290,7 @@
 			path = GradesUITests;
 			sourceTree = "<group>";
 		};
-		963C628E22342FF800B01818 /* Mocks */ = {
+		963C628E22342FF800B01818 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
 				965807152230099D0065E23D /* GradesAPIMock.swift */,
@@ -296,7 +300,7 @@
 				963C62972234542E00B01818 /* HttpServiceMock.swift */,
 				965ADAF02235973100AA8CF4 /* KosApiMock.swift */,
 			);
-			path = Mocks;
+			path = Mock;
 			sourceTree = "<group>";
 		};
 		96520E882223D65E00AB6499 = {
@@ -394,11 +398,13 @@
 		9682A6AE222D1ABC00773E28 /* GradesTests */ = {
 			isa = PBXGroup;
 			children = (
+				96939EE2223B98A300A49E57 /* MockData */,
 				965ADAF4223597CB00AA8CF4 /* Types */,
-				963C628E22342FF800B01818 /* Mocks */,
+				963C628E22342FF800B01818 /* Mock */,
 				96580713222FFA810065E23D /* CourseListViewModelTests.swift */,
 				9682A6B1222D1ABC00773E28 /* Info.plist */,
 				963C628C22342ED300B01818 /* LoginViewModelTests.swift */,
+				96939EE0223B970600A49E57 /* CourseStudentRepositoryTests.swift */,
 			);
 			path = GradesTests;
 			sourceTree = "<group>";
@@ -470,6 +476,14 @@
 				961BCE70222C32DD00BD6663 /* SceneCoordinator.swift */,
 			);
 			path = Scene;
+			sourceTree = "<group>";
+		};
+		96939EE2223B98A300A49E57 /* MockData */ = {
+			isa = PBXGroup;
+			children = (
+				96939EE3223B98BA00A49E57 /* CourseStudent.swift */,
+			);
+			path = MockData;
 			sourceTree = "<group>";
 		};
 		9699AB9A22326506006D2F73 /* Utilitis */ = {
@@ -843,6 +857,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96939EE1223B970600A49E57 /* CourseStudentRepositoryTests.swift in Sources */,
+				96939EE4223B98BA00A49E57 /* CourseStudent.swift in Sources */,
 				965ADAF32235976300AA8CF4 /* Result.swift in Sources */,
 				963C62902234307300B01818 /* EnvironmentConfigurationMock.swift in Sources */,
 				963C628D22342ED300B01818 /* LoginViewModelTests.swift in Sources */,

@@ -9,15 +9,25 @@
 import RxDataSources
 
 struct Classification {
+    var id: Int
     var text: [ClassificationText]
     var scope: String?
     var type: String?
     var valueType: DynamicValueType
     var value: DynamicValue?
+    var parentId: Int?
+    var isHidden: Bool = false
 
-    init() {
-        valueType = .string
-        text = []
+    func getLocalizedText() -> String {
+        if text.isEmpty {
+            return ""
+        }
+
+        if let localizedText = text.first(where: { $0.identifier == Locale.current.languageCode }) {
+            return localizedText.name
+        } else {
+            return text[0].name
+        }
     }
 }
 
@@ -26,17 +36,20 @@ extension Classification: Codable {
         case text = "classificationTextDtos"
         case scope = "aggregationScope"
         case type = "classificationType"
-        case value, valueType
+        case isHidden = "hidden"
+        case id, value, valueType, parentId
     }
 }
 
 struct ClassificationText: Codable {
     var identifier: String
-    var name: String?
+    var name: String = ""
 }
 
 struct GroupedClassification {
+    var id: Int
     var header: String
+    var totalValue: DynamicValue?
     var items: [Classification]
 }
 

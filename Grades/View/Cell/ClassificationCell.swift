@@ -25,9 +25,7 @@ class ClassificationCell: UITableViewCell {
             guard let classification = classification else { return }
             isIconHidden.onNext(true)
 
-            title.text = classification.text.first {
-                $0.identifier == Locale.current.languageCode
-            }?.name ?? classification.text[0].name
+            title.text = classification.getLocalizedText()
 
             guard let classificationValue = classification.value else {
                 let text = NSAttributedString(string: L10n.Classification.notRated,

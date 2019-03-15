@@ -47,4 +47,12 @@ class GradesAPIMock: GradesAPIProtocol {
 			return Observable.error(ApiError.general)
 		}
     }
+	
+	func getCourse(code: String) -> Observable<CourseRaw> {
+		return Observable.just(CourseRaw(code: "BI-PPA", name: "Programming paradigmas"))
+	}
+	
+	func getCourseStudentClassification(username: String, code: String) -> Observable<CourseStudent> {
+		return Observable<CourseStudent>.just(CourseStudent(classifications: CourseStudentMockData.classifications))
+	}
 }
