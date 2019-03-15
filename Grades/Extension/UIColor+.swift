@@ -21,6 +21,10 @@ extension UIColor {
         static let danger = UIColor(hex: 0xCB544B)
         static let info = UIColor(hex: 0x7BAFC6)
 
+        static let lightGreen = UIColor(hex: 0x45D75E)
+        static let yellow = UIColor(hex: 0xFFCC00)
+        static let red = UIColor(hex: 0xFF3B30)
+
         static var primaryGradient: CAGradientLayer {
             let gradient: CAGradientLayer = CAGradientLayer()
             let startColor = UIColor(hex: 0x8C72C4).cgColor

@@ -13,6 +13,10 @@ import RxSwift
 import UIKit
 
 class CourseDetailStudentViewController: BaseTableViewController, BindableType {
+    var headerLabel: UILabel!
+    var headerPointsLabel: UILabel!
+    var headerGradeLabel: UILabel!
+
     var viewModel: CourseDetailStudentViewModel!
     private let bag = DisposeBag()
 
@@ -36,6 +40,8 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
         navigationItem.title = viewModel.courseCode
         tableView.register(ClassificationCell.self, forCellReuseIdentifier: "ClassificationCell")
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
+
+        loadUI()
     }
 
     override func viewDidLoad() {
@@ -45,6 +51,9 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.bindOutput()
+
+        headerPointsLabel.text = "54 b"
+        headerGradeLabel.text = "A"
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -62,7 +71,6 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
             .disposed(by: bag)
 
         viewModel.isFetching.asDriver()
-            .debug()
             .drive(tableView.refreshControl!.rx.isRefreshing)
             .disposed(by: bag)
 
@@ -76,6 +84,53 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
 
     @objc private func refreshControlPulled(_: UIRefreshControl) {
         viewModel.bindOutput()
+    }
+
+    private func loadUI() {
+        let container = UIView()
+        tableView.tableHeaderView = container
+        container.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(20)
+            make.width.equalToSuperview().inset(20)
+            make.height.equalTo(45)
+        }
+
+        // Header label
+        let header = UILabel()
+        header.text = L10n.Classification.total
+        header.font = UIFont.Grades.cellTitle
+        header.textColor = UIColor.Theme.text
+        container.addSubview(header)
+        header.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+        headerLabel = header
+
+        // Grade label
+        let grade = UILabel()
+        grade.font = UIFont.Grades.display
+        grade.textColor = UIColor.Theme.text
+        grade.textAlignment = .right
+        container.addSubview(grade)
+        grade.snp.makeConstraints { make in
+            make.width.equalTo(25)
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
+        headerGradeLabel = grade
+
+        // Points label
+        let points = UILabel()
+        points.font = UIFont.Grades.body
+        points.textColor = UIColor.Theme.text
+        points.textAlignment = .right
+        container.addSubview(points)
+        points.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalTo(headerGradeLabel.snp.leading).offset(-13)
+        }
+        headerPointsLabel = points
     }
 }
 

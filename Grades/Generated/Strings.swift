@@ -22,6 +22,8 @@ internal enum L10n {
     internal enum Classification {
         /// Not rated
         internal static let notRated = L10n.tr("Localizable", "classification.notRated")
+        /// Total
+        internal static let total = L10n.tr("Localizable", "classification.total")
     }
 
     internal enum Courses {

@@ -64,6 +64,8 @@
 		96939EE7223BC61900A49E57 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961789302232F65D007006E8 /* RxBlocking.framework */; };
 		96939EEB223BDAE600A49E57 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EEA223BDAE600A49E57 /* ActivityIndicator.swift */; };
 		96939EEC223BDCCC00A49E57 /* RxAtomic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658071A22304D5B0065E23D /* RxAtomic.framework */; };
+		96939EED223C09A100A49E57 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0F2228687400FB4A05 /* CocoaAsyncSocket.framework */; };
+		96939EEE223C09A400A49E57 /* Bagel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0D2228669F00FB4A05 /* Bagel.framework */; };
 		9699AB99223256D2006D2F73 /* OverviewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699AB98223256D2006D2F73 /* OverviewItem.swift */; };
 		9699AB9C22326512006D2F73 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699AB9B22326512006D2F73 /* Log.swift */; };
 		9699ABA22232902A006D2F73 /* ToastSwiftFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9699ABA12232902A006D2F73 /* ToastSwiftFramework.framework */; };
@@ -218,6 +220,8 @@
 				96A80A6F222F191F00986A90 /* RxDataSources.framework in Frameworks */,
 				96A80A71222F1B3000986A90 /* Differentiator.framework in Frameworks */,
 				9699ABA22232902A006D2F73 /* ToastSwiftFramework.framework in Frameworks */,
+				96939EED223C09A100A49E57 /* CocoaAsyncSocket.framework in Frameworks */,
+				96939EEE223C09A400A49E57 /* Bagel.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -740,6 +744,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/ToastSwiftFramework.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxAtomic.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/CocoaAsyncSocket.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Bagel.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
@@ -756,6 +762,8 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/ToastSwiftFramework.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxBlocking.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxAtomic.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaAsyncSocket.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Bagel.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

@@ -6,6 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import Bagel
 import OAuthSwift
 import UIKit
 
@@ -21,19 +22,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = LoginViewController()
 
+        Bagel.start() // TODO: remove on release!
+
         // LoginViewModel dependencies initialization
         let sceneCoordinator = SceneCoordinator(window: window!)
         let authService = AuthenticationService(configuration: config)
         let httpService = HttpService(client: authService.handler.client)
         let gradesApi = GradesAPI(httpService: httpService, configuration: config.gradesAPI)
 
-        let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator,
-                                            configuration: config,
-                                            authenticationService: authService,
-                                            httpService: httpService,
-                                            gradesApi: gradesApi)
-        let loginScreen = Scene.login(loginViewModel)
-        sceneCoordinator.transition(to: loginScreen, type: .root)
+//        let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator,
+//                                            configuration: config,
+//                                            authenticationService: authService,
+//                                            httpService: httpService,
+//                                            gradesApi: gradesApi)
+//        let loginScreen = Scene.login(loginViewModel)
+        //		sceneCoordinator.transition(to: loginScreen, type: .root)
+
+        let detailRepo = CourseStudentRepository(username: "zdvomjir", code: "BI-PHP", name: nil, gradesApi: gradesApi)
+        let detailVM = CourseDetailStudentViewModel(coordinator: sceneCoordinator, repository: detailRepo)
+        let detailScreen = Scene.courseDetailStudent(detailVM)
+        sceneCoordinator.transition(to: detailScreen, type: .root)
 
         return true
     }
