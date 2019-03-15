@@ -30,18 +30,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let httpService = HttpService(client: authService.handler.client)
         let gradesApi = GradesAPI(httpService: httpService, configuration: config.gradesAPI)
 
-//        let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator,
-//                                            configuration: config,
-//                                            authenticationService: authService,
-//                                            httpService: httpService,
-//                                            gradesApi: gradesApi)
-//        let loginScreen = Scene.login(loginViewModel)
-        //		sceneCoordinator.transition(to: loginScreen, type: .root)
-
-        let detailRepo = CourseStudentRepository(username: "zdvomjir", code: "BI-PHP", name: nil, gradesApi: gradesApi)
-        let detailVM = CourseDetailStudentViewModel(coordinator: sceneCoordinator, repository: detailRepo)
-        let detailScreen = Scene.courseDetailStudent(detailVM)
-        sceneCoordinator.transition(to: detailScreen, type: .root)
+        let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator,
+                                            configuration: config,
+                                            authenticationService: authService,
+                                            httpService: httpService,
+                                            gradesApi: gradesApi)
+        let loginScreen = Scene.login(loginViewModel)
+        sceneCoordinator.transition(to: loginScreen, type: .root)
 
         return true
     }

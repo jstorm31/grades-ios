@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 
 class CourseDetailStudentViewModel: BaseViewModel {
-    private let repository: CourseStudentRepository
+    private let repository: CourseStudentRepositoryProtocol
     private let coordinator: SceneCoordinatorType
     private let bag = DisposeBag()
 
@@ -24,7 +24,7 @@ class CourseDetailStudentViewModel: BaseViewModel {
     let error = BehaviorSubject<Error?>(value: nil)
     var onBack: CocoaAction
 
-    init(coordinator: SceneCoordinatorType, repository: CourseStudentRepository) {
+    init(coordinator: SceneCoordinatorType, repository: CourseStudentRepositoryProtocol) {
         self.coordinator = coordinator
         self.repository = repository
         courseCode = repository.code
@@ -51,8 +51,43 @@ class CourseDetailStudentViewModel: BaseViewModel {
         repository.isFetching.bind(to: isFetching).disposed(by: bag)
         repository.error.bind(to: error).disposed(by: bag)
 
-        totalGrade.accept("F")
-        totalPoints.accept(14.5)
+        let allClassifications = repository.course.unwrap()
+            .map { $0.classifications }
+            .share()
+
+        // Total points
+        allClassifications
+            .map { $0.first { $0.type == ClassificationType.pointsTotal.rawValue } ?? nil }
+            .unwrap()
+            .map { (item: Classification) -> Double? in
+                guard let value = item.value else { return nil }
+
+                switch value {
+                case let .number(number):
+                    return number
+                default:
+                    return nil
+                }
+            }
+            .bind(to: totalPoints)
+            .disposed(by: bag)
+
+        // Final grade
+        allClassifications
+            .map { $0.first { $0.type == ClassificationType.finalScore.rawValue } ?? nil }
+            .unwrap()
+            .map { (item: Classification) -> String? in
+                guard let value = item.value else { return nil }
+
+                switch value {
+                case let .string(string):
+                    return string
+                default:
+                    return nil
+                }
+            }
+            .bind(to: totalGrade)
+            .disposed(by: bag)
 
         repository.bindOutput()
     }

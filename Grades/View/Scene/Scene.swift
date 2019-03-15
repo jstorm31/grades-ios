@@ -30,9 +30,8 @@ extension Scene {
 
         case let .courseDetailStudent(viewModel):
             var courseDetailStudentVC = CourseDetailStudentViewController()
-            let navController = UINavigationController(rootViewController: courseDetailStudentVC)
             courseDetailStudentVC.bindViewModel(to: viewModel)
-            return navController
+            return courseDetailStudentVC
         }
     }
 }

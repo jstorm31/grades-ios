@@ -21,6 +21,10 @@ struct CourseStudentMockData {
 		let subExam1 = Classification(id: 6, text: [ClassificationText(identifier: "en", name: "Exam test - try 1")], scope: nil, type: "TEST", valueType: .number, value: .number(20), parentId: 5, isHidden: false)
 		let subSubExam1 = Classification(id: 7, text: [ClassificationText(identifier: "en", name: "Exam test - try 2")], scope: nil, type: "TEST", valueType: .number, value: .number(20), parentId: 6, isHidden: false)
 		
-		return [parent1, activity1, parent2, activity2, exam1, subActivity1, subExam1, subSubExam1]
+		let totalPoints = Classification(id: 8, text: [ClassificationText(identifier: "en", name: "Total points")], scope: nil, type: ClassificationType.pointsTotal.rawValue, valueType: .number, value: .number(73.5), parentId: nil, isHidden: false)
+		
+		let finalGrade = Classification(id: 9, text: [ClassificationText(identifier: "en", name: "Final grade")], scope: nil, type: ClassificationType.finalScore.rawValue, valueType: .string, value: .string("B"), parentId: nil, isHidden: false)
+		
+		return [parent1, activity1, parent2, activity2, exam1, subActivity1, subExam1, subSubExam1, totalPoints, finalGrade]
 	}
 }

@@ -10,7 +10,15 @@ import RxCocoa
 import RxSwift
 
 protocol CourseStudentRepositoryProtocol {
+    var code: String { get }
+    var name: String? { get }
+
     var course: BehaviorRelay<CourseStudent?> { get }
+    var groupedClassifications: BehaviorSubject<[GroupedClassification]> { get }
+    var isFetching: BehaviorSubject<Bool> { get }
+    var error: BehaviorSubject<Error?> { get }
+
+    func bindOutput()
 }
 
 class CourseStudentRepository: CourseStudentRepositoryProtocol {

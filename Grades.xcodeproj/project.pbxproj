@@ -67,6 +67,8 @@
 		96939EED223C09A100A49E57 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0F2228687400FB4A05 /* CocoaAsyncSocket.framework */; };
 		96939EEE223C09A400A49E57 /* Bagel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0D2228669F00FB4A05 /* Bagel.framework */; };
 		96939EF0223C1FEE00A49E57 /* Unwrap+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EEF223C1FEE00A49E57 /* Unwrap+.swift */; };
+		96939EF2223C25C100A49E57 /* CourseDetailStudentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EF1223C25C100A49E57 /* CourseDetailStudentViewModelTests.swift */; };
+		96939EF4223C274C00A49E57 /* CourseStudentRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EF3223C274C00A49E57 /* CourseStudentRepositoryMock.swift */; };
 		9699AB99223256D2006D2F73 /* OverviewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699AB98223256D2006D2F73 /* OverviewItem.swift */; };
 		9699AB9C22326512006D2F73 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699AB9B22326512006D2F73 /* Log.swift */; };
 		9699ABA22232902A006D2F73 /* ToastSwiftFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9699ABA12232902A006D2F73 /* ToastSwiftFramework.framework */; };
@@ -178,6 +180,8 @@
 		96939EE8223BC84600A49E57 /* RxSwiftUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwiftUtilities.framework; path = Carthage/Build/iOS/RxSwiftUtilities.framework; sourceTree = "<group>"; };
 		96939EEA223BDAE600A49E57 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		96939EEF223C1FEE00A49E57 /* Unwrap+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Unwrap+.swift"; sourceTree = "<group>"; };
+		96939EF1223C25C100A49E57 /* CourseDetailStudentViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewModelTests.swift; sourceTree = "<group>"; };
+		96939EF3223C274C00A49E57 /* CourseStudentRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStudentRepositoryMock.swift; sourceTree = "<group>"; };
 		9699AB98223256D2006D2F73 /* OverviewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewItem.swift; sourceTree = "<group>"; };
 		9699AB9B22326512006D2F73 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		9699AB9D22326B74006D2F73 /* Willow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Willow.framework; path = Carthage/Build/iOS/Willow.framework; sourceTree = "<group>"; };
@@ -300,6 +304,7 @@
 				963C6295223432FD00B01818 /* AuthenticationServiceMock.swift */,
 				963C62972234542E00B01818 /* HttpServiceMock.swift */,
 				965ADAF02235973100AA8CF4 /* KosApiMock.swift */,
+				96939EF3223C274C00A49E57 /* CourseStudentRepositoryMock.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -407,6 +412,7 @@
 				9682A6B1222D1ABC00773E28 /* Info.plist */,
 				963C628C22342ED300B01818 /* LoginViewModelTests.swift */,
 				96939EE0223B970600A49E57 /* CourseStudentRepositoryTests.swift */,
+				96939EF1223C25C100A49E57 /* CourseDetailStudentViewModelTests.swift */,
 			);
 			path = GradesTests;
 			sourceTree = "<group>";
@@ -859,9 +865,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96939EF2223C25C100A49E57 /* CourseDetailStudentViewModelTests.swift in Sources */,
 				96939EE1223B970600A49E57 /* CourseStudentRepositoryTests.swift in Sources */,
 				96939EE4223B98BA00A49E57 /* CourseStudent.swift in Sources */,
 				965ADAF32235976300AA8CF4 /* Result.swift in Sources */,
+				96939EF4223C274C00A49E57 /* CourseStudentRepositoryMock.swift in Sources */,
 				963C62902234307300B01818 /* EnvironmentConfigurationMock.swift in Sources */,
 				963C628D22342ED300B01818 /* LoginViewModelTests.swift in Sources */,
 				963C628B22341FDC00B01818 /* GradesAPIMock.swift in Sources */,
