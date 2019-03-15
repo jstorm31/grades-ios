@@ -56,13 +56,13 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
     }
 
     func bindViewModel() {
-        Log.info("Binded ViewModel")
         viewModel.classifications
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
 
         viewModel.isFetching.asDriver()
+            .debug()
             .drive(tableView.refreshControl!.rx.isRefreshing)
             .disposed(by: bag)
 

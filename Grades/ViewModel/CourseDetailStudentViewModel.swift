@@ -48,5 +48,7 @@ class CourseDetailStudentViewModel: BaseViewModel {
 
         repository.isFetching.bind(to: isFetching).disposed(by: bag)
         repository.error.bind(to: error).disposed(by: bag)
+
+        repository.bindOutput()
     }
 }

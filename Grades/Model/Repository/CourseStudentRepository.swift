@@ -17,16 +17,17 @@ class CourseStudentRepository: CourseStudentRepositoryProtocol {
     private let gradesApi: GradesAPIProtocol
     private let activityIndicator = ActivityIndicator()
     private let bag = DisposeBag()
-
+    private let username: String
     let code: String
     let name: String?
 
     let course = BehaviorRelay<CourseStudent?>(value: nil)
     let groupedClassifications = BehaviorSubject<[GroupedClassification]>(value: [])
-    let isFetching = BehaviorRelay<Bool>(value: false)
+    let isFetching = BehaviorSubject<Bool>(value: false)
     let error = BehaviorSubject<Error?>(value: nil)
 
     init(username: String, code: String, name: String?, gradesApi: GradesAPIProtocol) {
+        self.username = username
         self.code = code
         self.name = name
         self.gradesApi = gradesApi
@@ -36,7 +37,9 @@ class CourseStudentRepository: CourseStudentRepositoryProtocol {
             .asObservable()
             .bind(to: isFetching)
             .disposed(by: bag)
+    }
 
+    func bindOutput() {
         getCourseDetail(username: username, courseCode: code)
     }
 

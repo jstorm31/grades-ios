@@ -27,8 +27,8 @@ class BaseTableViewController: BaseViewController {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .white
         tableView.refreshControl = refreshControl
-		
-		// Fix for table view refresh control
+
+        // Fix for table view refresh control
         edgesForExtendedLayout = .all
         self.tableView.contentInsetAdjustmentBehavior = .always
         tableView.refreshControl!.sizeToFit()
