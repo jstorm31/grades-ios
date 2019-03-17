@@ -43,6 +43,8 @@ class LoginViewModel: BaseViewModel {
             .do(onNext: { [weak self] userInfo in
                 guard let `self` = self else { return }
 
+                SettingsRepository()
+
                 let kosApi = KosApi(client: self.authService.handler.client, configuration: self.config.kosAPI)
                 let courseListViewModel = CourseListViewModel(sceneCoordinator: self.sceneCoordinator, gradesApi: self.gradesApi, kosApi: kosApi, user: userInfo)
 
