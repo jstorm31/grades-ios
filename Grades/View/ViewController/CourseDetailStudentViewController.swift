@@ -41,12 +41,14 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
         navigationItem.title = viewModel.courseCode
         tableView.register(ClassificationCell.self, forCellReuseIdentifier: "ClassificationCell")
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
+        navigationController?.navigationBar.addSubview(UIView())
 
         loadUI()
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        removeRightButton()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -157,6 +159,13 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
         }
 
         headerGradeLabel.textColor = color
+    }
+
+    private func removeRightButton() {
+        guard let subviews = navigationController?.navigationBar.subviews else { return }
+        for view in subviews where view.tag != 0 {
+            view.removeFromSuperview()
+        }
     }
 }
 

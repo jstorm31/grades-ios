@@ -6,6 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import Action
 import Foundation
 import RxCocoa
 import RxSwift
@@ -17,6 +18,12 @@ class CourseListViewModel: BaseViewModel {
     private let user: UserInfo
     private let activityIndicator = ActivityIndicator()
     private let bag = DisposeBag()
+
+    var openSettings = CocoaAction {
+        Log.info("tansition")
+        return Observable.empty()
+        //		sceneCoordinator.transition(to: )
+    }
 
     init(sceneCoordinator: SceneCoordinatorType, gradesApi: GradesAPIProtocol, kosApi: KosApiProtocol, user: UserInfo) {
         self.gradesApi = gradesApi

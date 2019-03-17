@@ -9,6 +9,7 @@
 import RxCocoa
 import RxDataSources
 import RxSwift
+import SnapKit
 import UIKit
 
 class CourseListViewController: BaseTableViewController, BindableType {
@@ -34,6 +35,21 @@ class CourseListViewController: BaseTableViewController, BindableType {
                 self?.viewModel.onItemSelection(section: indexPath.section, item: indexPath.item)
             })
             .disposed(by: bag)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        let icon = UIImage(named: "icon_settings")
+        var settingsButton = UIButton()
+        settingsButton.setImage(icon, for: .normal)
+        settingsButton.rx.action = viewModel.openSettings
+		navigationController?.navigationBar.addSubview(settingsButton)
+        settingsButton.tag = 1
+        settingsButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview().inset(13)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
