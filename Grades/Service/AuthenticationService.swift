@@ -25,16 +25,18 @@ class AuthenticationService: AuthenticationServiceProtocol {
 
     // MARK: initializers
 
-    init(configuration: NSClassificationConfiguration) {
-        callbackUrl = URL(string: configuration.auth.redirectUri)!
-        authorizationHeader = "Basic \(configuration.auth.clientHash)"
-        scope = configuration.auth.scope
+    init() {
+        let config = EnvironmentConfiguration.shared
 
-        handler = OAuth2Swift(consumerKey: configuration.auth.clientId,
-                              consumerSecret: configuration.auth.clientSecret,
-                              authorizeUrl: configuration.auth.authorizeUrl,
-                              accessTokenUrl: configuration.auth.tokenUrl,
-                              responseType: configuration.auth.responseType)
+        callbackUrl = URL(string: config.auth.redirectUri)!
+        authorizationHeader = "Basic \(config.auth.clientHash)"
+        scope = config.auth.scope
+
+        handler = OAuth2Swift(consumerKey: config.auth.clientId,
+                              consumerSecret: config.auth.clientSecret,
+                              authorizeUrl: config.auth.authorizeUrl,
+                              accessTokenUrl: config.auth.tokenUrl,
+                              responseType: config.auth.responseType)
         handler.allowMissingStateCheck = true
     }
 

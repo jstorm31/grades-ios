@@ -7,18 +7,19 @@
 //
 
 import Foundation
+import RxSwift
 
 class SettingsRepository {
     private let KEY = "Settings"
+    private let bag = DisposeBag()
     var currentSettings: Settings!
 
     init() {
         if let loadedSettings = loadSettings() {
             currentSettings = loadedSettings
-            Log.info("Loaded from user defaults")
         } else {
-            currentSettings = Settings(semestr: "BI-182", language: "cs")
-            Log.info("Loaded default settings")
+            let language = Locale.current.languageCode ?? EnvironmentConfiguration.shared.defaultLanguage
+            currentSettings = Settings(language: language, semestr: nil)
         }
     }
 

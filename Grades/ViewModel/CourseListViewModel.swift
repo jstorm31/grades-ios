@@ -15,6 +15,7 @@ class CourseListViewModel: BaseViewModel {
     private let gradesApi: GradesAPIProtocol
     private let kosApi: KosApiProtocol
     private let user: UserInfo
+    private let settings = SettingsRepository()
     private let activityIndicator = ActivityIndicator()
     private let bag = DisposeBag()
 

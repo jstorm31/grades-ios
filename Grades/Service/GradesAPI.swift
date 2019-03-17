@@ -15,18 +15,18 @@ protocol GradesAPIProtocol {
     func getCourses(username: String) -> Observable<[Course]>
     func getCourse(code: String) -> Observable<CourseRaw>
     func getCourseStudentClassification(username: String, code: String) -> Observable<CourseStudent>
+    func getCurrentSemestrCode() -> Observable<String>
 }
 
 class GradesAPI: GradesAPIProtocol {
-    private let config: [String: String]
+    private let config = EnvironmentConfiguration.shared.gradesAPI
     private let httpService: HttpServiceProtocol
 
     private var baseUrl: String {
         return config["BaseURL"]!
     }
 
-    init(httpService: HttpServiceProtocol, configuration: [String: String]) {
-        config = configuration
+    init(httpService: HttpServiceProtocol) {
         self.httpService = httpService
     }
 
@@ -38,6 +38,7 @@ class GradesAPI: GradesAPIProtocol {
         case courses(String)
         case course(String)
         case studentCourse(String, String)
+        case semestr
     }
 
     // MARK: Endpoint requests
@@ -70,6 +71,10 @@ class GradesAPI: GradesAPIProtocol {
         return httpService.get(url: createURL(from: .studentCourse(username, code)), parameters: ["showHidden": false])
     }
 
+    func getCurrentSemestrCode() -> Observable<String> {
+        return httpService.get(url: createURL(from: .semestr), parameters: [:])
+    }
+
     // MARK: helpers
 
     private func createURL(from endpoint: Endpoint) -> URL {
@@ -88,6 +93,8 @@ class GradesAPI: GradesAPIProtocol {
             endpointValue = config["StudentCourse"]!
                 .replacingOccurrences(of: ":username", with: username)
                 .replacingOccurrences(of: ":code", with: code)
+        case .semestr:
+            endpointValue = config["Semestr"]!
         }
 
         return URL(string: "\(baseUrl)\(endpointValue)")!

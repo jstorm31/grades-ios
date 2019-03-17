@@ -18,20 +18,18 @@ class LoginViewModel: BaseViewModel {
     let authService: AuthenticationServiceProtocol
     let httpService: HttpServiceProtocol
     let gradesApi: GradesAPIProtocol
-    let config: NSClassificationConfiguration
+    let config = EnvironmentConfiguration.shared
     private let bag = DisposeBag()
 
     // MARK: methods
 
     init(sceneCoordinator: SceneCoordinatorType,
-         configuration: NSClassificationConfiguration,
          authenticationService: AuthenticationServiceProtocol,
          httpService: HttpServiceProtocol,
          gradesApi: GradesAPIProtocol) {
         self.sceneCoordinator = sceneCoordinator
         self.httpService = httpService
         self.gradesApi = gradesApi
-        config = configuration
         authService = authenticationService
     }
 
@@ -42,8 +40,6 @@ class LoginViewModel: BaseViewModel {
             .flatMap(gradesApi.getUser)
             .do(onNext: { [weak self] userInfo in
                 guard let `self` = self else { return }
-
-                SettingsRepository()
 
                 let kosApi = KosApi(client: self.authService.handler.client, configuration: self.config.kosAPI)
                 let courseListViewModel = CourseListViewModel(sceneCoordinator: self.sceneCoordinator, gradesApi: self.gradesApi, kosApi: kosApi, user: userInfo)

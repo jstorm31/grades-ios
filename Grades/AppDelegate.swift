@@ -14,8 +14,6 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
-    private let config = EnvironmentConfiguration()
-
     func application(_: UIApplication,
                      didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -26,12 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // LoginViewModel dependencies initialization
         let sceneCoordinator = SceneCoordinator(window: window!)
-        let authService = AuthenticationService(configuration: config)
+        let authService = AuthenticationService()
         let httpService = HttpService(client: authService.handler.client)
-        let gradesApi = GradesAPI(httpService: httpService, configuration: config.gradesAPI)
+        let gradesApi = GradesAPI(httpService: httpService)
 
         let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator,
-                                            configuration: config,
                                             authenticationService: authService,
                                             httpService: httpService,
                                             gradesApi: gradesApi)
@@ -45,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let sourceApp = options[.sourceApplication] as? String
         let isOpenedBySafari = sourceApp == "com.apple.SafariViewService" || sourceApp == "com.apple.mobilesafari"
 
-        if isOpenedBySafari, url.host == config.auth.callbackId {
+        if isOpenedBySafari, url.host == EnvironmentConfiguration.shared.auth.callbackId {
             OAuthSwift.handle(url: url)
         }
 

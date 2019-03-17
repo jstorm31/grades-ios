@@ -7,6 +7,6 @@
 //
 
 struct Settings: Codable {
-    var semestr: String
     var language: String
+    var semestr: String?
 }

@@ -13,11 +13,13 @@ import Foundation
 final class EnvironmentConfiguration {
     private let config: NSDictionary
 
+    static let shared = EnvironmentConfiguration()
+
     private init(dictionary: NSDictionary) {
         config = dictionary
     }
 
-    convenience init() {
+    private convenience init() {
         let dict = NSMutableDictionary()
 
         let commonConfiguration = PlistDocument(path: "Common.plist").data
@@ -49,6 +51,7 @@ struct Auth {
 }
 
 protocol NSClassificationConfiguration {
+    var defaultLanguage: String { get }
     var auth: Auth { get }
     var gradesAPI: [String: String] { get }
     var kosAPI: [String: String] { get }
@@ -58,6 +61,10 @@ protocol NSClassificationConfiguration {
 // Note: for debugging it is better for the app to crash if corresponding key
 //       is missing rather than providing default value
 extension EnvironmentConfiguration: NSClassificationConfiguration {
+    var defaultLanguage: String {
+        return config["DefaultLanguage"] as! String
+    }
+
     var auth: Auth {
         return Auth(authorizeUrl: config["AuthorizeUrl"] as! String,
                     tokenUrl: config["TokenUrl"] as! String,
