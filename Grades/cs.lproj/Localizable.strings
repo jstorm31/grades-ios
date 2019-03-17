@@ -10,3 +10,6 @@
 "courses.studying" = "Studuji";
 "courses.teaching" = "Učím";
 "courses.points" = "b";
+
+"classification.notRated" = "Nehodnoceno";
+"classification.total" = "Celkem";

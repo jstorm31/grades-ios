@@ -9,14 +9,9 @@
 import RxCocoa
 import RxDataSources
 import RxSwift
-import RxSwiftExt
-import SwiftSVG
 import UIKit
 
-// TODO: add UI test
-class CourseListViewController: BaseViewController, BindableType {
-    private var tableView: UITableView!
-
+class CourseListViewController: BaseTableViewController, BindableType {
     var viewModel: CourseListViewModel!
     private let bag = DisposeBag()
 
@@ -24,39 +19,37 @@ class CourseListViewController: BaseViewController, BindableType {
 
     override func loadView() {
         super.loadView()
+        loadView(hasTableHeaderView: false)
 
         navigationItem.title = L10n.Courses.title
-
-        let tableView = UITableView()
-        tableView.register(CourseListCell.self, forCellReuseIdentifier: "Cell")
-        tableView.delegate = self
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        self.tableView = tableView
-
-        let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .white
-        refreshControl.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
-        tableView.refreshControl = refreshControl
-    }
-
-    override func viewWillAppear(_: Bool) {
-        if let index = self.tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: index, animated: true)
-        }
+        tableView.register(CourseListCell.self, forCellReuseIdentifier: "CourseCell")
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationController?.view.makeToastActivity(.center)
+        tableView.rx.itemSelected.asDriver()
+            .drive(onNext: { [weak self] indexPath in
+                self?.viewModel.onItemSelection(section: indexPath.section, item: indexPath.item)
+            })
+            .disposed(by: bag)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         viewModel.bindOutput()
     }
 
     func bindViewModel() {
-        let courses = viewModel.courses.monitorLoading().share()
+        viewModel.courses
+            .asDriver(onErrorJustReturn: [])
+            .drive(tableView.rx.items(dataSource: dataSource))
+            .disposed(by: bag)
+
+        viewModel.isFetchingCourses.asDriver()
+            .drive(tableView.refreshControl!.rx.isRefreshing)
+            .disposed(by: bag)
 
         viewModel.coursesError.asObservable()
             .subscribe(onNext: { [weak self] error in
@@ -65,33 +58,6 @@ class CourseListViewController: BaseViewController, BindableType {
                                                                      type: .danger,
                                                                      position: .center)
                 }
-            })
-            .disposed(by: bag)
-
-        courses.data()
-            .asDriver(onErrorJustReturn: [])
-            .drive(tableView.rx.items(dataSource: dataSource))
-            .disposed(by: bag)
-
-        // Initial activity
-        courses.loading()
-            .take(1)
-            .asDriver(onErrorJustReturn: false)
-            .drive(onNext: { [weak self] isLoading in
-                if !isLoading {
-                    self?.navigationController?.view.hideToastActivity()
-                }
-            })
-            .disposed(by: bag)
-
-        courses.loading()
-            .asDriver(onErrorJustReturn: false)
-            .drive(tableView.refreshControl!.rx.isRefreshing)
-            .disposed(by: bag)
-
-        tableView.rx.itemSelected.asDriver()
-            .drive(onNext: { [weak self] indexPath in
-                self?.viewModel.onItemSelection(section: indexPath.section, item: indexPath.item)
             })
             .disposed(by: bag)
     }
@@ -106,7 +72,7 @@ extension CourseListViewController {
         return RxTableViewSectionedReloadDataSource<CourseGroup>(
             configureCell: { _, tableView, indexPath, item in
                 // swiftlint:disable force_cast
-                let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CourseListCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseListCell
                 cell.course = item
                 return cell
             },

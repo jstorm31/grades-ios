@@ -11,10 +11,15 @@ import RxSwift
 
 class SceneCoordinatorMock: SceneCoordinatorType {
 	var targetScene: Scene?
-	var didPop = false
+	var popped = false
 	
 	func pop(animated: Bool) -> Completable {
-		didPop = true
+		popped = true
+		return Completable.empty()
+	}
+	
+	func didPop() -> Completable {
+		popped = true
 		return Completable.empty()
 	}
 	

@@ -6,10 +6,9 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import Bagel
 import OAuthSwift
 import UIKit
-
-import Bagel // TODO: remove on release
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = LoginViewController()
 
-        Bagel.start() // TODO: remove on release
+        Bagel.start() // TODO: remove on release!
 
         // LoginViewModel dependencies initialization
         let sceneCoordinator = SceneCoordinator(window: window!)

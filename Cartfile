@@ -1,9 +1,7 @@
 github "SnapKit/SnapKit" ~> 4.0.0
 github "OAuthSwift/OAuthSwift" ~> 1.2.0
-github "mchoe/SwiftSVG" ~> 2.0
 github "RxSwiftCommunity/RxDataSources" ~> 3.0
 github "RxSwiftCommunity/Action" ~> 3.6.0
-github "RxSwiftCommunity/RxSwiftExt"
-github "Nike-Inc/Willow" ~> 5.0
 github "scalessec/Toast-Swift" ~> 4.0.0
+github "yagiz/Bagel" "1.3.2"
 

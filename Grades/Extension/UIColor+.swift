@@ -14,12 +14,17 @@ extension UIColor {
         static let background = UIColor.white
         static let primary = UIColor(hex: 0x9776C1)
         static let secondary = UIColor(hex: 0x6763CE)
-        static let text = UIColor(hex: 0x515151)
+        static let text = UIColor(hex: 0x2D2D2D)
         static let grayText = UIColor(hex: 0x8B8B8B)
 
         static let success = UIColor(hex: 0x73C0A2)
         static let danger = UIColor(hex: 0xCB544B)
         static let info = UIColor(hex: 0x7BAFC6)
+
+        static let lightGreen = UIColor(hex: 0x45D75E)
+        static let yellow = UIColor(hex: 0xFFCC00)
+        static let orange = UIColor(hex: 0xFF9500)
+        static let darkOrange = UIColor(hex: 0xBA6D00)
 
         static var primaryGradient: CAGradientLayer {
             let gradient: CAGradientLayer = CAGradientLayer()
