@@ -21,13 +21,27 @@ protocol GradesAPIProtocol {
 class GradesAPI: GradesAPIProtocol {
     private let config = EnvironmentConfiguration.shared.gradesAPI
     private let httpService: HttpServiceProtocol
+    private let settings: SettingsRepositoryProtocol
 
     private var baseUrl: String {
         return config["BaseURL"]!
     }
 
-    init(httpService: HttpServiceProtocol) {
+    private var defaultParameters: [String: Any] {
+        var parameters = [
+            "lang": settings.currentSettings.language
+        ]
+
+        if let semestr = settings.currentSettings.semestr {
+            parameters["semestr"] = semestr
+        }
+
+        return parameters
+    }
+
+    init(httpService: HttpServiceProtocol, settings: SettingsRepositoryProtocol) {
         self.httpService = httpService
+        self.settings = settings
     }
 
     // MARK: API endpoints
@@ -55,7 +69,7 @@ class GradesAPI: GradesAPIProtocol {
 
     /// Fetch courses for current user
     func getCourses(username: String) -> Observable<[Course]> {
-        return httpService.get(url: createURL(from: .courses(username)), parameters: nil)
+        return httpService.get(url: createURL(from: .courses(username)), parameters: defaultParameters)
             .map { (rawCourses: [RawCourse]) -> [Course] in
                 rawCourses.map { (course: RawCourse) -> Course in Course(fromRawCourse: course) }
             }
@@ -63,12 +77,15 @@ class GradesAPI: GradesAPIProtocol {
 
     /// Fetch course detail
     func getCourse(code: String) -> Observable<CourseRaw> {
-        return httpService.get(url: createURL(from: .course(code)), parameters: nil)
+        return httpService.get(url: createURL(from: .course(code)), parameters: defaultParameters)
     }
 
     /// Fetch course classification for student
     func getCourseStudentClassification(username: String, code: String) -> Observable<CourseStudent> {
-        return httpService.get(url: createURL(from: .studentCourse(username, code)), parameters: ["showHidden": false])
+        var parameters = defaultParameters
+        parameters["showHidden"] = false
+
+        return httpService.get(url: createURL(from: .studentCourse(username, code)), parameters: parameters)
     }
 
     func getCurrentSemestrCode() -> Observable<String> {

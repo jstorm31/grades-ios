@@ -16,6 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_: UIApplication,
                      didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Settings
+        let settings = SettingsRepository()
+
+        // Window
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.rootViewController = LoginViewController()
@@ -26,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let sceneCoordinator = SceneCoordinator(window: window!)
         let authService = AuthenticationService()
         let httpService = HttpService(client: authService.handler.client)
-        let gradesApi = GradesAPI(httpService: httpService)
+        let gradesApi = GradesAPI(httpService: httpService, settings: settings)
 
         let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator,
                                             authenticationService: authService,

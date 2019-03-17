@@ -7,11 +7,13 @@
 //
 
 import Foundation
-import RxSwift
 
-class SettingsRepository {
+protocol SettingsRepositoryProtocol {
+    var currentSettings: Settings! { get }
+}
+
+class SettingsRepository: SettingsRepositoryProtocol {
     private let KEY = "Settings"
-    private let bag = DisposeBag()
     var currentSettings: Settings!
 
     init() {
@@ -21,10 +23,14 @@ class SettingsRepository {
             let language = Locale.current.languageCode ?? EnvironmentConfiguration.shared.defaultLanguage
             currentSettings = Settings(language: language, semestr: nil)
         }
+
+        // Set locale
+        UserDefaults.standard.set([currentSettings.language], forKey: "AppleLanguages")
+        UserDefaults.standard.synchronize()
     }
 
     /// Load settings from user defaults or use default
-    func loadSettings() -> Settings? {
+    private func loadSettings() -> Settings? {
         if let saved = UserDefaults.standard.object(forKey: KEY) as? Data {
             guard let loaded = try? JSONDecoder().decode(Settings.self, from: saved) else { return nil }
             return loaded
@@ -34,7 +40,7 @@ class SettingsRepository {
     }
 
     /// Save current settings to user defaults
-    func saveSettings() {
+    private func saveSettings() {
         if let encoded = try? JSONEncoder().encode(currentSettings) {
             UserDefaults.standard.set(encoded, forKey: KEY)
         }
