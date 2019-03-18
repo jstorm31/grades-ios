@@ -40,7 +40,7 @@ class SettingsViewController: BaseTableViewController, BindableType {
                     cell.accessoryView = label
                     return cell
 
-                case let .picker(title, options, text):
+                case let .picker(title, options, valueIndex):
                     cell.textLabel?.text = title
 
                     let accessoryView = UIView()
@@ -60,7 +60,7 @@ class SettingsViewController: BaseTableViewController, BindableType {
                     accessoryView.addSubview(self.pickerTextField)
 
                     let valueLabel = UILabel()
-                    valueLabel.text = text
+                    valueLabel.text = options[valueIndex]
                     valueLabel.textColor = UIColor.Theme.text
                     accessoryView.addSubview(valueLabel)
                     valueLabel.snp.makeConstraints { make in
@@ -103,9 +103,10 @@ class SettingsViewController: BaseTableViewController, BindableType {
                 guard let `self` = self else { return }
                 let item = self.viewModel.settings.value[indexPath.section].items[indexPath.item]
 
-                if case .picker = item {
+                if case let .picker(_, _, index) = item {
                     self.viewModel.selectedIndex.accept(indexPath)
                     self.pickerTextField.becomeFirstResponder()
+                    self.pickerView.selectRow(index, inComponent: 0, animated: true)
                 }
 
                 self.tableView.deselectRow(at: indexPath, animated: true)

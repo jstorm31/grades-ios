@@ -24,7 +24,7 @@ class SettingsViewModel: BaseViewModel {
     // MARK: input
 
     var selectedIndex = BehaviorRelay<IndexPath?>(value: nil)
-    var selectedOptionIndex = BehaviorRelay<Int?>(value: nil)
+    var selectedOptionIndex = BehaviorRelay<Int>(value: 0)
 
     // MARK: methods
 
@@ -57,12 +57,12 @@ class SettingsViewModel: BaseViewModel {
     }
 
     func bindOutput() {
-        Observable.combineLatest(repository.currentSettings, repository.semesterOptions) { [weak self] (settings: Settings, semestrOptions: [String]) -> [SettingsSection] in
-            guard let `self` = self else { return [] }
+        Observable.combineLatest(repository.currentSettings, repository.semesterOptions) { settings, semesterOptions in
+            let semesterValueIndex = semesterOptions.firstIndex { $0 == settings.semester } ?? 0
 
             return [
                 SettingsSection(header: L10n.Settings.options, items: [
-                    .picker(title: L10n.Settings.semester, options: semestrOptions, value: settings.semester)
+                    .picker(title: L10n.Settings.semester, options: semesterOptions, valueIndex: semesterValueIndex)
                 ])
             ]
         }
@@ -72,11 +72,11 @@ class SettingsViewModel: BaseViewModel {
 
     /// Submit current value for current index path
     func submitCurrentValue() {
-        guard let index = self.selectedIndex.value, let optionIndex = self.selectedOptionIndex.value else { return }
+        guard let index = self.selectedIndex.value else { return }
 
         // Semester
         if index.section == 0, index.item == 0 {
-            repository.changeSemester(optionIndex: optionIndex)
+            repository.changeSemester(optionIndex: selectedOptionIndex.value)
         }
     }
 }

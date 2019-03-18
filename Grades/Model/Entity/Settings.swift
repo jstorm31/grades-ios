@@ -17,7 +17,7 @@ struct Settings: Codable {
 
 enum SettingsItem {
     case text(title: String, text: String)
-    case picker(title: String, options: [String], value: String)
+    case picker(title: String, options: [String], valueIndex: Int)
 }
 
 struct SettingsSection {
