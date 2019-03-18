@@ -18,6 +18,7 @@
 		961A2FF12229D44A00A624DC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A2FF02229D44A00A624DC /* LoginViewModel.swift */; };
 		961A8785223F8B1200846538 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A8784223F8B1200846538 /* SettingsViewModel.swift */; };
 		961A8787223F8B3B00846538 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A8786223F8B3B00846538 /* SettingsViewController.swift */; };
+		961A8789223FFC3300846538 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A8788223FFC3300846538 /* UITextField+.swift */; };
 		961BCE71222C32DD00BD6663 /* SceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BCE70222C32DD00BD6663 /* SceneCoordinator.swift */; };
 		961BCE79222C3D8E00BD6663 /* GradesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BCE78222C3D8E00BD6663 /* GradesUITests.swift */; };
 		961BCE81222C515700BD6663 /* GradesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BCE80222C515700BD6663 /* GradesAPI.swift */; };
@@ -130,6 +131,7 @@
 		961A2FF02229D44A00A624DC /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		961A8784223F8B1200846538 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		961A8786223F8B3B00846538 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		961A8788223FFC3300846538 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		961BCE70222C32DD00BD6663 /* SceneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinator.swift; sourceTree = "<group>"; };
 		961BCE76222C3D8E00BD6663 /* GradesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GradesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		961BCE78222C3D8E00BD6663 /* GradesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesUITests.swift; sourceTree = "<group>"; };
@@ -450,6 +452,7 @@
 				96939EDC223AD8A500A49E57 /* Double+.swift */,
 				96939EEA223BDAE600A49E57 /* ActivityIndicator.swift */,
 				96939EEF223C1FEE00A49E57 /* Unwrap+.swift */,
+				961A8788223FFC3300846538 /* UITextField+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -850,6 +853,7 @@
 				965ADAED2235930D00AA8CF4 /* KosApi.swift in Sources */,
 				966ABB59222DA2DF007DD046 /* User.swift in Sources */,
 				963C62842233B7C000B01818 /* HttpService.swift in Sources */,
+				961A8789223FFC3300846538 /* UITextField+.swift in Sources */,
 				96861070222AA4550069B81B /* BaseViewController.swift in Sources */,
 				96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */,
 				961A8787223F8B3B00846538 /* SettingsViewController.swift in Sources */,

@@ -6,7 +6,30 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import RxDataSources
+
 struct Settings: Codable {
     var language: String
     var semestr: String?
+}
+
+// Table view model
+
+enum SettingsItem {
+    case text(title: String, text: String)
+    case picker(title: String, options: [String], value: String)
+}
+
+struct SettingsSection {
+    var header: String
+    var items: [SettingsItem]
+}
+
+extension SettingsSection: SectionModelType {
+    typealias Item = SettingsItem
+
+    init(original: SettingsSection, items: [Item]) {
+        self = original
+        self.items = items
+    }
 }

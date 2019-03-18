@@ -15,6 +15,10 @@ internal enum L10n {
     internal static let appVersion = L10n.tr("Localizable", "appVersion")
 
     internal enum Button {
+        /// Cancel
+        internal static let cancel = L10n.tr("Localizable", "button.cancel")
+        /// Done
+        internal static let done = L10n.tr("Localizable", "button.done")
         /// Login
         internal static let login = L10n.tr("Localizable", "button.login")
     }
@@ -52,8 +56,12 @@ internal enum L10n {
     }
 
     internal enum Settings {
+        /// Options
+        internal static let options = L10n.tr("Localizable", "settings.options")
         /// Settings
         internal static let title = L10n.tr("Localizable", "settings.title")
+        /// User
+        internal static let user = L10n.tr("Localizable", "settings.user")
     }
 }
 

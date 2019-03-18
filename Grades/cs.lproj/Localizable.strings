@@ -4,6 +4,8 @@
 "error.api.generic" = "Nastala chyba při stahování dat.";
 
 "button.login" = "Přihlásit se";
+"button.done" = "Hotovo";
+"button.cancel" = "Zrušit";
 
 "courses.fetching" = "Načítání kurzů";
 "courses.title" = "Kurzy";
@@ -15,3 +17,5 @@
 "classification.total" = "Celkem";
 
 "settings.title" = "Nastavení";
+"settings.user" = "Uživatel";
+"settings.options" = "Možnosti";
