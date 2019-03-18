@@ -51,7 +51,8 @@ class SettingsViewController: BaseTableViewController, BindableType {
                         guard let `self` = self else { return Observable.empty() }
 
                         self.pickerTextField.resignFirstResponder()
-                        return self.viewModel.onOptionSelected.execute()
+                        self.viewModel.submitCurrentValue()
+                        return Observable.empty()
                     }
 
                     self.pickerTextField.addDoneButtonOnKeyboard(doneAction: doneAction)
@@ -93,8 +94,8 @@ class SettingsViewController: BaseTableViewController, BindableType {
         super.viewDidLoad()
 
         pickerView.rx.itemSelected
-            .map { _, value in String(value) }
-            .bind(to: viewModel.selectedValue)
+            .map { row, _ in row }
+            .bind(to: viewModel.selectedOptionIndex)
             .disposed(by: bag)
 
         tableView.rx.itemSelected

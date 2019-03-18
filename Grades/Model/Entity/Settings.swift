@@ -10,7 +10,7 @@ import RxDataSources
 
 struct Settings: Codable {
     var language: String
-    var semestr: String?
+    var semester: String
 }
 
 // Table view model

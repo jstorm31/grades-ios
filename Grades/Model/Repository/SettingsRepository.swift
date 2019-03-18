@@ -7,27 +7,52 @@
 //
 
 import Foundation
+import RxCocoa
+import RxSwift
 
 protocol SettingsRepositoryProtocol {
-    var currentSettings: Settings! { get }
+    var currentSettings: BehaviorRelay<Settings> { get }
+    var semesterOptions: BehaviorRelay<[String]> { get }
+    var languageOptions: [String] { get }
+
+    func changeSemester(optionIndex index: Int)
 }
 
 class SettingsRepository: SettingsRepositoryProtocol {
     private let KEY = "Settings"
-    var currentSettings: Settings!
+
+    // MARK: output
+
+    var currentSettings: BehaviorRelay<Settings>
+    var semesterOptions = BehaviorRelay<[String]>(value: ["B171", "B172", "B182"]) // TODO: replace with dynamic values
+    let languageOptions = ["cs", "en"] // TODO: add from config
+
+    // MARK: init
 
     init() {
+        let language = Locale.current.languageCode ?? EnvironmentConfiguration.shared.defaultLanguage
+        let defaultSettings = Settings(language: language, semester: "B182")
+        currentSettings = BehaviorRelay<Settings>(value: defaultSettings) // TODO: replace with dynamic value
+
         if let loadedSettings = loadSettings() {
-            currentSettings = loadedSettings
-        } else {
-            let language = Locale.current.languageCode ?? EnvironmentConfiguration.shared.defaultLanguage
-            currentSettings = Settings(language: language, semestr: nil)
+            currentSettings.accept(loadedSettings)
         }
 
         // Set locale
-        UserDefaults.standard.set([currentSettings.language], forKey: "AppleLanguages")
+        UserDefaults.standard.set([currentSettings.value.language], forKey: "AppleLanguages")
         UserDefaults.standard.synchronize()
     }
+
+    // MARK: methods
+
+    func changeSemester(optionIndex index: Int) {
+        var newSettings = currentSettings.value
+        newSettings.semester = semesterOptions.value[index]
+        currentSettings.accept(newSettings)
+        saveSettings()
+    }
+
+    // MARK: support methods
 
     /// Load settings from user defaults or use default
     private func loadSettings() -> Settings? {
@@ -41,7 +66,7 @@ class SettingsRepository: SettingsRepositoryProtocol {
 
     /// Save current settings to user defaults
     private func saveSettings() {
-        if let encoded = try? JSONEncoder().encode(currentSettings) {
+        if let encoded = try? JSONEncoder().encode(currentSettings.value) {
             UserDefaults.standard.set(encoded, forKey: KEY)
         }
     }

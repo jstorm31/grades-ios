@@ -27,14 +27,14 @@ class GradesAPI: GradesAPIProtocol {
         return config["BaseURL"]!
     }
 
+    // TODO: refactor to observable
     private var defaultParameters: [String: Any] {
-        var parameters = [
-            "lang": settings.currentSettings.language
-        ]
+        let settingsState = settings.currentSettings.value
 
-        if let semestr = settings.currentSettings.semestr {
-            parameters["semestr"] = semestr
-        }
+        var parameters = [
+            "lang": settingsState.language
+        ]
+        parameters["semestr"] = settingsState.semester
 
         return parameters
     }
