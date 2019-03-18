@@ -19,6 +19,7 @@ class LoginViewModel: BaseViewModel {
     let httpService: HttpServiceProtocol
     let gradesApi: GradesAPIProtocol
     let config = EnvironmentConfiguration.shared
+    private let settings: SettingsRepositoryProtocol
     private let bag = DisposeBag()
 
     // MARK: methods
@@ -26,10 +27,12 @@ class LoginViewModel: BaseViewModel {
     init(sceneCoordinator: SceneCoordinatorType,
          authenticationService: AuthenticationServiceProtocol,
          httpService: HttpServiceProtocol,
-         gradesApi: GradesAPIProtocol) {
+         gradesApi: GradesAPIProtocol,
+         settings: SettingsRepositoryProtocol) {
         self.sceneCoordinator = sceneCoordinator
         self.httpService = httpService
         self.gradesApi = gradesApi
+        self.settings = settings
         authService = authenticationService
     }
 
@@ -42,7 +45,7 @@ class LoginViewModel: BaseViewModel {
                 guard let `self` = self else { return }
 
                 let kosApi = KosApi(client: self.authService.handler.client, configuration: self.config.kosAPI)
-                let courseListViewModel = CourseListViewModel(sceneCoordinator: self.sceneCoordinator, gradesApi: self.gradesApi, kosApi: kosApi, user: userInfo)
+                let courseListViewModel = CourseListViewModel(sceneCoordinator: self.sceneCoordinator, gradesApi: self.gradesApi, kosApi: kosApi, user: userInfo, settings: self.settings)
 
                 // Transition to course list scene
                 self.sceneCoordinator.transition(to: .courseList(courseListViewModel), type: .modal)

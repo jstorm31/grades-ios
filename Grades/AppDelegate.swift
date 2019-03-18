@@ -35,7 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator,
                                             authenticationService: authService,
                                             httpService: httpService,
-                                            gradesApi: gradesApi)
+                                            gradesApi: gradesApi,
+                                            settings: settings)
         let loginScreen = Scene.login(loginViewModel)
         sceneCoordinator.transition(to: loginScreen, type: .root)
 

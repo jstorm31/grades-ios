@@ -50,6 +50,11 @@ internal enum L10n {
             internal static let generic = L10n.tr("Localizable", "error.auth.generic")
         }
     }
+
+    internal enum Settings {
+        /// Settings
+        internal static let title = L10n.tr("Localizable", "settings.title")
+    }
 }
 
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

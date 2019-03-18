@@ -16,26 +16,31 @@ class CourseListViewModel: BaseViewModel {
     private let gradesApi: GradesAPIProtocol
     private let kosApi: KosApiProtocol
     private let user: UserInfo
+    private let settings: SettingsRepositoryProtocol
     private let activityIndicator = ActivityIndicator()
     private let bag = DisposeBag()
 
-    var openSettings = CocoaAction {
-        Log.info("tansition")
-        return Observable.empty()
-        //		sceneCoordinator.transition(to: )
-    }
+    var openSettings: CocoaAction
 
-    init(sceneCoordinator: SceneCoordinatorType, gradesApi: GradesAPIProtocol, kosApi: KosApiProtocol, user: UserInfo) {
+    init(sceneCoordinator: SceneCoordinatorType, gradesApi: GradesAPIProtocol, kosApi: KosApiProtocol, user: UserInfo, settings: SettingsRepositoryProtocol) {
         self.gradesApi = gradesApi
         self.kosApi = kosApi
         self.user = user
         self.sceneCoordinator = sceneCoordinator
+        self.settings = settings
 
         activityIndicator
             .distinctUntilChanged()
             .asObservable()
             .bind(to: isFetchingCourses)
             .disposed(by: bag)
+
+        openSettings = CocoaAction {
+            let settingsViewModel = SettingsViewModel(coordinator: sceneCoordinator, repository: settings)
+
+            sceneCoordinator.transition(to: .settings(settingsViewModel), type: .push)
+            return Observable.empty()
+        }
     }
 
     // MARK: output

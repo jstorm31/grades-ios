@@ -21,6 +21,7 @@ class CourseListViewController: BaseTableViewController, BindableType {
     override func loadView() {
         super.loadView()
         loadView(hasTableHeaderView: false)
+        loadRefreshControl()
 
         navigationItem.title = L10n.Courses.title
         tableView.register(CourseListCell.self, forCellReuseIdentifier: "CourseCell")
@@ -44,7 +45,7 @@ class CourseListViewController: BaseTableViewController, BindableType {
         var settingsButton = UIButton()
         settingsButton.setImage(icon, for: .normal)
         settingsButton.rx.action = viewModel.openSettings
-		navigationController?.navigationBar.addSubview(settingsButton)
+        navigationController?.navigationBar.addSubview(settingsButton)
         settingsButton.tag = 1
         settingsButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(20)

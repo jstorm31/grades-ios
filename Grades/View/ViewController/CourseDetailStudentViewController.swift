@@ -37,6 +37,7 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
     override func loadView() {
         super.loadView()
         loadView(hasTableHeaderView: true)
+        loadRefreshControl()
 
         navigationItem.title = viewModel.courseCode
         tableView.register(ClassificationCell.self, forCellReuseIdentifier: "ClassificationCell")
@@ -159,13 +160,6 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
         }
 
         headerGradeLabel.textColor = color
-    }
-
-    private func removeRightButton() {
-        guard let subviews = navigationController?.navigationBar.subviews else { return }
-        for view in subviews where view.tag != 0 {
-            view.removeFromSuperview()
-        }
     }
 }
 

@@ -16,6 +16,8 @@
 		961A2FDE22294F4500A624DC /* PlistDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A2FDD22294F4500A624DC /* PlistDocument.swift */; };
 		961A2FE1222988D700A624DC /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A2FE0222988D700A624DC /* AuthenticationService.swift */; };
 		961A2FF12229D44A00A624DC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A2FF02229D44A00A624DC /* LoginViewModel.swift */; };
+		961A8785223F8B1200846538 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A8784223F8B1200846538 /* SettingsViewModel.swift */; };
+		961A8787223F8B3B00846538 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A8786223F8B3B00846538 /* SettingsViewController.swift */; };
 		961BCE71222C32DD00BD6663 /* SceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BCE70222C32DD00BD6663 /* SceneCoordinator.swift */; };
 		961BCE79222C3D8E00BD6663 /* GradesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BCE78222C3D8E00BD6663 /* GradesUITests.swift */; };
 		961BCE81222C515700BD6663 /* GradesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BCE80222C515700BD6663 /* GradesAPI.swift */; };
@@ -126,6 +128,8 @@
 		961A2FDD22294F4500A624DC /* PlistDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistDocument.swift; sourceTree = "<group>"; };
 		961A2FE0222988D700A624DC /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		961A2FF02229D44A00A624DC /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		961A8784223F8B1200846538 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		961A8786223F8B3B00846538 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		961BCE70222C32DD00BD6663 /* SceneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinator.swift; sourceTree = "<group>"; };
 		961BCE76222C3D8E00BD6663 /* GradesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GradesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		961BCE78222C3D8E00BD6663 /* GradesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesUITests.swift; sourceTree = "<group>"; };
@@ -286,6 +290,7 @@
 				9682A6BD222D1F7600773E28 /* CourseListViewModel.swift */,
 				96B20DA22236692E004794BE /* CourseDetailStudentViewModel.swift */,
 				96F3A3722239080B00FB63EF /* BaseViewModel.swift */,
+				961A8784223F8B1200846538 /* SettingsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -465,6 +470,7 @@
 				96A80A74222F1D0400986A90 /* CourseListViewController.swift */,
 				96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */,
 				96F3A3842239B4B200FB63EF /* BaseTableViewController.swift */,
+				961A8786223F8B3B00846538 /* SettingsViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -846,12 +852,14 @@
 				963C62842233B7C000B01818 /* HttpService.swift in Sources */,
 				96861070222AA4550069B81B /* BaseViewController.swift in Sources */,
 				96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */,
+				961A8787223F8B3B00846538 /* SettingsViewController.swift in Sources */,
 				96A80A75222F1D0400986A90 /* CourseListViewController.swift in Sources */,
 				9686107E222AB4D40069B81B /* UIView+.swift in Sources */,
 				9699AB99223256D2006D2F73 /* OverviewItem.swift in Sources */,
 				96939EE6223BB97500A49E57 /* ClassificationType.swift in Sources */,
 				965ADAEB223569C500AA8CF4 /* CourseListCell.swift in Sources */,
 				96861085222AF2630069B81B /* BindableType.swift in Sources */,
+				961A8785223F8B1200846538 /* SettingsViewModel.swift in Sources */,
 				961A2FF12229D44A00A624DC /* LoginViewModel.swift in Sources */,
 				9682A6BE222D1F7600773E28 /* CourseListViewModel.swift in Sources */,
 				966ABB57222D986A007DD046 /* Course.swift in Sources */,
