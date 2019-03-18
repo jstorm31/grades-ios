@@ -9,7 +9,7 @@
 import RxDataSources
 
 struct Settings: Codable {
-    var language: String
+    var language: Language
     var semester: String
 }
 

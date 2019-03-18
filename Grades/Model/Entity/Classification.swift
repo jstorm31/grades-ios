@@ -22,7 +22,8 @@ struct Classification {
         if text.isEmpty {
             return ""
         }
-
+		
+		// TODO: replace with settings language
         if let localizedText = text.first(where: { $0.identifier == Locale.current.languageCode }) {
             return localizedText.name
         } else {

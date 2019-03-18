@@ -13,7 +13,7 @@ import RxSwift
 protocol SettingsRepositoryProtocol {
     var currentSettings: BehaviorRelay<Settings> { get }
     var semesterOptions: BehaviorRelay<[String]> { get }
-    var languageOptions: [String] { get }
+    var languageOptions: [Language] { get }
 
     func changeSemester(optionIndex index: Int)
 }
@@ -25,22 +25,22 @@ class SettingsRepository: SettingsRepositoryProtocol {
 
     var currentSettings: BehaviorRelay<Settings>
     var semesterOptions = BehaviorRelay<[String]>(value: ["B171", "B172", "B182"]) // TODO: replace with dynamic values
-    let languageOptions = ["cs", "en"] // TODO: add from config
+    let languageOptions: [Language] = [.czech, .english] // TODO: add from config
 
     // MARK: init
 
     init() {
         let language = Locale.current.languageCode ?? EnvironmentConfiguration.shared.defaultLanguage
-        let defaultSettings = Settings(language: language, semester: "B182")
+        let defaultLanguage = Language.language(forString: language)
+
+        let defaultSettings = Settings(language: defaultLanguage, semester: "B182")
         currentSettings = BehaviorRelay<Settings>(value: defaultSettings) // TODO: replace with dynamic value
 
         if let loadedSettings = loadSettings() {
             currentSettings.accept(loadedSettings)
         }
 
-        // Set locale
-        UserDefaults.standard.set([currentSettings.value.language], forKey: "AppleLanguages")
-        UserDefaults.standard.synchronize()
+        updateLocale()
     }
 
     // MARK: methods
@@ -69,5 +69,10 @@ class SettingsRepository: SettingsRepositoryProtocol {
         if let encoded = try? JSONEncoder().encode(currentSettings.value) {
             UserDefaults.standard.set(encoded, forKey: KEY)
         }
+    }
+
+    private func updateLocale() {
+        UserDefaults.standard.set([currentSettings.value.language.rawValue], forKey: "AppleLanguages")
+        UserDefaults.standard.synchronize()
     }
 }

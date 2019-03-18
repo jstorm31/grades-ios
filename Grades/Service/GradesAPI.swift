@@ -32,7 +32,7 @@ class GradesAPI: GradesAPIProtocol {
         let settingsState = settings.currentSettings.value
 
         var parameters = [
-            "lang": settingsState.language
+            "lang": settingsState.language.rawValue
         ]
         parameters["semestr"] = settingsState.semester
 

@@ -62,12 +62,10 @@ class SettingsViewModel: BaseViewModel {
 
             return [
                 SettingsSection(header: L10n.Settings.options, items: [
-                    .picker(title: L10n.Settings.language, options: self.repository.languageOptions, value: settings.language),
                     .picker(title: L10n.Settings.semester, options: semestrOptions, value: settings.semester)
                 ])
             ]
         }
-        .debug()
         .bind(to: settings)
         .disposed(by: bag)
     }
@@ -77,7 +75,7 @@ class SettingsViewModel: BaseViewModel {
         guard let index = self.selectedIndex.value, let optionIndex = self.selectedOptionIndex.value else { return }
 
         // Semester
-        if index.section == 0, index.item == 1 {
+        if index.section == 0, index.item == 0 {
             repository.changeSemester(optionIndex: optionIndex)
         }
     }
