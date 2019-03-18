@@ -55,7 +55,7 @@ class SettingsViewController: BaseTableViewController, BindableType {
                         return Observable.empty()
                     }
 
-                    self.pickerTextField.addDoneButtonOnKeyboard(doneAction: doneAction)
+                    self.pickerTextField.addDoneButtonOnKeyboard(title: title, doneAction: doneAction)
                     self.pickerTextField.isHidden = true
                     accessoryView.addSubview(self.pickerTextField)
 

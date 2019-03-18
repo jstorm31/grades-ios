@@ -14,16 +14,20 @@ import RxSwift
 import UIKit
 
 extension UITextField {
-    func addDoneButtonOnKeyboard(doneAction: CocoaAction) {
+    func addDoneButtonOnKeyboard(title: String?, doneAction: CocoaAction) {
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         doneToolbar.barStyle = .default
 
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let titleLabel = UILabel()
+        titleLabel.font = UIFont.Grades.cellTitle
+        titleLabel.textColor = UIColor.Theme.text
+        titleLabel.text = title ?? ""
         let cancel = UIBarButtonItem(title: L10n.Button.cancel, style: .plain, target: self, action: #selector(cancelButtonAction))
         var done = UIBarButtonItem(title: L10n.Button.done, style: .done, target: self, action: nil)
         done.rx.action = doneAction
 
-        let items = [flexSpace, cancel, done]
+        let items = [cancel, spacer, UIBarButtonItem(customView: titleLabel), spacer, done]
         doneToolbar.items = items
         doneToolbar.sizeToFit()
 
