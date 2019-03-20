@@ -12,7 +12,7 @@ import RxDataSources
 import RxSwift
 import UIKit
 
-class SettingsViewController: BaseTableViewController, BindableType {
+class SettingsViewController: BaseTableViewController, BindableType, ConfirmationModalPresentable {
     var pickerView: UIPickerView!
     var pickerTextField: UITextField!
 
@@ -159,7 +159,9 @@ class SettingsViewController: BaseTableViewController, BindableType {
     // MARK: events
 
     @objc func logOutButtonTapped(_: UIBarButtonItem) {
-        viewModel.logoutAction.execute()
+        displayConfirmation(title: L10n.Settings.logoutConfirmTitle) { [weak self] in
+            self?.viewModel.logoutAction.execute()
+        }
     }
 }
 

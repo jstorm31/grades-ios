@@ -17,6 +17,8 @@ internal enum L10n {
     internal enum Button {
         /// Cancel
         internal static let cancel = L10n.tr("Localizable", "button.cancel")
+        /// Yes
+        internal static let confirm = L10n.tr("Localizable", "button.confirm")
         /// Done
         internal static let done = L10n.tr("Localizable", "button.done")
         /// Login
@@ -60,6 +62,8 @@ internal enum L10n {
         internal static let language = L10n.tr("Localizable", "settings.language")
         /// Log out
         internal static let logout = L10n.tr("Localizable", "settings.logout")
+        /// Do you really wish to logout?
+        internal static let logoutConfirmTitle = L10n.tr("Localizable", "settings.logoutConfirmTitle")
         /// Options
         internal static let options = L10n.tr("Localizable", "settings.options")
         /// Semester
