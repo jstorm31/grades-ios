@@ -34,7 +34,7 @@ class GradesAPI: GradesAPIProtocol {
         var parameters = [
             "lang": settingsState.language.rawValue
         ]
-        parameters["semestr"] = settingsState.semester
+        parameters["semester"] = settingsState.semester
 
         return parameters
     }

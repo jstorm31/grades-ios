@@ -10,29 +10,47 @@ import Action
 import RxCocoa
 import RxSwift
 
-class SettingsViewModel: BaseViewModel {
+protocol SettingsViewModelProtocol {
+	typealias CurrentSetting = (IndexPath, Int)
+
+	var settings: BehaviorRelay<[SettingsSection]> { get }
+	var options: BehaviorSubject<[String]> { get }
+	var selectedOptionIndex: BehaviorRelay<Int> { get }
+	
+	var onBackAction: CocoaAction { get }
+	var setCurrentSettingStateAction: Action<CurrentSetting, Void> { get }
+	
+	func bindOutput()
+	func submitSelectedValue()
+}
+
+class SettingsViewModel: BaseViewModel, SettingsViewModelProtocol {
     private let coordinator: SceneCoordinatorType
     private let repository: SettingsRepositoryProtocol
     private let bag = DisposeBag()
 
+    private let selectedSettingIndex = BehaviorRelay<IndexPath?>(value: nil)
+
     // MARK: output
 
-    var settings = BehaviorRelay<[SettingsSection]>(value: [])
-    var options = BehaviorSubject<[String]>(value: [])
-    var onBack: CocoaAction
+    let settings = BehaviorRelay<[SettingsSection]>(value: [])
+    let options = BehaviorSubject<[String]>(value: [])
+    let selectedOptionIndex = BehaviorRelay<Int>(value: 0)
+    let onBackAction: CocoaAction
 
-    // MARK: input
+    lazy var setCurrentSettingStateAction: Action<CurrentSetting, Void> = Action { [weak self] settingIndex, optionIndex in
+        self?.selectedSettingIndex.accept(settingIndex)
+        self?.selectedOptionIndex.accept(optionIndex)
+        return Observable.empty()
+    }
 
-    var selectedIndex = BehaviorRelay<IndexPath?>(value: nil)
-    var selectedOptionIndex = BehaviorRelay<Int>(value: 0)
-
-    // MARK: methods
+    // MARK: initialization
 
     init(coordinator: SceneCoordinatorType, repository: SettingsRepositoryProtocol) {
         self.coordinator = coordinator
         self.repository = repository
 
-        onBack = CocoaAction {
+        onBackAction = CocoaAction {
             coordinator.didPop()
                 .asObservable().map { _ in }
         }
@@ -40,7 +58,7 @@ class SettingsViewModel: BaseViewModel {
         super.init()
 
         // Bind currently selected options
-        selectedIndex
+        selectedSettingIndex
             .map { [weak self] indexPath in
                 guard
                     let indexPath = indexPath,
@@ -55,6 +73,8 @@ class SettingsViewModel: BaseViewModel {
             .bind(to: options)
             .disposed(by: bag)
     }
+
+    // MARK: methods
 
     func bindOutput() {
         Observable.combineLatest(repository.currentSettings, repository.semesterOptions) { settings, semesterOptions in
@@ -71,8 +91,8 @@ class SettingsViewModel: BaseViewModel {
     }
 
     /// Submit current value for current index path
-    func submitCurrentValue() {
-        guard let index = self.selectedIndex.value else { return }
+    func submitSelectedValue() {
+        guard let index = self.selectedSettingIndex.value else { return }
 
         // Semester
         if index.section == 0, index.item == 0 {

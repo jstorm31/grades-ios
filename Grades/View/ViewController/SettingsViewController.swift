@@ -16,12 +16,15 @@ class SettingsViewController: BaseTableViewController, BindableType {
     var pickerView: UIPickerView!
     var pickerTextField: UITextField!
 
-    var viewModel: SettingsViewModel!
+    var viewModel: SettingsViewModelProtocol!
     private let bag = DisposeBag()
+
+    // MARK: data source
 
     private var dataSource: RxTableViewSectionedReloadDataSource<SettingsSection> {
         return RxTableViewSectionedReloadDataSource<SettingsSection>(
             configureCell: { [weak self] dataSource, tableView, indexPath, _ in
+
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath)
                 cell.textLabel?.font = UIFont.Grades.boldBody
                 cell.textLabel?.textColor = UIColor.Theme.text
@@ -29,6 +32,8 @@ class SettingsViewController: BaseTableViewController, BindableType {
                 guard let `self` = self else { return cell }
 
                 switch dataSource[indexPath] {
+                    // MARK: text cell
+
                 case let .text(title, text):
                     cell.textLabel?.text = title
 
@@ -40,36 +45,30 @@ class SettingsViewController: BaseTableViewController, BindableType {
                     cell.accessoryView = label
                     return cell
 
+                    // MARK: picker cell
+
                 case let .picker(title, options, valueIndex):
                     cell.textLabel?.text = title
 
-                    let accessoryView = UIView()
-                    self.pickerTextField.backgroundColor = .red
-                    self.pickerTextField.inputView = self.pickerView
-
                     let doneAction = CocoaAction { [weak self] in
-                        guard let `self` = self else { return Observable.empty() }
-
-                        self.pickerTextField.resignFirstResponder()
-                        self.viewModel.submitCurrentValue()
+                        self?.pickerTextField.resignFirstResponder()
+                        self?.viewModel.submitSelectedValue()
                         return Observable.empty()
                     }
 
+                    let accessoryView = UIView()
                     self.pickerTextField.addDoneButtonOnKeyboard(title: title, doneAction: doneAction)
-                    self.pickerTextField.isHidden = true
                     accessoryView.addSubview(self.pickerTextField)
 
-                    let valueLabel = UILabel()
-                    valueLabel.text = options[valueIndex]
-                    valueLabel.textColor = UIColor.Theme.text
-                    accessoryView.addSubview(valueLabel)
-                    valueLabel.snp.makeConstraints { make in
+                    let pickerLabel = UIPickerLabel()
+                    pickerLabel.text = options[valueIndex]
+                    accessoryView.addSubview(pickerLabel)
+                    pickerLabel.snp.makeConstraints { make in
                         make.trailing.equalToSuperview()
                         make.centerY.equalToSuperview()
                     }
 
                     cell.accessoryView = accessoryView
-
                     return cell
                 }
             },
@@ -78,6 +77,8 @@ class SettingsViewController: BaseTableViewController, BindableType {
             }
         )
     }
+
+    // MARK: lifecycle
 
     override func loadView() {
         super.loadView()
@@ -88,30 +89,13 @@ class SettingsViewController: BaseTableViewController, BindableType {
 
         pickerView = UIPickerView()
         pickerTextField = UITextField()
+        pickerTextField.inputView = pickerView
+        pickerTextField.isHidden = true
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        pickerView.rx.itemSelected
-            .map { row, _ in row }
-            .bind(to: viewModel.selectedOptionIndex)
-            .disposed(by: bag)
-
-        tableView.rx.itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
-                guard let `self` = self else { return }
-                let item = self.viewModel.settings.value[indexPath.section].items[indexPath.item]
-
-                if case let .picker(_, _, index) = item {
-                    self.viewModel.selectedIndex.accept(indexPath)
-                    self.pickerTextField.becomeFirstResponder()
-                    self.pickerView.selectRow(index, inComponent: 0, animated: true)
-                }
-
-                self.tableView.deselectRow(at: indexPath, animated: true)
-            })
-            .disposed(by: bag)
+        setupBindings()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -124,8 +108,36 @@ class SettingsViewController: BaseTableViewController, BindableType {
         super.viewWillDisappear(animated)
 
         if isMovingFromParent {
-            viewModel.onBack.execute()
+            viewModel.onBackAction.execute()
         }
+    }
+
+    // MARK: binding
+
+    func setupBindings() {
+        pickerView.rx.itemSelected
+            .map { row, _ in row }
+            .bind(to: viewModel.selectedOptionIndex)
+            .disposed(by: bag)
+
+        tableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let `self` = self else { return }
+                let item = self.viewModel.settings.value[indexPath.section].items[indexPath.item]
+
+                // On table cell selection, set selected cell index in view model to display right options in picker view
+                if case let .picker(_, _, selectedValueIndex) = item {
+                    self.viewModel.setCurrentSettingStateAction.execute((indexPath, selectedValueIndex))
+                        .subscribe(onCompleted: { [weak self] in
+                            self?.pickerTextField.becomeFirstResponder()
+                            self?.pickerView.selectRow(selectedValueIndex, inComponent: 0, animated: true)
+                        })
+                        .disposed(by: self.bag)
+                }
+
+                self.tableView.deselectRow(at: indexPath, animated: true)
+            })
+            .disposed(by: bag)
     }
 
     func bindViewModel() {

@@ -31,6 +31,7 @@
 		963C62942234328900B01818 /* AuthenticationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963C62932234328900B01818 /* AuthenticationError.swift */; };
 		963C6296223432FD00B01818 /* AuthenticationServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963C6295223432FD00B01818 /* AuthenticationServiceMock.swift */; };
 		963C62982234542E00B01818 /* HttpServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963C62972234542E00B01818 /* HttpServiceMock.swift */; };
+		96447793224249CD00E960F4 /* UIPickerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96447792224249CD00E960F4 /* UIPickerLabel.swift */; };
 		96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E942223D65F00AB6499 /* AppDelegate.swift */; };
 		96520E972223D65F00AB6499 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E962223D65F00AB6499 /* LoginViewController.swift */; };
 		96520E9A2223D65F00AB6499 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E982223D65F00AB6499 /* Main.storyboard */; };
@@ -148,6 +149,7 @@
 		963C62932234328900B01818 /* AuthenticationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationError.swift; sourceTree = "<group>"; };
 		963C6295223432FD00B01818 /* AuthenticationServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationServiceMock.swift; sourceTree = "<group>"; };
 		963C62972234542E00B01818 /* HttpServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpServiceMock.swift; sourceTree = "<group>"; };
+		96447792224249CD00E960F4 /* UIPickerLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerLabel.swift; sourceTree = "<group>"; };
 		96520E912223D65F00AB6499 /* GradesDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GradesDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96520E942223D65F00AB6499 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96520E962223D65F00AB6499 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -463,6 +465,7 @@
 			isa = PBXGroup;
 			children = (
 				9686107B222AAED50069B81B /* UIPrimaryButton.swift */,
+				96447792224249CD00E960F4 /* UIPickerLabel.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -526,9 +529,8 @@
 				966ABB58222DA2DF007DD046 /* User.swift */,
 				9699AB98223256D2006D2F73 /* OverviewItem.swift */,
 				96F3A37822390F6800FB63EF /* CourseStudent.swift */,
-				96F3A37A22390FF200FB63EF /* Classification.swift */,
-				96F3A3802239A84F00FB63EF /* DynamicValue.swift */,
 				96939EE5223BB97500A49E57 /* ClassificationType.swift */,
+				96F3A37A22390FF200FB63EF /* Classification.swift */,
 				96B49FA9223EBF8E00B23A5B /* Settings.swift */,
 			);
 			path = Entity;
@@ -546,6 +548,7 @@
 		96F3A37622390F2B00FB63EF /* Type */ = {
 			isa = PBXGroup;
 			children = (
+				96F3A3802239A84F00FB63EF /* DynamicValue.swift */,
 				96861084222AF2630069B81B /* BindableType.swift */,
 				961A878E2240484200846538 /* Language.swift */,
 			);
@@ -869,6 +872,7 @@
 				961A8785223F8B1200846538 /* SettingsViewModel.swift in Sources */,
 				961A2FF12229D44A00A624DC /* LoginViewModel.swift in Sources */,
 				9682A6BE222D1F7600773E28 /* CourseListViewModel.swift in Sources */,
+				96447793224249CD00E960F4 /* UIPickerLabel.swift in Sources */,
 				966ABB57222D986A007DD046 /* Course.swift in Sources */,
 				96861082222AEFE60069B81B /* Scene.swift in Sources */,
 				961A878F2240484200846538 /* Language.swift in Sources */,

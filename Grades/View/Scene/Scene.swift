@@ -12,7 +12,7 @@ enum Scene {
     case login(LoginViewModel)
     case courseList(CourseListViewModel)
     case courseDetailStudent(CourseDetailStudentViewModel)
-    case settings(SettingsViewModel)
+    case settings(SettingsViewModelProtocol)
 }
 
 extension Scene {

@@ -12,7 +12,7 @@ enum DynamicValueType: String, Codable {
     case bool = "BOOLEAN"
 }
 
-/// Type for handling polymorfic external data
+/// Type for handling type-polymorfic external data
 /// E.G. JSON from external source
 enum DynamicValue: Codable {
     case number(Double)
