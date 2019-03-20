@@ -24,6 +24,7 @@ struct OverviewItem: Decodable {
         do {
             value = try container.decodeIfPresent(String.self, forKey: .value)
         } catch {
+            // TODO: refactor to use dynamic value
             let intValue = try container.decode(Int.self, forKey: .value)
             value = String(intValue)
         }

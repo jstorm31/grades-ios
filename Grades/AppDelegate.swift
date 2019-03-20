@@ -26,15 +26,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // LoginViewModel dependencies initialization
         let sceneCoordinator = SceneCoordinator(window: window!)
         let authService = AuthenticationService()
-        let settings = SettingsRepository(authClient: authService.handler.client)
         let httpService = HttpService(client: authService.handler.client)
-        let gradesApi = GradesAPI(httpService: httpService, settings: settings)
+
+        let gradesApi = GradesAPI(httpService: httpService)
 
         let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator,
                                             authenticationService: authService,
                                             httpService: httpService,
-                                            gradesApi: gradesApi,
-                                            settings: settings)
+                                            gradesApi: gradesApi)
         let loginScreen = Scene.login(loginViewModel)
         sceneCoordinator.transition(to: loginScreen, type: .root)
 

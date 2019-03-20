@@ -20,26 +20,28 @@ protocol SettingsRepositoryProtocol {
     func logout()
 }
 
-class SettingsRepository: SettingsRepositoryProtocol {
+final class SettingsRepository: SettingsRepositoryProtocol {
     private let KEY = "Settings"
     private let authClient: OAuthSwiftClient
+    private let currentSemesterCode: String
 
     // MARK: output
 
-    var currentSettings: BehaviorRelay<Settings>
-    var semesterOptions = BehaviorRelay<[String]>(value: ["B171", "B172", "B182"]) // TODO: replace with dynamic values
-    let languageOptions: [Language] = [.czech, .english] // TODO: add from config
+    let currentSettings: BehaviorRelay<Settings>
+    lazy var semesterOptions = BehaviorRelay<[String]>(value: getSemesterOptions(yearCount: 3))
+    let languageOptions: [Language] = [.czech, .english]
 
     // MARK: init
 
-    init(authClient: OAuthSwiftClient) {
+    init(authClient: OAuthSwiftClient, currentSemesterCode: String) {
         self.authClient = authClient
+        self.currentSemesterCode = currentSemesterCode
 
         let language = Locale.current.languageCode ?? EnvironmentConfiguration.shared.defaultLanguage
         let defaultLanguage = Language.language(forString: language)
 
-        let defaultSettings = Settings(language: defaultLanguage, semester: "B182")
-        currentSettings = BehaviorRelay<Settings>(value: defaultSettings) // TODO: replace with dynamic value
+        let defaultSettings = Settings(language: defaultLanguage, semester: currentSemesterCode)
+        currentSettings = BehaviorRelay<Settings>(value: defaultSettings)
 
         if let loadedSettings = loadSettings() {
             currentSettings.accept(loadedSettings)
@@ -83,6 +85,34 @@ class SettingsRepository: SettingsRepositoryProtocol {
 
     private func updateLocale() {
         UserDefaults.standard.set([currentSettings.value.language.rawValue], forKey: "AppleLanguages")
-        UserDefaults.standard.synchronize()
+    }
+
+    // Generate last x semesters from current semester
+    private func getSemesterOptions(yearCount: Int) -> [String] {
+        var semesters: [String] = [currentSemesterCode]
+        var semester = currentSemesterCode
+
+        // Remove B from code e.g. "B182"
+        semester = semester.replacingOccurrences(of: "B", with: "")
+
+        // Convert to number
+        guard var semesterNumber = Int(semester) else { return semesters }
+
+        // If even, add odd semester of this year
+        if semesterNumber % 2 == 0 {
+            semesters.append("B\(semesterNumber - 1)") // B181
+            semesterNumber -= 2 // B180
+        } else {
+            semesterNumber -= 1 // B180
+        }
+
+        // Generate last yearCount years
+        guard yearCount > 0 else { return semesters }
+        for i in 0 ... yearCount - 1 {
+            semesters.append("B\(semesterNumber - 8 - i * 10)")
+            semesters.append("B\(semesterNumber - 9 - i * 10)")
+        }
+
+        return semesters
     }
 }

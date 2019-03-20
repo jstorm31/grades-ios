@@ -10,6 +10,8 @@ import Foundation
 import RxSwift
 
 protocol GradesAPIProtocol {
+    var settings: SettingsRepositoryProtocol? { get set }
+
     func getUser() -> Observable<UserInfo>
     func getRoles() -> Observable<UserRoles>
     func getCourses(username: String) -> Observable<[Course]>
@@ -21,7 +23,7 @@ protocol GradesAPIProtocol {
 class GradesAPI: GradesAPIProtocol {
     private let config = EnvironmentConfiguration.shared.gradesAPI
     private let httpService: HttpServiceProtocol
-    private let settings: SettingsRepositoryProtocol
+    var settings: SettingsRepositoryProtocol?
 
     private var baseUrl: String {
         return config["BaseURL"]!
@@ -29,6 +31,7 @@ class GradesAPI: GradesAPIProtocol {
 
     // TODO: refactor to observable
     private var defaultParameters: [String: Any] {
+        guard let settings = settings else { return [:] }
         let settingsState = settings.currentSettings.value
 
         var parameters = [
@@ -39,9 +42,8 @@ class GradesAPI: GradesAPIProtocol {
         return parameters
     }
 
-    init(httpService: HttpServiceProtocol, settings: SettingsRepositoryProtocol) {
+    init(httpService: HttpServiceProtocol) {
         self.httpService = httpService
-        self.settings = settings
     }
 
     // MARK: API endpoints
@@ -52,7 +54,7 @@ class GradesAPI: GradesAPIProtocol {
         case courses(String)
         case course(String)
         case studentCourse(String, String)
-        case semestr
+        case semester
     }
 
     // MARK: Endpoint requests
@@ -89,7 +91,7 @@ class GradesAPI: GradesAPIProtocol {
     }
 
     func getCurrentSemestrCode() -> Observable<String> {
-        return httpService.get(url: createURL(from: .semestr), parameters: [:])
+        return httpService.get(url: createURL(from: .semester), parameters: [:])
     }
 
     // MARK: helpers
@@ -110,8 +112,8 @@ class GradesAPI: GradesAPIProtocol {
             endpointValue = config["StudentCourse"]!
                 .replacingOccurrences(of: ":username", with: username)
                 .replacingOccurrences(of: ":code", with: code)
-        case .semestr:
-            endpointValue = config["Semestr"]!
+        case .semester:
+            endpointValue = config["Semester"]!
         }
 
         return URL(string: "\(baseUrl)\(endpointValue)")!
