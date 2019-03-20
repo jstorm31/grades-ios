@@ -86,6 +86,10 @@ class SettingsViewController: BaseTableViewController, BindableType {
 
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SettingsCell")
         navigationItem.title = L10n.Settings.title
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: L10n.Settings.logout,
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(logOutButtonTapped(_:)))
 
         pickerView = UIPickerView()
         pickerTextField = UITextField()
@@ -150,6 +154,12 @@ class SettingsViewController: BaseTableViewController, BindableType {
             .asDriver(onErrorJustReturn: [])
             .drive(pickerView.rx.itemTitles) { _, element in element }
             .disposed(by: bag)
+    }
+
+    // MARK: events
+
+    @objc func logOutButtonTapped(_: UIBarButtonItem) {
+        viewModel.logoutAction.execute()
     }
 }
 

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import OAuthSwift
 import RxCocoa
 import RxSwift
 
@@ -16,10 +17,12 @@ protocol SettingsRepositoryProtocol {
     var languageOptions: [Language] { get }
 
     func changeSemester(optionIndex index: Int)
+    func logout()
 }
 
 class SettingsRepository: SettingsRepositoryProtocol {
     private let KEY = "Settings"
+    private let authClient: OAuthSwiftClient
 
     // MARK: output
 
@@ -29,7 +32,9 @@ class SettingsRepository: SettingsRepositoryProtocol {
 
     // MARK: init
 
-    init() {
+    init(authClient: OAuthSwiftClient) {
+        self.authClient = authClient
+
         let language = Locale.current.languageCode ?? EnvironmentConfiguration.shared.defaultLanguage
         let defaultLanguage = Language.language(forString: language)
 
@@ -50,6 +55,11 @@ class SettingsRepository: SettingsRepositoryProtocol {
         newSettings.semester = semesterOptions.value[index]
         currentSettings.accept(newSettings)
         saveSettings()
+    }
+
+    func logout() {
+        authClient.credential.oauthToken = ""
+        authClient.credential.oauthRefreshToken = ""
     }
 
     // MARK: support methods

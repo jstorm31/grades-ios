@@ -17,6 +17,7 @@
 "classification.total" = "Celkem";
 
 "settings.title" = "Nastavení";
+"settings.logout" = "Odhlásit";
 "settings.user" = "Uživatel";
 "settings.options" = "Možnosti";
 "settings.language" = "Jazyk";

@@ -17,6 +17,7 @@
 "classification.total" = "Total";
 
 "settings.title" = "Settings";
+"settings.logout" = "Log out";
 "settings.user" = "User";
 "settings.options" = "Options";
 "settings.language" = "Language";

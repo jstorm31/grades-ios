@@ -58,6 +58,8 @@ internal enum L10n {
     internal enum Settings {
         /// Language
         internal static let language = L10n.tr("Localizable", "settings.language")
+        /// Log out
+        internal static let logout = L10n.tr("Localizable", "settings.logout")
         /// Options
         internal static let options = L10n.tr("Localizable", "settings.options")
         /// Semester

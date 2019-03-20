@@ -11,17 +11,18 @@ import RxCocoa
 import RxSwift
 
 protocol SettingsViewModelProtocol {
-	typealias CurrentSetting = (IndexPath, Int)
+    typealias CurrentSetting = (IndexPath, Int)
 
-	var settings: BehaviorRelay<[SettingsSection]> { get }
-	var options: BehaviorSubject<[String]> { get }
-	var selectedOptionIndex: BehaviorRelay<Int> { get }
-	
-	var onBackAction: CocoaAction { get }
-	var setCurrentSettingStateAction: Action<CurrentSetting, Void> { get }
-	
-	func bindOutput()
-	func submitSelectedValue()
+    var settings: BehaviorRelay<[SettingsSection]> { get }
+    var options: BehaviorSubject<[String]> { get }
+    var selectedOptionIndex: BehaviorRelay<Int> { get }
+
+    var setCurrentSettingStateAction: Action<CurrentSetting, Void> { get }
+    var onBackAction: CocoaAction { get }
+    var logoutAction: CocoaAction { get }
+
+    func bindOutput()
+    func submitSelectedValue()
 }
 
 class SettingsViewModel: BaseViewModel, SettingsViewModelProtocol {
@@ -36,7 +37,8 @@ class SettingsViewModel: BaseViewModel, SettingsViewModelProtocol {
     let settings = BehaviorRelay<[SettingsSection]>(value: [])
     let options = BehaviorSubject<[String]>(value: [])
     let selectedOptionIndex = BehaviorRelay<Int>(value: 0)
-    let onBackAction: CocoaAction
+
+    // MARK: actions
 
     lazy var setCurrentSettingStateAction: Action<CurrentSetting, Void> = Action { [weak self] settingIndex, optionIndex in
         self?.selectedSettingIndex.accept(settingIndex)
@@ -44,17 +46,21 @@ class SettingsViewModel: BaseViewModel, SettingsViewModelProtocol {
         return Observable.empty()
     }
 
+    lazy var logoutAction = CocoaAction { [weak self] in
+        self?.coordinator.pop()
+        return Observable.empty()
+    }
+
+    lazy var onBackAction = CocoaAction { [weak self] in
+        self?.coordinator.didPop()
+            .asObservable().map { _ in } ?? Observable.empty()
+    }
+
     // MARK: initialization
 
     init(coordinator: SceneCoordinatorType, repository: SettingsRepositoryProtocol) {
         self.coordinator = coordinator
         self.repository = repository
-
-        onBackAction = CocoaAction {
-            coordinator.didPop()
-                .asObservable().map { _ in }
-        }
-
         super.init()
 
         // Bind currently selected options
