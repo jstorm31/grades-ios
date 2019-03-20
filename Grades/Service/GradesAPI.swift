@@ -66,7 +66,7 @@ class GradesAPI: GradesAPIProtocol {
 
     /// Fetch user roles
     func getRoles() -> Observable<UserRoles> {
-        return httpService.get(url: createURL(from: .roles), parameters: nil)
+        return httpService.get(url: createURL(from: .roles), parameters: defaultParameters)
     }
 
     /// Fetch courses for current user

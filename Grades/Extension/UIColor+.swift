@@ -37,6 +37,29 @@ extension UIColor {
 
             return gradient
         }
+
+        static func setGradeColor(forGrade grade: String, defaultColor: UIColor? = nil) -> UIColor {
+            let color: UIColor
+
+            switch grade {
+            case "A":
+                color = UIColor.Theme.lightGreen
+            case "B":
+                color = UIColor.Theme.success
+            case "C":
+                color = UIColor.Theme.yellow
+            case "D":
+                color = UIColor.Theme.orange
+            case "E":
+                color = UIColor.Theme.darkOrange
+            case "F":
+                color = UIColor.Theme.danger
+            default:
+                color = defaultColor ?? UIColor.Theme.text
+            }
+
+            return color
+        }
     }
 
     /// Create UIColor from RGB

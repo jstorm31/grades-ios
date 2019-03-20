@@ -15,24 +15,24 @@ enum DynamicValueType: String, Codable {
 /// Type for handling type-polymorfic external data
 /// E.G. JSON from external source
 enum DynamicValue: Codable {
-    case number(Double)
-    case string(String)
-    case bool(Bool)
+    case number(Double?)
+    case string(String?)
+    case bool(Bool?)
 
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
+
         do {
             self = try .number(container.decode(Double.self))
         } catch DecodingError.typeMismatch {
             do {
                 self = try .string(container.decode(String.self))
             } catch DecodingError.typeMismatch {
-                self = try .bool(container.decode(Bool.self))
-                throw DecodingError.typeMismatch(DynamicValue.self,
-                                                 DecodingError.Context(
-                                                     codingPath: decoder.codingPath,
-                                                     debugDescription: "Encoded payload not of an expected type"
-                ))
+                do {
+                    self = try .bool(container.decode(Bool.self))
+                } catch {
+                    self = .number(nil)
+                }
             }
         }
     }
