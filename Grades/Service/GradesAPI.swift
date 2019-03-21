@@ -9,27 +9,30 @@
 import Foundation
 import RxSwift
 
+protocol HasGradesAPI {
+    var gradesApi: GradesAPIProtocol { get }
+}
+
 protocol GradesAPIProtocol {
-    var settings: SettingsRepositoryProtocol? { get set }
+    func set(settings: SettingsRepositoryProtocol)
 
     func getUser() -> Observable<UserInfo>
     func getRoles() -> Observable<UserRoles>
     func getCourses(username: String) -> Observable<[Course]>
-    func getCourse(code: String) -> Observable<CourseDetailRaw>
+    func getCourse(code: String) -> Observable<CourseDetail>
     func getCourseStudentClassification(username: String, code: String) -> Observable<CourseStudent>
     func getCurrentSemestrCode() -> Observable<String>
 }
 
-class GradesAPI: GradesAPIProtocol {
+final class GradesAPI: GradesAPIProtocol {
     private let config = EnvironmentConfiguration.shared.gradesAPI
     private let httpService: HttpServiceProtocol
-    var settings: SettingsRepositoryProtocol?
+    private var settings: SettingsRepositoryProtocol?
 
     private var baseUrl: String {
         return config["BaseURL"]!
     }
 
-    // TODO: refactor to observable
     private var defaultParameters: [String: Any] {
         guard let settings = settings else { return [:] }
         let settingsState = settings.currentSettings.value
@@ -57,6 +60,12 @@ class GradesAPI: GradesAPIProtocol {
         case semester
     }
 
+    // MARK: methods
+
+    func set(settings: SettingsRepositoryProtocol) {
+        self.settings = settings
+    }
+
     // MARK: Endpoint requests
 
     /// Fetch user info and roles
@@ -78,7 +87,7 @@ class GradesAPI: GradesAPIProtocol {
     }
 
     /// Fetch course detail
-    func getCourse(code: String) -> Observable<CourseDetailRaw> {
+    func getCourse(code: String) -> Observable<CourseDetail> {
         return httpService.get(url: createURL(from: .course(code)), parameters: defaultParameters)
     }
 

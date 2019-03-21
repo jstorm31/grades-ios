@@ -21,10 +21,12 @@ struct RawCourse: Decodable {
     }
 }
 
-struct CourseDetailRaw: Decodable {
+struct CourseDetail: Decodable {
+    var code: String
     var name: String?
 
     enum CodingKeys: String, CodingKey {
+        case code = "courseCode"
         case name = "courseName"
     }
 }

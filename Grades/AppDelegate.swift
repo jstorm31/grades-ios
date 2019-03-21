@@ -23,17 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Bagel.start() // TODO: remove on release!
 
-        // LoginViewModel dependencies initialization
+        // Initialize and transition to first screen
         let sceneCoordinator = SceneCoordinator(window: window!)
-        let authService = AuthenticationService()
-        let httpService = HttpService(client: authService.handler.client)
-
-        let gradesApi = GradesAPI(httpService: httpService)
-
-        let loginViewModel = LoginViewModel(sceneCoordinator: sceneCoordinator,
-                                            authenticationService: authService,
-                                            httpService: httpService,
-                                            gradesApi: gradesApi)
+        let loginViewModel = LoginViewModel(dependencies: AppDependency.shared, sceneCoordinator: sceneCoordinator)
         let loginScreen = Scene.login(loginViewModel)
         sceneCoordinator.transition(to: loginScreen, type: .root)
 

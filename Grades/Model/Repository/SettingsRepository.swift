@@ -11,6 +11,10 @@ import OAuthSwift
 import RxCocoa
 import RxSwift
 
+protocol HasSettingsRepository {
+    var settingsRepository: SettingsRepositoryProtocol { get }
+}
+
 protocol SettingsRepositoryProtocol {
     var currentSettings: BehaviorRelay<Settings> { get }
     var semesterOptions: BehaviorRelay<[String]> { get }

@@ -10,13 +10,17 @@ import Foundation
 import OAuthSwift
 import RxSwift
 
+protocol HasAuthenticationService {
+    var authService: AuthenticationServiceProtocol { get }
+}
+
 protocol AuthenticationServiceProtocol {
     var handler: OAuth2Swift { get }
 
     func authenticate(useBuiltInSafari: Bool, viewController: UIViewController?) -> Observable<Bool>
 }
 
-class AuthenticationService: AuthenticationServiceProtocol {
+final class AuthenticationService: AuthenticationServiceProtocol {
     var handler: OAuth2Swift
     private let callbackUrl: URL
     private let authorizationHeader: String

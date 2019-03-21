@@ -11,39 +11,38 @@ import RxCocoa
 import RxSwift
 import UIKit
 
-class LoginViewModel: BaseViewModel {
-    // MARK: properties
+protocol LoginViewModelProtocol {
+    func authenticate(viewController: UIViewController) -> Observable<Void>
+}
 
-    let sceneCoordinator: SceneCoordinatorType
-    let authService: AuthenticationServiceProtocol
-    let httpService: HttpServiceProtocol
-    var gradesApi: GradesAPIProtocol
-    let config = EnvironmentConfiguration.shared
+final class LoginViewModel: BaseViewModel {
+    typealias Dependencies = HasAuthenticationService & HasGradesAPI
+
+    private let dependencies: Dependencies
+    private let sceneCoordinator: SceneCoordinatorType
+    private let config = EnvironmentConfiguration.shared
     private let bag = DisposeBag()
+
+    // MARK: initialization
+
+    init(dependencies: Dependencies, sceneCoordinator: SceneCoordinatorType) {
+        self.dependencies = dependencies
+        self.sceneCoordinator = sceneCoordinator
+    }
 
     // MARK: methods
 
-    init(sceneCoordinator: SceneCoordinatorType,
-         authenticationService: AuthenticationServiceProtocol,
-         httpService: HttpServiceProtocol,
-         gradesApi: GradesAPIProtocol) {
-        self.sceneCoordinator = sceneCoordinator
-        self.httpService = httpService
-        self.gradesApi = gradesApi
-        authService = authenticationService
-    }
-
     func authenticate(viewController: UIViewController) -> Observable<Void> {
         return Observable.create { [weak self] observer in
-            self?.authService
+            self?.dependencies.authService
                 .authenticate(useBuiltInSafari: false, viewController: viewController)
                 .subscribe(onError: { error in
                     observer.onError(error)
                 }, onCompleted: { [weak self] in
                     guard let self = self else { return }
 
-                    let user = self.gradesApi.getUser()
-                    let code = self.gradesApi.getCurrentSemestrCode()
+                    let user = self.dependencies.gradesApi.getUser()
+                    let code = self.dependencies.gradesApi.getCurrentSemestrCode()
                     Observable.zip(user, code) { (userInfo: UserInfo, semesterCode: String) -> (UserInfo, String) in (userInfo, semesterCode) }
                         .subscribe(onNext: { [weak self] userInfo, semesterCode in
                             self?.transitionToCourseList(user: userInfo, semesterCode: semesterCode)
@@ -58,10 +57,11 @@ class LoginViewModel: BaseViewModel {
     }
 
     private func transitionToCourseList(user: UserInfo, semesterCode: String) {
-        let settings = SettingsRepository(authClient: authService.handler.client, currentSemesterCode: semesterCode)
-        gradesApi.settings = settings
+        // TODO: refactor to dependency injection and move semester code fetching logic to settings repository
+        let settings = SettingsRepository(authClient: dependencies.authService.handler.client, currentSemesterCode: semesterCode)
+        dependencies.gradesApi.set(settings: settings)
 
-        let courseListViewModel = CourseListViewModel(sceneCoordinator: sceneCoordinator, gradesApi: gradesApi, user: user, settings: settings)
+        let courseListViewModel = CourseListViewModel(dependencies: AppDependency.shared, sceneCoordinator: sceneCoordinator, user: user, settings: settings)
 
         // Transition to course list scene
         sceneCoordinator.transition(to: .courseList(courseListViewModel), type: .modal)
