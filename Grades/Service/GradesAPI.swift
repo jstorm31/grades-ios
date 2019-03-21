@@ -15,7 +15,7 @@ protocol GradesAPIProtocol {
     func getUser() -> Observable<UserInfo>
     func getRoles() -> Observable<UserRoles>
     func getCourses(username: String) -> Observable<[Course]>
-    func getCourse(code: String) -> Observable<CourseRaw>
+    func getCourse(code: String) -> Observable<CourseDetailRaw>
     func getCourseStudentClassification(username: String, code: String) -> Observable<CourseStudent>
     func getCurrentSemestrCode() -> Observable<String>
 }
@@ -78,7 +78,7 @@ class GradesAPI: GradesAPIProtocol {
     }
 
     /// Fetch course detail
-    func getCourse(code: String) -> Observable<CourseRaw> {
+    func getCourse(code: String) -> Observable<CourseDetailRaw> {
         return httpService.get(url: createURL(from: .course(code)), parameters: defaultParameters)
     }
 

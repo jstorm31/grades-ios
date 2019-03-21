@@ -58,12 +58,10 @@ class LoginViewModel: BaseViewModel {
     }
 
     private func transitionToCourseList(user: UserInfo, semesterCode: String) {
-        let kosApi = KosApi(client: authService.handler.client, configuration: config.kosAPI)
-
         let settings = SettingsRepository(authClient: authService.handler.client, currentSemesterCode: semesterCode)
         gradesApi.settings = settings
 
-        let courseListViewModel = CourseListViewModel(sceneCoordinator: sceneCoordinator, gradesApi: gradesApi, kosApi: kosApi, user: user, settings: settings)
+        let courseListViewModel = CourseListViewModel(sceneCoordinator: sceneCoordinator, gradesApi: gradesApi, user: user, settings: settings)
 
         // Transition to course list scene
         sceneCoordinator.transition(to: .courseList(courseListViewModel), type: .modal)

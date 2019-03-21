@@ -14,7 +14,6 @@ import RxSwift
 class CourseListViewModel: BaseViewModel {
     private let sceneCoordinator: SceneCoordinatorType
     private let gradesApi: GradesAPIProtocol
-    private let kosApi: KosApiProtocol
     private let user: UserInfo
     private let settings: SettingsRepositoryProtocol
     private let activityIndicator = ActivityIndicator()
@@ -22,9 +21,8 @@ class CourseListViewModel: BaseViewModel {
 
     var openSettings: CocoaAction
 
-    init(sceneCoordinator: SceneCoordinatorType, gradesApi: GradesAPIProtocol, kosApi: KosApiProtocol, user: UserInfo, settings: SettingsRepositoryProtocol) {
+    init(sceneCoordinator: SceneCoordinatorType, gradesApi: GradesAPIProtocol, user: UserInfo, settings: SettingsRepositoryProtocol) {
         self.gradesApi = gradesApi
-        self.kosApi = kosApi
         self.user = user
         self.sceneCoordinator = sceneCoordinator
         self.settings = settings
@@ -69,15 +67,15 @@ class CourseListViewModel: BaseViewModel {
     private func getCourses() -> Observable<[CourseGroup]> {
         let courses = gradesApi.getCourses(username: user.username)
 
-            // Fetch course name from kosAPI for each course
+            // Fetch course name for each course
             .flatMap { (courses: [Course]) -> Observable<[Course]> in
                 Observable.from(courses).flatMap { [weak self] (course: Course) -> Observable<Course> in
                     guard let `self` = self else { return .empty() }
 
-                    return self.kosApi.getCourseName(code: course.code)
-                        .map { (name: String) -> Course in
+                    return self.gradesApi.getCourse(code: course.code)
+                        .map { (courseDetail: CourseDetailRaw) -> Course in
                             var courseWithName = Course(fromCourse: course)
-                            courseWithName.name = name
+                            courseWithName.name = courseDetail.name
                             return courseWithName
                         }
                 }.toArray()
