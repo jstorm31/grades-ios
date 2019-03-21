@@ -39,23 +39,27 @@ struct RawKosCourse: Decodable {
 struct Course {
     var code: String
     var name: String?
-    var totalPoints: String?
+    var finalValue: DynamicValue?
 
-    init(code: String, totalPoints: String? = nil) {
+    init(code: String, finalValue: DynamicValue? = nil) {
         self.code = code
-        self.totalPoints = totalPoints
+        self.finalValue = finalValue
     }
 
     init(fromCourse course: Course) {
         code = course.code
         name = course.name
-        totalPoints = course.totalPoints
+        finalValue = course.finalValue
     }
 
     init(fromRawCourse rawCourse: RawCourse) {
         code = rawCourse.code
-        if let overviewItem = rawCourse.items.first(where: { $0.type == "POINTS_TOTAL" }) {
-            totalPoints = overviewItem.value
+        if let overviewItem = rawCourse.items.first(where: { $0.type == "POINTS_TOTAL" }),
+            let value = overviewItem.value {
+            finalValue = value
+        } else if let overviewItem = rawCourse.items.first(where: { $0.type == "FINAL_SCORE" }),
+            let value = overviewItem.value {
+            finalValue = value
         }
     }
 }

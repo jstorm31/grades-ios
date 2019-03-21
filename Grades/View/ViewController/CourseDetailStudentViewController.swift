@@ -37,16 +37,19 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
     override func loadView() {
         super.loadView()
         loadView(hasTableHeaderView: true)
+        loadRefreshControl()
 
         navigationItem.title = viewModel.courseCode
         tableView.register(ClassificationCell.self, forCellReuseIdentifier: "ClassificationCell")
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
+        navigationController?.navigationBar.addSubview(UIView())
 
         loadUI()
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        removeRightButton()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -89,7 +92,7 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
         viewModel.totalGrade
             .unwrap()
             .do(onNext: { [weak self] grade in
-                self?.setGradeColor(forGrade: grade)
+                self?.headerLabel.textColor = UIColor.Theme.setGradeColor(forGrade: grade)
             })
             .asDriver(onErrorJustReturn: "")
             .drive(headerGradeLabel.rx.text)
@@ -136,27 +139,6 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
             make.trailing.equalTo(headerGradeLabel.snp.leading).offset(-13)
         }
         headerPointsLabel = points
-    }
-
-    private func setGradeColor(forGrade grade: String) {
-        let color: UIColor
-
-        switch grade {
-        case "A":
-            color = UIColor.Theme.lightGreen
-        case "B":
-            color = UIColor.Theme.success
-        case "C":
-            color = UIColor.Theme.yellow
-        case "D":
-            color = UIColor.Theme.orange
-        case "E":
-            color = UIColor.Theme.darkOrange
-        default:
-            color = UIColor.Theme.danger
-        }
-
-        headerGradeLabel.textColor = color
     }
 }
 

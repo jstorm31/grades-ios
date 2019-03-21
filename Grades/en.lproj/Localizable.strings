@@ -4,6 +4,9 @@
 "error.api.generic" = "There has been an error when trying to fetch data.";
 
 "button.login" = "Login";
+"button.done" = "Done";
+"button.cancel" = "Cancel";
+"button.confirm" = "Yes";
 
 "courses.fetching" = "Fetching courses";
 "courses.title" = "Courses";
@@ -13,3 +16,11 @@
 
 "classification.notRated" = "Not rated";
 "classification.total" = "Total";
+
+"settings.title" = "Settings";
+"settings.logout" = "Log out";
+"settings.logoutConfirmTitle" = "Do you really wish to logout?";
+"settings.user" = "User";
+"settings.options" = "Options";
+"settings.language" = "Language";
+"settings.semester" = "Semester";

@@ -15,6 +15,12 @@ internal enum L10n {
     internal static let appVersion = L10n.tr("Localizable", "appVersion")
 
     internal enum Button {
+        /// Cancel
+        internal static let cancel = L10n.tr("Localizable", "button.cancel")
+        /// Yes
+        internal static let confirm = L10n.tr("Localizable", "button.confirm")
+        /// Done
+        internal static let done = L10n.tr("Localizable", "button.done")
         /// Login
         internal static let login = L10n.tr("Localizable", "button.login")
     }
@@ -49,6 +55,23 @@ internal enum L10n {
             /// There has been an error when authenticating.
             internal static let generic = L10n.tr("Localizable", "error.auth.generic")
         }
+    }
+
+    internal enum Settings {
+        /// Language
+        internal static let language = L10n.tr("Localizable", "settings.language")
+        /// Log out
+        internal static let logout = L10n.tr("Localizable", "settings.logout")
+        /// Do you really wish to logout?
+        internal static let logoutConfirmTitle = L10n.tr("Localizable", "settings.logoutConfirmTitle")
+        /// Options
+        internal static let options = L10n.tr("Localizable", "settings.options")
+        /// Semester
+        internal static let semester = L10n.tr("Localizable", "settings.semester")
+        /// Settings
+        internal static let title = L10n.tr("Localizable", "settings.title")
+        /// User
+        internal static let user = L10n.tr("Localizable", "settings.user")
     }
 }
 

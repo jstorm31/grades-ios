@@ -16,6 +16,7 @@ protocol HttpServiceProtocol {
 
     @discardableResult
     func get<T: Decodable>(url: URL, parameters: HttpParameters?) -> Observable<T>
+    func get(url: URL, parameters: HttpParameters?) -> Observable<String>
 }
 
 class HttpService: NSObject, HttpServiceProtocol {
@@ -39,6 +40,24 @@ class HttpService: NSObject, HttpServiceProtocol {
                     Log.error("HttpService.request: Could not proccess response data to JSON.\n\(error)\n")
                     observer.onError(ApiError.unprocessableData)
                 }
+            }, failure: { error in
+                Log.error("HttpService.request: External API error: \(error.localizedDescription)")
+                observer.onError(ApiError.getError(forCode: error.errorCode))
+            })
+
+            return Disposables.create()
+        }
+    }
+
+    /// Make HTTP GET request and return Observable string
+    func get(url: URL, parameters: HttpParameters? = nil) -> Observable<String> {
+        return Observable.create { [weak self] observer in
+            self?.client.request(url, method: .GET, parameters: parameters ?? [:], success: { response in
+                let data = response.data
+
+                let decodedResponse = String(decoding: data, as: UTF8.self)
+                observer.onNext(decodedResponse)
+                observer.onCompleted()
             }, failure: { error in
                 Log.error("HttpService.request: External API error: \(error.localizedDescription)")
                 observer.onError(ApiError.getError(forCode: error.errorCode))

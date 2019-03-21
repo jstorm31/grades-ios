@@ -10,23 +10,39 @@ import Foundation
 import RxSwift
 
 protocol GradesAPIProtocol {
+    var settings: SettingsRepositoryProtocol? { get set }
+
     func getUser() -> Observable<UserInfo>
     func getRoles() -> Observable<UserRoles>
     func getCourses(username: String) -> Observable<[Course]>
     func getCourse(code: String) -> Observable<CourseRaw>
     func getCourseStudentClassification(username: String, code: String) -> Observable<CourseStudent>
+    func getCurrentSemestrCode() -> Observable<String>
 }
 
 class GradesAPI: GradesAPIProtocol {
-    private let config: [String: String]
+    private let config = EnvironmentConfiguration.shared.gradesAPI
     private let httpService: HttpServiceProtocol
+    var settings: SettingsRepositoryProtocol?
 
     private var baseUrl: String {
         return config["BaseURL"]!
     }
 
-    init(httpService: HttpServiceProtocol, configuration: [String: String]) {
-        config = configuration
+    // TODO: refactor to observable
+    private var defaultParameters: [String: Any] {
+        guard let settings = settings else { return [:] }
+        let settingsState = settings.currentSettings.value
+
+        var parameters = [
+            "lang": settingsState.language.rawValue
+        ]
+        parameters["semester"] = settingsState.semester
+
+        return parameters
+    }
+
+    init(httpService: HttpServiceProtocol) {
         self.httpService = httpService
     }
 
@@ -38,6 +54,7 @@ class GradesAPI: GradesAPIProtocol {
         case courses(String)
         case course(String)
         case studentCourse(String, String)
+        case semester
     }
 
     // MARK: Endpoint requests
@@ -49,12 +66,12 @@ class GradesAPI: GradesAPIProtocol {
 
     /// Fetch user roles
     func getRoles() -> Observable<UserRoles> {
-        return httpService.get(url: createURL(from: .roles), parameters: nil)
+        return httpService.get(url: createURL(from: .roles), parameters: defaultParameters)
     }
 
     /// Fetch courses for current user
     func getCourses(username: String) -> Observable<[Course]> {
-        return httpService.get(url: createURL(from: .courses(username)), parameters: nil)
+        return httpService.get(url: createURL(from: .courses(username)), parameters: defaultParameters)
             .map { (rawCourses: [RawCourse]) -> [Course] in
                 rawCourses.map { (course: RawCourse) -> Course in Course(fromRawCourse: course) }
             }
@@ -62,12 +79,19 @@ class GradesAPI: GradesAPIProtocol {
 
     /// Fetch course detail
     func getCourse(code: String) -> Observable<CourseRaw> {
-        return httpService.get(url: createURL(from: .course(code)), parameters: nil)
+        return httpService.get(url: createURL(from: .course(code)), parameters: defaultParameters)
     }
 
     /// Fetch course classification for student
     func getCourseStudentClassification(username: String, code: String) -> Observable<CourseStudent> {
-        return httpService.get(url: createURL(from: .studentCourse(username, code)), parameters: ["showHidden": false])
+        var parameters = defaultParameters
+        parameters["showHidden"] = false
+
+        return httpService.get(url: createURL(from: .studentCourse(username, code)), parameters: parameters)
+    }
+
+    func getCurrentSemestrCode() -> Observable<String> {
+        return httpService.get(url: createURL(from: .semester), parameters: [:])
     }
 
     // MARK: helpers
@@ -88,6 +112,8 @@ class GradesAPI: GradesAPIProtocol {
             endpointValue = config["StudentCourse"]!
                 .replacingOccurrences(of: ":username", with: username)
                 .replacingOccurrences(of: ":code", with: code)
+        case .semester:
+            endpointValue = config["Semester"]!
         }
 
         return URL(string: "\(baseUrl)\(endpointValue)")!

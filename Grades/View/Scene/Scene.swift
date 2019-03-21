@@ -12,6 +12,7 @@ enum Scene {
     case login(LoginViewModel)
     case courseList(CourseListViewModel)
     case courseDetailStudent(CourseDetailStudentViewModel)
+    case settings(SettingsViewModelProtocol)
 }
 
 extension Scene {
@@ -32,6 +33,11 @@ extension Scene {
             var courseDetailStudentVC = CourseDetailStudentViewController()
             courseDetailStudentVC.bindViewModel(to: viewModel)
             return courseDetailStudentVC
+
+        case let .settings(viewModel):
+            var settingsVC = SettingsViewController()
+            settingsVC.bindViewModel(to: viewModel)
+            return settingsVC
         }
     }
 }

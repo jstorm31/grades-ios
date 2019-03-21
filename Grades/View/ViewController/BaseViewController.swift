@@ -61,4 +61,11 @@ class BaseViewController: UIViewController {
     open override var shouldAutorotate: Bool {
         return false
     }
+
+    func removeRightButton() {
+        guard let subviews = navigationController?.navigationBar.subviews else { return }
+        for view in subviews where view.tag != 0 {
+            view.removeFromSuperview()
+        }
+    }
 }

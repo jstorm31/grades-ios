@@ -17,37 +17,55 @@ class LoginViewModel: BaseViewModel {
     let sceneCoordinator: SceneCoordinatorType
     let authService: AuthenticationServiceProtocol
     let httpService: HttpServiceProtocol
-    let gradesApi: GradesAPIProtocol
-    let config: NSClassificationConfiguration
+    var gradesApi: GradesAPIProtocol
+    let config = EnvironmentConfiguration.shared
     private let bag = DisposeBag()
 
     // MARK: methods
 
     init(sceneCoordinator: SceneCoordinatorType,
-         configuration: NSClassificationConfiguration,
          authenticationService: AuthenticationServiceProtocol,
          httpService: HttpServiceProtocol,
          gradesApi: GradesAPIProtocol) {
         self.sceneCoordinator = sceneCoordinator
         self.httpService = httpService
         self.gradesApi = gradesApi
-        config = configuration
         authService = authenticationService
     }
 
-    func authenticate(viewController: UIViewController) -> Observable<UserInfo> {
-        return authService
-            .authenticate(useBuiltInSafari: false, viewController: viewController)
-            .map { _ in Void() }
-            .flatMap(gradesApi.getUser)
-            .do(onNext: { [weak self] userInfo in
-                guard let `self` = self else { return }
+    func authenticate(viewController: UIViewController) -> Observable<Void> {
+        return Observable.create { [weak self] observer in
+            self?.authService
+                .authenticate(useBuiltInSafari: false, viewController: viewController)
+                .subscribe(onError: { error in
+                    observer.onError(error)
+                }, onCompleted: { [weak self] in
+                    guard let self = self else { return }
 
-                let kosApi = KosApi(client: self.authService.handler.client, configuration: self.config.kosAPI)
-                let courseListViewModel = CourseListViewModel(sceneCoordinator: self.sceneCoordinator, gradesApi: self.gradesApi, kosApi: kosApi, user: userInfo)
+                    let user = self.gradesApi.getUser()
+                    let code = self.gradesApi.getCurrentSemestrCode()
+                    Observable.zip(user, code) { (userInfo: UserInfo, semesterCode: String) -> (UserInfo, String) in (userInfo, semesterCode) }
+                        .subscribe(onNext: { [weak self] userInfo, semesterCode in
+                            self?.transitionToCourseList(user: userInfo, semesterCode: semesterCode)
+                            observer.onCompleted()
+                        })
+                        .disposed(by: self.bag)
+                })
+                .disposed(by: self?.bag ?? DisposeBag())
 
-                // Transition to course list scene
-                self.sceneCoordinator.transition(to: .courseList(courseListViewModel), type: .modal)
-            })
+            return Disposables.create()
+        }
+    }
+
+    private func transitionToCourseList(user: UserInfo, semesterCode: String) {
+        let kosApi = KosApi(client: authService.handler.client, configuration: config.kosAPI)
+
+        let settings = SettingsRepository(authClient: authService.handler.client, currentSemesterCode: semesterCode)
+        gradesApi.settings = settings
+
+        let courseListViewModel = CourseListViewModel(sceneCoordinator: sceneCoordinator, gradesApi: gradesApi, kosApi: kosApi, user: user, settings: settings)
+
+        // Transition to course list scene
+        sceneCoordinator.transition(to: .courseList(courseListViewModel), type: .modal)
     }
 }

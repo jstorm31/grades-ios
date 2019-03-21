@@ -12,15 +12,16 @@ import RxSwift
 import UIKit
 
 class BaseTableViewController: BaseViewController {
+    private let HEADER_HEIGHT = 80
     var tableView: UITableView!
 
+    // TODO: refactor and use override loadView
     func loadView(hasTableHeaderView: Bool = false) {
         super.loadView()
 
         let tableView = UITableView()
         view.addSubview(tableView)
 
-        let headerHeight = 80
         if hasTableHeaderView {
             let container = UIView()
             tableView.tableHeaderView = container
@@ -28,36 +29,38 @@ class BaseTableViewController: BaseViewController {
                 make.top.equalToSuperview()
                 make.leading.trailing.equalToSuperview().inset(20)
                 make.width.equalToSuperview().inset(20)
-                make.height.equalTo(headerHeight)
+                make.height.equalTo(HEADER_HEIGHT)
             }
         }
 
         tableView.snp.makeConstraints { make in
             if hasTableHeaderView {
-                make.top.equalToSuperview().offset(headerHeight)
+                make.top.equalToSuperview().offset(HEADER_HEIGHT)
                 make.leading.trailing.bottom.equalToSuperview()
             } else {
                 make.edges.equalToSuperview()
             }
         }
         self.tableView = tableView
-
-        let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .white
-        tableView.refreshControl = refreshControl
-
-        // Fix for table view refresh control
-        edgesForExtendedLayout = .all
-        self.tableView.contentInsetAdjustmentBehavior = .always
-        tableView.refreshControl!.sizeToFit()
-        let top = self.tableView.adjustedContentInset.top
-        let y = tableView.refreshControl!.frame.maxY + top + CGFloat(integerLiteral: headerHeight)
-        self.tableView.setContentOffset(CGPoint(x: 0, y: -y), animated: true)
     }
 
     override func viewWillAppear(_: Bool) {
         if let index = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: index, animated: true)
         }
+    }
+
+    func loadRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .white
+        tableView.refreshControl = refreshControl
+
+        // Fix for table view refresh control
+        edgesForExtendedLayout = .all
+        tableView.contentInsetAdjustmentBehavior = .always
+        tableView.refreshControl!.sizeToFit()
+        let top = tableView.adjustedContentInset.top
+        let y = tableView.refreshControl!.frame.maxY + top + CGFloat(integerLiteral: HEADER_HEIGHT)
+        tableView.setContentOffset(CGPoint(x: 0, y: -y), animated: true)
     }
 }

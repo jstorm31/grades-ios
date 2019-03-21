@@ -4,6 +4,9 @@
 "error.api.generic" = "Nastala chyba při stahování dat.";
 
 "button.login" = "Přihlásit se";
+"button.done" = "Hotovo";
+"button.cancel" = "Zrušit";
+"button.confirm" = "Ano";
 
 "courses.fetching" = "Načítání kurzů";
 "courses.title" = "Kurzy";
@@ -13,3 +16,11 @@
 
 "classification.notRated" = "Nehodnoceno";
 "classification.total" = "Celkem";
+
+"settings.title" = "Nastavení";
+"settings.logout" = "Odhlásit";
+"settings.logoutConfirmTitle" = "Opravdu si přejete odhlásit?";
+"settings.user" = "Uživatel";
+"settings.options" = "Možnosti";
+"settings.language" = "Jazyk";
+"settings.semester" = "Semestr";

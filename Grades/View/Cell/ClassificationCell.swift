@@ -39,20 +39,26 @@ class ClassificationCell: UITableViewCell {
 
             switch classificationValue {
             case let .number(number):
-                let text = NSMutableAttributedString()
-                let boldAttr = [NSAttributedString.Key.font: UIFont.Grades.boldBody]
-                let boldText = NSMutableAttributedString(string: "\(number.cleanValue)", attributes: boldAttr)
-                text.append(boldText)
-                text.append(NSAttributedString(string: " \(L10n.Courses.points)"))
-                value.attributedText = text
+                if let number = number {
+                    let text = NSMutableAttributedString()
+                    let boldAttr = [NSAttributedString.Key.font: UIFont.Grades.boldBody]
+                    let boldText = NSMutableAttributedString(string: "\(number.cleanValue)", attributes: boldAttr)
+                    text.append(boldText)
+                    text.append(NSAttributedString(string: " \(L10n.Courses.points)"))
+                    value.attributedText = text
+                }
 
             case let .string(string):
-                value.text = string
+                if let string = string {
+                    value.text = string
+                }
 
             case let .bool(bool):
-                let icon = UIImage(named: bool ? "icon_success" : "icon_failure")!
-                iconView.image = icon
-                isIconHidden.onNext(false)
+                if let bool = bool {
+                    let icon = UIImage(named: bool ? "icon_success" : "icon_failure")!
+                    iconView.image = icon
+                    isIconHidden.onNext(false)
+                }
             }
         }
     }
