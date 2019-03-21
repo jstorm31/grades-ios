@@ -20,14 +20,18 @@ protocol SettingsRepositoryProtocol {
     var semesterOptions: BehaviorRelay<[String]> { get }
     var languageOptions: [Language] { get }
 
+    func fetchCurrentSemester() -> Observable<Void>
     func changeSemester(optionIndex index: Int)
     func logout()
 }
 
 final class SettingsRepository: SettingsRepositoryProtocol {
+    typealias Dependencies = HasAuthenticationService & HasGradesAPI
+
+    private let dependencies: Dependencies
     private let KEY = "Settings"
-    private let authClient: OAuthSwiftClient
-    private let currentSemesterCode: String
+    private let bag = DisposeBag()
+    private var currentSemesterCode: String?
 
     // MARK: output
 
@@ -37,9 +41,8 @@ final class SettingsRepository: SettingsRepositoryProtocol {
 
     // MARK: init
 
-    init(authClient: OAuthSwiftClient, currentSemesterCode: String) {
-        self.authClient = authClient
-        self.currentSemesterCode = currentSemesterCode
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
 
         let language = Locale.current.languageCode ?? EnvironmentConfiguration.shared.defaultLanguage
         let defaultLanguage = Language.language(forString: language)
@@ -56,6 +59,21 @@ final class SettingsRepository: SettingsRepositoryProtocol {
 
     // MARK: methods
 
+    func fetchCurrentSemester() -> Observable<Void> {
+        return dependencies.gradesApi.getCurrentSemestrCode()
+            .debug()
+            .map { (semesterCode: String) -> Settings in
+                var newSettings = self.currentSettings.value
+                newSettings.semester = semesterCode
+                self.currentSemesterCode = semesterCode
+                return newSettings
+            }
+            .do(onNext: { [weak self] newSettings in
+                self?.currentSettings.accept(newSettings)
+            })
+            .map { _ in }
+    }
+
     func changeSemester(optionIndex index: Int) {
         var newSettings = currentSettings.value
         newSettings.semester = semesterOptions.value[index]
@@ -64,8 +82,9 @@ final class SettingsRepository: SettingsRepositoryProtocol {
     }
 
     func logout() {
-        authClient.credential.oauthToken = ""
-        authClient.credential.oauthRefreshToken = ""
+        let client = dependencies.authService.handler.client
+        client.credential.oauthToken = ""
+        client.credential.oauthRefreshToken = ""
     }
 
     // MARK: support methods
@@ -93,8 +112,10 @@ final class SettingsRepository: SettingsRepositoryProtocol {
 
     // Generate last x semesters from current semester
     private func getSemesterOptions(yearCount: Int) -> [String] {
-        var semesters: [String] = [currentSemesterCode]
+        guard let currentSemesterCode = currentSemesterCode else { return [] }
+
         var semester = currentSemesterCode
+        var semesters: [String] = [semester]
 
         // Remove B from code e.g. "B182"
         semester = semester.replacingOccurrences(of: "B", with: "")

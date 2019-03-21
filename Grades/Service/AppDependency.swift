@@ -14,9 +14,13 @@ final class AppDependency: HasNoDependency {
 
     lazy var authService: AuthenticationServiceProtocol = AuthenticationService()
     lazy var httpService: HttpServiceProtocol = HttpService(client: self.authService.handler.client)
-    lazy var gradesApi: GradesAPIProtocol = GradesAPI(httpService: self.httpService)
+    lazy var gradesApi: GradesAPIProtocol = GradesAPI(dependencies: self)
+
+    lazy var settingsRepository: SettingsRepositoryProtocol = SettingsRepository(dependencies: self)
 }
 
 extension AppDependency: HasAuthenticationService {}
 extension AppDependency: HasHttpService {}
 extension AppDependency: HasGradesAPI {}
+
+extension AppDependency: HasSettingsRepository {}

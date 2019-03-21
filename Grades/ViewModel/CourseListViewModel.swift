@@ -17,17 +17,15 @@ class CourseListViewModel: BaseViewModel {
     private let dependencies: Dependencies
     private let sceneCoordinator: SceneCoordinatorType
     private let user: UserInfo
-    private let settings: SettingsRepositoryProtocol
     private let activityIndicator = ActivityIndicator()
     private let bag = DisposeBag()
 
     var openSettings: CocoaAction
 
-    init(dependencies: Dependencies, sceneCoordinator: SceneCoordinatorType, user: UserInfo, settings: SettingsRepositoryProtocol) {
+    init(dependencies: Dependencies, sceneCoordinator: SceneCoordinatorType, user: UserInfo) {
         self.dependencies = dependencies
         self.user = user
         self.sceneCoordinator = sceneCoordinator
-        self.settings = settings
 
         activityIndicator
             .distinctUntilChanged()
@@ -36,7 +34,7 @@ class CourseListViewModel: BaseViewModel {
             .disposed(by: bag)
 
         openSettings = CocoaAction {
-            let settingsViewModel = SettingsViewModel(coordinator: sceneCoordinator, repository: settings)
+            let settingsViewModel = SettingsViewModel(coordinator: sceneCoordinator, dependencies: AppDependency.shared)
 
             sceneCoordinator.transition(to: .settings(settingsViewModel), type: .push)
             return Observable.empty()

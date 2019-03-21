@@ -14,8 +14,6 @@ protocol HasGradesAPI {
 }
 
 protocol GradesAPIProtocol {
-    func set(settings: SettingsRepositoryProtocol)
-
     func getUser() -> Observable<UserInfo>
     func getRoles() -> Observable<UserRoles>
     func getCourses(username: String) -> Observable<[Course]>
@@ -25,17 +23,18 @@ protocol GradesAPIProtocol {
 }
 
 final class GradesAPI: GradesAPIProtocol {
-    private let config = EnvironmentConfiguration.shared.gradesAPI
+    typealias Depencencies = HasSettingsRepository & HasHttpService
+
+    private let dependencies: Depencencies
     private let httpService: HttpServiceProtocol
-    private var settings: SettingsRepositoryProtocol?
+    private let config = EnvironmentConfiguration.shared.gradesAPI
 
     private var baseUrl: String {
         return config["BaseURL"]!
     }
 
     private var defaultParameters: [String: Any] {
-        guard let settings = settings else { return [:] }
-        let settingsState = settings.currentSettings.value
+        let settingsState = dependencies.settingsRepository.currentSettings.value
 
         var parameters = [
             "lang": settingsState.language.rawValue
@@ -45,8 +44,9 @@ final class GradesAPI: GradesAPIProtocol {
         return parameters
     }
 
-    init(httpService: HttpServiceProtocol) {
-        self.httpService = httpService
+    init(dependencies: Depencencies) {
+        self.dependencies = dependencies
+        httpService = dependencies.httpService
     }
 
     // MARK: API endpoints
@@ -58,12 +58,6 @@ final class GradesAPI: GradesAPIProtocol {
         case course(String)
         case studentCourse(String, String)
         case semester
-    }
-
-    // MARK: methods
-
-    func set(settings: SettingsRepositoryProtocol) {
-        self.settings = settings
     }
 
     // MARK: Endpoint requests
