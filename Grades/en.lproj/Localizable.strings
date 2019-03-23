@@ -3,6 +3,8 @@
 "error.auth.generic" = "There has been an error when authenticating.";
 "error.api.generic" = "There has been an error when trying to fetch data.";
 
+"labels.noContent" = "Nothing to display";
+
 "button.login" = "Login";
 "button.done" = "Done";
 "button.cancel" = "Cancel";

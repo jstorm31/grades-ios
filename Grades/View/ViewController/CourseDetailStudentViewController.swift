@@ -66,9 +66,17 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
     }
 
     func bindViewModel() {
-        viewModel.classifications
+        let classificationsObservable = viewModel.classifications.share()
+
+        classificationsObservable
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: dataSource))
+            .disposed(by: bag)
+
+        classificationsObservable
+            .map { $0.isEmpty }
+            .asDriver(onErrorJustReturn: true)
+            .drive(showNoContent)
             .disposed(by: bag)
 
         viewModel.isFetching.asDriver()
@@ -92,7 +100,7 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
         viewModel.totalGrade
             .unwrap()
             .do(onNext: { [weak self] grade in
-                self?.headerLabel.textColor = UIColor.Theme.setGradeColor(forGrade: grade)
+                self?.headerPointsLabel.textColor = UIColor.Theme.setGradeColor(forGrade: grade)
             })
             .asDriver(onErrorJustReturn: "")
             .drive(headerGradeLabel.rx.text)

@@ -60,7 +60,9 @@ class CourseListViewController: BaseTableViewController, BindableType {
     }
 
     func bindViewModel() {
-        viewModel.courses
+        let coursesObservable = viewModel.courses.share()
+
+        coursesObservable
             .map { coursesByRoles in
                 [
                     CourseGroup(
@@ -75,6 +77,11 @@ class CourseListViewController: BaseTableViewController, BindableType {
             }
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: dataSource))
+            .disposed(by: bag)
+
+        coursesObservable
+            .map { $0.student.isEmpty && $0.teacher.isEmpty }
+            .bind(to: showNoContent)
             .disposed(by: bag)
 
         let fetchingObservable = viewModel.isFetchingCourses.share()
