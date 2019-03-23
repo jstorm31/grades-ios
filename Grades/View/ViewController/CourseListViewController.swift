@@ -65,18 +65,19 @@ class CourseListViewController: BaseTableViewController, BindableType {
             .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
 
-        viewModel.isFetchingCourses.asDriver()
+        let fetchingObservable = viewModel.isFetchingCourses.share()
+
+        fetchingObservable.asDriver(onErrorJustReturn: false)
             .drive(tableView.refreshControl!.rx.isRefreshing)
             .disposed(by: bag)
 
-        viewModel.coursesError.asObservable()
-            .subscribe(onNext: { [weak self] error in
-                DispatchQueue.main.async {
-                    self?.navigationController?.view.makeCustomToast(error?.localizedDescription,
-                                                                     type: .danger,
-                                                                     position: .center)
-                }
-            })
+        fetchingObservable
+            .asDriver(onErrorJustReturn: false)
+            .drive(view.rx.refreshing)
+            .disposed(by: bag)
+
+        viewModel.coursesError.asDriver(onErrorJustReturn: nil)
+            .drive(view.rx.errorMessage)
             .disposed(by: bag)
     }
 

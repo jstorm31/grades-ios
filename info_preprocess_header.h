@@ -1,3 +1,3 @@
 // Auto-generated
 
-#define BUILD_NUMBER 105
+#define BUILD_NUMBER 106

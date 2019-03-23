@@ -26,9 +26,9 @@ class CourseListViewModel: BaseViewModel {
 
     // MARK: output
 
-    let courses = BehaviorRelay<[CourseGroup]>(value: [])
-    let isFetchingCourses = BehaviorRelay<Bool>(value: false)
-    let coursesError = BehaviorRelay<Error?>(value: nil)
+    let courses = BehaviorSubject<[CourseGroup]>(value: [])
+    let isFetchingCourses = BehaviorSubject<Bool>(value: false)
+    let coursesError = BehaviorSubject<Error?>(value: nil)
 
     // MARK: initialization
 
@@ -59,6 +59,9 @@ class CourseListViewModel: BaseViewModel {
             }
             .bind(to: courses)
             .disposed(by: bag)
+
+        dependencies.coursesRepository.isFetching.bind(to: isFetchingCourses).disposed(by: bag)
+        dependencies.coursesRepository.error.bind(to: coursesError).disposed(by: bag)
     }
 
     // MARK: methods
@@ -69,7 +72,7 @@ class CourseListViewModel: BaseViewModel {
 
     func onItemSelection(section _: Int, item _: Int) {
 //        let course = courses.value[section].items[item]
-//        let courseDetail = Course(code: course.code, name: course.name)
+//        let courseDetail = Course(code: course.item.code, name: course.name)
 //        let repository = CourseStudentRepository(dependencies: AppDependency.shared, username: user.username, course: courseDetail)
 //        let courseDetailVM = CourseDetailStudentViewModel(coordinator: sceneCoordinator, repository: repository)
 //

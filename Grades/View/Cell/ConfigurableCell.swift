@@ -28,6 +28,7 @@ class TableCellConfigurator<CellType: ConfigurableCell, DataType>: CellConfigura
     }
 
     func configure(cell: UIView) {
+        // swiftlint:disable force_cast
         (cell as! CellType).configure(data: item)
     }
 }
