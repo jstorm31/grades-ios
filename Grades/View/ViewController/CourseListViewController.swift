@@ -24,7 +24,8 @@ class CourseListViewController: BaseTableViewController, BindableType {
         loadRefreshControl()
 
         navigationItem.title = L10n.Courses.title
-        tableView.register(CourseListCell.self, forCellReuseIdentifier: "CourseCell")
+        tableView.register(StudentCourseCell.self, forCellReuseIdentifier: "StudentCourseCell")
+        tableView.register(TeacherCourseCell.self, forCellReuseIdentifier: "TeacherCourseCell")
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
     }
 
@@ -88,9 +89,8 @@ extension CourseListViewController {
     static func dataSource() -> RxTableViewSectionedReloadDataSource<CourseGroup> {
         return RxTableViewSectionedReloadDataSource<CourseGroup>(
             configureCell: { _, tableView, indexPath, item in
-                // swiftlint:disable force_cast
-                let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseListCell
-                cell.course = item
+                let cell = tableView.dequeueReusableCell(withIdentifier: type(of: item).reuseId, for: indexPath)
+                item.configure(cell: cell)
                 return cell
             },
             titleForHeaderInSection: { dataSource, index in

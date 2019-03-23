@@ -40,6 +40,9 @@
 		96520E9C2223D66000AB6499 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96520E9B2223D66000AB6499 /* Assets.xcassets */; };
 		96520E9F2223D66000AB6499 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E9D2223D66000AB6499 /* LaunchScreen.storyboard */; };
 		9654A4F7224641A000778ED1 /* CoursesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9654A4F6224641A000778ED1 /* CoursesRepository.swift */; };
+		9654A4F922469AFE00778ED1 /* ConfigurableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9654A4F822469AFE00778ED1 /* ConfigurableCell.swift */; };
+		9654A4FB22469D0500778ED1 /* StudentCourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9654A4FA22469D0500778ED1 /* StudentCourseCell.swift */; };
+		9654A4FD2246A02200778ED1 /* TeacherCourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9654A4FC2246A02200778ED1 /* TeacherCourseCell.swift */; };
 		96580714222FFA810065E23D /* CourseListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96580713222FFA810065E23D /* CourseListViewModelTests.swift */; };
 		9658071922304B420065E23D /* Action.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658071822304B420065E23D /* Action.framework */; };
 		965ADAEB223569C500AA8CF4 /* CourseListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965ADAEA223569C500AA8CF4 /* CourseListCell.swift */; };
@@ -159,6 +162,9 @@
 		96520E9B2223D66000AB6499 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96520EA02223D66000AB6499 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9654A4F6224641A000778ED1 /* CoursesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepository.swift; sourceTree = "<group>"; };
+		9654A4F822469AFE00778ED1 /* ConfigurableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableCell.swift; sourceTree = "<group>"; };
+		9654A4FA22469D0500778ED1 /* StudentCourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentCourseCell.swift; sourceTree = "<group>"; };
+		9654A4FC2246A02200778ED1 /* TeacherCourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherCourseCell.swift; sourceTree = "<group>"; };
 		96580713222FFA810065E23D /* CourseListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewModelTests.swift; sourceTree = "<group>"; };
 		965807152230099D0065E23D /* GradesAPIMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesAPIMock.swift; sourceTree = "<group>"; };
 		9658071822304B420065E23D /* Action.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Action.framework; path = Carthage/Build/iOS/Action.framework; sourceTree = "<group>"; };
@@ -371,6 +377,9 @@
 			children = (
 				965ADAEA223569C500AA8CF4 /* CourseListCell.swift */,
 				96F3A3822239B02E00FB63EF /* ClassificationCell.swift */,
+				9654A4F822469AFE00778ED1 /* ConfigurableCell.swift */,
+				9654A4FA22469D0500778ED1 /* StudentCourseCell.swift */,
+				9654A4FC2246A02200778ED1 /* TeacherCourseCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -841,10 +850,12 @@
 				9608B9B12224149700E1CEAF /* Strings.swift in Sources */,
 				9699AB9C22326512006D2F73 /* Log.swift in Sources */,
 				961BCE71222C32DD00BD6663 /* SceneCoordinator.swift in Sources */,
+				9654A4FB22469D0500778ED1 /* StudentCourseCell.swift in Sources */,
 				961FC4F82244118B000A4CDA /* AppDependency.swift in Sources */,
 				96B20DA5223669CC004794BE /* CourseDetailStudentViewController.swift in Sources */,
 				96861089222B1A8C0069B81B /* SceneCoordinatorType.swift in Sources */,
 				96B20DA72236C838004794BE /* UINavigationBar+.swift in Sources */,
+				9654A4F922469AFE00778ED1 /* ConfigurableCell.swift in Sources */,
 				9699ABA82232C091006D2F73 /* UIView+Rx.swift in Sources */,
 				9686107C222AAED50069B81B /* UIPrimaryButton.swift in Sources */,
 				96B20DAD2236DE64004794BE /* UINavigationController+.swift in Sources */,
@@ -884,6 +895,7 @@
 				96F3A3732239080B00FB63EF /* BaseViewModel.swift in Sources */,
 				96B49FAC223EC1C500B23A5B /* SettingsRepository.swift in Sources */,
 				96861073222AA55F0069B81B /* UIColor+.swift in Sources */,
+				9654A4FD2246A02200778ED1 /* TeacherCourseCell.swift in Sources */,
 				96B49FAA223EBF8E00B23A5B /* Settings.swift in Sources */,
 				96F3A3832239B02E00FB63EF /* ClassificationCell.swift in Sources */,
 				9686108B222B1B210069B81B /* SceneTransitionType.swift in Sources */,

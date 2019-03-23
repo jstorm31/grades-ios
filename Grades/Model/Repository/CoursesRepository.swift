@@ -51,9 +51,13 @@ final class CoursesRepository: CoursesRepositoryProtocol {
     func getUserCourses(username: String) {
         let studentCourses = dependencies.gradesApi.getStudentCourses(username: username)
             .flatMap { [weak self] courses in
-                Observable.from(courses).flatMap { [weak self] course in
-                    self?.dependencies.gradesApi.getCourse(code: course.code)
-                        .map { StudentCourse(fromCourse: $0) } ?? Observable.empty()
+                Observable.from(courses).flatMap { [weak self] (studentCourse: StudentCourse) -> Observable<StudentCourse> in
+                    self?.dependencies.gradesApi.getCourse(code: studentCourse.code)
+                        .map { (course: Course) -> StudentCourse in
+                            let courseWithName = StudentCourse(fromCourse: studentCourse)
+                            courseWithName.name = course.name
+                            return courseWithName
+                        } ?? Observable.just(studentCourse)
                 }.toArray()
             }
 

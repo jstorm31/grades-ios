@@ -11,59 +11,13 @@ import RxSwift
 import SnapKit
 import UIKit
 
-final class CourseListCell: UITableViewCell {
-    private var title: UILabel!
-    private var subtitle: UILabel!
-    private var rightLabel: UILabel!
-    private var iconView: UIImageView!
+class CourseListCell: UITableViewCell {
+    var title: UILabel!
+    var subtitle: UILabel!
+    var rightLabel: UILabel!
+    var iconView: UIImageView!
 
-    private let isIconHidden = BehaviorSubject<Bool>(value: true)
-    private let bag = DisposeBag()
-
-    var course: Course? {
-        didSet {
-            guard let course = course else { return }
-            isIconHidden.onNext(true)
-
-            title.text = course.code
-            subtitle.text = course.name
-
-            // Reset
-            rightLabel.text = ""
-            rightLabel.textColor = UIColor.Theme.grayText
-
-			if type(of: course) is StudentCourse {
-				
-			}
-			
-//            if let finalValue = course.finalValue {
-//                switch finalValue {
-//                case let .number(number):
-//                    if let number = number {
-//                        let text = NSMutableAttributedString()
-//                        let boldAttr = [NSAttributedString.Key.font: UIFont.Grades.boldBody]
-//                        let boldText = NSMutableAttributedString(string: "\(number.cleanValue)", attributes: boldAttr)
-//                        text.append(boldText)
-//                        text.append(NSAttributedString(string: " \(L10n.Courses.points)"))
-//                        rightLabel.attributedText = text
-//                    }
-//
-//                case let .string(string):
-//                    if let string = string {
-//                        rightLabel.textColor = UIColor.Theme.setGradeColor(forGrade: string, defaultColor: UIColor.Theme.grayText)
-//                        rightLabel.text = string
-//                    }
-//
-//                case let .bool(bool):
-//                    if let bool = bool {
-//                        let icon = UIImage(named: bool ? "icon_success" : "icon_failure")!
-//                        iconView.image = icon
-//                        isIconHidden.onNext(false)
-//                    }
-//                }
-//            }
-        }
-    }
+    // MARK: initialization
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -74,7 +28,8 @@ final class CourseListCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    /// Set and load appearance
+    // MARK: UI setup
+
     func loadUI() {
         let containerView = UIView()
         contentView.addSubview(containerView)
@@ -123,9 +78,5 @@ final class CourseListCell: UITableViewCell {
             make.centerY.equalToSuperview()
         }
         self.iconView = iconView
-
-        isIconHidden.asDriver(onErrorJustReturn: true)
-            .drive(self.iconView.rx.isHidden)
-            .disposed(by: bag)
     }
 }

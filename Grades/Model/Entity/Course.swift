@@ -101,11 +101,11 @@ struct CoursesByRoles {
 /// Type for grouping courses
 struct CourseGroup {
     var header: String
-    var items: [Course]
+    var items: [CellConfigurator]
 }
 
 extension CourseGroup: SectionModelType {
-    typealias Item = Course
+    typealias Item = CellConfigurator
 
     init(original: CourseGroup, items: [Item]) {
         self = original
