@@ -24,7 +24,8 @@ class CourseListViewController: BaseTableViewController, BindableType {
         loadRefreshControl()
 
         navigationItem.title = L10n.Courses.title
-        tableView.register(CourseListCell.self, forCellReuseIdentifier: "CourseCell")
+        tableView.register(StudentCourseCell.self, forCellReuseIdentifier: "StudentCourseCell")
+        tableView.register(TeacherCourseCell.self, forCellReuseIdentifier: "TeacherCourseCell")
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
     }
 
@@ -33,7 +34,7 @@ class CourseListViewController: BaseTableViewController, BindableType {
 
         tableView.rx.itemSelected.asDriver()
             .drive(onNext: { [weak self] indexPath in
-                self?.viewModel.onItemSelection(section: indexPath.section, item: indexPath.item)
+                self?.viewModel.onItemSelection(indexPath)
             })
             .disposed(by: bag)
     }
@@ -59,23 +60,42 @@ class CourseListViewController: BaseTableViewController, BindableType {
     }
 
     func bindViewModel() {
-        viewModel.courses
+        let coursesObservable = viewModel.courses.share()
+
+        coursesObservable
+            .map { coursesByRoles in
+                [
+                    CourseGroup(
+                        header: L10n.Courses.studying,
+                        items: coursesByRoles.student.map { StudentCourseCellConfigurator(item: $0) }
+                    ),
+                    CourseGroup(
+                        header: L10n.Courses.teaching,
+                        items: coursesByRoles.teacher.map { TeacherCourseCellConfigurator(item: $0) }
+                    )
+                ]
+            }
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
 
-        viewModel.isFetchingCourses.asDriver()
+        coursesObservable
+            .map { $0.student.isEmpty && $0.teacher.isEmpty }
+            .bind(to: showNoContent)
+            .disposed(by: bag)
+
+        let fetchingObservable = viewModel.isFetchingCourses.share()
+
+        fetchingObservable.asDriver(onErrorJustReturn: false)
             .drive(tableView.refreshControl!.rx.isRefreshing)
             .disposed(by: bag)
 
-        viewModel.coursesError.asObservable()
-            .subscribe(onNext: { [weak self] error in
-                DispatchQueue.main.async {
-                    self?.navigationController?.view.makeCustomToast(error?.localizedDescription,
-                                                                     type: .danger,
-                                                                     position: .center)
-                }
-            })
+        fetchingObservable.asDriver(onErrorJustReturn: false)
+            .drive(view.rx.refreshing)
+            .disposed(by: bag)
+
+        viewModel.coursesError.asDriver(onErrorJustReturn: nil)
+            .drive(view.rx.errorMessage)
             .disposed(by: bag)
     }
 
@@ -88,9 +108,8 @@ extension CourseListViewController {
     static func dataSource() -> RxTableViewSectionedReloadDataSource<CourseGroup> {
         return RxTableViewSectionedReloadDataSource<CourseGroup>(
             configureCell: { _, tableView, indexPath, item in
-                // swiftlint:disable force_cast
-                let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseListCell
-                cell.course = item
+                let cell = tableView.dequeueReusableCell(withIdentifier: type(of: item).reuseId, for: indexPath)
+                item.configure(cell: cell)
                 return cell
             },
             titleForHeaderInSection: { dataSource, index in

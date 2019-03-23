@@ -57,6 +57,11 @@ internal enum L10n {
         }
     }
 
+    internal enum Labels {
+        /// Nothing to display
+        internal static let noContent = L10n.tr("Localizable", "labels.noContent")
+    }
+
     internal enum Settings {
         /// Language
         internal static let language = L10n.tr("Localizable", "settings.language")

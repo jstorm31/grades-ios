@@ -3,6 +3,8 @@
 "error.auth.generic" = "Nastala chyba při autentizaci";
 "error.api.generic" = "Nastala chyba při stahování dat.";
 
+"labels.noContent" = "Není co zobrazit";
+
 "button.login" = "Přihlásit se";
 "button.done" = "Hotovo";
 "button.cancel" = "Zrušit";

@@ -13,9 +13,9 @@ class GradesAPIMock: GradesAPIProtocol {
     // MARK: mock data with default values
 	var result = Result.success
 
-    var userRoles = UserRoles(studentCourses: ["BI-PPA", "BI-PST"], teacherCourses: ["BI-ZMA", "MI-IOS"])
+    var userRoles = CoursesByRoles(studentCourses: ["BI-PPA", "BI-PST"], teacherCourses: ["BI-ZMA", "MI-IOS"])
 
-    static var userInfo = UserInfo(userId: 14, username: "mockuser", firstName: "Ondřej", lastName: "Krátký")
+    static var userInfo = User(userId: 14, username: "mockuser", firstName: "Ondřej", lastName: "Krátký")
 
     var courses = [
 		Course(code: "BI-PPA", totalPoints: "7"),
@@ -26,7 +26,7 @@ class GradesAPIMock: GradesAPIProtocol {
 
     // MARK: methods
 
-    func getUser() -> Observable<UserInfo> {
+    func getUser() -> Observable<User> {
 		switch result {
 		case .success:
 			return Observable.just(GradesAPIMock.userInfo)
@@ -35,7 +35,7 @@ class GradesAPIMock: GradesAPIProtocol {
 		}
     }
 
-    func getRoles() -> Observable<UserRoles> {
+    func getRoles() -> Observable<CoursesByRoles> {
         return Observable.just(userRoles)
     }
 

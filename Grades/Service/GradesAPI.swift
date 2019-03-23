@@ -14,10 +14,10 @@ protocol HasGradesAPI {
 }
 
 protocol GradesAPIProtocol {
-    func getUser() -> Observable<UserInfo>
-    func getRoles() -> Observable<UserRoles>
-    func getCourses(username: String) -> Observable<[Course]>
-    func getCourse(code: String) -> Observable<CourseDetail>
+    func getUser() -> Observable<User>
+    func getTeacherCourses(username: String) -> Observable<[TeacherCourse]>
+    func getStudentCourses(username: String) -> Observable<[StudentCourse]>
+    func getCourse(code: String) -> Observable<Course>
     func getCourseStudentClassification(username: String, code: String) -> Observable<CourseStudent>
     func getCurrentSemestrCode() -> Observable<String>
 }
@@ -63,25 +63,28 @@ final class GradesAPI: GradesAPIProtocol {
     // MARK: Endpoint requests
 
     /// Fetch user info and roles
-    func getUser() -> Observable<UserInfo> {
+    func getUser() -> Observable<User> {
         return httpService.get(url: createURL(from: .userInfo), parameters: nil)
     }
 
-    /// Fetch user roles
-    func getRoles() -> Observable<UserRoles> {
+    /// Fetch user courses by their roles
+    func getTeacherCourses(username _: String) -> Observable<[TeacherCourse]> {
         return httpService.get(url: createURL(from: .roles), parameters: defaultParameters)
+            .map { (raw: CoursesByRolesRaw) -> [TeacherCourse] in
+                raw.teacherCourses.map { (courseCode: String) -> TeacherCourse in TeacherCourse(code: courseCode) }
+            }
     }
 
     /// Fetch courses for current user
-    func getCourses(username: String) -> Observable<[Course]> {
+    func getStudentCourses(username: String) -> Observable<[StudentCourse]> {
         return httpService.get(url: createURL(from: .courses(username)), parameters: defaultParameters)
-            .map { (rawCourses: [RawCourse]) -> [Course] in
-                rawCourses.map { (course: RawCourse) -> Course in Course(fromRawCourse: course) }
+            .map { (rawCourses: [StudentCourseRaw]) -> [StudentCourse] in
+                rawCourses.map { (course: StudentCourseRaw) -> StudentCourse in StudentCourse(fromRawCourse: course) }
             }
     }
 
     /// Fetch course detail
-    func getCourse(code: String) -> Observable<CourseDetail> {
+    func getCourse(code: String) -> Observable<Course> {
         return httpService.get(url: createURL(from: .course(code)), parameters: defaultParameters)
     }
 

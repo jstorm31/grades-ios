@@ -21,4 +21,12 @@ extension Reactive where Base: UIView {
             }
         }
     }
+
+    public var errorMessage: Binder<Error?> {
+        return Binder(base) { view, error in
+            if let error = error {
+                view.makeCustomToast(error.localizedDescription, type: .danger)
+            }
+        }
+    }
 }

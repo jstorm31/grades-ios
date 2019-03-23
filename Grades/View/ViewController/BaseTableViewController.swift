@@ -13,9 +13,13 @@ import UIKit
 
 class BaseTableViewController: BaseViewController {
     private let HEADER_HEIGHT = 80
+    private var noContentLabel: UILabel!
+    private let bag = DisposeBag()
+
     var tableView: UITableView!
 
-    // TODO: refactor and use override loadView
+    let showNoContent = BehaviorSubject<Bool>(value: true)
+
     func loadView(hasTableHeaderView: Bool = false) {
         super.loadView()
 
@@ -42,12 +46,31 @@ class BaseTableViewController: BaseViewController {
             }
         }
         self.tableView = tableView
+
+        let noContentLabel = UILabel()
+        noContentLabel.text = L10n.Labels.noContent
+        noContentLabel.font = UIFont.Grades.body
+        noContentLabel.textColor = UIColor.Theme.grayText
+        view.addSubview(noContentLabel)
+        noContentLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        self.noContentLabel = noContentLabel
     }
 
     override func viewWillAppear(_: Bool) {
         if let index = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: index, animated: true)
         }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        showNoContent.asDriver(onErrorJustReturn: false)
+            .map { !$0 }
+            .drive(noContentLabel.rx.isHidden)
+            .disposed(by: bag)
     }
 
     func loadRefreshControl() {

@@ -32,7 +32,7 @@ final class CourseStudentRepository: CourseStudentRepositoryProtocol {
     private let activityIndicator = ActivityIndicator()
     private let bag = DisposeBag()
     private let username: String
-    private let courseDetail: CourseDetail
+    private let courseDetail: Course
 
     let course = BehaviorRelay<CourseStudent?>(value: nil)
     let groupedClassifications = BehaviorSubject<[GroupedClassification]>(value: [])
@@ -49,7 +49,7 @@ final class CourseStudentRepository: CourseStudentRepositoryProtocol {
 
     // MARK: initialization
 
-    init(dependencies: Dependencies, username: String, course: CourseDetail) {
+    init(dependencies: Dependencies, username: String, course: Course) {
         self.dependencies = dependencies
         self.username = username
         courseDetail = course
