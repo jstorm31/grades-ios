@@ -34,7 +34,7 @@ class CourseListViewController: BaseTableViewController, BindableType {
 
         tableView.rx.itemSelected.asDriver()
             .drive(onNext: { [weak self] indexPath in
-                self?.viewModel.onItemSelection(section: indexPath.section, item: indexPath.item)
+                self?.viewModel.onItemSelection(indexPath)
             })
             .disposed(by: bag)
     }
@@ -61,6 +61,18 @@ class CourseListViewController: BaseTableViewController, BindableType {
 
     func bindViewModel() {
         viewModel.courses
+            .map { coursesByRoles in
+                [
+                    CourseGroup(
+                        header: L10n.Courses.studying,
+                        items: coursesByRoles.student.map { StudentCourseCellConfigurator(item: $0) }
+                    ),
+                    CourseGroup(
+                        header: L10n.Courses.teaching,
+                        items: coursesByRoles.teacher.map { TeacherCourseCellConfigurator(item: $0) }
+                    )
+                ]
+            }
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
@@ -71,8 +83,7 @@ class CourseListViewController: BaseTableViewController, BindableType {
             .drive(tableView.refreshControl!.rx.isRefreshing)
             .disposed(by: bag)
 
-        fetchingObservable
-            .asDriver(onErrorJustReturn: false)
+        fetchingObservable.asDriver(onErrorJustReturn: false)
             .drive(view.rx.refreshing)
             .disposed(by: bag)
 
