@@ -60,6 +60,7 @@ final class CoursesRepository: CoursesRepositoryProtocol {
                         } ?? Observable.just(studentCourse)
                 }.toArray()
             }
+            .map { $0.sorted(by: { $0.code < $1.code }) }
 
         let teacherCourses = dependencies.gradesApi.getTeacherCourses(username: username)
             .flatMap { [weak self] courses in
@@ -68,6 +69,7 @@ final class CoursesRepository: CoursesRepositoryProtocol {
                         .map { TeacherCourse(fromCourse: $0) } ?? Observable.empty()
                 }.toArray()
             }
+            .map { $0.sorted(by: { $0.code < $1.code }) }
 
         Observable.zip(studentCourses, teacherCourses) { (studentCourses: [StudentCourse], teacherCourses: [TeacherCourse]) -> CoursesByRoles in
             CoursesByRoles(student: studentCourses, teacher: teacherCourses)
