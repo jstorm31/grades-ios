@@ -32,32 +32,36 @@ final class CourseListCell: UITableViewCell {
             rightLabel.text = ""
             rightLabel.textColor = UIColor.Theme.grayText
 
-            if let finalValue = course.finalValue {
-                switch finalValue {
-                case let .number(number):
-                    if let number = number {
-                        let text = NSMutableAttributedString()
-                        let boldAttr = [NSAttributedString.Key.font: UIFont.Grades.boldBody]
-                        let boldText = NSMutableAttributedString(string: "\(number.cleanValue)", attributes: boldAttr)
-                        text.append(boldText)
-                        text.append(NSAttributedString(string: " \(L10n.Courses.points)"))
-                        rightLabel.attributedText = text
-                    }
-
-                case let .string(string):
-                    if let string = string {
-                        rightLabel.textColor = UIColor.Theme.setGradeColor(forGrade: string, defaultColor: UIColor.Theme.grayText)
-                        rightLabel.text = string
-                    }
-
-                case let .bool(bool):
-                    if let bool = bool {
-                        let icon = UIImage(named: bool ? "icon_success" : "icon_failure")!
-                        iconView.image = icon
-                        isIconHidden.onNext(false)
-                    }
-                }
-            }
+			if type(of: course) is StudentCourse {
+				
+			}
+			
+//            if let finalValue = course.finalValue {
+//                switch finalValue {
+//                case let .number(number):
+//                    if let number = number {
+//                        let text = NSMutableAttributedString()
+//                        let boldAttr = [NSAttributedString.Key.font: UIFont.Grades.boldBody]
+//                        let boldText = NSMutableAttributedString(string: "\(number.cleanValue)", attributes: boldAttr)
+//                        text.append(boldText)
+//                        text.append(NSAttributedString(string: " \(L10n.Courses.points)"))
+//                        rightLabel.attributedText = text
+//                    }
+//
+//                case let .string(string):
+//                    if let string = string {
+//                        rightLabel.textColor = UIColor.Theme.setGradeColor(forGrade: string, defaultColor: UIColor.Theme.grayText)
+//                        rightLabel.text = string
+//                    }
+//
+//                case let .bool(bool):
+//                    if let bool = bool {
+//                        let icon = UIImage(named: bool ? "icon_success" : "icon_failure")!
+//                        iconView.image = icon
+//                        isIconHidden.onNext(false)
+//                    }
+//                }
+//            }
         }
     }
 

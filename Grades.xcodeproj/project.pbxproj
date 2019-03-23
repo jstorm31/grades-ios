@@ -39,6 +39,7 @@
 		96520E9A2223D65F00AB6499 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E982223D65F00AB6499 /* Main.storyboard */; };
 		96520E9C2223D66000AB6499 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96520E9B2223D66000AB6499 /* Assets.xcassets */; };
 		96520E9F2223D66000AB6499 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E9D2223D66000AB6499 /* LaunchScreen.storyboard */; };
+		9654A4F7224641A000778ED1 /* CoursesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9654A4F6224641A000778ED1 /* CoursesRepository.swift */; };
 		96580714222FFA810065E23D /* CourseListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96580713222FFA810065E23D /* CourseListViewModelTests.swift */; };
 		9658071922304B420065E23D /* Action.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658071822304B420065E23D /* Action.framework */; };
 		965ADAEB223569C500AA8CF4 /* CourseListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965ADAEA223569C500AA8CF4 /* CourseListCell.swift */; };
@@ -157,6 +158,7 @@
 		96520E962223D65F00AB6499 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		96520E9B2223D66000AB6499 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96520EA02223D66000AB6499 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9654A4F6224641A000778ED1 /* CoursesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepository.swift; sourceTree = "<group>"; };
 		96580713222FFA810065E23D /* CourseListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewModelTests.swift; sourceTree = "<group>"; };
 		965807152230099D0065E23D /* GradesAPIMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesAPIMock.swift; sourceTree = "<group>"; };
 		9658071822304B420065E23D /* Action.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Action.framework; path = Carthage/Build/iOS/Action.framework; sourceTree = "<group>"; };
@@ -560,6 +562,7 @@
 			children = (
 				96F3A37C2239124F00FB63EF /* CourseStudentRepository.swift */,
 				96B49FAB223EC1C500B23A5B /* SettingsRepository.swift */,
+				9654A4F6224641A000778ED1 /* CoursesRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -873,6 +876,7 @@
 				961A2FF12229D44A00A624DC /* LoginViewModel.swift in Sources */,
 				9682A6BE222D1F7600773E28 /* CourseListViewModel.swift in Sources */,
 				96447793224249CD00E960F4 /* UIPickerLabel.swift in Sources */,
+				9654A4F7224641A000778ED1 /* CoursesRepository.swift in Sources */,
 				966ABB57222D986A007DD046 /* Course.swift in Sources */,
 				96861082222AEFE60069B81B /* Scene.swift in Sources */,
 				961A878F2240484200846538 /* Language.swift in Sources */,

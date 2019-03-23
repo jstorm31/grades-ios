@@ -6,7 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
-class UserInfo: Codable {
+class User: Codable {
     var userId: Int
     var username: String
     var firstName: String
@@ -23,28 +23,10 @@ class UserInfo: Codable {
         self.lastName = lastName
     }
 
-    init(fromUserInfo info: UserInfo) {
+    init(fromUserInfo info: User) {
         userId = info.userId
         username = info.username
         firstName = info.firstName
         lastName = info.lastName
-    }
-}
-
-struct UserRoles: Codable {
-    var studentCourses: [String]
-    var teacherCourses: [String]
-}
-
-class User: UserInfo {
-    var roles: UserRoles
-
-    init(info: UserInfo, roles: UserRoles) {
-        self.roles = roles
-        super.init(fromUserInfo: info)
-    }
-
-    required init(from _: Decoder) throws {
-        fatalError("init(from:) has not been implemented")
     }
 }

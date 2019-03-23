@@ -45,7 +45,7 @@ final class LoginViewModel: BaseViewModel {
             .map { _ in }
     }
 
-    private func transitionToCourseList(user: UserInfo) {
+    private func transitionToCourseList(user: User) {
         // Transition to course list scene
         let courseListViewModel = CourseListViewModel(dependencies: AppDependency.shared, sceneCoordinator: sceneCoordinator, user: user)
         sceneCoordinator.transition(to: .courseList(courseListViewModel), type: .modal)

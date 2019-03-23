@@ -8,10 +8,28 @@
 
 import RxDataSources
 
-// TODO: refactor to use only GradesAPI dependency
+class Course: Decodable {
+    var code: String
+    var name: String?
+
+    init(code: String, name: String? = nil) {
+        self.code = code
+        self.name = name
+    }
+
+    init(fromCourse course: Course) {
+        code = course.code
+        name = course.name
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case code = "courseCode"
+        case name = "courseName"
+    }
+}
 
 /// Raw course representation for decoding from JSON
-struct RawCourse: Decodable {
+struct StudentCourseRaw: Decodable {
     var code: String
     var items: [OverviewItem]
 
@@ -21,38 +39,27 @@ struct RawCourse: Decodable {
     }
 }
 
-struct CourseDetail: Decodable {
-    var code: String
-    var name: String?
-
-    enum CodingKeys: String, CodingKey {
-        case code = "courseCode"
-        case name = "courseName"
-    }
-}
-
-struct RawKosCourse: Decodable {
-    var name: String
-}
-
-struct Course {
-    var code: String
-    var name: String?
+class StudentCourse: Course {
     var finalValue: DynamicValue?
 
     init(code: String, finalValue: DynamicValue? = nil) {
+        super.init(code: code)
         self.code = code
         self.finalValue = finalValue
     }
 
-    init(fromCourse course: Course) {
-        code = course.code
-        name = course.name
+    override init(fromCourse course: Course) {
+        super.init(fromCourse: course)
+    }
+
+    init(fromCourse course: StudentCourse) {
+        super.init(code: course.code, name: course.name)
         finalValue = course.finalValue
     }
 
-    init(fromRawCourse rawCourse: RawCourse) {
-        code = rawCourse.code
+    init(fromRawCourse rawCourse: StudentCourseRaw) {
+        super.init(code: rawCourse.code)
+
         if let overviewItem = rawCourse.items.first(where: { $0.type == "POINTS_TOTAL" }),
             let value = overviewItem.value {
             finalValue = value
@@ -61,6 +68,34 @@ struct Course {
             finalValue = value
         }
     }
+
+    required init(from _: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
+}
+
+class TeacherCourse: Course {
+    init(code: String) {
+        super.init(code: code)
+    }
+
+    override init(fromCourse course: Course) {
+        super.init(fromCourse: course)
+    }
+
+    required init(from _: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
+}
+
+struct CoursesByRolesRaw: Decodable {
+    var studentCourses: [String]
+    var teacherCourses: [String]
+}
+
+struct CoursesByRoles {
+    var student: [StudentCourse]
+    var teacher: [TeacherCourse]
 }
 
 /// Type for grouping courses

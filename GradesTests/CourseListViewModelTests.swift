@@ -15,7 +15,7 @@ import RxBlocking
 class CourseListViewModelTests: XCTestCase {
 	var viewModel: CourseListViewModel!
 	var scheduler: ConcurrentDispatchQueueScheduler!
-	var mockUser: UserInfo!
+	var mockUser: User!
 	var gradesApiMock: GradesAPIMock!
 	
 	override func setUp() {
