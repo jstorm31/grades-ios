@@ -9,30 +9,32 @@
 import Foundation
 import RxSwift
 
-protocol GradesAPIProtocol {
-    var settings: SettingsRepositoryProtocol? { get set }
+protocol HasGradesAPI {
+    var gradesApi: GradesAPIProtocol { get }
+}
 
+protocol GradesAPIProtocol {
     func getUser() -> Observable<UserInfo>
     func getRoles() -> Observable<UserRoles>
     func getCourses(username: String) -> Observable<[Course]>
-    func getCourse(code: String) -> Observable<CourseRaw>
+    func getCourse(code: String) -> Observable<CourseDetail>
     func getCourseStudentClassification(username: String, code: String) -> Observable<CourseStudent>
     func getCurrentSemestrCode() -> Observable<String>
 }
 
-class GradesAPI: GradesAPIProtocol {
-    private let config = EnvironmentConfiguration.shared.gradesAPI
+final class GradesAPI: GradesAPIProtocol {
+    typealias Depencencies = HasSettingsRepository & HasHttpService
+
+    private let dependencies: Depencencies
     private let httpService: HttpServiceProtocol
-    var settings: SettingsRepositoryProtocol?
+    private let config = EnvironmentConfiguration.shared.gradesAPI
 
     private var baseUrl: String {
         return config["BaseURL"]!
     }
 
-    // TODO: refactor to observable
     private var defaultParameters: [String: Any] {
-        guard let settings = settings else { return [:] }
-        let settingsState = settings.currentSettings.value
+        let settingsState = dependencies.settingsRepository.currentSettings.value
 
         var parameters = [
             "lang": settingsState.language.rawValue
@@ -42,8 +44,9 @@ class GradesAPI: GradesAPIProtocol {
         return parameters
     }
 
-    init(httpService: HttpServiceProtocol) {
-        self.httpService = httpService
+    init(dependencies: Depencencies) {
+        self.dependencies = dependencies
+        httpService = dependencies.httpService
     }
 
     // MARK: API endpoints
@@ -78,7 +81,7 @@ class GradesAPI: GradesAPIProtocol {
     }
 
     /// Fetch course detail
-    func getCourse(code: String) -> Observable<CourseRaw> {
+    func getCourse(code: String) -> Observable<CourseDetail> {
         return httpService.get(url: createURL(from: .course(code)), parameters: defaultParameters)
     }
 

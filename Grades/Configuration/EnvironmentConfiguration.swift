@@ -54,7 +54,6 @@ protocol NSClassificationConfiguration {
     var defaultLanguage: String { get }
     var auth: Auth { get }
     var gradesAPI: [String: String] { get }
-    var kosAPI: [String: String] { get }
 }
 
 // swiftlint:disable force_cast
@@ -79,13 +78,6 @@ extension EnvironmentConfiguration: NSClassificationConfiguration {
     var gradesAPI: [String: String] {
         var dict = config["GradesAPIEndpoints"] as! [String: String]
         dict["BaseURL"] = config["GradesApiUrl"] as? String
-
-        return dict
-    }
-
-    var kosAPI: [String: String] {
-        var dict = config["KosApiEndpoints"] as! [String: String]
-        dict["BaseURL"] = config["KosApiUrl"] as? String
 
         return dict
     }

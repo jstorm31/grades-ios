@@ -9,7 +9,10 @@
 import OAuthSwift
 import RxSwift
 
-/// RxSwift wrapper around OAuthSwift http client to make requests signed with access token
+protocol HasHttpService {
+    var httpService: HttpServiceProtocol { get }
+}
+
 protocol HttpServiceProtocol {
     typealias HttpMethod = OAuthSwiftHTTPRequest.Method
     typealias HttpParameters = OAuthSwift.Parameters
@@ -19,7 +22,8 @@ protocol HttpServiceProtocol {
     func get(url: URL, parameters: HttpParameters?) -> Observable<String>
 }
 
-class HttpService: NSObject, HttpServiceProtocol {
+/// RxSwift wrapper around OAuthSwift http client to make requests signed with access token
+final class HttpService: NSObject, HttpServiceProtocol {
     private let client: OAuthSwiftClient
 
     init(client: OAuthSwiftClient) {

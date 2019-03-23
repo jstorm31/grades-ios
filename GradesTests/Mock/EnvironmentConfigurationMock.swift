@@ -15,5 +15,4 @@ struct EnvironmentConfigurationMock: NSClassificationConfiguration {
 	}
 	
 	var gradesAPI: [String: String] = [:]
-	var kosAPI: [String : String] = [:]
 }

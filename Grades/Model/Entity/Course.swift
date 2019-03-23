@@ -21,8 +21,7 @@ struct RawCourse: Decodable {
     }
 }
 
-// Replace RawCourse with this ↙️
-struct CourseRaw: Decodable {
+struct CourseDetail: Decodable {
     var code: String
     var name: String?
 

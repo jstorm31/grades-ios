@@ -26,8 +26,10 @@ protocol SettingsViewModelProtocol {
 }
 
 class SettingsViewModel: BaseViewModel, SettingsViewModelProtocol {
+    typealias Dependencies = HasSettingsRepository
+
+    private let dependencies: Dependencies
     private let coordinator: SceneCoordinatorType
-    private let repository: SettingsRepositoryProtocol
     private let bag = DisposeBag()
 
     private let selectedSettingIndex = BehaviorRelay<IndexPath?>(value: nil)
@@ -58,9 +60,9 @@ class SettingsViewModel: BaseViewModel, SettingsViewModelProtocol {
 
     // MARK: initialization
 
-    init(coordinator: SceneCoordinatorType, repository: SettingsRepositoryProtocol) {
+    init(coordinator: SceneCoordinatorType, dependencies: Dependencies) {
+        self.dependencies = dependencies
         self.coordinator = coordinator
-        self.repository = repository
         super.init()
 
         // Bind currently selected options
@@ -83,7 +85,7 @@ class SettingsViewModel: BaseViewModel, SettingsViewModelProtocol {
     // MARK: methods
 
     func bindOutput() {
-        Observable.combineLatest(repository.currentSettings, repository.semesterOptions) { settings, semesterOptions in
+        Observable.combineLatest(dependencies.settingsRepository.currentSettings, dependencies.settingsRepository.semesterOptions) { settings, semesterOptions in
             let semesterValueIndex = semesterOptions.firstIndex { $0 == settings.semester } ?? 0
 
             return [
@@ -102,7 +104,7 @@ class SettingsViewModel: BaseViewModel, SettingsViewModelProtocol {
 
         // Semester
         if index.section == 0, index.item == 0 {
-            repository.changeSemester(optionIndex: selectedOptionIndex.value)
+            dependencies.settingsRepository.changeSemester(optionIndex: selectedOptionIndex.value)
         }
     }
 }

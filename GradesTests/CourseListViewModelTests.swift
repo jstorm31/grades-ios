@@ -17,14 +17,12 @@ class CourseListViewModelTests: XCTestCase {
 	var scheduler: ConcurrentDispatchQueueScheduler!
 	var mockUser: UserInfo!
 	var gradesApiMock: GradesAPIMock!
-	var kosApiMock: KosApiMock!
 	
 	override func setUp() {
 		mockUser = GradesAPIMock.userInfo
 		scheduler = ConcurrentDispatchQueueScheduler(qos: .default)
 		gradesApiMock = GradesAPIMock()
-		kosApiMock = KosApiMock()
-		viewModel = CourseListViewModel(sceneCoordinator: SceneCoordinatorMock(), gradesApi: gradesApiMock, kosApi: kosApiMock, user: mockUser)
+		viewModel = CourseListViewModel(sceneCoordinator: SceneCoordinatorMock(), gradesApi: gradesApiMock, user: mockUser)
 	}
 	
 	override func tearDown() {

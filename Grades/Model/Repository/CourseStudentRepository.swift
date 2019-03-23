@@ -9,6 +9,10 @@
 import RxCocoa
 import RxSwift
 
+protocol HasCourseStudentRepository {
+    var courseStudentRepository: CourseStudentRepository { get }
+}
+
 protocol CourseStudentRepositoryProtocol {
     var code: String { get }
     var name: String? { get }
@@ -21,24 +25,34 @@ protocol CourseStudentRepositoryProtocol {
     func bindOutput()
 }
 
-class CourseStudentRepository: CourseStudentRepositoryProtocol {
-    private let gradesApi: GradesAPIProtocol
+final class CourseStudentRepository: CourseStudentRepositoryProtocol {
+    typealias Dependencies = HasGradesAPI
+
+    private let dependencies: Dependencies
     private let activityIndicator = ActivityIndicator()
     private let bag = DisposeBag()
     private let username: String
-    let code: String
-    let name: String?
+    private let courseDetail: CourseDetail
 
     let course = BehaviorRelay<CourseStudent?>(value: nil)
     let groupedClassifications = BehaviorSubject<[GroupedClassification]>(value: [])
     let isFetching = BehaviorSubject<Bool>(value: false)
     let error = BehaviorSubject<Error?>(value: nil)
 
-    init(username: String, code: String, name: String?, gradesApi: GradesAPIProtocol) {
+    var code: String {
+        return courseDetail.code
+    }
+
+    var name: String? {
+        return courseDetail.name
+    }
+
+    // MARK: initialization
+
+    init(dependencies: Dependencies, username: String, course: CourseDetail) {
+        self.dependencies = dependencies
         self.username = username
-        self.code = code
-        self.name = name
-        self.gradesApi = gradesApi
+        courseDetail = course
 
         activityIndicator
             .distinctUntilChanged()
@@ -48,14 +62,14 @@ class CourseStudentRepository: CourseStudentRepositoryProtocol {
     }
 
     func bindOutput() {
-        getCourseDetail(username: username, courseCode: code)
+        getCourseDetail()
     }
 
     // MARK: methods
 
     /// Fetch course detail and student classification, merge and bind as CourseStudent
-    private func getCourseDetail(username: String, courseCode: String) {
-        let coursesSubscription = gradesApi.getCourseStudentClassification(username: username, code: courseCode)
+    private func getCourseDetail() {
+        let coursesSubscription = dependencies.gradesApi.getCourseStudentClassification(username: username, code: courseDetail.code)
             .trackActivity(activityIndicator)
             .share()
 

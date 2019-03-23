@@ -61,7 +61,9 @@ class SettingsViewController: BaseTableViewController, BindableType, Confirmatio
                     accessoryView.addSubview(self.pickerTextField)
 
                     let pickerLabel = UIPickerLabel()
-                    pickerLabel.text = options[valueIndex]
+                    if options.isEmpty == false {
+                        pickerLabel.text = options[valueIndex]
+                    }
                     accessoryView.addSubview(pickerLabel)
                     pickerLabel.snp.makeConstraints { make in
                         make.trailing.equalToSuperview()

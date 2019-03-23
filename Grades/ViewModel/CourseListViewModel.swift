@@ -12,22 +12,20 @@ import RxCocoa
 import RxSwift
 
 class CourseListViewModel: BaseViewModel {
+    typealias Dependencies = HasGradesAPI
+
+    private let dependencies: Dependencies
     private let sceneCoordinator: SceneCoordinatorType
-    private let gradesApi: GradesAPIProtocol
-    private let kosApi: KosApiProtocol
     private let user: UserInfo
-    private let settings: SettingsRepositoryProtocol
     private let activityIndicator = ActivityIndicator()
     private let bag = DisposeBag()
 
     var openSettings: CocoaAction
 
-    init(sceneCoordinator: SceneCoordinatorType, gradesApi: GradesAPIProtocol, kosApi: KosApiProtocol, user: UserInfo, settings: SettingsRepositoryProtocol) {
-        self.gradesApi = gradesApi
-        self.kosApi = kosApi
+    init(dependencies: Dependencies, sceneCoordinator: SceneCoordinatorType, user: UserInfo) {
+        self.dependencies = dependencies
         self.user = user
         self.sceneCoordinator = sceneCoordinator
-        self.settings = settings
 
         activityIndicator
             .distinctUntilChanged()
@@ -36,7 +34,7 @@ class CourseListViewModel: BaseViewModel {
             .disposed(by: bag)
 
         openSettings = CocoaAction {
-            let settingsViewModel = SettingsViewModel(coordinator: sceneCoordinator, repository: settings)
+            let settingsViewModel = SettingsViewModel(coordinator: sceneCoordinator, dependencies: AppDependency.shared)
 
             sceneCoordinator.transition(to: .settings(settingsViewModel), type: .push)
             return Observable.empty()
@@ -67,23 +65,23 @@ class CourseListViewModel: BaseViewModel {
 
     /// Fetches courses from api and transforms them to right format
     private func getCourses() -> Observable<[CourseGroup]> {
-        let courses = gradesApi.getCourses(username: user.username)
+        let courses = dependencies.gradesApi.getCourses(username: user.username)
 
-            // Fetch course name from kosAPI for each course
+            // Fetch course name for each course
             .flatMap { (courses: [Course]) -> Observable<[Course]> in
                 Observable.from(courses).flatMap { [weak self] (course: Course) -> Observable<Course> in
                     guard let `self` = self else { return .empty() }
 
-                    return self.kosApi.getCourseName(code: course.code)
-                        .map { (name: String) -> Course in
+                    return self.dependencies.gradesApi.getCourse(code: course.code)
+                        .map { (courseDetail: CourseDetail) -> Course in
                             var courseWithName = Course(fromCourse: course)
-                            courseWithName.name = name
+                            courseWithName.name = courseDetail.name
                             return courseWithName
                         }
                 }.toArray()
             }
 
-        return Observable.zip(courses, gradesApi.getRoles()) { (courses: [Course], roles: UserRoles) -> [CourseGroup] in
+        return Observable.zip(courses, dependencies.gradesApi.getRoles()) { (courses: [Course], roles: UserRoles) -> [CourseGroup] in
             let sectionTitles = [L10n.Courses.studying, L10n.Courses.teaching]
 
             // Map courses to roles
@@ -107,7 +105,8 @@ class CourseListViewModel: BaseViewModel {
 
     func onItemSelection(section: Int, item: Int) {
         let course = courses.value[section].items[item]
-        let repository = CourseStudentRepository(username: user.username, code: course.code, name: course.name, gradesApi: gradesApi)
+        let courseDetail = CourseDetail(code: course.code, name: course.name)
+        let repository = CourseStudentRepository(dependencies: AppDependency.shared, username: user.username, course: courseDetail)
         let courseDetailVM = CourseDetailStudentViewModel(coordinator: sceneCoordinator, repository: repository)
 
         sceneCoordinator.transition(to: .courseDetailStudent(courseDetailVM), type: .push)
