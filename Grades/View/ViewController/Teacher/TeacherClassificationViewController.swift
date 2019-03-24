@@ -12,6 +12,7 @@ import UIKit
 class TeacherClassificationViewController: BaseViewController, BindableType {
     var segmentedControl: UISegmentedControl!
     var contentView: UIView!
+    var currentViewController: UIViewController?
 
     var viewModel: TeacherClassificationViewModelProtocol!
 
@@ -36,6 +37,10 @@ class TeacherClassificationViewController: BaseViewController, BindableType {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
+        if let currentViewController = currentViewController {
+            currentViewController.viewWillDisappear(animated)
+        }
+
         if isMovingFromParent {
             viewModel.onBackAction.execute()
         }
@@ -48,13 +53,12 @@ class TeacherClassificationViewController: BaseViewController, BindableType {
     /// Displays child view controller
     func displayTab(forIndex index: Int) {
         if let scene = viewModel.scene(forSegmentIndex: index) {
-            let childViewController = scene.viewController()
+            currentViewController = scene.viewController()
 
-            addChild(childViewController)
-            childViewController.didMove(toParent: self)
-            childViewController.view.frame = contentView.bounds
-            contentView.addSubview(childViewController.view)
-            viewModel.currentScene = scene
+            addChild(currentViewController!)
+            currentViewController!.didMove(toParent: self)
+            currentViewController!.view.frame = contentView.bounds
+            contentView.addSubview(currentViewController!.view)
         }
     }
 
@@ -82,7 +86,10 @@ class TeacherClassificationViewController: BaseViewController, BindableType {
 
     // MARK: events
 
-    @objc func segmentedControlIndexChanged(_: UISegmentedControl) {
-        Log.info("Segmented index changed: \(segmentedControl.selectedSegmentIndex)")
+    @objc func segmentedControlIndexChanged(_ sender: UISegmentedControl) {
+        currentViewController!.view.removeFromSuperview()
+        currentViewController!.removeFromParent()
+
+        displayTab(forIndex: sender.selectedSegmentIndex)
     }
 }

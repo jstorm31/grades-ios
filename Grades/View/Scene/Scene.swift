@@ -16,6 +16,7 @@ enum Scene {
     case settings(SettingsViewModelProtocol)
     case teacherClassification(TeacherClassificationViewModelProtocol)
     case groupClassification(GroupClassificationViewModelProtocol)
+    case studentClassification(StudentClassificationViewModelProtocol)
 }
 
 extension Scene {
@@ -51,6 +52,11 @@ extension Scene {
             var groupClassificationVC = GroupClassificationViewController()
             groupClassificationVC.bindViewModel(to: viewModel)
             return groupClassificationVC
+
+        case let .studentClassification(viewModel):
+            var studentClassificationVC = StudentClassificationViewController()
+            studentClassificationVC.bindViewModel(to: viewModel)
+            return studentClassificationVC
         }
     }
 }

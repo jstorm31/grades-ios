@@ -17,14 +17,13 @@ enum TeacherSceneIndex: Int {
 
 protocol TeacherClassificationViewModelProtocol {
     var course: TeacherCourse { get }
-    var currentScene: Scene? { get set }
     var onBackAction: CocoaAction { get }
 
     func scene(forSegmentIndex index: Int) -> Scene?
 }
 
 final class TeacherClassificationViewModel: BaseViewModel, TeacherClassificationViewModelProtocol {
-    // MARK: properties
+    // MARK: private properties
 
     private let coordinator: SceneCoordinatorType
 
@@ -33,7 +32,13 @@ final class TeacherClassificationViewModel: BaseViewModel, TeacherClassification
         return .groupClassification(viewModel)
     }()
 
-    var currentScene: Scene?
+    private lazy var studentClassificationScene: Scene = {
+        let viewModel = StudentClassificationViewModel()
+        return .studentClassification(viewModel)
+    }()
+
+    // MARK: public properties
+
     let course: TeacherCourse
 
     lazy var onBackAction = CocoaAction { [weak self] in
@@ -54,6 +59,8 @@ final class TeacherClassificationViewModel: BaseViewModel, TeacherClassification
         switch index {
         case TeacherSceneIndex.groupClassification.rawValue:
             return groupClassificationScene
+        case TeacherSceneIndex.studentClassification.rawValue:
+            return studentClassificationScene
         default:
             return nil
         }
