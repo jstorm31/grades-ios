@@ -20,6 +20,8 @@ protocol GradesAPIProtocol {
     func getCourse(code: String) -> Observable<Course>
     func getCourseStudentClassification(username: String, code: String) -> Observable<CourseStudent>
     func getCurrentSemestrCode() -> Observable<String>
+    func getStudentGroups(forCourse course: String, username: String?) -> Observable<[StudentGroup]>
+    func getClassifications(forCourse: String) -> Observable<[Classification]>
 }
 
 final class GradesAPI: GradesAPIProtocol {
@@ -58,6 +60,8 @@ final class GradesAPI: GradesAPIProtocol {
         case course(String)
         case studentCourse(String, String)
         case semester
+        case studentGroups(String)
+        case courseClassifications(String)
     }
 
     // MARK: Endpoint requests
@@ -100,6 +104,24 @@ final class GradesAPI: GradesAPIProtocol {
         return httpService.get(url: createURL(from: .semester), parameters: [:])
     }
 
+    /// Fetch student groups for course
+    func getStudentGroups(forCourse course: String, username: String? = nil) -> Observable<[StudentGroup]> {
+        let url = createURL(from: .studentGroups(course))
+        var parameters = defaultParameters
+
+        if let username = username {
+            parameters["teacherUsername"] = username
+        }
+
+        return httpService.get(url: url, parameters: parameters)
+    }
+
+    /// Fetch classifications for course
+    func getClassifications(forCourse course: String) -> Observable<[Classification]> {
+        let url = createURL(from: .courseClassifications(course))
+        return httpService.get(url: url, parameters: defaultParameters)
+    }
+
     // MARK: helpers
 
     private func createURL(from endpoint: Endpoint) -> URL {
@@ -120,6 +142,12 @@ final class GradesAPI: GradesAPIProtocol {
                 .replacingOccurrences(of: ":code", with: code)
         case .semester:
             endpointValue = config["Semester"]!
+        case let .studentGroups(courseCode):
+            endpointValue = config["Groups"]!
+                .replacingOccurrences(of: ":courseCode", with: courseCode)
+        case let .courseClassifications(courseCode):
+            endpointValue = config["CourseClassifications"]!
+                .replacingOccurrences(of: ":courseCode", with: courseCode)
         }
 
         return URL(string: "\(baseUrl)\(endpointValue)")!
