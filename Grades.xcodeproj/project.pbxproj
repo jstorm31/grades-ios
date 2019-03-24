@@ -39,6 +39,7 @@
 		964181722247A7BB0019CABD /* StudentClassificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964181712247A7BB0019CABD /* StudentClassificationViewModel.swift */; };
 		964181782247A83E0019CABD /* StudentClassificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964181772247A83E0019CABD /* StudentClassificationViewController.swift */; };
 		9641817A2247BE6C0019CABD /* StudentGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964181792247BE6C0019CABD /* StudentGroup.swift */; };
+		964181802247C5570019CABD /* TeacherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9641817F2247C5570019CABD /* TeacherRepository.swift */; };
 		96447793224249CD00E960F4 /* UIPickerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96447792224249CD00E960F4 /* UIPickerLabel.swift */; };
 		9644779522427B3100E960F4 /* UIViewController+ConfirmationModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9644779422427B3100E960F4 /* UIViewController+ConfirmationModal.swift */; };
 		96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E942223D65F00AB6499 /* AppDelegate.swift */; };
@@ -172,6 +173,7 @@
 		964181712247A7BB0019CABD /* StudentClassificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassificationViewModel.swift; sourceTree = "<group>"; };
 		964181772247A83E0019CABD /* StudentClassificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassificationViewController.swift; sourceTree = "<group>"; };
 		964181792247BE6C0019CABD /* StudentGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentGroup.swift; sourceTree = "<group>"; };
+		9641817F2247C5570019CABD /* TeacherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherRepository.swift; sourceTree = "<group>"; };
 		96447792224249CD00E960F4 /* UIPickerLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerLabel.swift; sourceTree = "<group>"; };
 		9644779422427B3100E960F4 /* UIViewController+ConfirmationModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ConfirmationModal.swift"; sourceTree = "<group>"; };
 		96520E912223D65F00AB6499 /* GradesDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GradesDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -669,6 +671,7 @@
 				96F3A37C2239124F00FB63EF /* CourseStudentRepository.swift */,
 				96B49FAB223EC1C500B23A5B /* SettingsRepository.swift */,
 				9654A4F6224641A000778ED1 /* CoursesRepository.swift */,
+				9641817F2247C5570019CABD /* TeacherRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -994,6 +997,7 @@
 				966ABB57222D986A007DD046 /* Course.swift in Sources */,
 				96861082222AEFE60069B81B /* Scene.swift in Sources */,
 				9641817022478C900019CABD /* TeacherClassificationViewModel.swift in Sources */,
+				964181802247C5570019CABD /* TeacherRepository.swift in Sources */,
 				961A878F2240484200846538 /* Language.swift in Sources */,
 				9699ABA42232A2C7006D2F73 /* ApiError.swift in Sources */,
 				96F3A3732239080B00FB63EF /* BaseViewModel.swift in Sources */,

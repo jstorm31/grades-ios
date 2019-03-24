@@ -143,7 +143,7 @@ final class GradesAPI: GradesAPIProtocol {
         case .semester:
             endpointValue = config["Semester"]!
         case let .studentGroups(courseCode):
-            endpointValue = config["Groups"]!
+            endpointValue = config["StudentGroups"]!
                 .replacingOccurrences(of: ":courseCode", with: courseCode)
         case let .courseClassifications(courseCode):
             endpointValue = config["CourseClassifications"]!
