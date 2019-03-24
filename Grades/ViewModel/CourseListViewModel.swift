@@ -69,9 +69,9 @@ class CourseListViewModel: BaseViewModel {
             sceneCoordinator.transition(to: .courseDetailStudent(courseDetailVM), type: .push)
         } else if indexPath.section == 1 {
             let course = courses.value.teacher[indexPath.item]
-            let groupClassificationVM = GroupClassificationViewModel(coordinator: sceneCoordinator, course: course)
+            let teacherClassificationVM = TeacherClassificationViewModel(coordinator: sceneCoordinator, course: course)
 
-            sceneCoordinator.transition(to: .groupClassification(groupClassificationVM), type: .push)
+            sceneCoordinator.transition(to: .teacherClassification(teacherClassificationVM), type: .push)
         }
     }
 }

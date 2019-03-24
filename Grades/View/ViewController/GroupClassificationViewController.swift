@@ -17,25 +17,8 @@ class GroupClassificationViewController: BaseTableViewController, BindableType {
     // MARK: lifecycle
 
     override func loadView() {
-        super.loadView()
         loadView(hasTableHeaderView: false)
-
-        navigationItem.title = viewModel.course.code
-
         loadUI()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        removeRightButton()
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        if isMovingFromParent {
-            viewModel.onBackAction.execute()
-        }
     }
 
     // MARK: methods

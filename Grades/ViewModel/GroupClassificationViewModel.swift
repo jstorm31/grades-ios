@@ -10,22 +10,6 @@ import Action
 import RxCocoa
 import RxSwift
 
-protocol GroupClassificationViewModelProtocol {
-    var course: TeacherCourse { get }
-    var onBackAction: CocoaAction { get }
-}
+protocol GroupClassificationViewModelProtocol {}
 
-class GroupClassificationViewModel: BaseViewModel, GroupClassificationViewModelProtocol {
-    let coordinator: SceneCoordinatorType
-    let course: TeacherCourse
-
-    lazy var onBackAction = CocoaAction { [weak self] in
-        self?.coordinator.didPop()
-            .asObservable().map { _ in } ?? Observable.empty()
-    }
-
-    init(coordinator: SceneCoordinatorType, course: TeacherCourse) {
-        self.coordinator = coordinator
-        self.course = course
-    }
-}
+class GroupClassificationViewModel: BaseViewModel, GroupClassificationViewModelProtocol {}
