@@ -68,10 +68,12 @@ class TeacherClassificationViewController: BaseViewController, BindableType {
         let segmented = UISegmentedControl(items: [L10n.Teacher.Tab.group, L10n.Teacher.Tab.student])
         segmented.selectedSegmentIndex = TeacherSceneIndex.groupClassification.rawValue
         segmented.center = view.center
+        segmented.tintColor = UIColor.Theme.primary
+        segmented.layer.cornerRadius = 0
         segmented.addTarget(self, action: #selector(segmentedControlIndexChanged(_:)), for: .valueChanged)
         view.addSubview(segmented)
         segmented.snp.makeConstraints { make in
-            make.leading.trailing.top.equalTo(view.safeAreaLayoutGuide)
+            make.leading.trailing.top.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
         segmentedControl = segmented
 
