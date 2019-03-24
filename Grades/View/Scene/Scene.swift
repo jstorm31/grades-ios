@@ -14,6 +14,7 @@ enum Scene {
     case courseList(CourseListViewModel)
     case courseDetailStudent(CourseDetailStudentViewModel)
     case settings(SettingsViewModelProtocol)
+    case groupClassification(GroupClassificationViewModelProtocol)
 }
 
 extension Scene {
@@ -39,6 +40,11 @@ extension Scene {
             var settingsVC = SettingsViewController()
             settingsVC.bindViewModel(to: viewModel)
             return settingsVC
+
+        case let .groupClassification(viewModel):
+            var groupClassificationVC = GroupClassificationViewController()
+            groupClassificationVC.bindViewModel(to: viewModel)
+            return groupClassificationVC
         }
     }
 }

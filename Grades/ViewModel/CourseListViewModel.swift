@@ -67,9 +67,11 @@ class CourseListViewModel: BaseViewModel {
             let courseDetailVM = CourseDetailStudentViewModel(coordinator: sceneCoordinator, repository: repository)
 
             sceneCoordinator.transition(to: .courseDetailStudent(courseDetailVM), type: .push)
-            Log.debug("Transitioned")
         } else if indexPath.section == 1 {
-            Log.info("Selected teacher cell at index: \(indexPath.item)")
+            let course = courses.value.teacher[indexPath.item]
+            let groupClassificationVM = GroupClassificationViewModel(coordinator: sceneCoordinator, course: course)
+
+            sceneCoordinator.transition(to: .groupClassification(groupClassificationVM), type: .push)
         }
     }
 }
