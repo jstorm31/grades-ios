@@ -11,6 +11,7 @@ import RxCocoa
 import RxSwift
 
 protocol GroupClassificationViewModelProtocol {
+    var studentsClassification: BehaviorSubject<[StudentsClassificationSection]> { get }
     var groupOptions: PublishSubject<[StudentGroup]> { get }
     var classificationOptions: PublishSubject<[ClassificationOption]> { get }
     var isloading: PublishSubject<Bool> { get }
@@ -28,6 +29,8 @@ final class GroupClassificationViewModel: BaseViewModel, GroupClassificationView
     private let user: User
     private let bag = DisposeBag()
 
+    var studentsClassification = BehaviorSubject<[StudentsClassificationSection]>(value: [])
+
     var groupOptions = PublishSubject<[StudentGroup]>()
     var classificationOptions = PublishSubject<[ClassificationOption]>()
     var isloading = PublishSubject<Bool>()
@@ -41,6 +44,15 @@ final class GroupClassificationViewModel: BaseViewModel, GroupClassificationView
     }
 
     func bindOutput() {
+        Observable.just([
+            StudentsClassificationSection(header: "", items: [
+                StudentsClassificationItem.picker(title: L10n.Teacher.Tab.group, value: "Placeholder group"),
+                StudentsClassificationItem.picker(title: L10n.Teacher.Students.classification, value: "Placeholder classification")
+            ])
+        ])
+            .bind(to: studentsClassification)
+            .disposed(by: bag)
+
         repository.groupOptions.asObservable()
             .bind(to: groupOptions)
             .disposed(by: bag)

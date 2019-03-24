@@ -40,6 +40,8 @@
 		964181782247A83E0019CABD /* StudentClassificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964181772247A83E0019CABD /* StudentClassificationViewController.swift */; };
 		9641817A2247BE6C0019CABD /* StudentGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964181792247BE6C0019CABD /* StudentGroup.swift */; };
 		964181802247C5570019CABD /* TeacherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9641817F2247C5570019CABD /* TeacherRepository.swift */; };
+		964181822247E8B20019CABD /* UIViewController+PickerPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964181812247E8B20019CABD /* UIViewController+PickerPresentable.swift */; };
+		964181842247EC440019CABD /* StudentsClassificationSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964181832247EC440019CABD /* StudentsClassificationSection.swift */; };
 		96447793224249CD00E960F4 /* UIPickerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96447792224249CD00E960F4 /* UIPickerLabel.swift */; };
 		9644779522427B3100E960F4 /* UIViewController+ConfirmationModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9644779422427B3100E960F4 /* UIViewController+ConfirmationModal.swift */; };
 		96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E942223D65F00AB6499 /* AppDelegate.swift */; };
@@ -174,6 +176,8 @@
 		964181772247A83E0019CABD /* StudentClassificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassificationViewController.swift; sourceTree = "<group>"; };
 		964181792247BE6C0019CABD /* StudentGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentGroup.swift; sourceTree = "<group>"; };
 		9641817F2247C5570019CABD /* TeacherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherRepository.swift; sourceTree = "<group>"; };
+		964181812247E8B20019CABD /* UIViewController+PickerPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PickerPresentable.swift"; sourceTree = "<group>"; };
+		964181832247EC440019CABD /* StudentsClassificationSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentsClassificationSection.swift; sourceTree = "<group>"; };
 		96447792224249CD00E960F4 /* UIPickerLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerLabel.swift; sourceTree = "<group>"; };
 		9644779422427B3100E960F4 /* UIViewController+ConfirmationModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ConfirmationModal.swift"; sourceTree = "<group>"; };
 		96520E912223D65F00AB6499 /* GradesDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GradesDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -527,6 +531,7 @@
 				96939EEF223C1FEE00A49E57 /* Unwrap+.swift */,
 				961A8788223FFC3300846538 /* UITextField+.swift */,
 				9644779422427B3100E960F4 /* UIViewController+ConfirmationModal.swift */,
+				964181812247E8B20019CABD /* UIViewController+PickerPresentable.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -642,6 +647,7 @@
 				96F3A37A22390FF200FB63EF /* Classification.swift */,
 				96B49FA9223EBF8E00B23A5B /* Settings.swift */,
 				964181792247BE6C0019CABD /* StudentGroup.swift */,
+				964181832247EC440019CABD /* StudentsClassificationSection.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -984,11 +990,13 @@
 				96A80A75222F1D0400986A90 /* CourseListViewController.swift in Sources */,
 				9686107E222AB4D40069B81B /* UIView+.swift in Sources */,
 				9699AB99223256D2006D2F73 /* OverviewItem.swift in Sources */,
+				964181822247E8B20019CABD /* UIViewController+PickerPresentable.swift in Sources */,
 				96939EE6223BB97500A49E57 /* ClassificationType.swift in Sources */,
 				965ADAEB223569C500AA8CF4 /* CourseListCell.swift in Sources */,
 				9641816C22477DFE0019CABD /* GroupClassificationViewController.swift in Sources */,
 				96861085222AF2630069B81B /* BindableType.swift in Sources */,
 				961A8785223F8B1200846538 /* SettingsViewModel.swift in Sources */,
+				964181842247EC440019CABD /* StudentsClassificationSection.swift in Sources */,
 				9644779522427B3100E960F4 /* UIViewController+ConfirmationModal.swift in Sources */,
 				961A2FF12229D44A00A624DC /* LoginViewModel.swift in Sources */,
 				9682A6BE222D1F7600773E28 /* CourseListViewModel.swift in Sources */,

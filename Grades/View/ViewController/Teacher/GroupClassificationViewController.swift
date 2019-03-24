@@ -8,15 +8,32 @@
 
 import Foundation
 import RxCocoa
+import RxDataSources
 import RxSwift
 import UIKit
 
-class GroupClassificationViewController: BaseTableViewController, BindableType {
+final class GroupClassificationViewController: BaseTableViewController, BindableType {
     // MARK: properties
 
+    var viewModel: GroupClassificationViewModelProtocol!
     private let bag = DisposeBag()
 
-    var viewModel: GroupClassificationViewModelProtocol!
+    private var dataSource: RxTableViewSectionedReloadDataSource<StudentsClassificationSection> {
+        return RxTableViewSectionedReloadDataSource<StudentsClassificationSection>(
+            configureCell: { [weak self] dataSource, tableView, indexPath, _ in
+                let cell = tableView.dequeueReusableCell(withIdentifier: "StudentsClassificationCell", for: indexPath)
+                cell.textLabel?.font = UIFont.Grades.boldBody
+                cell.textLabel?.textColor = UIColor.Theme.text
+
+                switch dataSource[indexPath] {
+                case let .picker(title, value):
+                    cell.textLabel?.text = title
+                }
+
+                return cell
+            }
+        )
+    }
 
     // MARK: lifecycle
 
@@ -24,6 +41,11 @@ class GroupClassificationViewController: BaseTableViewController, BindableType {
         loadView(hasTableHeaderView: false)
         view.backgroundColor = .yellow
         loadUI()
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "StudentsClassificationCell")
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -34,6 +56,11 @@ class GroupClassificationViewController: BaseTableViewController, BindableType {
     // MARK: methods
 
     func bindViewModel() {
+        viewModel.studentsClassification
+            .asDriver(onErrorJustReturn: [])
+            .drive(tableView.rx.items(dataSource: dataSource))
+            .disposed(by: bag)
+
         viewModel.groupOptions.asObservable()
             .subscribe(onNext: {
                 Log.info("Groups: \($0)")
@@ -58,4 +85,10 @@ class GroupClassificationViewController: BaseTableViewController, BindableType {
     // MARK: UI setup
 
     func loadUI() {}
+}
+
+extension GroupClassificationViewController: UITableViewDelegate {
+    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
+        return 60
+    }
 }

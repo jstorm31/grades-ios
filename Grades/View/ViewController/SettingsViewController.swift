@@ -12,7 +12,9 @@ import RxDataSources
 import RxSwift
 import UIKit
 
-class SettingsViewController: BaseTableViewController, BindableType, ConfirmationModalPresentable {
+typealias Conformed = BaseTableViewController & BindableType & ConfirmationModalPresentable & PickerPresentable
+
+final class SettingsViewController: Conformed {
     var pickerView: UIPickerView!
     var pickerTextField: UITextField!
 
@@ -51,13 +53,13 @@ class SettingsViewController: BaseTableViewController, BindableType, Confirmatio
                     cell.textLabel?.text = title
 
                     let doneAction = CocoaAction { [weak self] in
-                        self?.pickerTextField.resignFirstResponder()
+                        self?.hidePicker()
                         self?.viewModel.submitSelectedValue()
                         return Observable.empty()
                     }
 
                     let accessoryView = UIView()
-                    self.pickerTextField.addDoneButtonOnKeyboard(title: title, doneAction: doneAction)
+                    self.setupPicker(title: title, doneAction: doneAction)
                     accessoryView.addSubview(self.pickerTextField)
 
                     let pickerLabel = UIPickerLabel()
@@ -135,7 +137,7 @@ class SettingsViewController: BaseTableViewController, BindableType, Confirmatio
                 if case let .picker(_, _, selectedValueIndex) = item {
                     self.viewModel.setCurrentSettingStateAction.execute((indexPath, selectedValueIndex))
                         .subscribe(onCompleted: { [weak self] in
-                            self?.pickerTextField.becomeFirstResponder()
+                            self?.showPicker()
                             self?.pickerView.selectRow(selectedValueIndex, inComponent: 0, animated: true)
                         })
                         .disposed(by: self.bag)
