@@ -23,6 +23,11 @@ class TeacherClassificationViewController: BaseViewController, BindableType {
         loadUI()
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        displayTab(forIndex: TeacherSceneIndex.groupClassification.rawValue)
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         removeRightButton()
@@ -40,11 +45,24 @@ class TeacherClassificationViewController: BaseViewController, BindableType {
 
     func bindViewModel() {}
 
+    /// Displays child view controller
+    func displayTab(forIndex index: Int) {
+        if let scene = viewModel.scene(forSegmentIndex: index) {
+            let childViewController = scene.viewController()
+
+            addChild(childViewController)
+            childViewController.didMove(toParent: self)
+            childViewController.view.frame = contentView.bounds
+            contentView.addSubview(childViewController.view)
+            viewModel.currentScene = scene
+        }
+    }
+
     // MARK: UI setup
 
     func loadUI() {
-        let segmented = UISegmentedControl(items: ["Klasifikace", "Student"])
-        segmented.selectedSegmentIndex = 0
+        let segmented = UISegmentedControl(items: [L10n.Teacher.Tab.group, L10n.Teacher.Tab.student])
+        segmented.selectedSegmentIndex = TeacherSceneIndex.groupClassification.rawValue
         segmented.center = view.center
         segmented.addTarget(self, action: #selector(segmentedControlIndexChanged(_:)), for: .valueChanged)
         view.addSubview(segmented)

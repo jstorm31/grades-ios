@@ -18,6 +18,7 @@ class GroupClassificationViewController: BaseTableViewController, BindableType {
 
     override func loadView() {
         loadView(hasTableHeaderView: false)
+        view.backgroundColor = .yellow
         loadUI()
     }
 

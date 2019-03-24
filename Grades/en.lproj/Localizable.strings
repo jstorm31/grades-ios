@@ -26,3 +26,6 @@
 "settings.options" = "Options";
 "settings.language" = "Language";
 "settings.semester" = "Semester";
+
+"teacher.tab.group" = "Group";
+"teacher.tab.student" = "Student";

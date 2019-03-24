@@ -10,13 +10,30 @@ import Action
 import RxCocoa
 import RxSwift
 
-protocol TeacherClassificationViewModelProtocol {
-    var course: TeacherCourse { get }
-    var onBackAction: CocoaAction { get }
+enum TeacherSceneIndex: Int {
+    case groupClassification = 0
+    case studentClassification = 1
 }
 
-class TeacherClassificationViewModel: BaseViewModel, TeacherClassificationViewModelProtocol {
-    let coordinator: SceneCoordinatorType
+protocol TeacherClassificationViewModelProtocol {
+    var course: TeacherCourse { get }
+    var currentScene: Scene? { get set }
+    var onBackAction: CocoaAction { get }
+
+    func scene(forSegmentIndex index: Int) -> Scene?
+}
+
+final class TeacherClassificationViewModel: BaseViewModel, TeacherClassificationViewModelProtocol {
+    // MARK: properties
+
+    private let coordinator: SceneCoordinatorType
+
+    private lazy var groupClassificationScene: Scene = {
+        let viewModel = GroupClassificationViewModel()
+        return .groupClassification(viewModel)
+    }()
+
+    var currentScene: Scene?
     let course: TeacherCourse
 
     lazy var onBackAction = CocoaAction { [weak self] in
@@ -24,8 +41,21 @@ class TeacherClassificationViewModel: BaseViewModel, TeacherClassificationViewMo
             .asObservable().map { _ in } ?? Observable.empty()
     }
 
+    // MARK: initialization
+
     init(coordinator: SceneCoordinatorType, course: TeacherCourse) {
         self.coordinator = coordinator
         self.course = course
+    }
+
+    // MARK: methods
+
+    func scene(forSegmentIndex index: Int) -> Scene? {
+        switch index {
+        case TeacherSceneIndex.groupClassification.rawValue:
+            return groupClassificationScene
+        default:
+            return nil
+        }
     }
 }

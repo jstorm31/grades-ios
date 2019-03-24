@@ -78,6 +78,15 @@ internal enum L10n {
         /// User
         internal static let user = L10n.tr("Localizable", "settings.user")
     }
+
+    internal enum Teacher {
+        internal enum Tab {
+            /// Group
+            internal static let group = L10n.tr("Localizable", "teacher.tab.group")
+            /// Student
+            internal static let student = L10n.tr("Localizable", "teacher.tab.student")
+        }
+    }
 }
 
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

@@ -12,4 +12,4 @@ import RxSwift
 
 protocol GroupClassificationViewModelProtocol {}
 
-class GroupClassificationViewModel: BaseViewModel, GroupClassificationViewModelProtocol {}
+final class GroupClassificationViewModel: BaseViewModel, GroupClassificationViewModelProtocol {}
