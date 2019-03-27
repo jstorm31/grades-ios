@@ -8,13 +8,17 @@
 
 @testable import GradesDev
 
-final class AppDependencyMock: AppDependencyProtocol {
+final class AppDependencyMock {
 	private init() {}
 	static let shared = AppDependencyMock()
 	
-	lazy var authService: AuthenticationServiceProtocol = AuthenticationServiceMock()
+	let _authService = AuthenticationServiceMock()
+	lazy var authService: AuthenticationServiceProtocol = { return _authService }()
+	
 	lazy var httpService: HttpServiceProtocol = HttpServiceMock()
-	lazy var gradesApi: GradesAPIProtocol = GradesAPIMock()
+	
+	let _gradesApi = GradesAPIMock()
+	lazy var gradesApi: GradesAPIProtocol = { return _gradesApi }()
 	
 	lazy var settingsRepository: SettingsRepositoryProtocol = SettingsRepositoryMock()
 	lazy var coursesRepository: CoursesRepositoryProtocol = CoursesRepositoryMock()

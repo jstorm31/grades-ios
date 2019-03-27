@@ -13,13 +13,16 @@ import RxCocoa
 final class SettingsRepositoryMock: SettingsRepositoryProtocol {
 	private var semesterOptionIndex = 0
 	
-	var currentSettings = BehaviorRelay<Settings>(value: Settings(language: .english, semester: "B182"))
+	private let settings = Settings(language: .english, semester: "B182")
 	var semesterOptions = BehaviorRelay<[String]>(value: ["B181", "B180", "B171"])
+	
+	var currentSettings = BehaviorRelay<Settings>(value: Settings(language: .english, semester: "B182"))
 	
 	var languageOptions: [Language] = [.czech, .english]
 	
 	func fetchCurrentSemester() -> Observable<Void> {
-		return Observable.empty()
+		currentSettings.accept(settings)
+		return Observable.just(Void())
 	}
 	
 	func changeSemester(optionIndex index: Int) {

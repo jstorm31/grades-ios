@@ -13,46 +13,42 @@ import RxBlocking
 @testable import GradesDev
 
 class LoginViewModelTests: XCTestCase {
-	var viewModel: LoginViewModel!
 	var scheduler: ConcurrentDispatchQueueScheduler!
+	var viewModel: LoginViewModel!
 	var sceneMock: SceneCoordinatorMock!
-	var authMock: AuthenticationServiceMock!
-	var gradesApiMock: GradesAPIMock!
+	var gradesApi = AppDependencyMock.shared._gradesApi
+	var authService = AppDependencyMock.shared._authService
 	
 	override func setUp() {
-		sceneMock = SceneCoordinatorMock()
-		authMock = AuthenticationServiceMock()
-		gradesApiMock = GradesAPIMock()		
 		scheduler = ConcurrentDispatchQueueScheduler(qos: .default)
+		sceneMock = SceneCoordinatorMock()
 		viewModel = LoginViewModel(dependencies: AppDependencyMock.shared, sceneCoordinator: sceneMock)
 	}
 	
 	override func tearDown() {}
 
     func testAuthenticationSuccesful() {
-		authMock.result = .success
-		
-		let userObservable = viewModel.authenticate(viewController: UIViewController())
+		authService.result = .success
+		let authObservable = viewModel.authenticate(viewController: UIViewController())
 		
 		do {
-			guard let user = try userObservable.toBlocking(timeout: 1.0).first() else { return }
-
-			// TODO: update test
-//			XCTAssertEqual(user.username, "mockuser")
-//			XCTAssertNotNil(sceneMock.targetScene)
+			let result = try authObservable.toBlocking(timeout: 2.0).toArray()
+			
+			XCTAssertEqual(result.count, 1, "emits one Void element")
+			XCTAssertNotNil(sceneMock.targetScene)
 		} catch {
 			XCTFail("should not throw error")
 		}
     }
 	
 	func testAuthenticationSuccessfulFetchUserFailed() {
-		authMock.result = .success
-		gradesApiMock.result = .failure
+		authService.result = .success
+		gradesApi.result = .failure
 
 		let userObservable = viewModel.authenticate(viewController: UIViewController())
 		
 		do {
-			guard let _ = try userObservable.toBlocking(timeout: 1.0).first() else { return }
+			guard let _ = try userObservable.toBlocking(timeout: 2.0).first() else { return }
 			XCTFail("should throw error")
 			
 		} catch {
@@ -62,12 +58,12 @@ class LoginViewModelTests: XCTestCase {
 	}
 	
 	func testAuthenticationFailed() {
-		authMock.result = .failure
+		authService.result = .failure
 		
 		let userObservable = viewModel.authenticate(viewController: UIViewController())
 		
 		do {
-			guard let _ = try userObservable.toBlocking(timeout: 1.0).first() else { return }
+			guard let _ = try userObservable.toBlocking(timeout: 2.0).first() else { return }
 			XCTFail("should throw error")
 			
 		} catch {
