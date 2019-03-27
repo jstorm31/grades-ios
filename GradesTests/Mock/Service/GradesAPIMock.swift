@@ -13,15 +13,14 @@ class GradesAPIMock: GradesAPIProtocol {
     // MARK: mock data with default values
 	var result = Result.success
 
-    var userRoles = CoursesByRoles(studentCourses: ["BI-PPA", "BI-PST"], teacherCourses: ["BI-ZMA", "MI-IOS"])
-
     static var userInfo = User(userId: 14, username: "mockuser", firstName: "Ondřej", lastName: "Krátký")
-
-    var courses = [
-		Course(code: "BI-PPA", totalPoints: "7"),
-		Course(code: "BI-PST", totalPoints: "14"),
-		Course(code: "MI-IOS", totalPoints: nil)
-    ]
+	
+	private let courses = [
+		StudentCourse(code: "BI-PPA", finalValue: .number(4)),
+		StudentCourse(code: "BI-ZMA", finalValue: .string("C")),
+		TeacherCourse(code: "MI-IOS"),
+		TeacherCourse(code: "BI-PST")
+	]
 
 
     // MARK: methods
@@ -35,10 +34,6 @@ class GradesAPIMock: GradesAPIProtocol {
 		}
     }
 
-    func getRoles() -> Observable<CoursesByRoles> {
-        return Observable.just(userRoles)
-    }
-
     func getCourses(username _: String) -> Observable<[Course]> {
 		switch result {
 		case .success:
@@ -48,11 +43,29 @@ class GradesAPIMock: GradesAPIProtocol {
 		}
     }
 	
-	func getCourse(code: String) -> Observable<CourseRaw> {
-		return Observable.just(CourseRaw(code: "BI-PPA", name: "Programming paradigmas"))
+	func getCourse(code: String) -> Observable<Course> {
+		return Observable.just(Course(code: "BI-PPA", name: "Programming paradigmas"))
 	}
 	
 	func getCourseStudentClassification(username: String, code: String) -> Observable<CourseStudent> {
 		return Observable<CourseStudent>.just(CourseStudent(classifications: CourseStudentMockData.classifications))
+	}
+	
+	func getTeacherCourses(username: String) -> Observable<[TeacherCourse]> {
+		return Observable.just([
+			TeacherCourse(code: "BI-IOS"),
+			TeacherCourse(code: "BI-OOP")
+		])
+	}
+	
+	func getStudentCourses(username: String) -> Observable<[StudentCourse]> {
+		return Observable.just([
+			StudentCourse(code: "MI-IOS", finalValue: .number(45)),
+			StudentCourse(code: "BI-ZMA", finalValue: .bool(false))
+		])
+	}
+	
+	func getCurrentSemestrCode() -> Observable<String> {
+		return Observable.just("B182")
 	}
 }

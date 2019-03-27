@@ -18,7 +18,7 @@ class CourseStudentRepositoryTests: XCTestCase {
 
     override func setUp() {
 		scheduler = ConcurrentDispatchQueueScheduler(qos: .default)
-		repository = CourseStudentRepository(username: "mockuser", code: "BI-PPA", name: nil, gradesApi: GradesAPIMock())
+		repository = CourseStudentRepository(dependencies: AppDependencyMock.shared, username: "mockuser", course: StudentCourse(code: "BI-PPA"))
 	}
 
     override func tearDown() {}
@@ -41,5 +41,9 @@ class CourseStudentRepositoryTests: XCTestCase {
 			XCTFail(error.localizedDescription)
 		}
     }
+	
+	func testClassificationsWithoutChild() {
+		// TODO
+	}
 
 }

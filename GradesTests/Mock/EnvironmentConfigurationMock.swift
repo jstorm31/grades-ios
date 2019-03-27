@@ -9,6 +9,7 @@
 @testable import GradesDev
 
 struct EnvironmentConfigurationMock: NSClassificationConfiguration {
+	var defaultLanguage = "en"
 	
 	var auth: Auth {
 		return Auth()

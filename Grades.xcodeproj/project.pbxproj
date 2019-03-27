@@ -46,7 +46,6 @@
 		96580714222FFA810065E23D /* CourseListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96580713222FFA810065E23D /* CourseListViewModelTests.swift */; };
 		9658071922304B420065E23D /* Action.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658071822304B420065E23D /* Action.framework */; };
 		965ADAEB223569C500AA8CF4 /* CourseListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965ADAEA223569C500AA8CF4 /* CourseListCell.swift */; };
-		965ADAF12235973100AA8CF4 /* KosApiMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965ADAF02235973100AA8CF4 /* KosApiMock.swift */; };
 		965ADAF32235976300AA8CF4 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965ADAF22235976300AA8CF4 /* Result.swift */; };
 		966ABB57222D986A007DD046 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB56222D986A007DD046 /* Course.swift */; };
 		966ABB59222DA2DF007DD046 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB58222DA2DF007DD046 /* User.swift */; };
@@ -93,6 +92,9 @@
 		96B20DAD2236DE64004794BE /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DAC2236DE64004794BE /* UINavigationController+.swift */; };
 		96B49FAA223EBF8E00B23A5B /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B49FA9223EBF8E00B23A5B /* Settings.swift */; };
 		96B49FAC223EC1C500B23A5B /* SettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B49FAB223EC1C500B23A5B /* SettingsRepository.swift */; };
+		96C87472224BEDA9009FB47F /* CoursesRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */; };
+		96E8C642224BE60C005F32F8 /* AppDependencyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */; };
+		96E8C644224BE8BA005F32F8 /* SettingsRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C643224BE8BA005F32F8 /* SettingsRepositoryMock.swift */; };
 		96F3A3732239080B00FB63EF /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A3722239080B00FB63EF /* BaseViewModel.swift */; };
 		96F3A37922390F6800FB63EF /* CourseStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A37822390F6800FB63EF /* CourseStudent.swift */; };
 		96F3A37B22390FF200FB63EF /* Classification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A37A22390FF200FB63EF /* Classification.swift */; };
@@ -171,7 +173,6 @@
 		9658071A22304D5B0065E23D /* RxAtomic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxAtomic.framework; path = Carthage/Build/iOS/RxAtomic.framework; sourceTree = "<group>"; };
 		9658071E22306CBD0065E23D /* RxSwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwiftExt.framework; path = Carthage/Build/iOS/RxSwiftExt.framework; sourceTree = "<group>"; };
 		965ADAEA223569C500AA8CF4 /* CourseListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListCell.swift; sourceTree = "<group>"; };
-		965ADAF02235973100AA8CF4 /* KosApiMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KosApiMock.swift; sourceTree = "<group>"; };
 		965ADAF22235976300AA8CF4 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		966ABB56222D986A007DD046 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		966ABB58222DA2DF007DD046 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -218,6 +219,9 @@
 		96B20DAC2236DE64004794BE /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
 		96B49FA9223EBF8E00B23A5B /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		96B49FAB223EC1C500B23A5B /* SettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepository.swift; sourceTree = "<group>"; };
+		96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryMock.swift; sourceTree = "<group>"; };
+		96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencyMock.swift; sourceTree = "<group>"; };
+		96E8C643224BE8BA005F32F8 /* SettingsRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepositoryMock.swift; sourceTree = "<group>"; };
 		96F3A3722239080B00FB63EF /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		96F3A37822390F6800FB63EF /* CourseStudent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStudent.swift; sourceTree = "<group>"; };
 		96F3A37A22390FF200FB63EF /* Classification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classification.swift; sourceTree = "<group>"; };
@@ -321,13 +325,11 @@
 		963C628E22342FF800B01818 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
-				965807152230099D0065E23D /* GradesAPIMock.swift */,
+				96C87474224BEDE4009FB47F /* Service */,
+				96C87473224BEDCF009FB47F /* Repository */,
 				963C628F2234307300B01818 /* EnvironmentConfigurationMock.swift */,
 				963C62912234314200B01818 /* SceneCoordinatorMock.swift */,
-				963C6295223432FD00B01818 /* AuthenticationServiceMock.swift */,
-				963C62972234542E00B01818 /* HttpServiceMock.swift */,
-				965ADAF02235973100AA8CF4 /* KosApiMock.swift */,
-				96939EF3223C274C00A49E57 /* CourseStudentRepositoryMock.swift */,
+				96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -531,6 +533,26 @@
 				9699AB9B22326512006D2F73 /* Log.swift */,
 			);
 			path = Utilitis;
+			sourceTree = "<group>";
+		};
+		96C87473224BEDCF009FB47F /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				96939EF3223C274C00A49E57 /* CourseStudentRepositoryMock.swift */,
+				96E8C643224BE8BA005F32F8 /* SettingsRepositoryMock.swift */,
+				96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		96C87474224BEDE4009FB47F /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				965807152230099D0065E23D /* GradesAPIMock.swift */,
+				963C6295223432FD00B01818 /* AuthenticationServiceMock.swift */,
+				963C62972234542E00B01818 /* HttpServiceMock.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		96F3A37422390F0C00FB63EF /* Entity */ = {
@@ -913,12 +935,14 @@
 				96939EE1223B970600A49E57 /* CourseStudentRepositoryTests.swift in Sources */,
 				96939EE4223B98BA00A49E57 /* CourseStudent.swift in Sources */,
 				965ADAF32235976300AA8CF4 /* Result.swift in Sources */,
+				96E8C642224BE60C005F32F8 /* AppDependencyMock.swift in Sources */,
 				96939EF4223C274C00A49E57 /* CourseStudentRepositoryMock.swift in Sources */,
+				96C87472224BEDA9009FB47F /* CoursesRepositoryMock.swift in Sources */,
 				963C62902234307300B01818 /* EnvironmentConfigurationMock.swift in Sources */,
 				963C628D22342ED300B01818 /* LoginViewModelTests.swift in Sources */,
 				963C628B22341FDC00B01818 /* GradesAPIMock.swift in Sources */,
 				963C62982234542E00B01818 /* HttpServiceMock.swift in Sources */,
-				965ADAF12235973100AA8CF4 /* KosApiMock.swift in Sources */,
+				96E8C644224BE8BA005F32F8 /* SettingsRepositoryMock.swift in Sources */,
 				96580714222FFA810065E23D /* CourseListViewModelTests.swift in Sources */,
 				963C62922234314200B01818 /* SceneCoordinatorMock.swift in Sources */,
 				963C6296223432FD00B01818 /* AuthenticationServiceMock.swift in Sources */,

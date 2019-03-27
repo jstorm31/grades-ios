@@ -8,7 +8,18 @@
 
 protocol HasNoDependency {}
 
-final class AppDependency: HasNoDependency {
+protocol AppDependencyProtocol: HasNoDependency {
+    static var shared: Self { get }
+
+    var authService: AuthenticationServiceProtocol { get }
+    var httpService: HttpServiceProtocol { get }
+    var gradesApi: GradesAPIProtocol { get }
+
+    var settingsRepository: SettingsRepositoryProtocol { get }
+    var coursesRepository: CoursesRepositoryProtocol { get }
+}
+
+final class AppDependency: AppDependencyProtocol {
     private init() {}
     static let shared = AppDependency()
 
