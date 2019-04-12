@@ -10,6 +10,10 @@ import RxSwift
 import OAuthSwift
 @testable import GradesDev
 
+extension AuthenticationServiceProtocol {
+	
+}
+
 class AuthenticationServiceMock: AuthenticationServiceProtocol {
 	let handler: OAuth2Swift
 	var result = Result.success

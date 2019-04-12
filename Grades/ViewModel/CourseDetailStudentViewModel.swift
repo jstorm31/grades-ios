@@ -10,7 +10,7 @@ import Action
 import RxCocoa
 import RxSwift
 
-class CourseDetailStudentViewModel: BaseViewModel {
+final class CourseDetailStudentViewModel: BaseViewModel {
     private let repository: CourseStudentRepositoryProtocol
     private let coordinator: SceneCoordinatorType
     private let bag = DisposeBag()

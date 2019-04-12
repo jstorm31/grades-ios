@@ -23,10 +23,6 @@ class CourseDetailStudentViewModelTests: XCTestCase {
 		viewModel = CourseDetailStudentViewModel(coordinator: SceneCoordinatorMock(), repository: repoMock)
 	}
 	
-	override func tearDown() {
-		// Put teardown code here. This method is called after the invocation of each test method in the class.
-	}
-	
 	func testGroupedClassifications() {
 		let totaPointsObservable = viewModel.classifications.subscribeOn(scheduler)
 		let errorObservable = viewModel.error.subscribeOn(scheduler)

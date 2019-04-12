@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: move from View layer
 enum Scene {
     case login(LoginViewModel)
     case courseList(CourseListViewModel)

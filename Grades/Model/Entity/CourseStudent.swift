@@ -6,6 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+// TODO: could be replaced with StudentCourse class?
 struct CourseStudent: Decodable {
     var classifications: [Classification]
 

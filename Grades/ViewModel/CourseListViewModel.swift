@@ -15,7 +15,7 @@ typealias StudentCourseCellConfigurator = TableCellConfigurator<StudentCourseCel
 typealias TeacherCourseCellConfigurator = TableCellConfigurator<TeacherCourseCell, TeacherCourse>
 
 class CourseListViewModel: BaseViewModel {
-    typealias Dependencies = HasCoursesRepository
+    typealias Dependencies = HasCoursesRepository & HasCourseStudentRepositoryFactory
 
     private let dependencies: Dependencies
     private let sceneCoordinator: SceneCoordinatorType
@@ -60,12 +60,14 @@ class CourseListViewModel: BaseViewModel {
 
     func onItemSelection(_ indexPath: IndexPath) {
         if indexPath.section == 0 {
+            guard !courses.value.student.isEmpty else { return }
+
             let course = courses.value.student[indexPath.item]
-            let courseDetail = Course(code: course.code, name: course.name)
-            let repository = CourseStudentRepository(dependencies: AppDependency.shared, username: user.username, course: courseDetail)
+            let repository = dependencies.courseStudentRepositoryFactory(user.username, course)
             let courseDetailVM = CourseDetailStudentViewModel(coordinator: sceneCoordinator, repository: repository)
 
             sceneCoordinator.transition(to: .courseDetailStudent(courseDetailVM), type: .push)
+            Log.debug("Transitioned")
         } else if indexPath.section == 1 {
             Log.info("Selected teacher cell at index: \(indexPath.item)")
         }
