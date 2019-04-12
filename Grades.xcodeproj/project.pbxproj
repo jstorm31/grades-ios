@@ -92,6 +92,7 @@
 		96B20DAD2236DE64004794BE /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DAC2236DE64004794BE /* UINavigationController+.swift */; };
 		96B49FAA223EBF8E00B23A5B /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B49FA9223EBF8E00B23A5B /* Settings.swift */; };
 		96B49FAC223EC1C500B23A5B /* SettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B49FAB223EC1C500B23A5B /* SettingsRepository.swift */; };
+		96C7B9CA226069FA00E39F9A /* CoursesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */; };
 		96C87472224BEDA9009FB47F /* CoursesRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */; };
 		96E8C642224BE60C005F32F8 /* AppDependencyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */; };
 		96E8C644224BE8BA005F32F8 /* SettingsRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C643224BE8BA005F32F8 /* SettingsRepositoryMock.swift */; };
@@ -219,6 +220,7 @@
 		96B20DAC2236DE64004794BE /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
 		96B49FA9223EBF8E00B23A5B /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		96B49FAB223EC1C500B23A5B /* SettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepository.swift; sourceTree = "<group>"; };
+		96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryTests.swift; sourceTree = "<group>"; };
 		96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryMock.swift; sourceTree = "<group>"; };
 		96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencyMock.swift; sourceTree = "<group>"; };
 		96E8C643224BE8BA005F32F8 /* SettingsRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepositoryMock.swift; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 				963C628C22342ED300B01818 /* LoginViewModelTests.swift */,
 				96939EE0223B970600A49E57 /* CourseStudentRepositoryTests.swift */,
 				96939EF1223C25C100A49E57 /* CourseDetailStudentViewModelTests.swift */,
+				96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */,
 			);
 			path = GradesTests;
 			sourceTree = "<group>";
@@ -945,6 +948,7 @@
 				96E8C644224BE8BA005F32F8 /* SettingsRepositoryMock.swift in Sources */,
 				96580714222FFA810065E23D /* CourseListViewModelTests.swift in Sources */,
 				963C62922234314200B01818 /* SceneCoordinatorMock.swift in Sources */,
+				96C7B9CA226069FA00E39F9A /* CoursesRepositoryTests.swift in Sources */,
 				963C6296223432FD00B01818 /* AuthenticationServiceMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,10 +10,10 @@ import RxSwift
 @testable import GradesDev
 
 class GradesAPIMock: GradesAPIProtocol {
-    // MARK: mock data with default values
+	// MARK: mock data with default values
 	var result = Result.success
-
-    static var userInfo = User(userId: 14, username: "mockuser", firstName: "Ondřej", lastName: "Krátký")
+	
+	static var userInfo = User(userId: 14, username: "mockuser", firstName: "Ondřej", lastName: "Krátký")
 	
 	private let courses = [
 		StudentCourse(code: "BI-PPA", finalValue: .number(4)),
@@ -21,48 +21,63 @@ class GradesAPIMock: GradesAPIProtocol {
 		TeacherCourse(code: "MI-IOS"),
 		TeacherCourse(code: "BI-PST")
 	]
-
-
-    // MARK: methods
-
-    func getUser() -> Observable<User> {
+	
+	
+	// MARK: methods
+	
+	func getUser() -> Observable<User> {
 		switch result {
 		case .success:
 			return Observable.just(GradesAPIMock.userInfo)
 		case .failure:
 			return Observable.error(ApiError.general)
 		}
-    }
-
-    func getCourses(username _: String) -> Observable<[Course]> {
+	}
+	
+	func getCourses(username _: String) -> Observable<[Course]> {
 		switch result {
 		case .success:
 			return Observable.just(courses)
 		case .failure:
 			return Observable.error(ApiError.general)
 		}
-    }
+	}
 	
 	func getCourse(code: String) -> Observable<Course> {
-		return Observable.just(Course(code: "BI-PPA", name: "Programming paradigmas"))
+		return Observable.just(Course(code: code, name: "Programming paradigmas"))
 	}
 	
 	func getCourseStudentClassification(username: String, code: String) -> Observable<CourseStudent> {
-		return Observable<CourseStudent>.just(CourseStudent(classifications: CourseStudentMockData.classifications))
+		switch result {
+		case .success:
+			return Observable<CourseStudent>.just(CourseStudent(classifications: CourseStudentMockData.classifications))
+		case .failure:
+			return Observable.error(ApiError.general)
+		}
 	}
 	
 	func getTeacherCourses(username: String) -> Observable<[TeacherCourse]> {
-		return Observable.just([
-			TeacherCourse(code: "BI-IOS"),
-			TeacherCourse(code: "BI-OOP")
-		])
+		switch result {
+		case .success:
+			return Observable.just([
+				TeacherCourse(code: "BI-IOS"),
+				TeacherCourse(code: "BI-OOP")
+				])
+		case .failure:
+			return Observable.error(ApiError.general)
+		}
 	}
 	
 	func getStudentCourses(username: String) -> Observable<[StudentCourse]> {
-		return Observable.just([
-			StudentCourse(code: "MI-IOS", finalValue: .number(45)),
-			StudentCourse(code: "BI-ZMA", finalValue: .bool(false))
-		])
+		switch result {
+		case .success:
+			return Observable.just([
+				StudentCourse(code: "MI-IOS", finalValue: .number(45)),
+				StudentCourse(code: "BI-ZMA", finalValue: .bool(false))
+				])
+		case .failure:
+			return Observable.error(ApiError.general)
+		}
 	}
 	
 	func getCurrentSemestrCode() -> Observable<String> {
