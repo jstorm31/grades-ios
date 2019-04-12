@@ -420,6 +420,7 @@
 		96520E932223D65F00AB6499 /* Grades */ = {
 			isa = PBXGroup;
 			children = (
+				96861087222B1A670069B81B /* Scene */,
 				9699AB9A22326506006D2F73 /* Utilities */,
 				96861086222B15B40069B81B /* Model */,
 				96861071222AA5420069B81B /* Extension */,
@@ -509,7 +510,6 @@
 			isa = PBXGroup;
 			children = (
 				965ADAE92235698100AA8CF4 /* Cell */,
-				96861087222B1A670069B81B /* Scene */,
 				96861083222AEFED0069B81B /* ViewController */,
 				9686107A222AAEAA0069B81B /* UIElements */,
 			);
