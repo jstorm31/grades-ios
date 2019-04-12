@@ -57,10 +57,10 @@ class TeacherClassificationViewController: BaseViewController, BindableType {
 
             addChild(currentViewController!)
             currentViewController!.didMove(toParent: self)
-            currentViewController!.view.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
-            }
             contentView.addSubview(currentViewController!.view)
+            currentViewController!.view.snp.makeConstraints { make in
+                make.edges.equalTo(contentView.safeAreaLayoutGuide)
+            }
         }
     }
 
