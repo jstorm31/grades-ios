@@ -30,3 +30,11 @@ extension AppDependencyMock: HasGradesAPI {}
 
 extension AppDependencyMock: HasSettingsRepository {}
 extension AppDependencyMock: HasCoursesRepository {}
+
+extension AppDependencyMock: HasCourseStudentRepositoryFactory {
+	var courseStudentRepositoryFactory: CourseStudentRepositoryFactory {
+		return { username, course in
+			CourseStudentRepository(dependencies: self, username: username, course: course)
+		}
+	}
+}

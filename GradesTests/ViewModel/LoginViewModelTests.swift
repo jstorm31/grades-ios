@@ -29,6 +29,7 @@ class LoginViewModelTests: XCTestCase {
 
     func testAuthenticationSuccesful() {
 		authService.result = .success
+		gradesApi.result = .success
 		let authObservable = viewModel.authenticate(viewController: UIViewController())
 		
 		do {
@@ -37,6 +38,7 @@ class LoginViewModelTests: XCTestCase {
 			XCTAssertEqual(result.count, 1, "emits one Void element")
 			XCTAssertNotNil(sceneMock.targetScene)
 		} catch {
+			Log.debug("\(error)")
 			XCTFail("should not throw error")
 		}
     }

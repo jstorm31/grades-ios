@@ -9,6 +9,12 @@
 import RxCocoa
 import RxSwift
 
+typealias CourseStudentRepositoryFactory = (String, StudentCourse) -> CourseStudentRepositoryProtocol
+
+protocol HasCourseStudentRepositoryFactory {
+    var courseStudentRepositoryFactory: CourseStudentRepositoryFactory { get }
+}
+
 protocol HasCourseStudentRepository {
     var courseStudentRepository: CourseStudentRepository { get }
 }
@@ -32,7 +38,7 @@ final class CourseStudentRepository: CourseStudentRepositoryProtocol {
     private let activityIndicator = ActivityIndicator()
     private let bag = DisposeBag()
     private let username: String
-    private let courseDetail: Course
+    private let courseDetail: StudentCourse
 
     let course = BehaviorRelay<CourseStudent?>(value: nil)
     let groupedClassifications = BehaviorSubject<[GroupedClassification]>(value: [])
@@ -49,7 +55,7 @@ final class CourseStudentRepository: CourseStudentRepositoryProtocol {
 
     // MARK: initialization
 
-    init(dependencies: Dependencies, username: String, course: Course) {
+    init(dependencies: Dependencies, username: String, course: StudentCourse) {
         self.dependencies = dependencies
         self.username = username
         courseDetail = course
