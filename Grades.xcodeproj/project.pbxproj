@@ -76,6 +76,7 @@
 		968D05BA2261E917003F7D49 /* TablePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D05B92261E917003F7D49 /* TablePickerViewModel.swift */; };
 		968D05BC2261EDF6003F7D49 /* CellItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D05BB2261EDF6003F7D49 /* CellItemType.swift */; };
 		968D05BE2261F289003F7D49 /* TableSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D05BD2261F289003F7D49 /* TableSection.swift */; };
+		968D05C222625CC2003F7D49 /* StudentClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D05C122625CC2003F7D49 /* StudentClassification.swift */; };
 		969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 969398A92226D4A700841818 /* OAuthSwift.framework */; };
 		96939EDD223AD8A500A49E57 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EDC223AD8A500A49E57 /* Double+.swift */; };
 		96939EE1223B970600A49E57 /* CourseStudentRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EE0223B970600A49E57 /* CourseStudentRepositoryTests.swift */; };
@@ -219,6 +220,7 @@
 		968D05B92261E917003F7D49 /* TablePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TablePickerViewModel.swift; sourceTree = "<group>"; };
 		968D05BB2261EDF6003F7D49 /* CellItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellItemType.swift; sourceTree = "<group>"; };
 		968D05BD2261F289003F7D49 /* TableSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSection.swift; sourceTree = "<group>"; };
+		968D05C122625CC2003F7D49 /* StudentClassification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassification.swift; sourceTree = "<group>"; };
 		969398A92226D4A700841818 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
 		96939EDC223AD8A500A49E57 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		96939EE0223B970600A49E57 /* CourseStudentRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStudentRepositoryTests.swift; sourceTree = "<group>"; };
@@ -652,6 +654,7 @@
 				96F3A37A22390FF200FB63EF /* Classification.swift */,
 				96B49FA9223EBF8E00B23A5B /* Settings.swift */,
 				964181792247BE6C0019CABD /* StudentGroup.swift */,
+				968D05C122625CC2003F7D49 /* StudentClassification.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -970,6 +973,7 @@
 				96F3A37B22390FF200FB63EF /* Classification.swift in Sources */,
 				96F3A37D2239124F00FB63EF /* CourseStudentRepository.swift in Sources */,
 				966ABB59222DA2DF007DD046 /* User.swift in Sources */,
+				968D05C222625CC2003F7D49 /* StudentClassification.swift in Sources */,
 				963C62842233B7C000B01818 /* HttpService.swift in Sources */,
 				961A8789223FFC3300846538 /* UITextField+.swift in Sources */,
 				96861070222AA4550069B81B /* BaseViewController.swift in Sources */,

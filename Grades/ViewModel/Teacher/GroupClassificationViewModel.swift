@@ -60,7 +60,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
                     ),
                     .picker(
                         title: L10n.Teacher.Students.classification,
-                        options: classificationOptions.map { $0.title },
+                        options: classificationOptions.map { String($0.id) },
                         valueIndex: classificationIndex
                     )
                 ])

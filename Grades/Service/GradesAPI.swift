@@ -22,6 +22,7 @@ protocol GradesAPIProtocol {
     func getCurrentSemestrCode() -> Observable<String>
     func getStudentGroups(forCourse course: String, username: String?) -> Observable<[StudentGroup]>
     func getClassifications(forCourse: String) -> Observable<[Classification]>
+    func getGroupClassifications(courseCode: String, groupCode: String, classificationId: String) -> Observable<[StudentClassification]>
 }
 
 final class GradesAPI: GradesAPIProtocol {
@@ -62,6 +63,7 @@ final class GradesAPI: GradesAPIProtocol {
         case semester
         case studentGroups(String)
         case courseClassifications(String)
+        case groupClassifications(String, String, String)
     }
 
     // MARK: Endpoint requests
@@ -122,6 +124,12 @@ final class GradesAPI: GradesAPIProtocol {
         return httpService.get(url: url, parameters: defaultParameters)
     }
 
+    /// Fetch items for student grou and classification
+    func getGroupClassifications(courseCode: String, groupCode: String, classificationId: String) -> Observable<[StudentClassification]> {
+        let url = createURL(from: .groupClassifications(courseCode, groupCode, classificationId))
+        return httpService.get(url: url, parameters: defaultParameters)
+    }
+
     // MARK: helpers
 
     private func createURL(from endpoint: Endpoint) -> URL {
@@ -148,6 +156,11 @@ final class GradesAPI: GradesAPIProtocol {
         case let .courseClassifications(courseCode):
             endpointValue = config["CourseClassifications"]!
                 .replacingOccurrences(of: ":courseCode", with: courseCode)
+        case let .groupClassifications(courseCode, groupCode, classificationId):
+            endpointValue = config["GroupClassifications"]!
+                .replacingOccurrences(of: ":courseCode", with: courseCode)
+                .replacingOccurrences(of: ":groupCode", with: groupCode)
+                .replacingOccurrences(of: ":id", with: classificationId)
         }
 
         return URL(string: "\(baseUrl)\(endpointValue)")!
