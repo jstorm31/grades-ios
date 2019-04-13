@@ -12,9 +12,7 @@ import RxDataSources
 import RxSwift
 import UIKit
 
-typealias Conformed = BaseTableViewController & BindableType & ConfirmationModalPresentable & PickerPresentable
-
-final class SettingsViewController: Conformed {
+final class SettingsViewController: BaseTableViewController & BindableType & ConfirmationModalPresentable & PickerPresentable {
     var pickerView: UIPickerView!
     var pickerTextField: UITextField!
 
@@ -23,8 +21,8 @@ final class SettingsViewController: Conformed {
 
     // MARK: data source
 
-    private var dataSource: RxTableViewSectionedReloadDataSource<SettingsSection> {
-        return RxTableViewSectionedReloadDataSource<SettingsSection>(
+    private var dataSource: RxTableViewSectionedReloadDataSource<TableSection> {
+        return RxTableViewSectionedReloadDataSource<TableSection>(
             configureCell: { [weak self] dataSource, tableView, indexPath, _ in
 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath)

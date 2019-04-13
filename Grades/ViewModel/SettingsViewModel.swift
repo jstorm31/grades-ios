@@ -13,7 +13,7 @@ import RxSwift
 protocol SettingsViewModelProtocol {
     typealias CurrentSetting = (IndexPath, Int)
 
-    var settings: BehaviorRelay<[SettingsSection]> { get }
+    var settings: BehaviorRelay<[TableSection]> { get }
     var options: BehaviorSubject<[String]> { get }
     var selectedOptionIndex: BehaviorRelay<Int> { get }
 
@@ -36,7 +36,7 @@ class SettingsViewModel: BaseViewModel, SettingsViewModelProtocol {
 
     // MARK: output
 
-    let settings = BehaviorRelay<[SettingsSection]>(value: [])
+    let settings = BehaviorRelay<[TableSection]>(value: [])
     let options = BehaviorSubject<[String]>(value: [])
     let selectedOptionIndex = BehaviorRelay<Int>(value: 0)
 
@@ -89,7 +89,7 @@ class SettingsViewModel: BaseViewModel, SettingsViewModelProtocol {
             let semesterValueIndex = semesterOptions.firstIndex { $0 == settings.semester } ?? 0
 
             return [
-                SettingsSection(header: L10n.Settings.options, items: [
+                TableSection(header: L10n.Settings.options, items: [
                     .picker(title: L10n.Settings.semester, options: semesterOptions, valueIndex: semesterValueIndex)
                 ])
             ]

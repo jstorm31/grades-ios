@@ -24,8 +24,6 @@ class LoginViewModelTests: XCTestCase {
 		sceneMock = SceneCoordinatorMock()
 		viewModel = LoginViewModel(dependencies: AppDependencyMock.shared, sceneCoordinator: sceneMock)
 	}
-	
-	override func tearDown() {}
 
     func testAuthenticationSuccesful() {
 		authService.result = .success
