@@ -47,12 +47,12 @@ internal enum L10n {
 
     internal enum Error {
         internal enum Api {
-            /// There has been an error when trying to fetch data.
+            /// Fetch data error
             internal static let generic = L10n.tr("Localizable", "error.api.generic")
         }
 
         internal enum Auth {
-            /// There has been an error when authenticating.
+            /// Authentication error
             internal static let generic = L10n.tr("Localizable", "error.auth.generic")
         }
     }
@@ -80,13 +80,18 @@ internal enum L10n {
     }
 
     internal enum Teacher {
+        internal enum Group {
+            /// Students
+            internal static let students = L10n.tr("Localizable", "teacher.group.students")
+        }
+
         internal enum Students {
             /// Classification
             internal static let classification = L10n.tr("Localizable", "teacher.students.classification")
         }
 
         internal enum Tab {
-            /// Group
+            /// Detail
             internal static let group = L10n.tr("Localizable", "teacher.tab.group")
             /// Student
             internal static let student = L10n.tr("Localizable", "teacher.tab.student")

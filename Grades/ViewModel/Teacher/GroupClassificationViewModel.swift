@@ -27,8 +27,8 @@ final class GroupClassificationViewModel: TablePickerViewModel {
     private let user: User
     private let bag = DisposeBag()
 
-    private let groupSelectedIndex = BehaviorSubject<Int>(value: 0)
-    private let classificationSelectedIndex = BehaviorSubject<Int>(value: 0)
+    private let groupSelectedIndex = BehaviorRelay<Int>(value: 0)
+    private let classificationSelectedIndex = BehaviorRelay<Int>(value: 0)
 
     // MARK: initialization
 
@@ -49,8 +49,9 @@ final class GroupClassificationViewModel: TablePickerViewModel {
             groupSelectedIndex,
             classificationSelectedIndex,
             repository.groupOptions,
-            repository.classificationOptions
-        ) { groupIndex, classificationIndex, groupOptions, classificationOptions in
+            repository.classificationOptions,
+            repository.groupClassifications
+        ) { groupIndex, classificationIndex, groupOptions, classificationOptions, groupClassifications in
             [
                 TableSection(header: "", items: [
                     .picker(
@@ -63,7 +64,11 @@ final class GroupClassificationViewModel: TablePickerViewModel {
                         options: classificationOptions.map { String($0.id) },
                         valueIndex: classificationIndex
                     )
-                ])
+                ]),
+                TableSection(
+                    header: L10n.Teacher.Group.students,
+                    items: groupClassifications.map { CellItemType.text(title: $0.username, text: "") }
+                )
             ]
         }
         .bind(to: studentsClassification)
@@ -86,9 +91,14 @@ final class GroupClassificationViewModel: TablePickerViewModel {
         guard let index = self.selectedCellIndex.value else { return }
 
         if index.section == 0, index.item == 0 {
-            groupSelectedIndex.onNext(selectedOptionIndex.value)
+            groupSelectedIndex.accept(selectedOptionIndex.value)
         } else if index.section == 0, index.item == 1 {
-            classificationSelectedIndex.onNext(selectedOptionIndex.value)
+            classificationSelectedIndex.accept(selectedOptionIndex.value)
         }
+
+        // Get students for selected group and classifiaction
+        let groupCode = repository.groupOptions.value[groupSelectedIndex.value]
+        let classificationId = repository.classificationOptions.value[classificationSelectedIndex.value]
+        repository.studentsFor(course: course.code, groupCode: groupCode.id, classificationId: String(classificationId.id))
     }
 }

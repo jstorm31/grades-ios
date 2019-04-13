@@ -34,13 +34,13 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         return RxTableViewSectionedReloadDataSource<TableSection>(
             configureCell: { [weak self] dataSource, tableView, indexPath, _ in
                 let cell = tableView.dequeueReusableCell(withIdentifier: "StudentsClassificationCell", for: indexPath)
-                cell.textLabel?.font = UIFont.Grades.boldBody
                 cell.textLabel?.textColor = UIColor.Theme.text
 
                 guard let `self` = self else { return cell }
 
                 switch dataSource[indexPath] {
                 case let .picker(title, options, valueIndex):
+                    cell.textLabel?.font = UIFont.Grades.boldBody
                     cell.textLabel?.text = title
 
                     let accessoryView = UIView()
@@ -58,11 +58,18 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
 
                     cell.accessoryView = accessoryView
 
+                case let .text(title, text):
+                    cell.textLabel?.font = UIFont.Grades.body
+                    cell.textLabel?.text = title
+
                 default:
                     return cell
                 }
 
                 return cell
+            },
+            titleForHeaderInSection: { dataSource, index in
+                dataSource.sectionModels[index].header
             }
         )
     }

@@ -9,7 +9,7 @@
 import RxCocoa
 import RxSwift
 
-typealias ClassificationOption = (id: Int, title: String)
+typealias ClassificationOption = (id: String, title: String)
 
 protocol HasTeacherRepository {
     var teacherRepository: TeacherRepositoryProtocol { get }
@@ -18,12 +18,13 @@ protocol HasTeacherRepository {
 protocol TeacherRepositoryProtocol {
     var groupOptions: BehaviorRelay<[StudentGroup]> { get }
     var classificationOptions: BehaviorRelay<[ClassificationOption]> { get }
+    var groupClassifications: BehaviorRelay<[StudentClassification]> { get }
     var isLoading: BehaviorSubject<Bool> { get }
     var error: BehaviorSubject<Error?> { get }
 
     func getGroupOptions(forCourse: String, username: String)
     func getClassificationOptions(forCourse: String)
-    func studentsFor(groupId: Int, classificationId: Int)
+    func studentsFor(course: String, groupCode: String, classificationId: String)
 }
 
 final class TeacherRepository: TeacherRepositoryProtocol {
@@ -39,6 +40,7 @@ final class TeacherRepository: TeacherRepositoryProtocol {
 
     var groupOptions = BehaviorRelay<[StudentGroup]>(value: [])
     var classificationOptions = BehaviorRelay<[ClassificationOption]>(value: [])
+    var groupClassifications = BehaviorRelay<[StudentClassification]>(value: [])
     var isLoading = BehaviorSubject<Bool>(value: false)
     var error = BehaviorSubject<Error?>(value: nil)
 
@@ -70,7 +72,7 @@ final class TeacherRepository: TeacherRepositoryProtocol {
     func getClassificationOptions(forCourse course: String) {
         dependencies.gradesApi.getClassifications(forCourse: course)
             .map { (classifications: [Classification]) -> [ClassificationOption] in
-                classifications.map { (id: $0.id, title: $0.getLocalizedText()) }
+                classifications.map { (id: $0.identifier, title: $0.getLocalizedText()) }
             }
             .trackActivity(activityIndicator)
             .catchError { [weak self] error in
@@ -81,7 +83,14 @@ final class TeacherRepository: TeacherRepositoryProtocol {
             .disposed(by: bag)
     }
 
-    func studentsFor(groupId: Int, classificationId: Int) {
-        Log.info("TODO: fetch students for group \(groupId) and classification \(classificationId)")
+    func studentsFor(course: String, groupCode: String, classificationId: String) {
+        dependencies.gradesApi.getGroupClassifications(courseCode: course, groupCode: groupCode, classificationId: classificationId)
+            .trackActivity(activityIndicator)
+            .catchError { [weak self] error in
+                self?.error.onNext(error)
+                return Observable.just([])
+            }
+            .bind(to: groupClassifications)
+            .disposed(by: bag)
     }
 }

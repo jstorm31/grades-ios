@@ -7,17 +7,16 @@
 //
 
 struct StudentClassification {
-    var id: String
-    var classificationId: String
-    var firstName: String
-    var lastName: String
+    var classificationIdentifier: String
+    var firstName: String?
+    var lastName: String?
     var username: String
     var value: DynamicValue?
 }
 
 extension StudentClassification: Codable {
     enum CodingKeys: String, CodingKey {
-        case id, classificationId, firstName, lastName, value
+        case classificationIdentifier, firstName, lastName, value
         case username = "studentUsername"
     }
 }
