@@ -15,9 +15,9 @@ final class GroupClassificationViewModel: TablePickerViewModel {
 
     // MARK: public properties
 
-    var studentsClassification = BehaviorRelay<[TableSection]>(value: [])
-    var isloading = PublishSubject<Bool>()
-    var error = PublishSubject<Error>()
+    let studentsClassification = BehaviorRelay<[TableSection]>(value: [])
+    let isloading = PublishSubject<Bool>()
+    let error = PublishSubject<Error>()
 
     // MARK: private properties
 
@@ -26,6 +26,9 @@ final class GroupClassificationViewModel: TablePickerViewModel {
     private let course: Course
     private let user: User
     private let bag = DisposeBag()
+
+    private let groupSelectedIndex = BehaviorSubject<Int>(value: 0)
+    private let classificationSelectedIndex = BehaviorSubject<Int>(value: 0)
 
     // MARK: initialization
 
@@ -42,22 +45,29 @@ final class GroupClassificationViewModel: TablePickerViewModel {
     // MARK: methods
 
     func bindOutput() {
-        Observable<[TableSection]>.just([
-            TableSection(header: "", items: [
-                .picker(title: L10n.Teacher.Tab.group, options: ["option 1", "option 3"], valueIndex: 0),
-                .picker(title: L10n.Teacher.Students.classification, options: ["option 2"], valueIndex: 0)
-            ])
-        ])
-            .bind(to: studentsClassification)
-            .disposed(by: bag)
-
-//        repository.groupOptions.asObservable()
-//            .bind(to: groupOptions)
-//            .disposed(by: bag)
-//
-//        repository.classificationOptions.asObservable()
-//            .bind(to: classificationOptions)
-//            .disposed(by: bag)
+        Observable<[TableSection]>.combineLatest(
+            groupSelectedIndex,
+            classificationSelectedIndex,
+            repository.groupOptions,
+            repository.classificationOptions
+        ) { groupIndex, classificationIndex, groupOptions, classificationOptions in
+            [
+                TableSection(header: "", items: [
+                    .picker(
+                        title: L10n.Teacher.Tab.group,
+                        options: groupOptions.map { $0.id },
+                        valueIndex: groupIndex
+                    ),
+                    .picker(
+                        title: L10n.Teacher.Students.classification,
+                        options: classificationOptions.map { $0.title },
+                        valueIndex: classificationIndex
+                    )
+                ])
+            ]
+        }
+        .bind(to: studentsClassification)
+        .disposed(by: bag)
 
         repository.isLoading.asObserver()
             .bind(to: isloading)
@@ -69,5 +79,16 @@ final class GroupClassificationViewModel: TablePickerViewModel {
 
         repository.getClassificationOptions(forCourse: course.code)
         repository.getGroupOptions(forCourse: course.code, username: user.username)
+    }
+
+    /// Submit current value for current index path
+    func submitSelectedValue() {
+        guard let index = self.selectedCellIndex.value else { return }
+
+        if index.section == 0, index.item == 0 {
+            groupSelectedIndex.onNext(selectedOptionIndex.value)
+        } else if index.section == 0, index.item == 1 {
+            classificationSelectedIndex.onNext(selectedOptionIndex.value)
+        }
     }
 }

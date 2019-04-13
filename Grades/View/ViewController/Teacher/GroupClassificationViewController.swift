@@ -22,6 +22,14 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
     var viewModel: GroupClassificationViewModel!
     private let bag = DisposeBag()
 
+    private var pickerDoneAction: CocoaAction {
+        return CocoaAction { [weak self] in
+            self?.hidePicker()
+            self?.viewModel.submitSelectedValue()
+            return Observable.empty()
+        }
+    }
+
     private var dataSource: RxTableViewSectionedReloadDataSource<TableSection> {
         return RxTableViewSectionedReloadDataSource<TableSection>(
             configureCell: { [weak self] dataSource, tableView, indexPath, _ in
@@ -35,14 +43,9 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
                 case let .picker(title, options, valueIndex):
                     cell.textLabel?.text = title
 
-                    let doneAction = CocoaAction { [weak self] in
-                        self?.hidePicker()
-//                        self?.viewModel.submitSelectedValue()
-                        return Observable.empty()
-                    }
+                    self.setupPicker(title: title, doneAction: self.pickerDoneAction)
 
                     let accessoryView = UIView()
-                    self.setupPicker(title: title, doneAction: doneAction)
                     accessoryView.addSubview(self.pickerTextField)
 
                     let pickerLabel = UIPickerLabel()
@@ -85,7 +88,7 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         viewModel.bindOutput()
     }
 
-    // MARK: methods
+    // MARK: bindings
 
     func bindViewModel() {
         viewModel.studentsClassification
@@ -98,18 +101,6 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
             .drive(pickerView.rx.itemTitles) { _, element in element }
             .disposed(by: bag)
 
-//        viewModel.groupOptions.asObservable()
-//            .subscribe(onNext: {
-//                Log.info("Groups: \($0)")
-//            })
-//            .disposed(by: bag)
-//
-//        viewModel.classificationOptions.asObservable()
-//            .subscribe(onNext: {
-//                Log.info("Classification: \($0)")
-//            })
-//            .disposed(by: bag)
-
         viewModel.isloading.asDriver(onErrorJustReturn: false)
             .drive(view.rx.refreshing)
             .disposed(by: bag)
@@ -120,8 +111,6 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
     }
 
     func setupBindings() {
-        // TODO: bind table view and sho picker action
-
         pickerView.rx.itemSelected
             .map { row, _ in row }
             .bind(to: viewModel.selectedOptionIndex)
