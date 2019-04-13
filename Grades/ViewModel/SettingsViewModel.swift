@@ -10,43 +10,18 @@ import Action
 import RxCocoa
 import RxSwift
 
-protocol SettingsViewModelProtocol {
-    typealias CurrentSetting = (IndexPath, Int)
-
-    var settings: BehaviorRelay<[TableSection]> { get }
-    var options: BehaviorSubject<[String]> { get }
-    var selectedOptionIndex: BehaviorRelay<Int> { get }
-
-    var setCurrentSettingStateAction: Action<CurrentSetting, Void> { get }
-    var onBackAction: CocoaAction { get }
-    var logoutAction: CocoaAction { get }
-
-    func bindOutput()
-    func submitSelectedValue()
-}
-
-class SettingsViewModel: BaseViewModel, SettingsViewModelProtocol {
+class SettingsViewModel: TablePickerViewModel {
     typealias Dependencies = HasSettingsRepository
 
     private let dependencies: Dependencies
     private let coordinator: SceneCoordinatorType
     private let bag = DisposeBag()
 
-    private let selectedSettingIndex = BehaviorRelay<IndexPath?>(value: nil)
-
     // MARK: output
 
     let settings = BehaviorRelay<[TableSection]>(value: [])
-    let options = BehaviorSubject<[String]>(value: [])
-    let selectedOptionIndex = BehaviorRelay<Int>(value: 0)
 
     // MARK: actions
-
-    lazy var setCurrentSettingStateAction: Action<CurrentSetting, Void> = Action { [weak self] settingIndex, optionIndex in
-        self?.selectedSettingIndex.accept(settingIndex)
-        self?.selectedOptionIndex.accept(optionIndex)
-        return Observable.empty()
-    }
 
     lazy var logoutAction = CocoaAction { [weak self] in
         self?.coordinator.pop()
@@ -65,27 +40,16 @@ class SettingsViewModel: BaseViewModel, SettingsViewModelProtocol {
         self.coordinator = coordinator
         super.init()
 
-        // Bind currently selected options
-        selectedSettingIndex
-            .map { [weak self] indexPath in
-                guard
-                    let indexPath = indexPath,
-                    let item = self?.settings.value[indexPath.section].items[indexPath.item]
-                else { return [] }
-
-                if case let .picker(_, options, _) = item {
-                    return options
-                }
-                return []
-            }
-            .bind(to: options)
-            .disposed(by: bag)
+        bindOptions(dataSource: settings)
     }
 
     // MARK: methods
 
     func bindOutput() {
-        Observable.combineLatest(dependencies.settingsRepository.currentSettings, dependencies.settingsRepository.semesterOptions) { settings, semesterOptions in
+        Observable.combineLatest(
+            dependencies.settingsRepository.currentSettings,
+            dependencies.settingsRepository.semesterOptions
+        ) { settings, semesterOptions in
             let semesterValueIndex = semesterOptions.firstIndex { $0 == settings.semester } ?? 0
 
             return [
@@ -100,7 +64,7 @@ class SettingsViewModel: BaseViewModel, SettingsViewModelProtocol {
 
     /// Submit current value for current index path
     func submitSelectedValue() {
-        guard let index = self.selectedSettingIndex.value else { return }
+        guard let index = self.selectedCellIndex.value else { return }
 
         // Semester
         if index.section == 0, index.item == 0 {

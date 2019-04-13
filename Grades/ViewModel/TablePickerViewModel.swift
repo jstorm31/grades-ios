@@ -12,8 +12,8 @@ import RxSwift
 /// Class providing logic for multiple pickers with options
 class TablePickerViewModel: BaseViewModel {
     private let bag = DisposeBag()
-    private let selectedCellIndex = BehaviorRelay<IndexPath?>(value: nil)
 
+    let selectedCellIndex = BehaviorRelay<IndexPath?>(value: nil)
     let selectedOptionIndex = BehaviorRelay<Int>(value: 0)
     let options = BehaviorSubject<[String]>(value: [])
 

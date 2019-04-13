@@ -13,7 +13,7 @@ enum Scene {
     case login(LoginViewModel)
     case courseList(CourseListViewModel)
     case courseDetailStudent(CourseDetailStudentViewModel)
-    case settings(SettingsViewModelProtocol)
+    case settings(SettingsViewModel)
     case teacherClassification(TeacherClassificationViewModelProtocol)
     case groupClassification(GroupClassificationViewModel)
     case studentClassification(StudentClassificationViewModelProtocol)

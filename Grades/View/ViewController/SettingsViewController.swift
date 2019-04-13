@@ -16,7 +16,7 @@ final class SettingsViewController: BaseTableViewController & BindableType & Con
     var pickerView: UIPickerView!
     var pickerTextField: UITextField!
 
-    var viewModel: SettingsViewModelProtocol!
+    var viewModel: SettingsViewModel!
     private let bag = DisposeBag()
 
     // MARK: data source
@@ -133,12 +133,9 @@ final class SettingsViewController: BaseTableViewController & BindableType & Con
 
                 // On table cell selection, set selected cell index in view model to display right options in picker view
                 if case let .picker(_, _, selectedValueIndex) = item {
-                    self.viewModel.setCurrentSettingStateAction.execute((indexPath, selectedValueIndex))
-                        .subscribe(onCompleted: { [weak self] in
-                            self?.showPicker()
-                            self?.pickerView.selectRow(selectedValueIndex, inComponent: 0, animated: true)
-                        })
-                        .disposed(by: self.bag)
+                    self.viewModel.handleOptionChange(cellIndexPath: indexPath, optionIndex: selectedValueIndex)
+                    self.showPicker()
+                    self.pickerView.selectRow(selectedValueIndex, inComponent: 0, animated: true)
                 }
 
                 self.tableView.deselectRow(at: indexPath, animated: true)
