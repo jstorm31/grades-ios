@@ -19,6 +19,14 @@ final class SettingsViewController: BaseTableViewController & BindableType & Con
     var viewModel: SettingsViewModel!
     private let bag = DisposeBag()
 
+    private var pickerDoneAction: CocoaAction {
+        return CocoaAction { [weak self] in
+            self?.hidePicker()
+            self?.viewModel.submitSelectedValue()
+            return Observable.empty()
+        }
+    }
+
     // MARK: data source
 
     private var dataSource: RxTableViewSectionedReloadDataSource<TableSection> {
@@ -50,14 +58,7 @@ final class SettingsViewController: BaseTableViewController & BindableType & Con
                 case let .picker(title, options, valueIndex):
                     cell.textLabel?.text = title
 
-                    let doneAction = CocoaAction { [weak self] in
-                        self?.hidePicker()
-                        self?.viewModel.submitSelectedValue()
-                        return Observable.empty()
-                    }
-
                     let accessoryView = UIView()
-                    self.setupPicker(title: title, doneAction: doneAction)
                     accessoryView.addSubview(self.pickerTextField)
 
                     let pickerLabel = UIPickerLabel()
@@ -97,6 +98,8 @@ final class SettingsViewController: BaseTableViewController & BindableType & Con
         pickerTextField = UITextField()
         pickerTextField.inputView = pickerView
         pickerTextField.isHidden = true
+
+        setupPicker(doneAction: pickerDoneAction)
     }
 
     override func viewDidLoad() {

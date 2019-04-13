@@ -43,8 +43,6 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
                 case let .picker(title, options, valueIndex):
                     cell.textLabel?.text = title
 
-                    self.setupPicker(title: title, doneAction: self.pickerDoneAction)
-
                     let accessoryView = UIView()
                     accessoryView.addSubview(self.pickerTextField)
 
@@ -140,6 +138,8 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         pickerTextField = UITextField()
         pickerTextField.inputView = pickerView
         pickerTextField.isHidden = true
+
+        setupPicker(doneAction: pickerDoneAction)
     }
 }
 

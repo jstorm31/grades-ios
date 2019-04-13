@@ -15,8 +15,8 @@ protocol PickerPresentable where Self: UIViewController {
 }
 
 extension PickerPresentable {
-    func setupPicker(title: String, doneAction: CocoaAction) {
-        pickerTextField.addDoneButtonOnKeyboard(title: title, doneAction: doneAction)
+    func setupPicker(doneAction: CocoaAction) {
+        pickerTextField.addDoneButtonOnKeyboard(doneAction: doneAction)
     }
 
     func showPicker() {
