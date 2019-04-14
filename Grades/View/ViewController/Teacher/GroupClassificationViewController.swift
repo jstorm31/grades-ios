@@ -42,6 +42,7 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
                     return cell
 
                 case let .textField(title, subtitle, value):
+                    // swiftlint:disable force_cast
                     var textFieldCell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
                     self.configureTextFieldCell(&textFieldCell, title, subtitle, value)
                     return textFieldCell
@@ -79,9 +80,17 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
     // MARK: bindings
 
     func bindViewModel() {
-        viewModel.studentsClassification
+        let studentsClassification = viewModel.studentsClassification.share()
+
+        studentsClassification
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: dataSource))
+            .disposed(by: bag)
+
+        studentsClassification
+            .map { $0[1].items.isEmpty }
+            .asDriver(onErrorJustReturn: true)
+            .drive(showNoContent)
             .disposed(by: bag)
 
         viewModel.options
