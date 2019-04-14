@@ -63,7 +63,7 @@ final class SettingsViewController: BaseTableViewController & BindableType & Con
 
                     let pickerLabel = UIPickerLabel()
                     if options.isEmpty == false {
-                        pickerLabel.text = options[valueIndex]
+                        pickerLabel.text = options[valueIndex].value
                     }
                     accessoryView.addSubview(pickerLabel)
                     pickerLabel.snp.makeConstraints { make in
@@ -153,6 +153,7 @@ final class SettingsViewController: BaseTableViewController & BindableType & Con
             .disposed(by: bag)
 
         viewModel.options
+            .map { options in options.map { $0.value } }
             .asDriver(onErrorJustReturn: [])
             .drive(pickerView.rx.itemTitles) { _, element in element }
             .disposed(by: bag)

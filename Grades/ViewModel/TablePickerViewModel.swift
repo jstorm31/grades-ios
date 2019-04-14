@@ -15,7 +15,7 @@ class TablePickerViewModel: BaseViewModel {
 
     let selectedCellIndex = BehaviorRelay<IndexPath?>(value: nil)
     let selectedOptionIndex = BehaviorRelay<Int>(value: 0)
-    let options = BehaviorSubject<[String]>(value: [])
+    let options = BehaviorSubject<[PickerOption]>(value: [])
 
     func bindOptions(dataSource: BehaviorRelay<[TableSection]>) {
         selectedCellIndex
@@ -29,7 +29,6 @@ class TablePickerViewModel: BaseViewModel {
 
                 return []
             }
-            .debug()
             .bind(to: options)
             .disposed(by: bag)
     }

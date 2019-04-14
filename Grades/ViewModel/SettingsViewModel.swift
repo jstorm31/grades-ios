@@ -54,7 +54,7 @@ class SettingsViewModel: TablePickerViewModel {
 
             return [
                 TableSection(header: L10n.Settings.options, items: [
-                    .picker(title: L10n.Settings.semester, options: semesterOptions, valueIndex: semesterValueIndex)
+                    .picker(title: L10n.Settings.semester, options: semesterOptions.map { (key: $0, value: $0) }, valueIndex: semesterValueIndex)
                 ])
             ]
         }

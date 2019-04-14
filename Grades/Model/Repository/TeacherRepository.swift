@@ -9,15 +9,13 @@
 import RxCocoa
 import RxSwift
 
-typealias ClassificationOption = (id: String, title: String)
-
 protocol HasTeacherRepository {
     var teacherRepository: TeacherRepositoryProtocol { get }
 }
 
 protocol TeacherRepositoryProtocol {
-    var groupOptions: BehaviorRelay<[StudentGroup]> { get }
-    var classificationOptions: BehaviorRelay<[ClassificationOption]> { get }
+    var groups: BehaviorRelay<[StudentGroup]> { get }
+    var classifications: BehaviorRelay<[Classification]> { get }
     var groupClassifications: BehaviorRelay<[StudentClassification]> { get }
     var isLoading: BehaviorSubject<Bool> { get }
     var error: BehaviorSubject<Error?> { get }
@@ -38,8 +36,8 @@ final class TeacherRepository: TeacherRepositoryProtocol {
 
     // MARK: output
 
-    var groupOptions = BehaviorRelay<[StudentGroup]>(value: [])
-    var classificationOptions = BehaviorRelay<[ClassificationOption]>(value: [])
+    var groups = BehaviorRelay<[StudentGroup]>(value: [])
+    var classifications = BehaviorRelay<[Classification]>(value: [])
     var groupClassifications = BehaviorRelay<[StudentClassification]>(value: [])
     var isLoading = BehaviorSubject<Bool>(value: false)
     var error = BehaviorSubject<Error?>(value: nil)
@@ -65,21 +63,18 @@ final class TeacherRepository: TeacherRepositoryProtocol {
                 self?.error.onNext(error)
                 return Observable.just([])
             }
-            .bind(to: groupOptions)
+            .bind(to: groups)
             .disposed(by: bag)
     }
 
     func getClassificationOptions(forCourse course: String) {
         dependencies.gradesApi.getClassifications(forCourse: course)
-            .map { (classifications: [Classification]) -> [ClassificationOption] in
-                classifications.map { (id: $0.identifier, title: $0.getLocalizedText()) }
-            }
             .trackActivity(activityIndicator)
             .catchError { [weak self] error in
                 self?.error.onNext(error)
                 return Observable.just([])
             }
-            .bind(to: classificationOptions)
+            .bind(to: classifications)
             .disposed(by: bag)
     }
 

@@ -7,7 +7,7 @@
 //
 
 struct StudentClassification {
-    var classificationIdentifier: String
+    var ident: String
     var firstName: String?
     var lastName: String?
     var username: String
@@ -16,7 +16,8 @@ struct StudentClassification {
 
 extension StudentClassification: Codable {
     enum CodingKeys: String, CodingKey {
-        case classificationIdentifier, firstName, lastName, value
+        case ident = "classificationIdentifier"
         case username = "studentUsername"
+        case firstName, lastName, value
     }
 }

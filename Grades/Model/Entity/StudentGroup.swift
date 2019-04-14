@@ -9,12 +9,11 @@
 struct StudentGroup {
     let id: String
     let name: String?
-    let description: String?
 }
 
 extension StudentGroup: Decodable {
     enum CodingKeys: String, CodingKey {
         case id = "studentGroupId"
-        case name, description
+        case name
     }
 }
