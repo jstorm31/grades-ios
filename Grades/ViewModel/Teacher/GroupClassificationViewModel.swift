@@ -45,17 +45,14 @@ final class GroupClassificationViewModel: TablePickerViewModel {
     // MARK: methods
 
     func bindOutput() {
+        // swiftlint:disable line_length
         Observable<[TableSection]>.combineLatest(
             groupSelectedIndex,
             classificationSelectedIndex,
             repository.groups,
             repository.classifications,
             repository.groupClassifications
-        ) { (groupIndex,
-             classificationIndex,
-             groups: [StudentGroup],
-             classifications: [Classification],
-             groupClassifications) -> [TableSection] in
+        ) { (groupIndex, classificationIndex, groups: [StudentGroup], classifications: [Classification], groupClassifications) -> [TableSection] in
             [
                 TableSection(header: "", items: [
                     CellItemType.picker(
@@ -71,7 +68,13 @@ final class GroupClassificationViewModel: TablePickerViewModel {
                 ]),
                 TableSection(
                     header: L10n.Teacher.Group.students,
-                    items: groupClassifications.map { CellItemType.text(title: $0.username, text: "") }
+                    items: groupClassifications.map {
+                        CellItemType.textField(
+                            title: "\($0.firstName ?? "") \($0.lastName ?? "")",
+                            subtitle: $0.username,
+                            value: $0.value ?? .number(0)
+                        )
+                    }
                 )
             ]
         }

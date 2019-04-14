@@ -33,40 +33,22 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
     private var dataSource: RxTableViewSectionedReloadDataSource<TableSection> {
         return RxTableViewSectionedReloadDataSource<TableSection>(
             configureCell: { [weak self] dataSource, tableView, indexPath, _ in
-                let cell = tableView.dequeueReusableCell(withIdentifier: "StudentsClassificationCell", for: indexPath)
-                cell.textLabel?.textColor = UIColor.Theme.text
-
+                var cell = tableView.dequeueReusableCell(withIdentifier: "StudentsClassificationCell", for: indexPath)
                 guard let `self` = self else { return cell }
 
                 switch dataSource[indexPath] {
                 case let .picker(title, options, valueIndex):
-                    cell.textLabel?.font = UIFont.Grades.boldBody
-                    cell.textLabel?.text = title
+                    self.configurePickerCell(&cell, title, options, valueIndex)
+                    return cell
 
-                    let accessoryView = UIView()
-                    accessoryView.addSubview(self.pickerTextField)
-
-                    let pickerLabel = UIPickerLabel()
-                    if options.isEmpty == false {
-                        pickerLabel.text = options[valueIndex].value
-                    }
-                    accessoryView.addSubview(pickerLabel)
-                    pickerLabel.snp.makeConstraints { make in
-                        make.trailing.equalToSuperview()
-                        make.centerY.equalToSuperview()
-                    }
-
-                    cell.accessoryView = accessoryView
-
-                case let .text(title, text):
-                    cell.textLabel?.font = UIFont.Grades.body
-                    cell.textLabel?.text = title
+                case let .textField(title, subtitle, value):
+                    var textFieldCell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
+                    self.configureTextFieldCell(&textFieldCell, title, subtitle, value)
+                    return textFieldCell
 
                 default:
                     return cell
                 }
-
-                return cell
             },
             titleForHeaderInSection: { dataSource, index in
                 dataSource.sectionModels[index].header
@@ -85,6 +67,7 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "StudentsClassificationCell")
+        tableView.register(TextFieldCell.self, forCellReuseIdentifier: "TextFieldCell")
         setupBindings()
     }
 
@@ -148,6 +131,33 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         pickerTextField.isHidden = true
 
         setupPicker(doneAction: pickerDoneAction)
+    }
+
+    private func configurePickerCell(_ cell: inout UITableViewCell, _ title: String, _ options: [PickerOption], _ valueIndex: Int) {
+        cell.textLabel?.textColor = UIColor.Theme.text
+
+        cell.textLabel?.font = UIFont.Grades.boldBody
+        cell.textLabel?.text = title
+
+        let accessoryView = UIView()
+        accessoryView.addSubview(pickerTextField)
+
+        let pickerLabel = UIPickerLabel()
+        if options.isEmpty == false {
+            pickerLabel.text = options[valueIndex].value
+        }
+        accessoryView.addSubview(pickerLabel)
+        pickerLabel.snp.makeConstraints { make in
+            make.trailing.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+
+        cell.accessoryView = accessoryView
+    }
+
+    private func configureTextFieldCell(_ cell: inout TextFieldCell, _ title: String, _ subtitle: String, _: DynamicValue) {
+        cell.titleLabel.text = title
+        cell.subtitleLabel.text = subtitle
     }
 }
 

@@ -73,6 +73,9 @@ final class SettingsViewController: BaseTableViewController & BindableType & Con
 
                     cell.accessoryView = accessoryView
                     return cell
+
+                default:
+                    return cell
                 }
             },
             titleForHeaderInSection: { dataSource, index in

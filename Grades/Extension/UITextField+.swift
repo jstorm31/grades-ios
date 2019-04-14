@@ -33,4 +33,15 @@ extension UITextField {
     @objc func cancelButtonAction() {
         resignFirstResponder()
     }
+
+    func setBottomBorder(color: UIColor, size: Float) {
+        borderStyle = .none
+        layer.backgroundColor = color.cgColor
+
+        layer.masksToBounds = false
+        layer.shadowColor = UIColor.gray.cgColor
+        layer.shadowOffset = CGSize(width: 0.0, height: Double(size))
+        layer.shadowOpacity = size
+        layer.shadowRadius = 0.0
+    }
 }
