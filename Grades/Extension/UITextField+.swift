@@ -34,9 +34,9 @@ extension UITextField {
         resignFirstResponder()
     }
 
-    func setBottomBorder(color: UIColor, size: Float) {
+    func setBottomBorder(color _: UIColor, size: Float) {
         borderStyle = .none
-        layer.backgroundColor = color.cgColor
+        layer.backgroundColor = UIColor.white.cgColor
 
         layer.masksToBounds = false
         layer.shadowColor = UIColor.gray.cgColor

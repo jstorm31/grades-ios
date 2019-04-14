@@ -76,11 +76,16 @@ class TextFieldCell: UITableViewCell {
         textField.font = UIFont.Grades.body
         textField.textColor = UIColor.Theme.text
         textField.setBottomBorder(color: UIColor.Theme.borderGray, size: 1.0)
-        textField.text = "0"
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "0",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.Theme.grayText]
+        )
         contentView.addSubview(textField)
         textField.snp.makeConstraints { make in
+            make.width.equalTo(50)
+            make.height.equalTo(20)
             make.centerY.equalToSuperview()
-            make.leading.equalTo(fieldLabel.snp.trailing).offset(6)
+            make.trailing.equalTo(fieldLabel.snp.leading).inset(-8)
         }
         valueTextField = textField
     }
