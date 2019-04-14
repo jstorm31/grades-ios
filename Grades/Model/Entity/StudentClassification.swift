@@ -21,3 +21,13 @@ extension StudentClassification: Codable {
         case firstName, lastName, value
     }
 }
+
+extension StudentClassification: Comparable {
+    static func == (lhs: StudentClassification, rhs: StudentClassification) -> Bool {
+        return lhs.username == rhs.username
+    }
+
+    static func < (lhs: StudentClassification, rhs: StudentClassification) -> Bool {
+        return lhs.username < rhs.username
+    }
+}
