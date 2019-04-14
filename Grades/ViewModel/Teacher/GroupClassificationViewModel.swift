@@ -102,7 +102,11 @@ final class GroupClassificationViewModel: TablePickerViewModel {
             classificationSelectedIndex.accept(selectedOptionIndex.value)
         }
 
-        // Get students for selected group and classifiaction
+        getData()
+    }
+
+    /// Get students for selected group and classifiaction
+    func getData() {
         let groupCode = repository.groups.value[groupSelectedIndex.value]
         let classificationId = repository.classifications.value[classificationSelectedIndex.value]
         repository.studentsFor(course: course.code, groupCode: groupCode.id, classificationId: String(classificationId.id))

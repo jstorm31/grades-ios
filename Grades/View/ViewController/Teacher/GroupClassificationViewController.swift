@@ -69,12 +69,13 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "StudentsClassificationCell")
         tableView.register(TextFieldCell.self, forCellReuseIdentifier: "TextFieldCell")
+        viewModel.bindOutput()
         setupBindings()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel.bindOutput()
+        viewModel.getData()
     }
 
     // MARK: bindings
@@ -99,7 +100,13 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
             .drive(pickerView.rx.itemTitles) { _, element in element }
             .disposed(by: bag)
 
-        viewModel.isloading.asDriver(onErrorJustReturn: false)
+        let loading = viewModel.isloading.share()
+
+        loading.asDriver(onErrorJustReturn: false)
+            .drive(tableView.refreshControl!.rx.isRefreshing)
+            .disposed(by: bag)
+
+        loading.asDriver(onErrorJustReturn: false)
             .drive(view.rx.refreshing)
             .disposed(by: bag)
 
@@ -140,6 +147,9 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         pickerTextField.isHidden = true
 
         setupPicker(doneAction: pickerDoneAction)
+
+        loadRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
     }
 
     private func configurePickerCell(_ cell: inout UITableViewCell, _ title: String, _ options: [PickerOption], _ valueIndex: Int) {
@@ -167,6 +177,12 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
     private func configureTextFieldCell(_ cell: inout TextFieldCell, _ title: String, _ subtitle: String, _: DynamicValue) {
         cell.titleLabel.text = title
         cell.subtitleLabel.text = subtitle
+    }
+
+    // MARK: events
+
+    @objc private func refreshControlPulled(_: UIRefreshControl) {
+        viewModel.getData()
     }
 }
 

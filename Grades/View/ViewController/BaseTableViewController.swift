@@ -18,7 +18,7 @@ class BaseTableViewController: BaseViewController {
 
     var tableView: UITableView!
 
-    let showNoContent = BehaviorSubject<Bool>(value: true)
+    let showNoContent = BehaviorSubject<Bool>(value: false)
 
     func loadView(hasTableHeaderView: Bool = false) {
         super.loadView()
