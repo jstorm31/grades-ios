@@ -723,6 +723,7 @@
 				9608B9C122241EC700E1CEAF /* SwiftGen */,
 				961A2FEE2229C59400A624DC /* SwiftFormat */,
 				967D1E3E2223DCEE007E5217 /* Carthage */,
+				9608B9A82223EB0900E1CEAF /* Generate preprocess header */,
 				96520E8D2223D65F00AB6499 /* Sources */,
 				96520E8E2223D65F00AB6499 /* Frameworks */,
 				96520E8F2223D65F00AB6499 /* Resources */,
@@ -829,6 +830,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		9608B9A82223EB0900E1CEAF /* Generate preprocess header */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Generate preprocess header";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Generate BUILD_NUMBER\nCOMMITS=`git rev-list HEAD --count`\nHEADER_FILE=\"$PROJECT_DIR/info_preprocess_header.h\"\n\necho \"// Auto-generated\" > $HEADER_FILE\necho \"\" >> $HEADER_FILE\necho \"#define BUILD_NUMBER $COMMITS\" >> $HEADER_FILE\n\ntouch $INFOPLIST_FILE\n";
+		};
 		9608B9C122241EC700E1CEAF /* SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
