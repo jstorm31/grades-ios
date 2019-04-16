@@ -14,6 +14,7 @@ import UIKit
 class DynamicValueCell: UITableViewCell {
     var titleLabel: UILabel!
     var subtitleLabel: UILabel!
+    var fieldLabel: UILabel!
     private var valueTextField: UITextField!
     private var valueSwitch: UISwitch!
 
@@ -37,6 +38,7 @@ class DynamicValueCell: UITableViewCell {
     func bindOutput() {
         valueTextField.rx.text
             .unwrap()
+            .debounce(0.25, scheduler: MainScheduler.instance)
             .map { text in
                 if let number = Double(text) {
                     return DynamicValue.number(number)
@@ -56,6 +58,7 @@ class DynamicValueCell: UITableViewCell {
     func bindInput() {
         let sharedValue = input.share()
 
+        // Bind string and number to TextField
         let stringValue = sharedValue
             .map { (value: DynamicValue) -> String? in
                 switch value {
@@ -76,11 +79,18 @@ class DynamicValueCell: UITableViewCell {
             .disposed(by: bag)
 
         stringValue
+            .map { $0 == nil }
+            .asDriver(onErrorJustReturn: false)
+            .drive(fieldLabel.rx.isHidden)
+            .disposed(by: bag)
+
+        stringValue
             .unwrap()
             .asDriver(onErrorJustReturn: "")
             .drive(valueTextField.rx.text)
             .disposed(by: bag)
 
+        // Bind bool to Switch
         let boolValue = sharedValue
             .map { (value: DynamicValue) -> Bool? in
                 if case let .bool(boolValue) = value {
@@ -135,6 +145,7 @@ class DynamicValueCell: UITableViewCell {
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().inset(20)
         }
+        self.fieldLabel = fieldLabel
 
         let textField = UITextField()
         textField.font = UIFont.Grades.body
@@ -154,13 +165,14 @@ class DynamicValueCell: UITableViewCell {
         valueTextField = textField
 
         let valueSwitch = UISwitch()
+        valueSwitch.onTintColor = UIColor.Theme.primary
         valueSwitch.tintColor = UIColor.Theme.primary
+        valueSwitch.isHidden = true
         contentView.addSubview(valueSwitch)
         valueSwitch.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().inset(20)
         }
-        valueSwitch.isHidden = true
         self.valueSwitch = valueSwitch
     }
 }

@@ -16,7 +16,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
     // MARK: public properties
 
     let studentsClassification = BehaviorRelay<[TableSection]>(value: [])
-    let fieldValues = BehaviorRelay<[String: String?]>(value: [:])
+    let fieldValues = BehaviorRelay<[String: DynamicValue?]>(value: [:])
     let isloading = PublishSubject<Bool>()
     let error = PublishSubject<Error>()
 
@@ -41,8 +41,6 @@ final class GroupClassificationViewModel: TablePickerViewModel {
         super.init()
 
         bindOptions(dataSource: studentsClassification)
-
-        fieldValues.subscribe(onNext: { Log.debug("\($0)") }).disposed(by: bag)
     }
 
     // MARK: methods
@@ -55,6 +53,8 @@ final class GroupClassificationViewModel: TablePickerViewModel {
                 key: $0.username,
                 title: "\($0.lastName ?? "") \($0.firstName ?? "")"
             ) } }
+
+        // TOOD: first make sure groups and classifications are fetched, then fetch data
 
         // swiftlint:disable line_length
         Observable<[TableSection]>.combineLatest(
@@ -84,16 +84,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
         .disposed(by: bag)
 
         groupClassifications
-            .map { items in
-                Dictionary(uniqueKeysWithValues: items.map {
-                    var value: String?
-                    if let dynamicValue = $0.value, case let DynamicValue.string(stringValue) = dynamicValue {
-                        value = stringValue
-                    }
-
-                    return ($0.username, value)
-                })
-            }
+            .map { Dictionary(uniqueKeysWithValues: $0.map { ($0.username, $0.value) }) }
             .bind(to: fieldValues)
             .disposed(by: bag)
 

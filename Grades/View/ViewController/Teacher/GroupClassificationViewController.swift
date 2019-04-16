@@ -43,7 +43,7 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
 
                 case let .textField(key, title):
                     // swiftlint:disable force_cast
-                    var textFieldCell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
+                    var textFieldCell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! DynamicValueCell
                     self.configureTextFieldCell(&textFieldCell, key, title)
                     return textFieldCell
 
@@ -68,7 +68,7 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "StudentsClassificationCell")
-        tableView.register(TextFieldCell.self, forCellReuseIdentifier: "TextFieldCell")
+        tableView.register(DynamicValueCell.self, forCellReuseIdentifier: "TextFieldCell")
         viewModel.bindOutput()
         setupBindings()
     }
@@ -174,14 +174,12 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         cell.accessoryView = accessoryView
     }
 
-    private func configureTextFieldCell(_ cell: inout TextFieldCell, _ key: String, _ title: String) {
+    private func configureTextFieldCell(_ cell: inout DynamicValueCell, _ key: String, _ title: String) {
         cell.titleLabel.text = title
         cell.subtitleLabel.text = key
 
         // Bind text field values to ViewModel
-        cell.valueTextField.rx.text
-            .skip(1)
-            .debounce(0.25, scheduler: MainScheduler.instance)
+        cell.output
             .map { [weak self] value in
                 guard let self = self else { return [:] }
 
@@ -194,9 +192,9 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
 
         // Bind values from ViewModel
         viewModel.fieldValues
-            .map { $0[key] }
+            .map { $0[key] ?? nil }
             .unwrap()
-            .bind(to: cell.valueTextField.rx.text)
+            .bind(to: cell.input)
             .disposed(by: bag)
     }
 
