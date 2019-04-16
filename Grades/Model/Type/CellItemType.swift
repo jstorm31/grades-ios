@@ -12,5 +12,5 @@ typealias PickerOption = (key: String, value: String)
 enum CellItemType {
     case text(title: String, text: String)
     case picker(title: String, options: [PickerOption], valueIndex: Int)
-    case textField(title: String, subtitle: String, value: DynamicValue)
+    case textField(key: String, title: String)
 }

@@ -41,10 +41,10 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
                     self.configurePickerCell(&cell, title, options, valueIndex)
                     return cell
 
-                case let .textField(title, subtitle, value):
+                case let .textField(key, title):
                     // swiftlint:disable force_cast
                     var textFieldCell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! TextFieldCell
-                    self.configureTextFieldCell(&textFieldCell, title, subtitle, value)
+                    self.configureTextFieldCell(&textFieldCell, key, title)
                     return textFieldCell
 
                 default:
@@ -174,9 +174,30 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         cell.accessoryView = accessoryView
     }
 
-    private func configureTextFieldCell(_ cell: inout TextFieldCell, _ title: String, _ subtitle: String, _: DynamicValue) {
+    private func configureTextFieldCell(_ cell: inout TextFieldCell, _ key: String, _ title: String) {
         cell.titleLabel.text = title
-        cell.subtitleLabel.text = subtitle
+        cell.subtitleLabel.text = key
+
+        // Bind text field values to ViewModel
+        cell.valueTextField.rx.text
+            .skip(1)
+            .debounce(0.25, scheduler: MainScheduler.instance)
+            .map { [weak self] value in
+                guard let self = self else { return [:] }
+
+                var fieldValues = self.viewModel.fieldValues.value
+                fieldValues[key] = value
+                return fieldValues
+            }
+            .bind(to: viewModel.fieldValues)
+            .disposed(by: bag)
+
+        // Bind values from ViewModel
+        viewModel.fieldValues
+            .map { $0[key] }
+            .unwrap()
+            .bind(to: cell.valueTextField.rx.text)
+            .disposed(by: bag)
     }
 
     // MARK: events

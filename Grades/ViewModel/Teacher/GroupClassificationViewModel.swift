@@ -16,6 +16,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
     // MARK: public properties
 
     let studentsClassification = BehaviorRelay<[TableSection]>(value: [])
+    let fieldValues = BehaviorRelay<[String: String?]>(value: [:])
     let isloading = PublishSubject<Bool>()
     let error = PublishSubject<Error>()
 
@@ -40,17 +41,19 @@ final class GroupClassificationViewModel: TablePickerViewModel {
         super.init()
 
         bindOptions(dataSource: studentsClassification)
+
+        fieldValues.subscribe(onNext: { Log.debug("\($0)") }).disposed(by: bag)
     }
 
     // MARK: methods
 
     func bindOutput() {
-        let groupClassifications = repository.groupClassifications
-            .map { $0.sorted() }
+        let groupClassifications = repository.groupClassifications.map { $0.sorted() }.share()
+
+        let groupClassificationsSource = groupClassifications
             .map { $0.map { CellItemType.textField(
-                title: "\($0.firstName ?? "") \($0.lastName ?? "")",
-                subtitle: $0.username,
-                value: $0.value ?? .number(0)
+                key: $0.username,
+                title: "\($0.lastName ?? "") \($0.firstName ?? "")"
             ) } }
 
         // swiftlint:disable line_length
@@ -59,7 +62,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
             classificationSelectedIndex,
             repository.groups,
             repository.classifications,
-            groupClassifications
+            groupClassificationsSource
         ) { (groupIndex, classificationIndex, groups: [StudentGroup], classifications: [Classification], groupClassifications) -> [TableSection] in
             [
                 TableSection(header: "", items: [
@@ -79,6 +82,20 @@ final class GroupClassificationViewModel: TablePickerViewModel {
         }
         .bind(to: studentsClassification)
         .disposed(by: bag)
+
+        groupClassifications
+            .map { items in
+                Dictionary(uniqueKeysWithValues: items.map {
+                    var value: String?
+                    if let dynamicValue = $0.value, case let DynamicValue.string(stringValue) = dynamicValue {
+                        value = stringValue
+                    }
+
+                    return ($0.username, value)
+                })
+            }
+            .bind(to: fieldValues)
+            .disposed(by: bag)
 
         repository.isLoading.asObserver()
             .bind(to: isloading)
@@ -107,6 +124,8 @@ final class GroupClassificationViewModel: TablePickerViewModel {
 
     /// Get students for selected group and classifiaction
     func getData() {
+        guard !repository.groups.value.isEmpty, !repository.classifications.value.isEmpty else { return }
+
         let groupCode = repository.groups.value[groupSelectedIndex.value]
         let classificationId = repository.classifications.value[classificationSelectedIndex.value]
         repository.studentsFor(course: course.code, groupCode: groupCode.id, classificationId: String(classificationId.id))
