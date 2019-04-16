@@ -62,6 +62,7 @@
 		9682A6BB222D1EAA00773E28 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96861076222AAE6C0069B81B /* RxSwift.framework */; };
 		9682A6BC222D1EAA00773E28 /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9682A6A7222D19E800773E28 /* RxTest.framework */; };
 		9682A6BE222D1F7600773E28 /* CourseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9682A6BD222D1F7600773E28 /* CourseListViewModel.swift */; };
+		9682E5802266253100687A66 /* DynamicValueCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9682E57F2266253100687A66 /* DynamicValueCellViewModel.swift */; };
 		96861070222AA4550069B81B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686106F222AA4550069B81B /* BaseViewController.swift */; };
 		96861073222AA55F0069B81B /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96861072222AA55F0069B81B /* UIColor+.swift */; };
 		96861077222AAE6C0069B81B /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96861076222AAE6C0069B81B /* RxSwift.framework */; };
@@ -206,6 +207,7 @@
 		9682A6AD222D1ABC00773E28 /* GradesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GradesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9682A6B1222D1ABC00773E28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9682A6BD222D1F7600773E28 /* CourseListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewModel.swift; sourceTree = "<group>"; };
+		9682E57F2266253100687A66 /* DynamicValueCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicValueCellViewModel.swift; sourceTree = "<group>"; };
 		9686106F222AA4550069B81B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		96861072222AA55F0069B81B /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		96861074222AAE5F0069B81B /* SwiftSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSVG.framework; path = Carthage/Build/iOS/SwiftSVG.framework; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 		961A2FEF2229D43900A624DC /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				9682E57E2266252300687A66 /* Cell */,
 				964181742247A7D70019CABD /* Student */,
 				964181732247A7C10019CABD /* Teacher */,
 				961A2FF02229D44A00A624DC /* LoginViewModel.swift */,
@@ -514,6 +517,14 @@
 				9682A6B1222D1ABC00773E28 /* Info.plist */,
 			);
 			path = GradesTests;
+			sourceTree = "<group>";
+		};
+		9682E57E2266252300687A66 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				9682E57F2266253100687A66 /* DynamicValueCellViewModel.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		9686106E222AA42D0069B81B /* View */ = {
@@ -964,6 +975,7 @@
 			files = (
 				963C62942234328900B01818 /* AuthenticationError.swift in Sources */,
 				96B20DA32236692E004794BE /* CourseDetailStudentViewModel.swift in Sources */,
+				9682E5802266253100687A66 /* DynamicValueCellViewModel.swift in Sources */,
 				968D05BE2261F289003F7D49 /* TableSection.swift in Sources */,
 				96520E972223D65F00AB6499 /* LoginViewController.swift in Sources */,
 				9608B9B12224149700E1CEAF /* Strings.swift in Sources */,

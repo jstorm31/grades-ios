@@ -20,6 +20,7 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
     // MARK: properties
 
     var viewModel: GroupClassificationViewModel!
+    var cellViewModels: [DynamicValueCellViewModel] = []
     private let bag = DisposeBag()
 
     private var pickerDoneAction: CocoaAction {
@@ -43,8 +44,10 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
 
                 case let .textField(key, title):
                     // swiftlint:disable force_cast
-                    var textFieldCell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! DynamicValueCell
-                    self.configureTextFieldCell(&textFieldCell, key, title)
+                    let textFieldCell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! DynamicValueCell
+                    let cellViewModel = self.cellViewModels[indexPath.row]
+                    cellViewModel.set(title: title, subtitle: key)
+                    self.configureTextFieldCell(textFieldCell, cellViewModel, key)
                     return textFieldCell
 
                 default:
@@ -84,6 +87,16 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         let studentsClassification = viewModel.studentsClassification.share()
 
         studentsClassification
+            .do(onNext: { [weak self] sections in
+				guard sections.count > 1 else { return }
+				
+                // Initialize cell view modelsr
+                var viewModels = [DynamicValueCellViewModel]()
+                for _ in sections[1].items {
+                    viewModels.append(DynamicValueCellViewModel())
+                }
+                self?.cellViewModels = viewModels
+            })
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
@@ -174,12 +187,11 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         cell.accessoryView = accessoryView
     }
 
-    private func configureTextFieldCell(_ cell: inout DynamicValueCell, _ key: String, _ title: String) {
-        cell.titleLabel.text = title
-        cell.subtitleLabel.text = key
+    private func configureTextFieldCell(_ cell: DynamicValueCell, _ cellViewModel: DynamicValueCellViewModel, _ key: String) {
+        cell.setup(viewModel: cellViewModel)
 
-        // Bind text field values to ViewModel
-        cell.output
+        // Bind cell's output to view model
+        cellViewModel.valueOutput
             .map { [weak self] value in
                 guard let self = self else { return [:] }
 
@@ -194,7 +206,7 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         viewModel.fieldValues
             .map { $0[key] ?? nil }
             .unwrap()
-            .bind(to: cell.input)
+            .bind(to: cellViewModel.valueInput)
             .disposed(by: bag)
     }
 

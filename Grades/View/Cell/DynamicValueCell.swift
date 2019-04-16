@@ -12,14 +12,13 @@ import SnapKit
 import UIKit
 
 class DynamicValueCell: UITableViewCell {
-    var titleLabel: UILabel!
-    var subtitleLabel: UILabel!
-    var fieldLabel: UILabel!
+    private var titleLabel: UILabel!
+    private var subtitleLabel: UILabel!
+    private var fieldLabel: UILabel!
     private var valueTextField: UITextField!
     private var valueSwitch: UISwitch!
 
-    let input = BehaviorSubject<DynamicValue>(value: .string(""))
-    let output = BehaviorSubject<DynamicValue>(value: .string(""))
+    var viewModel: DynamicValueCellViewModel!
     private let bag = DisposeBag()
 
     // MARK: initialization
@@ -27,12 +26,17 @@ class DynamicValueCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         loadUI()
-        bindInput()
-        bindOutput()
     }
 
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func setup(viewModel: DynamicValueCellViewModel) {
+        self.viewModel = viewModel
+        viewModel.bindOutput()
+        bindViewModel()
+        bindOutput()
     }
 
     func bindOutput() {
@@ -46,67 +50,51 @@ class DynamicValueCell: UITableViewCell {
                     return DynamicValue.string(text)
                 }
             }
-            .bind(to: output)
+            .bind(to: viewModel.valueOutput)
             .disposed(by: bag)
 
         valueSwitch.rx.isOn
             .map { DynamicValue.bool($0) }
-            .bind(to: output)
+            .bind(to: viewModel.valueOutput)
             .disposed(by: bag)
     }
 
-    func bindInput() {
-        let sharedValue = input.share()
+    private func bindViewModel() {
+        viewModel.title
+            .asDriver(onErrorJustReturn: "")
+            .drive(titleLabel.rx.text)
+            .disposed(by: bag)
 
-        // Bind string and number to TextField
-        let stringValue = sharedValue
-            .map { (value: DynamicValue) -> String? in
-                switch value {
-                case let .string(value):
-                    return value
-                case let .number(value):
-                    return value != nil ? String(value!) : nil
-                default:
-                    return nil
-                }
-            }
-            .share()
+        viewModel.subtititle
+            .asDriver(onErrorJustReturn: "")
+            .drive(subtitleLabel.rx.text)
+            .disposed(by: bag)
 
-        stringValue
+        viewModel.stringValue
             .map { $0 == nil }
             .asDriver(onErrorJustReturn: false)
             .drive(valueTextField.rx.isHidden)
             .disposed(by: bag)
 
-        stringValue
+        viewModel.stringValue
             .map { $0 == nil }
             .asDriver(onErrorJustReturn: false)
             .drive(fieldLabel.rx.isHidden)
             .disposed(by: bag)
 
-        stringValue
+        viewModel.stringValue
             .unwrap()
             .asDriver(onErrorJustReturn: "")
             .drive(valueTextField.rx.text)
             .disposed(by: bag)
 
-        // Bind bool to Switch
-        let boolValue = sharedValue
-            .map { (value: DynamicValue) -> Bool? in
-                if case let .bool(boolValue) = value {
-                    return boolValue
-                }
-                return nil
-            }
-            .share()
-
-        boolValue
+        viewModel.boolValue
             .map { $0 == nil }
             .asDriver(onErrorJustReturn: true)
             .drive(valueSwitch.rx.isHidden)
             .disposed(by: bag)
 
-        boolValue
+        viewModel.boolValue
             .unwrap()
             .asDriver(onErrorJustReturn: false)
             .drive(valueSwitch.rx.isOn)
@@ -115,7 +103,7 @@ class DynamicValueCell: UITableViewCell {
 
     // MARK: UI setup
 
-    func loadUI() {
+    private func loadUI() {
         let title = UILabel()
         title.font = UIFont.Grades.body
         title.textColor = UIColor.Theme.text
