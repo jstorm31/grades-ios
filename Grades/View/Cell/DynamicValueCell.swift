@@ -71,6 +71,7 @@ class DynamicValueCell: UITableViewCell {
             .disposed(by: bag)
 
         viewModel.stringValue
+			.take(1)
             .map { $0 == nil }
             .asDriver(onErrorJustReturn: false)
             .drive(valueTextField.rx.isHidden)
@@ -78,6 +79,7 @@ class DynamicValueCell: UITableViewCell {
 
         viewModel.stringValue
             .map { $0 == nil }
+			.take(1)
             .asDriver(onErrorJustReturn: false)
             .drive(fieldLabel.rx.isHidden)
             .disposed(by: bag)
@@ -89,6 +91,7 @@ class DynamicValueCell: UITableViewCell {
             .disposed(by: bag)
 
         viewModel.boolValue
+			.take(1)
             .map { $0 == nil }
             .asDriver(onErrorJustReturn: true)
             .drive(valueSwitch.rx.isHidden)
