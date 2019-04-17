@@ -11,7 +11,7 @@ import RxSwift
 import SnapKit
 import UIKit
 
-class DynamicValueCell: UITableViewCell {
+final class DynamicValueCell: UITableViewCell {
     private var titleLabel: UILabel!
     private var subtitleLabel: UILabel!
     private var fieldLabel: UILabel!
@@ -19,7 +19,7 @@ class DynamicValueCell: UITableViewCell {
     private var valueSwitch: UISwitch!
 
     var viewModel: DynamicValueCellViewModel!
-    private let bag = DisposeBag()
+    private(set) var bag = DisposeBag()
 
     // MARK: initialization
 
@@ -30,6 +30,11 @@ class DynamicValueCell: UITableViewCell {
 
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        bag = DisposeBag()
     }
 
     func setup(viewModel: DynamicValueCellViewModel) {
