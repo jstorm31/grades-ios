@@ -41,6 +41,8 @@ final class GroupClassificationViewModel: TablePickerViewModel {
         super.init()
 
         bindOptions(dataSource: studentsClassification)
+
+        fieldValues.subscribe(onNext: { Log.debug("\($0)") }).disposed(by: bag)
     }
 
     // MARK: methods
@@ -68,12 +70,12 @@ final class GroupClassificationViewModel: TablePickerViewModel {
                 TableSection(header: "", items: [
                     CellItemType.picker(
                         title: L10n.Teacher.Tab.group,
-                        options: groups.map { (key: $0.id, value: $0.id) },
+                        options: groups.map { $0.id },
                         valueIndex: groupIndex
                     ),
                     CellItemType.picker(
                         title: L10n.Teacher.Students.classification,
-                        options: classifications.map { (key: $0.identifier, value: $0.getLocalizedText()) },
+                        options: classifications.map { $0.getLocalizedText() },
                         valueIndex: classificationIndex
                     )
                 ]),
@@ -119,6 +121,6 @@ final class GroupClassificationViewModel: TablePickerViewModel {
 
         let groupCode = repository.groups.value[groupSelectedIndex.value]
         let classificationId = repository.classifications.value[classificationSelectedIndex.value]
-        repository.studentsFor(course: course.code, groupCode: groupCode.id, classificationId: String(classificationId.id))
+        repository.studentsFor(course: course.code, groupCode: groupCode.id, classificationId: classificationId.identifier)
     }
 }

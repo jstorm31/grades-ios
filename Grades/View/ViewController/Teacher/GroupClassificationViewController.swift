@@ -88,8 +88,8 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
 
         studentsClassification
             .do(onNext: { [weak self] sections in
-				guard sections.count > 1 else { return }
-				
+                guard sections.count > 1 else { return }
+
                 // Initialize cell view modelsr
                 var viewModels = [DynamicValueCellViewModel]()
                 for _ in sections[1].items {
@@ -108,7 +108,7 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
             .disposed(by: bag)
 
         viewModel.options
-            .map { options in options.map { $0.value } }
+            .map { options in options.map { $0 } }
             .asDriver(onErrorJustReturn: [])
             .drive(pickerView.rx.itemTitles) { _, element in element }
             .disposed(by: bag)
@@ -165,7 +165,7 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
     }
 
-    private func configurePickerCell(_ cell: inout UITableViewCell, _ title: String, _ options: [PickerOption], _ valueIndex: Int) {
+    private func configurePickerCell(_ cell: inout UITableViewCell, _ title: String, _ options: [String], _ valueIndex: Int) {
         cell.textLabel?.textColor = UIColor.Theme.text
 
         cell.textLabel?.font = UIFont.Grades.boldBody
@@ -176,7 +176,7 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
 
         let pickerLabel = UIPickerLabel()
         if options.isEmpty == false {
-            pickerLabel.text = options[valueIndex].value
+            pickerLabel.text = options[valueIndex]
         }
         accessoryView.addSubview(pickerLabel)
         pickerLabel.snp.makeConstraints { make in
@@ -189,6 +189,8 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
 
     private func configureTextFieldCell(_ cell: DynamicValueCell, _ cellViewModel: DynamicValueCellViewModel, _ key: String) {
         cell.setup(viewModel: cellViewModel)
+
+        // TODO: typ hodnecní známý při fetchi klasifikací, vytvořit jednou v konstruktoru
 
         // Bind cell's output to view model
         cellViewModel.valueOutput
@@ -206,8 +208,9 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         viewModel.fieldValues
             .map { $0[key] ?? nil }
             .unwrap()
-            .bind(to: cellViewModel.valueInput)
+			.bind(to: cellViewModel.valueInput)
             .disposed(by: bag)
+		
     }
 
     // MARK: events

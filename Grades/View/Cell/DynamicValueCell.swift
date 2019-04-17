@@ -41,6 +41,7 @@ class DynamicValueCell: UITableViewCell {
 
     func bindOutput() {
         valueTextField.rx.text
+            .skip(1)
             .unwrap()
             .debounce(0.25, scheduler: MainScheduler.instance)
             .map { text in
@@ -54,6 +55,7 @@ class DynamicValueCell: UITableViewCell {
             .disposed(by: bag)
 
         valueSwitch.rx.isOn
+            .skip(1)
             .map { DynamicValue.bool($0) }
             .bind(to: viewModel.valueOutput)
             .disposed(by: bag)
@@ -71,15 +73,15 @@ class DynamicValueCell: UITableViewCell {
             .disposed(by: bag)
 
         viewModel.stringValue
-			.take(1)
+            .distinctUntilChanged()
             .map { $0 == nil }
             .asDriver(onErrorJustReturn: false)
             .drive(valueTextField.rx.isHidden)
             .disposed(by: bag)
 
         viewModel.stringValue
+            .distinctUntilChanged()
             .map { $0 == nil }
-			.take(1)
             .asDriver(onErrorJustReturn: false)
             .drive(fieldLabel.rx.isHidden)
             .disposed(by: bag)
@@ -91,7 +93,7 @@ class DynamicValueCell: UITableViewCell {
             .disposed(by: bag)
 
         viewModel.boolValue
-			.take(1)
+            .distinctUntilChanged()
             .map { $0 == nil }
             .asDriver(onErrorJustReturn: true)
             .drive(valueSwitch.rx.isHidden)

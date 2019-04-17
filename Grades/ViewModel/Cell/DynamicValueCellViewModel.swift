@@ -12,7 +12,7 @@ final class DynamicValueCellViewModel {
     let title = BehaviorSubject<String>(value: "")
     let subtititle = BehaviorSubject<String>(value: "")
     let valueInput = BehaviorSubject<DynamicValue>(value: .string(""))
-    let valueOutput = BehaviorSubject<DynamicValue>(value: .string(""))
+    let valueOutput = PublishSubject<DynamicValue>()
     let stringValue = BehaviorSubject<String?>(value: nil)
     let boolValue = BehaviorSubject<Bool?>(value: nil)
 
