@@ -68,7 +68,7 @@ final class DynamicValueCell: UITableViewCell {
 
     private func bindViewModel() {
         titleLabel.text = viewModel.title
-        subtitleLabel.text = viewModel.subtitle
+        subtitleLabel.text = viewModel.key
 
         // Bind values to controls
 

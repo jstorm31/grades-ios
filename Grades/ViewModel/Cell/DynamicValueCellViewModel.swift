@@ -9,8 +9,8 @@
 import RxSwift
 
 final class DynamicValueCellViewModel {
-    var title = ""
-    var subtitle = ""
+    let key: String
+    let title: String?
 
     let valueType = PublishSubject<DynamicValueType>()
     let stringValue = PublishSubject<String>()
@@ -20,6 +20,11 @@ final class DynamicValueCellViewModel {
     let valueOutput = PublishSubject<DynamicValue>()
 
     private let bag = DisposeBag()
+
+    init(key: String, title: String? = nil) {
+        self.key = key
+        self.title = title
+    }
 
     func bindOutput() {
         let sharedValue = valueInput.share()

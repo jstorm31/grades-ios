@@ -52,10 +52,10 @@ final class GroupClassificationViewModel: TablePickerViewModel {
         let groupClassifications = repository.groupClassifications.map { $0.sorted() }.share()
 
         let groupClassificationsSource = groupClassifications
-            .map { $0.map { CellItemType.textField(
+            .map { $0.map { CellItemType.dynamicValue(viewModel: DynamicValueCellViewModel(
                 key: $0.username,
                 title: "\($0.lastName ?? "") \($0.firstName ?? "")"
-            ) } }
+            )) } }
 
         // TOOD: first make sure groups and classifications are fetched, then fetch data
 

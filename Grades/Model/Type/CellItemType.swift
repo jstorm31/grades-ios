@@ -10,5 +10,5 @@
 enum CellItemType {
     case text(title: String, text: String)
     case picker(title: String, options: [String], valueIndex: Int)
-    case textField(key: String, title: String)
+    case dynamicValue(viewModel: DynamicValueCellViewModel)
 }
