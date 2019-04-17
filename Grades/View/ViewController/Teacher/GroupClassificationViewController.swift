@@ -69,8 +69,9 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "StudentsClassificationCell")
         tableView.register(DynamicValueCell.self, forCellReuseIdentifier: "TextFieldCell")
-        viewModel.bindOutput()
         setupBindings()
+        viewModel.bindOutput()
+        viewModel.getData()
     }
 
     override func viewDidAppear(_ animated: Bool) {

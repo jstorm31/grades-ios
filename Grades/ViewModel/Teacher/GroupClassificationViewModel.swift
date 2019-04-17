@@ -49,54 +49,56 @@ final class GroupClassificationViewModel: TablePickerViewModel {
     func bindOutput() {
         let groupClassifications = repository.groupClassifications.map { $0.sorted() }.share()
 
-        // TOOD: first make sure groups and classifications are fetched, then fetch data
+        /**
+         Build data source for view
 
-        // swiftlint:disable line_length
-        Observable<[TableSection]>.combineLatest(
-            groupSelectedIndex,
-            classificationSelectedIndex,
-            repository.groups,
-            repository.classifications,
-            prepareDataSource(groupClassifications)
-        ) { (groupIndex, classificationIndex, groups: [StudentGroup], classifications: [Classification], groupClassifications) -> [TableSection] in
-            [
-                TableSection(header: "", items: [
-                    CellItemType.picker(
-                        title: L10n.Teacher.Tab.group,
-                        options: groups.map { $0.id },
-                        valueIndex: groupIndex
-                    ),
-                    CellItemType.picker(
-                        title: L10n.Teacher.Students.classification,
-                        options: classifications.map { $0.getLocalizedText() },
-                        valueIndex: classificationIndex
-                    )
-                ]),
-                TableSection(header: L10n.Teacher.Group.students, items: groupClassifications)
-            ]
-        }
-        .bind(to: studentsClassification)
-        .disposed(by: bag)
+         1) Get picker options and create first table section with two picker cells
+         2) Get items for chosen group and classification
+         */
+        Observable.combineLatest(groupSelectedIndex, classificationSelectedIndex) { ($0, $1) }
+            .debug()
+            .flatMap { [weak self] indexes -> Observable<TableSection> in
+                guard let `self` = self else {
+                    return Observable.just(TableSection(header: "", items: []))
+                }
+
+                return Observable.zip(
+                    self.repository.groups,
+                    self.repository.classifications
+                ) { (groups, classifications) -> TableSection in
+                    TableSection(header: "", items: [
+                        CellItemType.picker(
+                            title: L10n.Teacher.Students.group,
+                            options: groups.map { $0.id },
+                            valueIndex: indexes.0
+                        ),
+                        CellItemType.picker(
+                            title: L10n.Teacher.Students.classification,
+                            options: classifications.map { $0.getLocalizedText() },
+                            valueIndex: indexes.1
+                        )
+                    ])
+                }.asObservable()
+            }
+            .flatMap { [weak self] headerSection in
+                self?.buildDatasourceItems(groupClassifications).map { studentClassifications in
+                    [headerSection, TableSection(header: L10n.Teacher.Group.students, items: studentClassifications)]
+                }.asObservable() ?? Observable.just([])
+            }
+            .bind(to: studentsClassification)
+            .disposed(by: bag)
 
         groupClassifications
             .map { Dictionary(uniqueKeysWithValues: $0.map { ($0.username, $0.value) }) }
             .bind(to: fieldValues)
             .disposed(by: bag)
 
-        repository.isLoading.asObserver()
-            .bind(to: isloading)
-            .disposed(by: bag)
-
-        repository.error.asObservable().unwrap()
-            .bind(to: error)
-            .disposed(by: bag)
-
-        repository.getClassificationOptions(forCourse: course.code)
-        repository.getGroupOptions(forCourse: course.code, username: user.username)
+        repository.isLoading.bind(to: isloading).disposed(by: bag)
+        repository.error.unwrap().bind(to: error).disposed(by: bag)
     }
 
-    func prepareDataSource(_ source: Observable<[StudentClassification]>) -> Observable<[CellItemType]> {
-        // Initialize CellViewModel for each item
+    /// Initialize and bind CellViewModel for each item
+    func buildDatasourceItems(_ source: Observable<[StudentClassification]>) -> Observable<[CellItemType]> {
         return source
             .map { [weak self] (classifications: [StudentClassification]) -> [CellItemType] in
                 guard let `self` = self else { return [] }
@@ -117,9 +119,10 @@ final class GroupClassificationViewModel: TablePickerViewModel {
                         .bind(to: self.fieldValues)
                         .disposed(by: cellViewModel.bag)
 
-                    // Bind values from ViewModel
+                    // Bind values to cell ViewModel
                     self.fieldValues
                         .map { $0[cellViewModel.key] ?? nil }
+                        .do(onNext: { Log.debug("VM: \(cellViewModel.key): \($0)") })
                         .bind(to: cellViewModel.valueInput)
                         .disposed(by: cellViewModel.bag)
 
@@ -148,6 +151,9 @@ final class GroupClassificationViewModel: TablePickerViewModel {
 
     /// Get students for selected group and classifiaction
     func getData() {
+        repository.getClassificationOptions(forCourse: course.code)
+        repository.getGroupOptions(forCourse: course.code, username: user.username)
+
         guard !repository.groups.value.isEmpty, !repository.classifications.value.isEmpty else { return }
 
         let groupCode = repository.groups.value[groupSelectedIndex.value]

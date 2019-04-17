@@ -29,5 +29,6 @@
 
 "teacher.tab.group" = "Detail";
 "teacher.tab.student" = "Student";
+"teacher.students.group" = "Group";
 "teacher.students.classification" = "Classification";
 "teacher.group.students" = "Students";

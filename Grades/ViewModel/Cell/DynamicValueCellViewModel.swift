@@ -24,6 +24,8 @@ final class DynamicValueCellViewModel {
     init(key: String, title: String? = nil) {
         self.key = key
         self.title = title
+
+        valueInput.subscribe(onNext: { Log.debug("Cell VM: \(key): \($0)") }).disposed(by: bag)
     }
 
     func bindOutput() {
@@ -42,6 +44,7 @@ final class DynamicValueCellViewModel {
                     return nil
                 }
             }
+            .do(onNext: { Log.debug("After unwrap: \(self.key) \($0)") })
             .bind(to: stringValue)
             .disposed(by: bag)
 

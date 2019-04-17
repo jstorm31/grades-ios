@@ -40,8 +40,8 @@ final class DynamicValueCell: UITableViewCell {
     func setup(viewModel: DynamicValueCellViewModel) {
         self.viewModel = viewModel
         bindViewModel()
-        bindOutput()
         viewModel.bindOutput()
+        bindOutput()
     }
 
     private func bindOutput() {
@@ -74,6 +74,7 @@ final class DynamicValueCell: UITableViewCell {
 
         viewModel.stringValue
             .distinctUntilChanged()
+            .do(onNext: { Log.debug("Cell: \(self.subtitleLabel.text) \($0)") })
             .asDriver(onErrorJustReturn: nil)
             .drive(valueTextField.rx.text)
             .disposed(by: bag)
