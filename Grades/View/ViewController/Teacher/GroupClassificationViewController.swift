@@ -192,7 +192,6 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         // Bind values from ViewModel
         viewModel.fieldValues
             .map { $0[cellViewModel.key] ?? nil }
-            .unwrap()
             .bind(to: cellViewModel.valueInput)
             .disposed(by: cell.bag)
 

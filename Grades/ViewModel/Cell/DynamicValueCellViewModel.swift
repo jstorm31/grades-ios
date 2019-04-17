@@ -13,10 +13,10 @@ final class DynamicValueCellViewModel {
     let title: String?
 
     let valueType = PublishSubject<DynamicValueType>()
-    let stringValue = PublishSubject<String>()
+    let stringValue = PublishSubject<String?>()
     let boolValue = PublishSubject<Bool>()
 
-    let valueInput = PublishSubject<DynamicValue>()
+    let valueInput = PublishSubject<DynamicValue?>()
     let valueOutput = PublishSubject<DynamicValue>()
 
     private let bag = DisposeBag()
@@ -30,7 +30,9 @@ final class DynamicValueCellViewModel {
         let sharedValue = valueInput.share()
 
         sharedValue
-            .map { (value: DynamicValue) -> String? in
+            .map { (value: DynamicValue?) -> String? in
+                guard let value = value else { return nil }
+
                 switch value {
                 case let .string(value):
                     return value
@@ -40,18 +42,19 @@ final class DynamicValueCellViewModel {
                     return nil
                 }
             }
-            .unwrap()
             .bind(to: stringValue)
             .disposed(by: bag)
 
         sharedValue
-            .map { (value: DynamicValue) -> Bool? in
+            .map { (value: DynamicValue?) -> Bool? in
+                guard let value = value else { return nil }
+
                 if case let .bool(boolValue) = value {
                     return boolValue
                 }
                 return nil
             }
-            .unwrap()
+            .map { $0 != nil }
             .bind(to: boolValue)
             .disposed(by: bag)
     }

@@ -42,8 +42,6 @@ final class GroupClassificationViewModel: TablePickerViewModel {
         super.init()
 
         bindOptions(dataSource: studentsClassification)
-
-        fieldValues.subscribe(onNext: { Log.debug("\($0)") }).disposed(by: bag)
     }
 
     // MARK: methods
@@ -51,6 +49,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
     func bindOutput() {
         let groupClassifications = repository.groupClassifications.map { $0.sorted() }.share()
 
+        // Initialize cell ViewModel
         let groupClassificationsSource = groupClassifications
             .map { $0.map { CellItemType.dynamicValue(viewModel: DynamicValueCellViewModel(
                 key: $0.username,

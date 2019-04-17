@@ -39,9 +39,10 @@ final class DynamicValueCell: UITableViewCell {
 
     func setup(viewModel: DynamicValueCellViewModel) {
         self.viewModel = viewModel
-        viewModel.bindOutput()
         bindViewModel()
         bindOutput()
+        viewModel.bindOutput()
+        Log.debug("Bind Cell ViewModel: \(viewModel.key)")
     }
 
     private func bindOutput() {
@@ -73,7 +74,8 @@ final class DynamicValueCell: UITableViewCell {
         // Bind values to controls
 
         viewModel.stringValue
-            .asDriver(onErrorJustReturn: "")
+            .distinctUntilChanged()
+            .asDriver(onErrorJustReturn: nil)
             .drive(valueTextField.rx.text)
             .disposed(by: bag)
 
