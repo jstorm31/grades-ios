@@ -44,7 +44,7 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
                 case let .dynamicValue(cellViewModel):
                     // swiftlint:disable force_cast
                     let textFieldCell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! DynamicValueCell
-                    self.configureDynamicValueCell(textFieldCell, cellViewModel: cellViewModel)
+                    textFieldCell.setup(viewModel: cellViewModel)
                     return textFieldCell
 
                 default:
@@ -172,33 +172,6 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         }
 
         cell.accessoryView = accessoryView
-    }
-
-    private func configureDynamicValueCell(_ cell: DynamicValueCell, cellViewModel: DynamicValueCellViewModel) {
-        cell.setup(viewModel: cellViewModel)
-
-        // Bind cell's output to view model
-        cellViewModel.valueOutput
-            .map { [weak self] value in
-                guard let self = self else { return [:] }
-
-                var fieldValues = self.viewModel.fieldValues.value
-                fieldValues[cellViewModel.key] = value
-                return fieldValues
-            }
-            .bind(to: viewModel.fieldValues)
-            .disposed(by: cell.bag)
-
-        // Bind values from ViewModel
-        viewModel.fieldValues
-            .map { $0[cellViewModel.key] ?? nil }
-            .bind(to: cellViewModel.valueInput)
-            .disposed(by: cell.bag)
-
-        viewModel.classificationValueType
-            .unwrap()
-            .bind(to: cellViewModel.valueType)
-            .disposed(by: cell.bag)
     }
 
     // MARK: events

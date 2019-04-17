@@ -49,13 +49,6 @@ final class GroupClassificationViewModel: TablePickerViewModel {
     func bindOutput() {
         let groupClassifications = repository.groupClassifications.map { $0.sorted() }.share()
 
-        // Initialize cell ViewModel
-        let groupClassificationsSource = groupClassifications
-            .map { $0.map { CellItemType.dynamicValue(viewModel: DynamicValueCellViewModel(
-                key: $0.username,
-                title: "\($0.lastName ?? "") \($0.firstName ?? "")"
-            )) } }
-
         // TOOD: first make sure groups and classifications are fetched, then fetch data
 
         // swiftlint:disable line_length
@@ -64,7 +57,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
             classificationSelectedIndex,
             repository.groups,
             repository.classifications,
-            groupClassificationsSource
+            prepareDataSource(groupClassifications)
         ) { (groupIndex, classificationIndex, groups: [StudentGroup], classifications: [Classification], groupClassifications) -> [TableSection] in
             [
                 TableSection(header: "", items: [
@@ -100,6 +93,44 @@ final class GroupClassificationViewModel: TablePickerViewModel {
 
         repository.getClassificationOptions(forCourse: course.code)
         repository.getGroupOptions(forCourse: course.code, username: user.username)
+    }
+
+    func prepareDataSource(_ source: Observable<[StudentClassification]>) -> Observable<[CellItemType]> {
+        // Initialize CellViewModel for each item
+        return source
+            .map { [weak self] (classifications: [StudentClassification]) -> [CellItemType] in
+                guard let `self` = self else { return [] }
+
+                return classifications.map { (item: StudentClassification) -> CellItemType in
+                    let cellViewModel = DynamicValueCellViewModel(
+                        key: item.username,
+                        title: "\(item.lastName ?? "") \(item.firstName ?? "")"
+                    )
+
+                    // Bind cell's output to view model
+                    cellViewModel.valueOutput
+                        .map { value in
+                            var fieldValues = self.fieldValues.value
+                            fieldValues[cellViewModel.key] = value
+                            return fieldValues
+                        }
+                        .bind(to: self.fieldValues)
+                        .disposed(by: cellViewModel.bag)
+
+                    // Bind values from ViewModel
+                    self.fieldValues
+                        .map { $0[cellViewModel.key] ?? nil }
+                        .bind(to: cellViewModel.valueInput)
+                        .disposed(by: cellViewModel.bag)
+
+                    self.classificationValueType
+                        .unwrap()
+                        .bind(to: cellViewModel.valueType)
+                        .disposed(by: cellViewModel.bag)
+
+                    return .dynamicValue(viewModel: cellViewModel)
+                }
+            }
     }
 
     /// Submit current value for current index path

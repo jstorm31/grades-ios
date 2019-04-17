@@ -19,7 +19,7 @@ final class DynamicValueCellViewModel {
     let valueInput = PublishSubject<DynamicValue?>()
     let valueOutput = PublishSubject<DynamicValue>()
 
-    private let bag = DisposeBag()
+    let bag = DisposeBag()
 
     init(key: String, title: String? = nil) {
         self.key = key

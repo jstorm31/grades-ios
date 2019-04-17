@@ -42,7 +42,6 @@ final class DynamicValueCell: UITableViewCell {
         bindViewModel()
         bindOutput()
         viewModel.bindOutput()
-        Log.debug("Bind Cell ViewModel: \(viewModel.key)")
     }
 
     private func bindOutput() {
