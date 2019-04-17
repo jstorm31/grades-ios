@@ -772,7 +772,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Generate BUILD_NUMBER\nCOMMITS=`git rev-list HEAD --count`\nHEADER_FILE=\"$PROJECT_DIR/info_preprocess_header.h\"\n\necho \"// Auto-generated\" > $HEADER_FILE\necho \"\" >> $HEADER_FILE\necho \"#define BUILD_NUMBER $COMMITS\" >> $HEADER_FILE\n\ntouch $INFOPLIST_FILE\n";
+			shellScript = "# Generate BUILD_NUMBER\ncd $PROJECT_DIR\nCOMMITS=`git rev-list HEAD --count`\nHEADER_FILE=\"$PROJECT_DIR/info_preprocess_header.h\"\n\necho \"// Auto-generated\" > $HEADER_FILE\necho \"\" >> $HEADER_FILE\necho \"#define BUILD_NUMBER $COMMITS\" >> $HEADER_FILE\n\ntouch $INFOPLIST_FILE\ncd -\n";
 		};
 		9608B9C122241EC700E1CEAF /* SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;
