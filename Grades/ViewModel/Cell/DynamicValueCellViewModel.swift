@@ -9,19 +9,17 @@
 import RxSwift
 
 final class DynamicValueCellViewModel {
-    let title = BehaviorSubject<String>(value: "")
-    let subtititle = BehaviorSubject<String>(value: "")
-    let valueInput = BehaviorSubject<DynamicValue>(value: .string(""))
+    var title = ""
+    var subtitle = ""
+
+    let valueType = PublishSubject<DynamicValueType>()
+    let stringValue = PublishSubject<String>()
+    let boolValue = PublishSubject<Bool>()
+
+    let valueInput = PublishSubject<DynamicValue>()
     let valueOutput = PublishSubject<DynamicValue>()
-    let stringValue = BehaviorSubject<String?>(value: nil)
-    let boolValue = BehaviorSubject<Bool?>(value: nil)
 
     private let bag = DisposeBag()
-
-    func set(title: String, subtitle: String) {
-        self.title.onNext(title)
-        subtititle.onNext(subtitle)
-    }
 
     func bindOutput() {
         let sharedValue = valueInput.share()
@@ -37,6 +35,7 @@ final class DynamicValueCellViewModel {
                     return nil
                 }
             }
+            .unwrap()
             .bind(to: stringValue)
             .disposed(by: bag)
 
@@ -47,6 +46,7 @@ final class DynamicValueCellViewModel {
                 }
                 return nil
             }
+            .unwrap()
             .bind(to: boolValue)
             .disposed(by: bag)
     }

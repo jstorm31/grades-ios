@@ -44,7 +44,7 @@ final class DynamicValueCell: UITableViewCell {
         bindOutput()
     }
 
-    func bindOutput() {
+    private func bindOutput() {
         valueTextField.rx.text
             .skip(1)
             .unwrap()
@@ -67,48 +67,38 @@ final class DynamicValueCell: UITableViewCell {
     }
 
     private func bindViewModel() {
-        viewModel.title
-            .asDriver(onErrorJustReturn: "")
-            .drive(titleLabel.rx.text)
-            .disposed(by: bag)
+        titleLabel.text = viewModel.title
+        subtitleLabel.text = viewModel.subtitle
 
-        viewModel.subtititle
-            .asDriver(onErrorJustReturn: "")
-            .drive(subtitleLabel.rx.text)
-            .disposed(by: bag)
+        // Bind values to controls
 
         viewModel.stringValue
-            .distinctUntilChanged()
-            .map { $0 == nil }
-            .asDriver(onErrorJustReturn: false)
-            .drive(valueTextField.rx.isHidden)
-            .disposed(by: bag)
-
-        viewModel.stringValue
-            .distinctUntilChanged()
-            .map { $0 == nil }
-            .asDriver(onErrorJustReturn: false)
-            .drive(fieldLabel.rx.isHidden)
-            .disposed(by: bag)
-
-        viewModel.stringValue
-            .unwrap()
             .asDriver(onErrorJustReturn: "")
             .drive(valueTextField.rx.text)
             .disposed(by: bag)
 
         viewModel.boolValue
             .distinctUntilChanged()
-            .map { $0 == nil }
-            .asDriver(onErrorJustReturn: true)
-            .drive(valueSwitch.rx.isHidden)
-            .disposed(by: bag)
-
-        viewModel.boolValue
-            .unwrap()
             .asDriver(onErrorJustReturn: false)
             .drive(valueSwitch.rx.isOn)
             .disposed(by: bag)
+
+        // Show / hide controls
+
+        let showTextField = viewModel.valueType
+            .map { type -> Bool in
+                switch type {
+                case .string, .number:
+                    return false
+                case .bool:
+                    return true
+                }
+            }
+            .share()
+
+        showTextField.asDriver(onErrorJustReturn: false).drive(valueTextField.rx.isHidden).disposed(by: bag)
+        showTextField.asDriver(onErrorJustReturn: false).drive(fieldLabel.rx.isHidden).disposed(by: bag)
+        showTextField.map { !$0 }.asDriver(onErrorJustReturn: true).drive(valueSwitch.rx.isHidden).disposed(by: bag)
     }
 
     // MARK: UI setup

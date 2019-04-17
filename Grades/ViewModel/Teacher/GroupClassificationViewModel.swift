@@ -16,6 +16,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
     // MARK: public properties
 
     let studentsClassification = BehaviorRelay<[TableSection]>(value: [])
+    let classificationValueType = BehaviorRelay<DynamicValueType?>(value: nil)
     let fieldValues = BehaviorRelay<[String: DynamicValue?]>(value: [:])
     let isloading = PublishSubject<Bool>()
     let error = PublishSubject<Error>()
@@ -121,6 +122,9 @@ final class GroupClassificationViewModel: TablePickerViewModel {
 
         let groupCode = repository.groups.value[groupSelectedIndex.value]
         let classificationId = repository.classifications.value[classificationSelectedIndex.value]
+        let valueType = repository.classifications.value[classificationSelectedIndex.value].valueType
+
+        classificationValueType.accept(valueType)
         repository.studentsFor(course: course.code, groupCode: groupCode.id, classificationId: classificationId.identifier)
     }
 }

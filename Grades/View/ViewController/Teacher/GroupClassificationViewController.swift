@@ -46,7 +46,8 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
                     // swiftlint:disable force_cast
                     let textFieldCell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! DynamicValueCell
                     let cellViewModel = self.cellViewModels[indexPath.row]
-                    cellViewModel.set(title: title, subtitle: key)
+                    cellViewModel.title = title
+                    cellViewModel.subtitle = key
                     self.configureTextFieldCell(textFieldCell, cellViewModel, key)
                     return textFieldCell
 
@@ -209,6 +210,11 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
             .map { $0[key] ?? nil }
             .unwrap()
             .bind(to: cellViewModel.valueInput)
+            .disposed(by: cell.bag)
+
+        viewModel.classificationValueType
+            .unwrap()
+            .bind(to: cellViewModel.valueType)
             .disposed(by: cell.bag)
     }
 
