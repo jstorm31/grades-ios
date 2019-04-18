@@ -8,12 +8,24 @@
 
 import UIKit
 
-class StudentClassificationViewController: BaseTableViewController, BindableType {
-    var viewModel: StudentClassificationViewModelProtocol!
+final class StudentClassificationViewController: BaseTableViewController, BindableType {
+    var viewModel: StudentClassificationViewModel!
 
     override func loadView() {
         loadView(hasTableHeaderView: false)
+        loadUI()
     }
 
     func bindViewModel() {}
+
+    func loadUI() {
+        loadRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
+    }
+
+    // MARK: events
+
+    @objc private func refreshControlPulled(_: UIRefreshControl) {
+        // TODO:
+    }
 }

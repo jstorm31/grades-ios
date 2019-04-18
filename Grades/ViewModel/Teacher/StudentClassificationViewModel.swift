@@ -6,6 +6,4 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
-protocol StudentClassificationViewModelProtocol {}
-
-class StudentClassificationViewModel: StudentClassificationViewModelProtocol {}
+final class StudentClassificationViewModel {}
