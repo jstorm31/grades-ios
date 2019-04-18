@@ -6,16 +6,25 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import RxSwift
+
 final class StudentClassificationViewModel {
-	typealias Dependencies = HasTeacherRepository
-	
-	private let dependencies: Dependencies
-	private let coordinator: SceneCoordinatorType
-	
-	init(dependencies: AppDependency, coordinator: SceneCoordinatorType) {
-		self.dependencies = dependencies
-		self.coordinator = coordinator
-	}
-	
-	
+    typealias Dependencies = HasGradesAPI
+
+    private let dependencies: Dependencies
+    private let coordinator: SceneCoordinatorType
+    private let course: Course
+    private let bag = DisposeBag()
+
+    init(dependencies: Dependencies, coordinator: SceneCoordinatorType, course: Course) {
+        self.dependencies = dependencies
+        self.coordinator = coordinator
+        self.course = course
+    }
+
+    func bindOutput() {
+        dependencies.gradesApi.getTeacherStudents(courseCode: course.code)
+            .subscribe(onNext: { Log.debug("\($0)") })
+            .disposed(by: bag)
+    }
 }

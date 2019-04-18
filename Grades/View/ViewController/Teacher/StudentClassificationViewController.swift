@@ -16,6 +16,10 @@ final class StudentClassificationViewController: BaseTableViewController, Bindab
         loadUI()
     }
 
+    override func viewDidLoad() {
+        viewModel.bindOutput()
+    }
+
     func bindViewModel() {}
 
     func loadUI() {
