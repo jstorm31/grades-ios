@@ -131,17 +131,17 @@ final class GradesAPI: GradesAPIProtocol {
         let url = createURL(from: .groupClassifications(courseCode, groupCode, classificationId))
         return httpService.get(url: url, parameters: defaultParameters)
     }
-	
-	/// Fetch all students for logged user with role teacher
+
+    /// Fetch all students for logged user with role teacher
     func getTeacherStudents(courseCode: String) -> Observable<[User]> {
-		// swiftlint:disable force_cast
+        // swiftlint:disable force_cast
         if let environment = Bundle.main.infoDictionary!["ConfigEnvironment"], (environment as! String) == "Debug" {
             // Return mock data in Debug
             return Observable.just([
                 User(userId: 1, username: "kucerj48", firstName: "Jan", lastName: "Kučera"),
                 User(userId: 2, username: "janatpa3", firstName: "Pavel", lastName: "Janata"),
                 User(userId: 3, username: "ottastep", firstName: "Štěpán", lastName: "Otta")
-            ])
+            ]).delaySubscription(1, scheduler: MainScheduler.instance)
         } else {
             // Get from API in Release
             let url = createURL(from: .courseStudents(courseCode, "MY_PARALLELS"))
