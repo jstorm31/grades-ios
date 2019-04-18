@@ -29,7 +29,7 @@ class CourseRepositoryTests: XCTestCase {
 		let classificationsObservable = repository.classifications(forStudent: username).subscribeOn(scheduler)
 		
 		do {
-			guard let result = try classificationsObservable.toBlocking(timeout: 1).first() else {
+			guard let result = try classificationsObservable.toBlocking(timeout: 2).first() else {
 				XCTFail("should have emitted event")
 				return
 			}
@@ -45,7 +45,7 @@ class CourseRepositoryTests: XCTestCase {
 		let classificationsObservable = repository.groupedClassifications(forStudent: username).subscribeOn(scheduler)
 		
 		do {
-			guard let result = try classificationsObservable.toBlocking(timeout: 1).first() else {
+			guard let result = try classificationsObservable.toBlocking(timeout: 2).first() else {
 				XCTFail("should have emitted event")
 				return
 			}
@@ -68,13 +68,13 @@ class CourseRepositoryTests: XCTestCase {
 		let overviewObservable = repository.overview(forStudent: username).subscribeOn(scheduler)
 		
 		do {
-			guard let result = try overviewObservable.toBlocking(timeout: 1).first() else {
+			guard let result = try overviewObservable.toBlocking(timeout: 2).first() else {
 				XCTFail("should have emitted event")
 				return
 			}
 			
-			XCTAssertEqual(result.totalPoints, 65.0, "has correct total points")
-			XCTAssertEqual(result.finalGrade, "D", "has correct final grade")
+			XCTAssertEqual(result.totalPoints, 73.5, "has correct total points")
+			XCTAssertEqual(result.finalGrade, "B", "has correct final grade")
 		} catch {
 			XCTFail(error.localizedDescription)
 		}
@@ -83,10 +83,10 @@ class CourseRepositoryTests: XCTestCase {
 	func testError() {
 		gradesApi.result = .failure
 		let errorObservable = repository.error.subscribeOn(scheduler)
-		repository.overview(forStudent: username)
+		let _ = repository.classifications(forStudent: username).subscribeOn(scheduler).toBlocking().materialize()
 		
 		do {
-			guard let result = try errorObservable.toBlocking(timeout: 1).first() else {
+			guard let result = try errorObservable.toBlocking(timeout: 2).first() else {
 				XCTFail("should have emitted event")
 				return
 			}

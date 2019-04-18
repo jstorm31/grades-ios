@@ -8,7 +8,7 @@
 
 import RxSwift
 
-typealias StudentOverview = (totalPoints: Double, finalGrade: String)
+typealias StudentOverview = (totalPoints: Double?, finalGrade: String?)
 
 protocol HasCourseRepository {
     var courseRepository: CourseRepositoryProtocol { get }
@@ -61,6 +61,13 @@ final class CourseRepository: CourseRepositoryProtocol {
     func classifications(forStudent username: String) -> Observable<[Classification]> {
         guard let course = course else { return Observable.just([]) }
         return dependencies.gradesApi.getCourseStudentClassification(username: username, code: course.code)
+            .trackActivity(activityIndicator)
+            .catchError { [weak self] error in
+                if let `self` = self {
+                    self.error.onNext(error)
+                }
+                return Observable.just([])
+            }
     }
 
     @discardableResult
@@ -69,8 +76,38 @@ final class CourseRepository: CourseRepositoryProtocol {
     }
 
     @discardableResult
-    func overview(forStudent _: String) -> Observable<StudentOverview> {
-        return Observable.empty() // TODO:
+    func overview(forStudent username: String) -> Observable<StudentOverview> {
+        let classifications = self.classifications(forStudent: username).share()
+
+        let pointsTotal = classifications
+            .map { $0.first { $0.type == ClassificationType.pointsTotal.rawValue } ?? nil }
+            .unwrap()
+            .map { (item: Classification) -> Double? in
+                guard let value = item.value else { return nil }
+
+                switch value {
+                case let .number(number):
+                    return number
+                default:
+                    return nil
+                }
+            }
+
+        let finalGrade = classifications
+            .map { $0.first { $0.type == ClassificationType.finalScore.rawValue } ?? nil }
+            .unwrap()
+            .map { (item: Classification) -> String? in
+                guard let value = item.value else { return nil }
+
+                switch value {
+                case let .string(string):
+                    return string
+                default:
+                    return nil
+                }
+            }
+
+        return Observable.zip(pointsTotal, finalGrade) { (totalPoints: $0, finalGrade: $1) }
     }
 
     /// Groups classifications by their root parent classification

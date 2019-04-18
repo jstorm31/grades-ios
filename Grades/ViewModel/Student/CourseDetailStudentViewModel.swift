@@ -70,43 +70,5 @@ final class CourseDetailStudentViewModel: BaseViewModel {
         let overview = repository.overview(forStudent: studentUsername).share(replay: 1, scope: .whileConnected)
         overview.map({ $0.totalPoints }).bind(to: totalPoints).disposed(by: bag)
         overview.map({ $0.finalGrade }).bind(to: finalGrade).disposed(by: bag)
-
-//        let allClassifications = repository.course.unwrap()
-//            .map { $0.classifications }
-//            .share()
-//
-//        // Total points
-//        allClassifications
-//            .map { $0.first { $0.type == ClassificationType.pointsTotal.rawValue } ?? nil }
-//            .unwrap()
-//            .map { (item: Classification) -> Double? in
-//                guard let value = item.value else { return nil }
-//
-//                switch value {
-//                case let .number(number):
-//                    return number
-//                default:
-//                    return nil
-//                }
-//            }
-//            .bind(to: totalPoints)
-//            .disposed(by: bag)
-//
-//        // Final grade
-//        allClassifications
-//            .map { $0.first { $0.type == ClassificationType.finalScore.rawValue } ?? nil }
-//            .unwrap()
-//            .map { (item: Classification) -> String? in
-//                guard let value = item.value else { return nil }
-//
-//                switch value {
-//                case let .string(string):
-//                    return string
-//                default:
-//                    return nil
-//                }
-//            }
-//            .bind(to: totalGrade)
-//            .disposed(by: bag)
     }
 }
