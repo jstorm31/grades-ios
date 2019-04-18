@@ -43,6 +43,11 @@ class CourseListViewModelTests: XCTestCase {
 		viewModel.bindOutput()
 		viewModel.onItemSelection(indexPath)
 		
-		XCTAssertNil(coordinator.targetScene)
+		XCTAssertNotNil(coordinator.targetScene)
+		if case .teacherClassification = coordinator.targetScene! {
+			XCTAssertTrue(true) // Success
+		} else {
+			XCTFail("incorrect scene")
+		}
 	}
 }

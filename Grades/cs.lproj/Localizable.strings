@@ -26,3 +26,9 @@
 "settings.options" = "Možnosti";
 "settings.language" = "Jazyk";
 "settings.semester" = "Semestr";
+
+"teacher.tab.group" = "Detail";
+"teacher.students.group" = "Skupina";
+"teacher.tab.student" = "Student";
+"teacher.students.classification" = "Klasifikace";
+"teacher.group.students" = "Studenti";

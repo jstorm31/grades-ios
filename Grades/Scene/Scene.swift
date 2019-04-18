@@ -13,7 +13,10 @@ enum Scene {
     case login(LoginViewModel)
     case courseList(CourseListViewModel)
     case courseDetailStudent(CourseDetailStudentViewModel)
-    case settings(SettingsViewModelProtocol)
+    case settings(SettingsViewModel)
+    case teacherClassification(TeacherClassificationViewModelProtocol)
+    case groupClassification(GroupClassificationViewModel)
+    case studentClassification(StudentClassificationViewModelProtocol)
 }
 
 extension Scene {
@@ -39,6 +42,21 @@ extension Scene {
             var settingsVC = SettingsViewController()
             settingsVC.bindViewModel(to: viewModel)
             return settingsVC
+
+        case let .teacherClassification(viewModel):
+            var teacherClassificationVC = TeacherClassificationViewController()
+            teacherClassificationVC.bindViewModel(to: viewModel)
+            return teacherClassificationVC
+
+        case let .groupClassification(viewModel):
+            var groupClassificationVC = GroupClassificationViewController()
+            groupClassificationVC.bindViewModel(to: viewModel)
+            return groupClassificationVC
+
+        case let .studentClassification(viewModel):
+            var studentClassificationVC = StudentClassificationViewController()
+            studentClassificationVC.bindViewModel(to: viewModel)
+            return studentClassificationVC
         }
     }
 }

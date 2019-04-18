@@ -10,6 +10,7 @@ import RxDataSources
 
 struct Classification {
     var id: Int
+    var identifier: String
     var text: [ClassificationText]
     var scope: String?
     var type: String?
@@ -38,7 +39,7 @@ extension Classification: Codable {
         case scope = "aggregationScope"
         case type = "classificationType"
         case isHidden = "hidden"
-        case id, value, valueType, parentId
+        case id, identifier, value, valueType, parentId
     }
 }
 
@@ -49,6 +50,7 @@ struct ClassificationText: Codable {
 
 struct GroupedClassification {
     var id: Int
+    var identifier: String
     var header: String
     var type: String?
     var totalValue: DynamicValue?
@@ -56,6 +58,7 @@ struct GroupedClassification {
 
     init(fromClassification classification: Classification, items: [Classification] = []) {
         id = classification.id
+        identifier = classification.identifier
         header = classification.getLocalizedText()
         type = classification.type
         totalValue = classification.value

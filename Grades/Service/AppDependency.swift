@@ -18,6 +18,7 @@ final class AppDependency: HasNoDependency {
 
     lazy var settingsRepository: SettingsRepositoryProtocol = SettingsRepository(dependencies: self)
     lazy var coursesRepository: CoursesRepositoryProtocol = CoursesRepository(dependencies: self)
+    lazy var teacherRepository: TeacherRepositoryProtocol = TeacherRepository(dependencies: self)
 }
 
 extension AppDependency: HasAuthenticationService {}
@@ -26,3 +27,4 @@ extension AppDependency: HasGradesAPI {}
 
 extension AppDependency: HasSettingsRepository {}
 extension AppDependency: HasCoursesRepository {}
+extension AppDependency: HasTeacherRepository {}

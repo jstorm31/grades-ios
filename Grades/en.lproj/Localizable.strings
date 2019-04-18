@@ -1,7 +1,7 @@
 "appVersion" = "App version";
 
-"error.auth.generic" = "There has been an error when authenticating.";
-"error.api.generic" = "There has been an error when trying to fetch data.";
+"error.auth.generic" = "Authentication error";
+"error.api.generic" = "Fetch data error";
 
 "labels.noContent" = "Nothing to display";
 
@@ -26,3 +26,9 @@
 "settings.options" = "Options";
 "settings.language" = "Language";
 "settings.semester" = "Semester";
+
+"teacher.tab.group" = "Detail";
+"teacher.tab.student" = "Student";
+"teacher.students.group" = "Group";
+"teacher.students.classification" = "Classification";
+"teacher.group.students" = "Students";

@@ -12,17 +12,25 @@ import RxDataSources
 import RxSwift
 import UIKit
 
-class SettingsViewController: BaseTableViewController, BindableType, ConfirmationModalPresentable {
+final class SettingsViewController: BaseTableViewController & BindableType & ConfirmationModalPresentable & PickerPresentable {
     var pickerView: UIPickerView!
     var pickerTextField: UITextField!
 
-    var viewModel: SettingsViewModelProtocol!
+    var viewModel: SettingsViewModel!
     private let bag = DisposeBag()
+
+    private var pickerDoneAction: CocoaAction {
+        return CocoaAction { [weak self] in
+            self?.hidePicker()
+            self?.viewModel.submitSelectedValue()
+            return Observable.empty()
+        }
+    }
 
     // MARK: data source
 
-    private var dataSource: RxTableViewSectionedReloadDataSource<SettingsSection> {
-        return RxTableViewSectionedReloadDataSource<SettingsSection>(
+    private var dataSource: RxTableViewSectionedReloadDataSource<TableSection> {
+        return RxTableViewSectionedReloadDataSource<TableSection>(
             configureCell: { [weak self] dataSource, tableView, indexPath, _ in
 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath)
@@ -50,14 +58,7 @@ class SettingsViewController: BaseTableViewController, BindableType, Confirmatio
                 case let .picker(title, options, valueIndex):
                     cell.textLabel?.text = title
 
-                    let doneAction = CocoaAction { [weak self] in
-                        self?.pickerTextField.resignFirstResponder()
-                        self?.viewModel.submitSelectedValue()
-                        return Observable.empty()
-                    }
-
                     let accessoryView = UIView()
-                    self.pickerTextField.addDoneButtonOnKeyboard(title: title, doneAction: doneAction)
                     accessoryView.addSubview(self.pickerTextField)
 
                     let pickerLabel = UIPickerLabel()
@@ -71,6 +72,9 @@ class SettingsViewController: BaseTableViewController, BindableType, Confirmatio
                     }
 
                     cell.accessoryView = accessoryView
+                    return cell
+
+                default:
                     return cell
                 }
             },
@@ -97,6 +101,8 @@ class SettingsViewController: BaseTableViewController, BindableType, Confirmatio
         pickerTextField = UITextField()
         pickerTextField.inputView = pickerView
         pickerTextField.isHidden = true
+
+        setupPicker(doneAction: pickerDoneAction)
     }
 
     override func viewDidLoad() {
@@ -133,12 +139,9 @@ class SettingsViewController: BaseTableViewController, BindableType, Confirmatio
 
                 // On table cell selection, set selected cell index in view model to display right options in picker view
                 if case let .picker(_, _, selectedValueIndex) = item {
-                    self.viewModel.setCurrentSettingStateAction.execute((indexPath, selectedValueIndex))
-                        .subscribe(onCompleted: { [weak self] in
-                            self?.pickerTextField.becomeFirstResponder()
-                            self?.pickerView.selectRow(selectedValueIndex, inComponent: 0, animated: true)
-                        })
-                        .disposed(by: self.bag)
+                    self.viewModel.handleOptionChange(cellIndexPath: indexPath, optionIndex: selectedValueIndex)
+                    self.showPicker()
+                    self.pickerView.selectRow(selectedValueIndex, inComponent: 0, animated: true)
                 }
 
                 self.tableView.deselectRow(at: indexPath, animated: true)
@@ -153,6 +156,7 @@ class SettingsViewController: BaseTableViewController, BindableType, Confirmatio
             .disposed(by: bag)
 
         viewModel.options
+            .map { options in options.map { $0 } }
             .asDriver(onErrorJustReturn: [])
             .drive(pickerView.rx.itemTitles) { _, element in element }
             .disposed(by: bag)

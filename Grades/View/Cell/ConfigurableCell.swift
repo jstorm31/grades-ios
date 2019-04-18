@@ -8,6 +8,8 @@
 
 import UIKit
 
+// From: https://medium.com/chili-labs/configuring-multiple-cells-with-generics-in-swift-dcd5e209ba16
+
 protocol ConfigurableCell {
     associatedtype DataType
     func configure(data: DataType)
@@ -18,7 +20,8 @@ protocol CellConfigurator {
     func configure(cell: UIView)
 }
 
-class TableCellConfigurator<CellType: ConfigurableCell, DataType>: CellConfigurator where CellType.DataType == DataType, CellType: UITableViewCell {
+class TableCellConfigurator<CellType: ConfigurableCell, DataType>: CellConfigurator
+    where CellType.DataType == DataType, CellType: UITableViewCell {
     static var reuseId: String { return String(describing: CellType.self) }
 
     let item: DataType

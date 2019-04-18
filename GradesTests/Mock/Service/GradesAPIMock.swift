@@ -83,4 +83,21 @@ class GradesAPIMock: GradesAPIProtocol {
 	func getCurrentSemestrCode() -> Observable<String> {
 		return Observable.just("B182")
 	}
+	
+	func getStudentGroups(forCourse course: String, username: String?) -> Observable<[StudentGroup]> {
+		switch result {
+		case .success:
+			return Observable.just([
+				StudentGroup(id: "A145", name: "Cvičení 1", description: nil),
+				StudentGroup(id: "A146", name: "Cvičení 2", description: "Místost A:144")
+			])
+		case .failure:
+			return Observable.error(ApiError.general)
+		}
+	}
+	
+	func getClassifications(forCourse: String) -> Observable<[Classification]> {
+		fatalError("getClassifications in GradesApiMock not implemented")
+		return Observable.empty()
+	}
 }
