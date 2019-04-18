@@ -41,7 +41,6 @@ final class StudentClassificationViewController: BaseTableViewController, Bindab
             .disposed(by: bag)
 
         loading.asDriver(onErrorJustReturn: false)
-            .debug()
             .drive(view.rx.refreshing)
             .disposed(by: bag)
 
@@ -51,14 +50,25 @@ final class StudentClassificationViewController: BaseTableViewController, Bindab
     }
 
     private func bindOverview() {
-        viewModel.studentName.bind(to: studentNameLabel.rx.text).disposed(by: bag)
-        viewModel.totalPoints.bind(to: gradingOverview.pointsLabel.rx.text).disposed(by: bag)
+        viewModel.studentName
+            .asDriver(onErrorJustReturn: "")
+            .drive(studentNameLabel.rx.text)
+            .disposed(by: bag)
+
+        viewModel.totalPoints
+            .unwrap()
+            .map { "\(L10n.Classification.total) \($0) \(L10n.Courses.points)" }
+            .asDriver(onErrorJustReturn: "")
+            .drive(gradingOverview.pointsLabel.rx.text)
+            .disposed(by: bag)
 
         viewModel.finalGrade
+            .unwrap()
             .do(onNext: { [weak self] grade in
                 self?.gradingOverview.gradeLabel.textColor = UIColor.Theme.setGradeColor(forGrade: grade)
             })
-            .bind(to: gradingOverview.gradeLabel.rx.text)
+            .asDriver(onErrorJustReturn: "")
+            .drive(gradingOverview.gradeLabel.rx.text)
             .disposed(by: bag)
     }
 

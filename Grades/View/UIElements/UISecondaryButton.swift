@@ -12,7 +12,7 @@ class UISecondaryButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         titleLabel?.font = UIFontMetrics(forTextStyle: .body)
-            .scaledFont(for: UIFont.Grades.smallText)
+            .scaledFont(for: UIFont.Grades.body)
         setTitleColor(UIColor.Theme.secondary, for: .normal)
         setTitleColor(UIColor.Theme.secondaryDark, for: .selected)
     }

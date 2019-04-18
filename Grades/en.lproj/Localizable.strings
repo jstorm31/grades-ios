@@ -34,3 +34,4 @@
 "teacher.group.students" = "Students";
 "teacher.students.title" = "Student";
 "teacher.students.changeButton" = "Change";
+"teacher.students.finalGradeEmpty" = "Final grade not specified";

@@ -59,7 +59,10 @@ final class CourseRepository: CourseRepositoryProtocol {
 
     @discardableResult
     func classifications(forStudent username: String) -> Observable<[Classification]> {
-        guard let course = course else { return Observable.just([]) }
+        guard let course = course else {
+            Log.info("Course is not set, emitting []")
+            return Observable.just([])
+        }
         return dependencies.gradesApi.getCourseStudentClassification(username: username, code: course.code)
             .trackActivity(activityIndicator)
             .catchError { [weak self] error in
@@ -77,7 +80,7 @@ final class CourseRepository: CourseRepositoryProtocol {
 
     @discardableResult
     func overview(forStudent username: String) -> Observable<StudentOverview> {
-        let classifications = self.classifications(forStudent: username).share()
+        let classifications = self.classifications(forStudent: username).share().debug()
 
         let pointsTotal = classifications
             .map { $0.first { $0.type == ClassificationType.pointsTotal.rawValue } ?? nil }

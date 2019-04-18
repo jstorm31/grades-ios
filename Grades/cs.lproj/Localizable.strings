@@ -34,3 +34,4 @@
 "teacher.group.students" = "Studenti";
 "teacher.students.title" = "Student";
 "teacher.students.changeButton" = "Změnit";
+"teacher.students.finalGradeEmpty" = "Chybí celkové hodnocení";

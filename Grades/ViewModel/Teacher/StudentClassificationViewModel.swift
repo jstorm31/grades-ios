@@ -10,24 +10,18 @@ import RxCocoa
 import RxSwift
 
 final class StudentClassificationViewModel {
-    typealias Dependencies = HasGradesAPI
+    typealias Dependencies = HasGradesAPI & HasCourseRepository
 
     // MARK: public properties
 
     let students = BehaviorRelay<[User]>(value: [])
     let isloading = BehaviorSubject<Bool>(value: false)
     let error = BehaviorSubject<Error?>(value: nil)
+    let totalPoints = PublishSubject<Double?>()
+    let finalGrade = PublishSubject<String?>()
 
     lazy var studentName: Observable<String> = {
         selectedStudent.unwrap().map { $0.name }.share()
-    }()
-
-    lazy var totalPoints: Observable<String> = {
-        Observable.just("Celkem 75 b")
-    }()
-
-    lazy var finalGrade: Observable<String> = {
-        Observable.just("C")
     }()
 
     // MARK: private properties
@@ -46,6 +40,8 @@ final class StudentClassificationViewModel {
         self.coordinator = coordinator
         self.course = course
 
+        dependencies.courseRepository.set(course: course)
+
         activityIndicator
             .distinctUntilChanged()
             .asObservable()
@@ -61,7 +57,6 @@ final class StudentClassificationViewModel {
 
     private func bindStudents() {
         let students = dependencies.gradesApi.getTeacherStudents(courseCode: course.code)
-            .debug()
             .trackActivity(activityIndicator)
             .catchError { [weak self] error in
                 self?.error.onNext(error)
@@ -79,5 +74,18 @@ final class StudentClassificationViewModel {
             }
             .bind(to: selectedStudent)
             .disposed(by: bag)
+
+        let overview = selectedStudent.unwrap()
+            .flatMap { [weak self] student -> Observable<StudentOverview> in
+                guard let `self` = self else { return Observable.empty() }
+                return self.dependencies.courseRepository.overview(forStudent: student.username).debug()
+            }
+            .share()
+
+        overview.map({ $0.totalPoints }).bind(to: totalPoints).disposed(by: bag)
+        overview.map({ $0.finalGrade }).bind(to: finalGrade).disposed(by: bag)
+
+        dependencies.courseRepository.isFetching.bind(to: isloading).disposed(by: bag)
+        dependencies.courseRepository.error.bind(to: error).disposed(by: bag)
     }
 }

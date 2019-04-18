@@ -139,8 +139,8 @@ final class GradesAPI: GradesAPIProtocol {
         if let environment = Bundle.main.infoDictionary!["ConfigEnvironment"], (environment as! String) == "Debug" {
             // Return mock data in Debug
             return Observable.just([
-                User(userId: 1, username: "kucerj48", firstName: "Jan", lastName: "Kučera"),
                 User(userId: 2, username: "janatpa3", firstName: "Pavel", lastName: "Janata"),
+                User(userId: 1, username: "rousemat", firstName: "Matyáš", lastName: "Rousek"),
                 User(userId: 3, username: "ottastep", firstName: "Štěpán", lastName: "Otta")
             ]).delaySubscription(1, scheduler: MainScheduler.instance)
         } else {

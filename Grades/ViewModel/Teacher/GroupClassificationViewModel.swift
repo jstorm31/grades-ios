@@ -56,7 +56,6 @@ final class GroupClassificationViewModel: TablePickerViewModel {
          2) Get items for chosen group and classification
          */
         Observable.combineLatest(groupSelectedIndex, classificationSelectedIndex) { ($0, $1) }
-            .debug()
             .flatMap { [weak self] indexes -> Observable<TableSection> in
                 guard let `self` = self else {
                     return Observable.just(TableSection(header: "", items: []))
