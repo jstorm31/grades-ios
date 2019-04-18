@@ -53,6 +53,7 @@ final class StudentClassificationViewModel {
 
     private func bindStudents() {
         let students = dependencies.gradesApi.getTeacherStudents(courseCode: course.code)
+            .debug()
             .trackActivity(activityIndicator)
             .catchError { [weak self] error in
                 self?.error.onNext(error)

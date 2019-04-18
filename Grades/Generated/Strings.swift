@@ -90,6 +90,8 @@ internal enum L10n {
             internal static let classification = L10n.tr("Localizable", "teacher.students.classification")
             /// Group
             internal static let group = L10n.tr("Localizable", "teacher.students.group")
+            /// Student
+            internal static let title = L10n.tr("Localizable", "teacher.students.title")
         }
 
         internal enum Tab {

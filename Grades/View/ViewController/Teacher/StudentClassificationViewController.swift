@@ -11,6 +11,8 @@ import RxSwift
 import UIKit
 
 final class StudentClassificationViewController: BaseTableViewController, BindableType {
+    private var studentNameLabel: UILabel!
+
     var viewModel: StudentClassificationViewModel!
     private let bag = DisposeBag()
 
@@ -28,7 +30,7 @@ final class StudentClassificationViewController: BaseTableViewController, Bindab
     // MARK: binding
 
     func bindViewModel() {
-        viewModel.studentName.subscribe(onNext: { Log.debug("User: \($0)") }).disposed(by: bag)
+        viewModel.studentName.bind(to: studentNameLabel.rx.text).disposed(by: bag)
 
         let loading = viewModel.isloading.share(replay: 1, scope: .whileConnected)
 
@@ -51,6 +53,42 @@ final class StudentClassificationViewController: BaseTableViewController, Bindab
     private func loadUI() {
         loadRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
+
+        // MARK: Table header with student information
+
+        let headerView = UIView()
+        let containerView = UIView()
+        headerView.addSubview(containerView)
+        containerView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(20)
+        }
+
+        let titleLabel = UILabel()
+        titleLabel.font = UIFont.Grades.displaySmall
+        titleLabel.textColor = UIColor.Theme.text
+        titleLabel.text = L10n.Teacher.Students.title
+        containerView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+        }
+        tableView.tableHeaderView = headerView
+
+        let studentName = UILabel()
+        studentName.font = UIFont.Grades.body
+        studentName.textColor = UIColor.Theme.text
+        containerView.addSubview(studentName)
+        studentName.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+        }
+        studentNameLabel = studentName
+
+        tableView.tableHeaderView = headerView
+        headerView.snp.makeConstraints { make in
+            make.width.equalToSuperview().inset(20)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(90)
+        }
     }
 
     // MARK: events

@@ -16,6 +16,7 @@ enum TeacherSceneIndex: Int {
 }
 
 protocol TeacherClassificationViewModelProtocol {
+    var defaultScene: TeacherSceneIndex { get }
     var course: TeacherCourse { get }
     var onBackAction: CocoaAction { get }
 
@@ -43,6 +44,7 @@ final class TeacherClassificationViewModel: BaseViewModel, TeacherClassification
 
     // MARK: public properties
 
+    let defaultScene = TeacherSceneIndex.studentClassification
     let course: TeacherCourse
     let user: User
 

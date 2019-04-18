@@ -35,7 +35,7 @@ class CourseStudentRepositoryMock: CourseStudentRepositoryProtocol {
 	func bindOutput() {
 		course.accept(CourseStudent(classifications: CourseStudentMockData.classifications))
 		
-		let classification = Classification(id: 2, text: [], scope: nil, type: nil, valueType: .string, value: nil, parentId: nil, isHidden: false)
+		let classification = Classification(id: 2, identifier: "test-24", text: [], scope: nil, type: nil, valueType: .string, value: nil, parentId: nil, isHidden: false)
 		groupedClassifications.onNext(
 			[GroupedClassification(fromClassification: classification, items: CourseStudentMockData.classifications)]
 		)
