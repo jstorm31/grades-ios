@@ -57,39 +57,21 @@ final class CourseRepository: CourseRepositoryProtocol {
 
     // MARK: methods
 
-    func classifications(forStudent _: String) -> Observable<[Classification]> {
-        // TODO:
-        return Observable.empty()
+    @discardableResult
+    func classifications(forStudent username: String) -> Observable<[Classification]> {
+        guard let course = course else { return Observable.just([]) }
+        return dependencies.gradesApi.getCourseStudentClassification(username: username, code: course.code)
     }
 
-    func groupedClassifications(forStudent _: String) -> Observable<[GroupedClassification]> {
-        // TODO:
-        return Observable.empty()
+    @discardableResult
+    func groupedClassifications(forStudent username: String) -> Observable<[GroupedClassification]> {
+        return classifications(forStudent: username).map(groupClassifications)
     }
 
+    @discardableResult
     func overview(forStudent _: String) -> Observable<StudentOverview> {
-        // TODO:
-        return Observable.empty()
+        return Observable.empty() // TODO:
     }
-
-    /// Fetch course detail and student classification, merge and bind as CourseStudent
-//    private func getCourseDetail() {
-//        let coursesSubscription = dependencies.gradesApi.getCourseStudentClassification(username: username, code: courseDetail.code)
-//            .trackActivity(activityIndicator)
-//            .share()
-//
-//        coursesSubscription
-//            .bind(to: course)
-//            .disposed(by: bag)
-//
-//        coursesSubscription
-//            .map { $0.classifications }
-//            .map(groupClassifications)
-//            .subscribe(onNext: { [weak self] in
-//                self?.groupedClassifications.onNext($0)
-//            })
-//            .disposed(by: bag)
-//    }
 
     /// Groups classifications by their root parent classification
     private func groupClassifications(classifications: [Classification]) -> [GroupedClassification] {

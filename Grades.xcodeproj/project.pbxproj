@@ -81,7 +81,7 @@
 		968D05C422637F36003F7D49 /* DynamicValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D05C322637F36003F7D49 /* DynamicValueCell.swift */; };
 		969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 969398A92226D4A700841818 /* OAuthSwift.framework */; };
 		96939EDD223AD8A500A49E57 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EDC223AD8A500A49E57 /* Double+.swift */; };
-		96939EE1223B970600A49E57 /* CourseStudentRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EE0223B970600A49E57 /* CourseStudentRepositoryTests.swift */; };
+		96939EE1223B970600A49E57 /* CourseRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EE0223B970600A49E57 /* CourseRepositoryTests.swift */; };
 		96939EE4223B98BA00A49E57 /* CourseStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EE3223B98BA00A49E57 /* CourseStudent.swift */; };
 		96939EE6223BB97500A49E57 /* ClassificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EE5223BB97500A49E57 /* ClassificationType.swift */; };
 		96939EE7223BC61900A49E57 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961789302232F65D007006E8 /* RxBlocking.framework */; };
@@ -90,7 +90,6 @@
 		96939EED223C09A100A49E57 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0F2228687400FB4A05 /* CocoaAsyncSocket.framework */; };
 		96939EEE223C09A400A49E57 /* Bagel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0D2228669F00FB4A05 /* Bagel.framework */; };
 		96939EF0223C1FEE00A49E57 /* Unwrap+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EEF223C1FEE00A49E57 /* Unwrap+.swift */; };
-		96939EF2223C25C100A49E57 /* CourseDetailStudentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EF1223C25C100A49E57 /* CourseDetailStudentViewModelTests.swift */; };
 		96939EF4223C274C00A49E57 /* CourseStudentRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EF3223C274C00A49E57 /* CourseStudentRepositoryMock.swift */; };
 		9699AB99223256D2006D2F73 /* OverviewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699AB98223256D2006D2F73 /* OverviewItem.swift */; };
 		9699AB9C22326512006D2F73 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699AB9B22326512006D2F73 /* Log.swift */; };
@@ -229,13 +228,12 @@
 		968D05C322637F36003F7D49 /* DynamicValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicValueCell.swift; sourceTree = "<group>"; };
 		969398A92226D4A700841818 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
 		96939EDC223AD8A500A49E57 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
-		96939EE0223B970600A49E57 /* CourseStudentRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStudentRepositoryTests.swift; sourceTree = "<group>"; };
+		96939EE0223B970600A49E57 /* CourseRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRepositoryTests.swift; sourceTree = "<group>"; };
 		96939EE3223B98BA00A49E57 /* CourseStudent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStudent.swift; sourceTree = "<group>"; };
 		96939EE5223BB97500A49E57 /* ClassificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationType.swift; sourceTree = "<group>"; };
 		96939EE8223BC84600A49E57 /* RxSwiftUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwiftUtilities.framework; path = Carthage/Build/iOS/RxSwiftUtilities.framework; sourceTree = "<group>"; };
 		96939EEA223BDAE600A49E57 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		96939EEF223C1FEE00A49E57 /* Unwrap+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Unwrap+.swift"; sourceTree = "<group>"; };
-		96939EF1223C25C100A49E57 /* CourseDetailStudentViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewModelTests.swift; sourceTree = "<group>"; };
 		96939EF3223C274C00A49E57 /* CourseStudentRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStudentRepositoryMock.swift; sourceTree = "<group>"; };
 		9699AB98223256D2006D2F73 /* OverviewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewItem.swift; sourceTree = "<group>"; };
 		9699AB9B22326512006D2F73 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
@@ -627,7 +625,7 @@
 			isa = PBXGroup;
 			children = (
 				96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */,
-				96939EE0223B970600A49E57 /* CourseStudentRepositoryTests.swift */,
+				96939EE0223B970600A49E57 /* CourseRepositoryTests.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -635,7 +633,6 @@
 		96C7B9CC2260709E00E39F9A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				96939EF1223C25C100A49E57 /* CourseDetailStudentViewModelTests.swift */,
 				963C628C22342ED300B01818 /* LoginViewModelTests.swift */,
 				96580713222FFA810065E23D /* CourseListViewModelTests.swift */,
 				96C569A12268D99A00B16A7C /* StudentClassificationViewModelTests.swift */,
@@ -1061,8 +1058,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96939EF2223C25C100A49E57 /* CourseDetailStudentViewModelTests.swift in Sources */,
-				96939EE1223B970600A49E57 /* CourseStudentRepositoryTests.swift in Sources */,
+				96939EE1223B970600A49E57 /* CourseRepositoryTests.swift in Sources */,
 				96939EE4223B98BA00A49E57 /* CourseStudent.swift in Sources */,
 				965ADAF32235976300AA8CF4 /* Result.swift in Sources */,
 				96E8C642224BE60C005F32F8 /* AppDependencyMock.swift in Sources */,

@@ -47,10 +47,10 @@ class GradesAPIMock: GradesAPIProtocol {
 		return Observable.just(Course(code: code, name: "Programming paradigmas"))
 	}
 	
-	func getCourseStudentClassification(username: String, code: String) -> Observable<CourseStudent> {
+	func getCourseStudentClassification(username: String, code: String) -> Observable<[Classification]> {
 		switch result {
 		case .success:
-			return Observable<CourseStudent>.just(CourseStudent(classifications: CourseStudentMockData.classifications))
+			return Observable.just(CourseStudentMockData.classifications)
 		case .failure:
 			return Observable.error(ApiError.general)
 		}
