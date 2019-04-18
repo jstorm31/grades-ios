@@ -108,6 +108,7 @@
 		96B49FAA223EBF8E00B23A5B /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B49FA9223EBF8E00B23A5B /* Settings.swift */; };
 		96B49FAC223EC1C500B23A5B /* SettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B49FAB223EC1C500B23A5B /* SettingsRepository.swift */; };
 		96C569A22268D99A00B16A7C /* StudentClassificationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A12268D99A00B16A7C /* StudentClassificationViewModelTests.swift */; };
+		96C569A42268E2E900B16A7C /* UISecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A32268E2E900B16A7C /* UISecondaryButton.swift */; };
 		96C7B9CA226069FA00E39F9A /* CoursesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */; };
 		96C7B9CE22607E2000E39F9A /* AppDependency+Factories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C7B9CD22607E2000E39F9A /* AppDependency+Factories.swift */; };
 		96C87472224BEDA9009FB47F /* CoursesRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */; };
@@ -253,6 +254,7 @@
 		96B49FA9223EBF8E00B23A5B /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		96B49FAB223EC1C500B23A5B /* SettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepository.swift; sourceTree = "<group>"; };
 		96C569A12268D99A00B16A7C /* StudentClassificationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassificationViewModelTests.swift; sourceTree = "<group>"; };
+		96C569A32268E2E900B16A7C /* UISecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISecondaryButton.swift; sourceTree = "<group>"; };
 		96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryTests.swift; sourceTree = "<group>"; };
 		96C7B9CD22607E2000E39F9A /* AppDependency+Factories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDependency+Factories.swift"; sourceTree = "<group>"; };
 		96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryMock.swift; sourceTree = "<group>"; };
@@ -564,6 +566,7 @@
 			children = (
 				9686107B222AAED50069B81B /* UIPrimaryButton.swift */,
 				96447792224249CD00E960F4 /* UIPickerLabel.swift */,
+				96C569A32268E2E900B16A7C /* UISecondaryButton.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -1019,6 +1022,7 @@
 				961A8787223F8B3B00846538 /* SettingsViewController.swift in Sources */,
 				96A80A75222F1D0400986A90 /* CourseListViewController.swift in Sources */,
 				9686107E222AB4D40069B81B /* UIView+.swift in Sources */,
+				96C569A42268E2E900B16A7C /* UISecondaryButton.swift in Sources */,
 				9699AB99223256D2006D2F73 /* OverviewItem.swift in Sources */,
 				964181822247E8B20019CABD /* UIViewController+PickerPresentable.swift in Sources */,
 				96939EE6223BB97500A49E57 /* ClassificationType.swift in Sources */,

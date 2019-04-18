@@ -33,3 +33,4 @@
 "teacher.students.classification" = "Klasifikace";
 "teacher.group.students" = "Studenti";
 "teacher.students.title" = "Student";
+"teacher.students.changeButton" = "Změnit";

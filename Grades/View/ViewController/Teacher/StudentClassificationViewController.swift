@@ -12,6 +12,7 @@ import UIKit
 
 final class StudentClassificationViewController: BaseTableViewController, BindableType {
     private var studentNameLabel: UILabel!
+    private var changeStudentButton: UISecondaryButton!
 
     var viewModel: StudentClassificationViewModel!
     private let bag = DisposeBag()
@@ -53,9 +54,10 @@ final class StudentClassificationViewController: BaseTableViewController, Bindab
     private func loadUI() {
         loadRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
+        loadTableHeader()
+    }
 
-        // MARK: Table header with student information
-
+    private func loadTableHeader() {
         let headerView = UIView()
         let containerView = UIView()
         headerView.addSubview(containerView)
@@ -82,6 +84,14 @@ final class StudentClassificationViewController: BaseTableViewController, Bindab
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
         }
         studentNameLabel = studentName
+
+        let button = UISecondaryButton()
+        button.setTitle(L10n.Teacher.Students.changeButton, for: [])
+        containerView.addSubview(button)
+        button.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
 
         tableView.tableHeaderView = headerView
         headerView.snp.makeConstraints { make in
