@@ -111,14 +111,13 @@
 		96C569A42268E2E900B16A7C /* UISecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A32268E2E900B16A7C /* UISecondaryButton.swift */; };
 		96C569A62268E4AF00B16A7C /* UIGradingOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A52268E4AF00B16A7C /* UIGradingOverview.swift */; };
 		96C7B9CA226069FA00E39F9A /* CoursesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */; };
-		96C7B9CE22607E2000E39F9A /* AppDependency+Factories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C7B9CD22607E2000E39F9A /* AppDependency+Factories.swift */; };
 		96C87472224BEDA9009FB47F /* CoursesRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */; };
 		96E8C642224BE60C005F32F8 /* AppDependencyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */; };
 		96E8C644224BE8BA005F32F8 /* SettingsRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C643224BE8BA005F32F8 /* SettingsRepositoryMock.swift */; };
 		96F3A3732239080B00FB63EF /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A3722239080B00FB63EF /* BaseViewModel.swift */; };
 		96F3A37922390F6800FB63EF /* CourseStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A37822390F6800FB63EF /* CourseStudent.swift */; };
 		96F3A37B22390FF200FB63EF /* Classification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A37A22390FF200FB63EF /* Classification.swift */; };
-		96F3A37D2239124F00FB63EF /* CourseStudentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A37C2239124F00FB63EF /* CourseStudentRepository.swift */; };
+		96F3A37D2239124F00FB63EF /* CourseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A37C2239124F00FB63EF /* CourseRepository.swift */; };
 		96F3A3812239A84F00FB63EF /* DynamicValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A3802239A84F00FB63EF /* DynamicValue.swift */; };
 		96F3A3832239B02E00FB63EF /* ClassificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A3822239B02E00FB63EF /* ClassificationCell.swift */; };
 		96F3A3852239B4B200FB63EF /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A3842239B4B200FB63EF /* BaseTableViewController.swift */; };
@@ -258,14 +257,13 @@
 		96C569A32268E2E900B16A7C /* UISecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISecondaryButton.swift; sourceTree = "<group>"; };
 		96C569A52268E4AF00B16A7C /* UIGradingOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGradingOverview.swift; sourceTree = "<group>"; };
 		96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryTests.swift; sourceTree = "<group>"; };
-		96C7B9CD22607E2000E39F9A /* AppDependency+Factories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDependency+Factories.swift"; sourceTree = "<group>"; };
 		96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryMock.swift; sourceTree = "<group>"; };
 		96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencyMock.swift; sourceTree = "<group>"; };
 		96E8C643224BE8BA005F32F8 /* SettingsRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepositoryMock.swift; sourceTree = "<group>"; };
 		96F3A3722239080B00FB63EF /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		96F3A37822390F6800FB63EF /* CourseStudent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStudent.swift; sourceTree = "<group>"; };
 		96F3A37A22390FF200FB63EF /* Classification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classification.swift; sourceTree = "<group>"; };
-		96F3A37C2239124F00FB63EF /* CourseStudentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStudentRepository.swift; sourceTree = "<group>"; };
+		96F3A37C2239124F00FB63EF /* CourseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRepository.swift; sourceTree = "<group>"; };
 		96F3A3802239A84F00FB63EF /* DynamicValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicValue.swift; sourceTree = "<group>"; };
 		96F3A3822239B02E00FB63EF /* ClassificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationCell.swift; sourceTree = "<group>"; };
 		96F3A3842239B4B200FB63EF /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
@@ -337,7 +335,6 @@
 				961BCE80222C515700BD6663 /* GradesAPI.swift */,
 				963C62832233B7C000B01818 /* HttpService.swift */,
 				961FC4F72244118B000A4CDA /* AppDependency.swift */,
-				96C7B9CD22607E2000E39F9A /* AppDependency+Factories.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -706,7 +703,7 @@
 		96F3A37722390F3500FB63EF /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				96F3A37C2239124F00FB63EF /* CourseStudentRepository.swift */,
+				96F3A37C2239124F00FB63EF /* CourseRepository.swift */,
 				96B49FAB223EC1C500B23A5B /* SettingsRepository.swift */,
 				9654A4F6224641A000778ED1 /* CoursesRepository.swift */,
 				9641817F2247C5570019CABD /* TeacherRepository.swift */,
@@ -1015,13 +1012,12 @@
 				9641817A2247BE6C0019CABD /* StudentGroup.swift in Sources */,
 				96C569A62268E4AF00B16A7C /* UIGradingOverview.swift in Sources */,
 				96F3A37B22390FF200FB63EF /* Classification.swift in Sources */,
-				96F3A37D2239124F00FB63EF /* CourseStudentRepository.swift in Sources */,
+				96F3A37D2239124F00FB63EF /* CourseRepository.swift in Sources */,
 				966ABB59222DA2DF007DD046 /* User.swift in Sources */,
 				968D05C222625CC2003F7D49 /* StudentClassification.swift in Sources */,
 				963C62842233B7C000B01818 /* HttpService.swift in Sources */,
 				961A8789223FFC3300846538 /* UITextField+.swift in Sources */,
 				96861070222AA4550069B81B /* BaseViewController.swift in Sources */,
-				96C7B9CE22607E2000E39F9A /* AppDependency+Factories.swift in Sources */,
 				96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */,
 				961A8787223F8B3B00846538 /* SettingsViewController.swift in Sources */,
 				96A80A75222F1D0400986A90 /* CourseListViewController.swift in Sources */,

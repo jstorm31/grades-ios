@@ -22,6 +22,14 @@ final class StudentClassificationViewModel {
         selectedStudent.unwrap().map { $0.name }.share()
     }()
 
+    lazy var totalPoints: Observable<String> = {
+        Observable.just("Celkem 75 b")
+    }()
+
+    lazy var finalGrade: Observable<String> = {
+        Observable.just("C")
+    }()
+
     // MARK: private properties
 
     private let dependencies: Dependencies

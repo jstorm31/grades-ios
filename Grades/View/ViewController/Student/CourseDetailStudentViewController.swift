@@ -78,7 +78,7 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
             .drive(showNoContent)
             .disposed(by: bag)
 
-        viewModel.isFetching.asDriver()
+        viewModel.isFetching.asDriver(onErrorJustReturn: false)
             .drive(tableView.refreshControl!.rx.isRefreshing)
             .disposed(by: bag)
 
@@ -96,7 +96,7 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
             .drive(headerGradingOverview.pointsLabel.rx.text)
             .disposed(by: bag)
 
-        viewModel.totalGrade
+        viewModel.finalGrade
             .unwrap()
             .do(onNext: { [weak self] grade in
                 self?.headerGradingOverview.gradeLabel.textColor = UIColor.Theme.setGradeColor(forGrade: grade)

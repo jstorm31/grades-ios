@@ -31,10 +31,10 @@ extension AppDependencyMock: HasGradesAPI {}
 extension AppDependencyMock: HasSettingsRepository {}
 extension AppDependencyMock: HasCoursesRepository {}
 
-extension AppDependencyMock: HasCourseStudentRepositoryFactory {
+extension AppDependencyMock: HasCourseRepositoryProtocol {
 	var courseStudentRepositoryFactory: CourseStudentRepositoryFactory {
 		return { username, course in
-			CourseStudentRepository(dependencies: self, username: username, course: course)
+			CourseRepository(dependencies: self, username: username, course: course)
 		}
 	}
 }

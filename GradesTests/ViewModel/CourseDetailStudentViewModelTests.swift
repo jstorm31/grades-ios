@@ -20,7 +20,7 @@ class CourseDetailStudentViewModelTests: XCTestCase {
 	override func setUp() {
 		scheduler = ConcurrentDispatchQueueScheduler(qos: .default)
 		repoMock = CourseStudentRepositoryMock()
-		viewModel = CourseDetailStudentViewModel(coordinator: SceneCoordinatorMock(), repository: repoMock)
+		viewModel = CourseDetailStudentViewModel(coordinator: SceneCoordinatorMock(), )
 	}
 	
 	func testGroupedClassifications() {
@@ -80,7 +80,7 @@ class CourseDetailStudentViewModelTests: XCTestCase {
 	}
 	
 	func testTotalGrade() {
-		let totaPointsObservable = viewModel.totalGrade.subscribeOn(scheduler)
+		let totaPointsObservable = viewModel.finalGrade.subscribeOn(scheduler)
 		viewModel.bindOutput()
 		
 		do {

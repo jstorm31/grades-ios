@@ -14,11 +14,11 @@ import RxBlocking
 
 class CourseStudentRepositoryTests: XCTestCase {
 	var scheduler: ConcurrentDispatchQueueScheduler!
-	var repository: CourseStudentRepository!
+	var repository: CourseRepository!
 
     override func setUp() {
 		scheduler = ConcurrentDispatchQueueScheduler(qos: .default)
-		repository = CourseStudentRepository(dependencies: AppDependencyMock.shared, username: "mockuser", course: StudentCourse(code: "BI-PPA"))
+		repository = CourseRepository(dependencies: AppDependencyMock.shared, username: "mockuser", course: StudentCourse(code: "BI-PPA"))
 	}
 
     override func tearDown() {}

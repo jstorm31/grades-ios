@@ -32,10 +32,7 @@ final class StudentClassificationViewController: BaseTableViewController, Bindab
     // MARK: binding
 
     func bindViewModel() {
-        viewModel.studentName.bind(to: studentNameLabel.rx.text).disposed(by: bag)
-
-        gradingOverview.pointsLabel.text = "22"
-        gradingOverview.gradeLabel.text = "C"
+        bindOverview()
 
         let loading = viewModel.isloading.share(replay: 1, scope: .whileConnected)
 
@@ -50,6 +47,18 @@ final class StudentClassificationViewController: BaseTableViewController, Bindab
 
         viewModel.error.asDriver(onErrorJustReturn: ApiError.general)
             .drive(view.rx.errorMessage)
+            .disposed(by: bag)
+    }
+
+    private func bindOverview() {
+        viewModel.studentName.bind(to: studentNameLabel.rx.text).disposed(by: bag)
+        viewModel.totalPoints.bind(to: gradingOverview.pointsLabel.rx.text).disposed(by: bag)
+
+        viewModel.finalGrade
+            .do(onNext: { [weak self] grade in
+                self?.gradingOverview.gradeLabel.textColor = UIColor.Theme.setGradeColor(forGrade: grade)
+            })
+            .bind(to: gradingOverview.gradeLabel.rx.text)
             .disposed(by: bag)
     }
 
