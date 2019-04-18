@@ -13,6 +13,7 @@ import UIKit
 final class StudentClassificationViewController: BaseTableViewController, BindableType {
     private var studentNameLabel: UILabel!
     private var changeStudentButton: UISecondaryButton!
+    private var gradingOverview: UIGradingOverview!
 
     var viewModel: StudentClassificationViewModel!
     private let bag = DisposeBag()
@@ -32,6 +33,9 @@ final class StudentClassificationViewController: BaseTableViewController, Bindab
 
     func bindViewModel() {
         viewModel.studentName.bind(to: studentNameLabel.rx.text).disposed(by: bag)
+
+        gradingOverview.pointsLabel.text = "22"
+        gradingOverview.gradeLabel.text = "C"
 
         let loading = viewModel.isloading.share(replay: 1, scope: .whileConnected)
 
@@ -62,7 +66,7 @@ final class StudentClassificationViewController: BaseTableViewController, Bindab
         let containerView = UIView()
         headerView.addSubview(containerView)
         containerView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(20)
+            make.edges.equalToSuperview()
         }
 
         let titleLabel = UILabel()
@@ -89,9 +93,17 @@ final class StudentClassificationViewController: BaseTableViewController, Bindab
         button.setTitle(L10n.Teacher.Students.changeButton, for: [])
         containerView.addSubview(button)
         button.snp.makeConstraints { make in
-            make.top.equalToSuperview()
             make.trailing.equalToSuperview()
+            make.centerY.equalTo(titleLabel.snp.centerY)
         }
+
+        let gradingView = UIGradingOverview()
+        containerView.addSubview(gradingView)
+        gradingView.snp.makeConstraints { make in
+            make.trailing.equalToSuperview()
+            make.centerY.equalTo(studentName.snp.centerY)
+        }
+        gradingOverview = gradingView
 
         tableView.tableHeaderView = headerView
         headerView.snp.makeConstraints { make in
