@@ -33,7 +33,10 @@ final class TeacherClassificationViewModel: BaseViewModel, TeacherClassification
     }()
 
     private lazy var studentClassificationScene: Scene = {
-        let viewModel = StudentClassificationViewModel()
+        let viewModel = StudentClassificationViewModel(
+			dependencies: AppDependency.shared,
+			coordinator: coordinator
+		)
         return .studentClassification(viewModel)
     }()
 
