@@ -12,11 +12,13 @@ import RxSwift
 import SnapKit
 import UIKit
 
-class CourseListViewController: BaseTableViewController, BindableType {
+class CourseListViewController: BaseTableViewController, TableDataSource, BindableType {
     var viewModel: CourseListViewModel!
     private let bag = DisposeBag()
 
-    private let dataSource = CourseListViewController.dataSource()
+    internal var dataSource = configureDataSource()
+
+    // MARK: Lifecycle
 
     override func loadView() {
         super.loadView()
@@ -24,13 +26,14 @@ class CourseListViewController: BaseTableViewController, BindableType {
         loadRefreshControl()
 
         navigationItem.title = L10n.Courses.title
-        tableView.register(StudentCourseCell.self, forCellReuseIdentifier: "StudentCourseCell")
-        tableView.register(TeacherCourseCell.self, forCellReuseIdentifier: "TeacherCourseCell")
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        tableView.register(StudentCourseCell.self, forCellReuseIdentifier: "StudentCourseCell")
+        tableView.register(TeacherCourseCell.self, forCellReuseIdentifier: "TeacherCourseCell")
 
         tableView.rx.itemSelected.asDriver()
             .drive(onNext: { [weak self] indexPath in
@@ -59,17 +62,19 @@ class CourseListViewController: BaseTableViewController, BindableType {
         viewModel.bindOutput()
     }
 
+    // MARK: Bidning
+
     func bindViewModel() {
         let coursesObservable = viewModel.courses.share()
 
         coursesObservable
             .map { coursesByRoles in
                 [
-                    CourseGroup(
+                    TableSection(
                         header: L10n.Courses.studying,
                         items: coursesByRoles.student.map { StudentCourseCellConfigurator(item: $0) }
                     ),
-                    CourseGroup(
+                    TableSection(
                         header: L10n.Courses.teaching,
                         items: coursesByRoles.teacher.map { TeacherCourseCellConfigurator(item: $0) }
                     )
@@ -80,8 +85,8 @@ class CourseListViewController: BaseTableViewController, BindableType {
             .disposed(by: bag)
 
         coursesObservable
-            .map { $0.student.isEmpty && $0.teacher.isEmpty }
-            .bind(to: showNoContent)
+            .map { !($0.student.isEmpty && $0.teacher.isEmpty) }
+            .bind(to: noContentLabel.rx.isHidden)
             .disposed(by: bag)
 
         let fetchingObservable = viewModel.isFetchingCourses.share()
@@ -101,21 +106,6 @@ class CourseListViewController: BaseTableViewController, BindableType {
 
     @objc private func refreshControlPulled(_: UIRefreshControl) {
         viewModel.bindOutput()
-    }
-}
-
-extension CourseListViewController {
-    static func dataSource() -> RxTableViewSectionedReloadDataSource<CourseGroup> {
-        return RxTableViewSectionedReloadDataSource<CourseGroup>(
-            configureCell: { _, tableView, indexPath, item in
-                let cell = tableView.dequeueReusableCell(withIdentifier: type(of: item).reuseId, for: indexPath)
-                item.configure(cell: cell)
-                return cell
-            },
-            titleForHeaderInSection: { dataSource, index in
-                dataSource.sectionModels[index].header
-            }
-        )
     }
 }
 

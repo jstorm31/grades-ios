@@ -7,16 +7,21 @@
 //
 
 import RxCocoa
+import RxDataSources
 import RxSwift
 import UIKit
 
-final class StudentClassificationViewController: BaseTableViewController, BindableType {
+final class StudentClassificationViewController: BaseTableViewController, TableDataSource, BindableType {
+    // MARK: Properties
+
     private var studentNameLabel: UILabel!
     private var changeStudentButton: UISecondaryButton!
     private var gradingOverview: UIGradingOverview!
 
     var viewModel: StudentClassificationViewModel!
     private let bag = DisposeBag()
+
+    internal var dataSource = configureDataSource()
 
     // MARK: lifecycle methods
 
@@ -26,6 +31,7 @@ final class StudentClassificationViewController: BaseTableViewController, Bindab
     }
 
     override func viewDidLoad() {
+        tableView.register(DynamicValueCell.self, forCellReuseIdentifier: "DynamicValueCell")
         viewModel.bindOutput()
     }
 
@@ -33,6 +39,12 @@ final class StudentClassificationViewController: BaseTableViewController, Bindab
 
     func bindViewModel() {
         bindOverview()
+
+        let dataSource = viewModel.dataSource.share()
+
+        dataSource.asDriver(onErrorJustReturn: [])
+            .drive(tableView.rx.items(dataSource: self.dataSource))
+            .disposed(by: bag)
 
         let loading = viewModel.isloading.share(replay: 1, scope: .whileConnected)
 
@@ -46,6 +58,13 @@ final class StudentClassificationViewController: BaseTableViewController, Bindab
 
         viewModel.error.asDriver(onErrorJustReturn: ApiError.general)
             .drive(view.rx.errorMessage)
+            .disposed(by: bag)
+
+        dataSource
+            .map { $0.isEmpty ? true : !$0[0].items.isEmpty }
+            .debug()
+            .asDriver(onErrorJustReturn: true)
+            .drive(noContentLabel.rx.isHidden)
             .disposed(by: bag)
     }
 
@@ -136,5 +155,11 @@ final class StudentClassificationViewController: BaseTableViewController, Bindab
 
     @objc private func refreshControlPulled(_: UIRefreshControl) {
         viewModel.bindOutput()
+    }
+}
+
+extension StudentClassificationViewController: UITableViewDelegate {
+    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
+        return 60
     }
 }

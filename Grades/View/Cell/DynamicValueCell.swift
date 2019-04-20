@@ -11,7 +11,11 @@ import RxSwift
 import SnapKit
 import UIKit
 
-final class DynamicValueCell: UITableViewCell {
+typealias DynamicValueCellConfigurator = TableCellConfigurator<DynamicValueCell, DynamicValueCellViewModel>
+
+final class DynamicValueCell: UITableViewCell, ConfigurableCell {
+    typealias DataType = DynamicValueCellViewModel
+
     private var titleLabel: UILabel!
     private var subtitleLabel: UILabel!
     private var fieldLabel: UILabel!
@@ -37,12 +41,16 @@ final class DynamicValueCell: UITableViewCell {
         bag = DisposeBag()
     }
 
-    func setup(viewModel: DynamicValueCellViewModel) {
-        self.viewModel = viewModel
+    // MARK: Configuration
+
+    func configure(data cellViewModel: DynamicValueCell.DataType) {
+        viewModel = cellViewModel
         bindViewModel()
         viewModel.bindOutput()
         bindOutput()
     }
+
+    // MARK: Binding
 
     private func bindOutput() {
         valueTextField.rx.text
@@ -74,7 +82,6 @@ final class DynamicValueCell: UITableViewCell {
 
         viewModel.stringValue
             .distinctUntilChanged()
-            .do(onNext: { Log.debug("Cell: \(self.subtitleLabel.text) \($0)") })
             .asDriver(onErrorJustReturn: nil)
             .drive(valueTextField.rx.text)
             .disposed(by: bag)

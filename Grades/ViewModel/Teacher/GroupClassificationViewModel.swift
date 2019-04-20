@@ -15,7 +15,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
 
     // MARK: public properties
 
-    let studentsClassification = BehaviorRelay<[TableSection]>(value: [])
+    let studentsClassification = BehaviorRelay<[TableSectionPolymorphic]>(value: [])
     let classificationValueType = BehaviorRelay<DynamicValueType?>(value: nil)
     let fieldValues = BehaviorRelay<[String: DynamicValue?]>(value: [:])
     let isloading = PublishSubject<Bool>()
@@ -56,16 +56,16 @@ final class GroupClassificationViewModel: TablePickerViewModel {
          2) Get items for chosen group and classification
          */
         Observable.combineLatest(groupSelectedIndex, classificationSelectedIndex) { ($0, $1) }
-            .flatMap { [weak self] indexes -> Observable<TableSection> in
+            .flatMap { [weak self] indexes -> Observable<TableSectionPolymorphic> in
                 guard let `self` = self else {
-                    return Observable.just(TableSection(header: "", items: []))
+                    return Observable.just(TableSectionPolymorphic(header: "", items: []))
                 }
 
                 return Observable.zip(
                     self.repository.groups,
                     self.repository.classifications
-                ) { (groups, classifications) -> TableSection in
-                    TableSection(header: "", items: [
+                ) { (groups, classifications) -> TableSectionPolymorphic in
+                    TableSectionPolymorphic(header: "", items: [
                         CellItemType.picker(
                             title: L10n.Teacher.Students.group,
                             options: groups.map { $0.id },
@@ -81,7 +81,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
             }
             .flatMap { [weak self] headerSection in
                 self?.buildDatasourceItems(groupClassifications).map { studentClassifications in
-                    [headerSection, TableSection(header: L10n.Teacher.Group.students, items: studentClassifications)]
+                    [headerSection, TableSectionPolymorphic(header: L10n.Teacher.Group.students, items: studentClassifications)]
                 }.asObservable() ?? Observable.just([])
             }
             .bind(to: studentsClassification)

@@ -97,18 +97,3 @@ struct CoursesByRoles {
     var student: [StudentCourse]
     var teacher: [TeacherCourse]
 }
-
-/// Type for grouping courses
-struct CourseGroup {
-    var header: String
-    var items: [CellConfigurator]
-}
-
-extension CourseGroup: SectionModelType {
-    typealias Item = CellConfigurator
-
-    init(original: CourseGroup, items: [Item]) {
-        self = original
-        self.items = items
-    }
-}

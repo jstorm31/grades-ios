@@ -73,9 +73,9 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
             .disposed(by: bag)
 
         classificationsObservable
-            .map { $0.isEmpty }
+            .map { !$0.isEmpty }
             .asDriver(onErrorJustReturn: true)
-            .drive(showNoContent)
+            .drive(noContentLabel.rx.isHidden)
             .disposed(by: bag)
 
         viewModel.isFetching.asDriver(onErrorJustReturn: false)

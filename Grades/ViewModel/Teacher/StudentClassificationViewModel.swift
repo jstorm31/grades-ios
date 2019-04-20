@@ -14,6 +14,7 @@ final class StudentClassificationViewModel {
 
     // MARK: public properties
 
+    let dataSource = BehaviorRelay<[TableSection]>(value: [])
     let students = BehaviorRelay<[User]>(value: [])
     let isloading = BehaviorSubject<Bool>(value: false)
     let error = BehaviorSubject<Error?>(value: nil)
@@ -53,6 +54,10 @@ final class StudentClassificationViewModel {
 
     func bindOutput() {
         bindStudents()
+        bindDataSource()
+
+        dependencies.courseRepository.isFetching.bind(to: isloading).disposed(by: bag)
+        dependencies.courseRepository.error.bind(to: error).disposed(by: bag)
     }
 
     private func bindStudents() {
@@ -68,7 +73,6 @@ final class StudentClassificationViewModel {
 
         // If student is not selected, select first in student's array
         selectedStudent
-            .trackActivity(activityIndicator)
             .filter { $0 == nil }
             .flatMap { _ in
                 students.filter({ !$0.isEmpty }).map({ $0[0] })
@@ -78,15 +82,31 @@ final class StudentClassificationViewModel {
 
         let overview = selectedStudent.unwrap()
             .flatMap { [weak self] student -> Observable<StudentOverview> in
-                guard let `self` = self else { return Observable.empty() }
-                return self.dependencies.courseRepository.overview(forStudent: student.username).debug()
+                self?.dependencies.courseRepository.overview(forStudent: student.username) ?? Observable.empty()
             }
+            .trackActivity(activityIndicator)
             .share()
 
         overview.map({ $0.totalPoints }).bind(to: totalPoints).disposed(by: bag)
         overview.map({ $0.finalGrade }).bind(to: finalGrade).disposed(by: bag)
+    }
 
-        dependencies.courseRepository.isFetching.bind(to: isloading).disposed(by: bag)
-        dependencies.courseRepository.error.bind(to: error).disposed(by: bag)
+    private func bindDataSource() {
+        selectedStudent.unwrap()
+            .flatMap { [weak self] student -> Observable<[Classification]> in
+                self?.dependencies.courseRepository.classifications(forStudent: student.username) ?? Observable.just([])
+            }
+            .map { $0.map { classification in
+                let cellViewModel = DynamicValueCellViewModel(key: classification.identifier, title: classification.getLocalizedText())
+
+                // TODO: setup cellVM bindings
+
+                return DynamicValueCellConfigurator(item: cellViewModel)
+            } }
+            .map { cells in
+                [TableSection(header: L10n.Teacher.Students.grading, items: cells)]
+            }
+            .bind(to: dataSource)
+            .disposed(by: bag)
     }
 }
