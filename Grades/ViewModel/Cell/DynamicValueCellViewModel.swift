@@ -13,7 +13,7 @@ final class DynamicValueCellViewModel {
     let title: String?
     let subtitle: String?
 
-    let value = PublishSubject<DynamicValue?>()
+    let value = BehaviorSubject<DynamicValue?>(value: nil)
     let bag = DisposeBag()
 
     // MARK: Cell output
@@ -33,7 +33,7 @@ final class DynamicValueCellViewModel {
     // MARK: Binding
 
     func bindOutput() {
-        let sharedValue = value.share()
+        let sharedValue = value.share(replay: 1, scope: .forever)
 
         sharedValue
             .unwrap()
