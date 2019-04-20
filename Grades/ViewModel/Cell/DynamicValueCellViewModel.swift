@@ -33,16 +33,16 @@ final class DynamicValueCellViewModel {
     // MARK: Binding
 
     func bindOutput() {
-        let sharedValue = value.share(replay: 1, scope: .forever)
+        let sharedValue = value.share(replay: 1, scope: .whileConnected).debug()
 
         sharedValue
             .unwrap()
             .map { type -> Bool in
                 switch type {
                 case .string, .number:
-                    return false
-                case .bool:
                     return true
+                case .bool:
+                    return false
                 }
             }
             .bind(to: showTextField)
@@ -73,7 +73,7 @@ final class DynamicValueCellViewModel {
                 }
                 return nil
             }
-            .map { $0 != nil }
+            .map { $0 == nil ? false : $0! }
             .bind(to: boolValue)
             .disposed(by: bag)
     }

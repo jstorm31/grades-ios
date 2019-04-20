@@ -94,9 +94,9 @@ final class DynamicValueCell: UITableViewCell, ConfigurableCell {
 
         // Show / hide controls
         let sharedShowTextField = viewModel.showTextField.share()
-        sharedShowTextField.asDriver(onErrorJustReturn: false).drive(valueTextField.rx.isHidden).disposed(by: bag)
-        sharedShowTextField.asDriver(onErrorJustReturn: false).drive(fieldLabel.rx.isHidden).disposed(by: bag)
-        sharedShowTextField.map { !$0 }.asDriver(onErrorJustReturn: true).drive(valueSwitch.rx.isHidden).disposed(by: bag)
+        sharedShowTextField.map { !$0 }.asDriver(onErrorJustReturn: false).drive(valueTextField.rx.isHidden).disposed(by: bag)
+        sharedShowTextField.map { !$0 }.asDriver(onErrorJustReturn: false).drive(fieldLabel.rx.isHidden).disposed(by: bag)
+        sharedShowTextField.asDriver(onErrorJustReturn: true).drive(valueSwitch.rx.isHidden).disposed(by: bag)
     }
 
     // MARK: UI setup

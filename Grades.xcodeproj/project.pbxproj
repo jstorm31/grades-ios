@@ -111,6 +111,7 @@
 		96C569A62268E4AF00B16A7C /* UIGradingOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A52268E4AF00B16A7C /* UIGradingOverview.swift */; };
 		96C569A8226B0A9300B16A7C /* TableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A7226B0A9300B16A7C /* TableDataSource.swift */; };
 		96C569AA226B18B800B16A7C /* DynamicValueFieldArrayViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A9226B18B800B16A7C /* DynamicValueFieldArrayViewModelProtocol.swift */; };
+		96C569AC226B623600B16A7C /* DynamicValueCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569AB226B623600B16A7C /* DynamicValueCellViewModelTests.swift */; };
 		96C7B9CA226069FA00E39F9A /* CoursesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */; };
 		96C87472224BEDA9009FB47F /* CoursesRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */; };
 		96E8C642224BE60C005F32F8 /* AppDependencyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */; };
@@ -258,6 +259,7 @@
 		96C569A52268E4AF00B16A7C /* UIGradingOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGradingOverview.swift; sourceTree = "<group>"; };
 		96C569A7226B0A9300B16A7C /* TableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableDataSource.swift; sourceTree = "<group>"; };
 		96C569A9226B18B800B16A7C /* DynamicValueFieldArrayViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicValueFieldArrayViewModelProtocol.swift; sourceTree = "<group>"; };
+		96C569AB226B623600B16A7C /* DynamicValueCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicValueCellViewModelTests.swift; sourceTree = "<group>"; };
 		96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryTests.swift; sourceTree = "<group>"; };
 		96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryMock.swift; sourceTree = "<group>"; };
 		96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencyMock.swift; sourceTree = "<group>"; };
@@ -641,6 +643,7 @@
 				963C628C22342ED300B01818 /* LoginViewModelTests.swift */,
 				96580713222FFA810065E23D /* CourseListViewModelTests.swift */,
 				96C569A12268D99A00B16A7C /* StudentClassificationViewModelTests.swift */,
+				96C569AB226B623600B16A7C /* DynamicValueCellViewModelTests.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1071,6 +1074,7 @@
 			files = (
 				96939EE1223B970600A49E57 /* CourseRepositoryTests.swift in Sources */,
 				96939EE4223B98BA00A49E57 /* CourseStudent.swift in Sources */,
+				96C569AC226B623600B16A7C /* DynamicValueCellViewModelTests.swift in Sources */,
 				965ADAF32235976300AA8CF4 /* Result.swift in Sources */,
 				96E8C642224BE60C005F32F8 /* AppDependencyMock.swift in Sources */,
 				96939EF4223C274C00A49E57 /* CourseStudentRepositoryMock.swift in Sources */,
