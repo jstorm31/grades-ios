@@ -68,6 +68,7 @@ final class StudentClassificationViewModel {
 
         // If student is not selected, select first in student's array
         selectedStudent
+            .trackActivity(activityIndicator)
             .filter { $0 == nil }
             .flatMap { _ in
                 students.filter({ !$0.isEmpty }).map({ $0[0] })
