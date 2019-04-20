@@ -11,17 +11,32 @@ import RxSwift
 final class DynamicValueCellViewModel {
     let key: String
     let title: String?
+    let subtitle: String?
 
     let value = PublishSubject<DynamicValue?>()
     let bag = DisposeBag()
 
     // MARK: Cell output
 
+    let showTextField = PublishSubject<Bool>()
     let stringValue = PublishSubject<String?>()
     let boolValue = PublishSubject<Bool>()
 
-    lazy var showTextField: Observable<Bool> = {
-        value.unwrap()
+    // MARK: Initialization
+
+    init(key: String, title: String? = nil, subtitle: String? = nil) {
+        self.key = key
+        self.title = title
+        self.subtitle = subtitle
+    }
+
+    // MARK: Binding
+
+    func bindOutput() {
+        let sharedValue = value.share()
+
+        sharedValue
+            .unwrap()
             .map { type -> Bool in
                 switch type {
                 case .string, .number:
@@ -30,20 +45,8 @@ final class DynamicValueCellViewModel {
                     return true
                 }
             }
-            .share()
-    }()
-
-    // MARK: Initialization
-
-    init(key: String, title: String? = nil) {
-        self.key = key
-        self.title = title
-    }
-
-    // MARK: Binding
-
-    func bindOutput() {
-        let sharedValue = value.share()
+            .bind(to: showTextField)
+            .disposed(by: bag)
 
         sharedValue
             .map { (value: DynamicValue?) -> String? in

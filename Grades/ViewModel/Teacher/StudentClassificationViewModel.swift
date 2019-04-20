@@ -51,7 +51,7 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
             .bind(to: isloading)
             .disposed(by: bag)
 
-        fieldValues.debug().subscribe(onNext: { _ in }).disposed(by: bag)
+        fieldValues.subscribe(onNext: { Log.debug("\($0)") }).disposed(by: bag)
     }
 
     // MARK: Bindings

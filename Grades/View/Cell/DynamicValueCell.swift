@@ -76,7 +76,7 @@ final class DynamicValueCell: UITableViewCell, ConfigurableCell {
 
     private func bindViewModel() {
         titleLabel.text = viewModel.title
-        subtitleLabel.text = viewModel.key
+        subtitleLabel.text = viewModel.subtitle
 
         // Bind values to controls
 
@@ -93,9 +93,10 @@ final class DynamicValueCell: UITableViewCell, ConfigurableCell {
             .disposed(by: bag)
 
         // Show / hide controls
-        viewModel.showTextField.asDriver(onErrorJustReturn: false).drive(valueTextField.rx.isHidden).disposed(by: bag)
-        viewModel.showTextField.asDriver(onErrorJustReturn: false).drive(fieldLabel.rx.isHidden).disposed(by: bag)
-        viewModel.showTextField.map { !$0 }.asDriver(onErrorJustReturn: true).drive(valueSwitch.rx.isHidden).disposed(by: bag)
+        let sharedShowTextField = viewModel.showTextField.share()
+        sharedShowTextField.asDriver(onErrorJustReturn: false).drive(valueTextField.rx.isHidden).disposed(by: bag)
+        sharedShowTextField.asDriver(onErrorJustReturn: false).drive(fieldLabel.rx.isHidden).disposed(by: bag)
+        sharedShowTextField.map { !$0 }.asDriver(onErrorJustReturn: true).drive(valueSwitch.rx.isHidden).disposed(by: bag)
     }
 
     // MARK: UI setup
