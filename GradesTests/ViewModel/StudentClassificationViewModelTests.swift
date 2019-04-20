@@ -30,7 +30,7 @@ class StudentClassificationViewModelTests: XCTestCase {
 		viewModel.bindOutput()
 		
 		do {
-			guard let students = try studentsObservable.toBlocking(timeout: 2).first() else {
+			guard let students = try studentsObservable.skip(1).toBlocking(timeout: 2).first() else {
 				XCTFail("should not be nil")
 				return
 			}
@@ -64,7 +64,7 @@ class StudentClassificationViewModelTests: XCTestCase {
 		viewModel.bindOutput()
 		
 		do {
-			guard let result = try errorObservable.toBlocking(timeout: 2).first() else {
+			guard let result = try errorObservable.skip(1).toBlocking(timeout: 2).first() else {
 				XCTFail("should not be nil")
 				return
 			}

@@ -113,9 +113,9 @@ class GradesAPIMock: GradesAPIProtocol {
 				User(userId: 1, username: "kucerj48", firstName: "Jan", lastName: "Kučera"),
 				User(userId: 2, username: "janatpa3", firstName: "Pavel", lastName: "Janata"),
 				User(userId: 3, username: "ottastep", firstName: "Štěpán", lastName: "Otta")
-			])
+			]).delaySubscription(0.5, scheduler: MainScheduler.instance)
 		case .failure:
-			return Observable.error(ApiError.general)
+			return Observable.error(ApiError.general).delaySubscription(0.5, scheduler: MainScheduler.instance)
 		}
 	}
 }

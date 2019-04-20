@@ -50,8 +50,6 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
             .asObservable()
             .bind(to: isloading)
             .disposed(by: bag)
-
-        fieldValues.subscribe(onNext: { Log.debug("\($0)") }).disposed(by: bag)
     }
 
     // MARK: Bindings
@@ -71,7 +69,7 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
                 self?.error.onNext(error)
                 return Observable.just([])
             }
-            .share()
+            .share(replay: 1, scope: .whileConnected)
 
         students.bind(to: self.students).disposed(by: bag)
 
