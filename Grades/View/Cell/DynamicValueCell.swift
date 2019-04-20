@@ -64,13 +64,13 @@ final class DynamicValueCell: UITableViewCell, ConfigurableCell {
                     return DynamicValue.string(text)
                 }
             }
-            .bind(to: viewModel.valueOutput)
+            .bind(to: viewModel.value)
             .disposed(by: bag)
 
         valueSwitch.rx.isOn
             .skip(1)
             .map { DynamicValue.bool($0) }
-            .bind(to: viewModel.valueOutput)
+            .bind(to: viewModel.value)
             .disposed(by: bag)
     }
 
@@ -93,21 +93,9 @@ final class DynamicValueCell: UITableViewCell, ConfigurableCell {
             .disposed(by: bag)
 
         // Show / hide controls
-
-        let showTextField = viewModel.valueType
-            .map { type -> Bool in
-                switch type {
-                case .string, .number:
-                    return false
-                case .bool:
-                    return true
-                }
-            }
-            .share()
-
-        showTextField.asDriver(onErrorJustReturn: false).drive(valueTextField.rx.isHidden).disposed(by: bag)
-        showTextField.asDriver(onErrorJustReturn: false).drive(fieldLabel.rx.isHidden).disposed(by: bag)
-        showTextField.map { !$0 }.asDriver(onErrorJustReturn: true).drive(valueSwitch.rx.isHidden).disposed(by: bag)
+        viewModel.showTextField.asDriver(onErrorJustReturn: false).drive(valueTextField.rx.isHidden).disposed(by: bag)
+        viewModel.showTextField.asDriver(onErrorJustReturn: false).drive(fieldLabel.rx.isHidden).disposed(by: bag)
+        viewModel.showTextField.map { !$0 }.asDriver(onErrorJustReturn: true).drive(valueSwitch.rx.isHidden).disposed(by: bag)
     }
 
     // MARK: UI setup

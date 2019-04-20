@@ -10,14 +10,13 @@ import Action
 import RxCocoa
 import RxSwift
 
-final class GroupClassificationViewModel: TablePickerViewModel {
+final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFieldArrayViewModelProtocol {
     typealias Dependencies = HasTeacherRepository
 
     // MARK: public properties
 
     let studentsClassification = BehaviorRelay<[TableSectionPolymorphic]>(value: [])
-    let classificationValueType = BehaviorRelay<DynamicValueType?>(value: nil)
-    let fieldValues = BehaviorRelay<[String: DynamicValue?]>(value: [:])
+    let fieldValues = BehaviorRelay<GroupClassificationViewModel.FieldsDict>(value: [:])
     let isloading = PublishSubject<Bool>()
     let error = PublishSubject<Error>()
 
@@ -108,28 +107,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
                         title: "\(item.lastName ?? "") \(item.firstName ?? "")"
                     )
 
-                    // Bind cell's output to view model
-                    cellViewModel.valueOutput
-                        .map { value in
-                            var fieldValues = self.fieldValues.value
-                            fieldValues[cellViewModel.key] = value
-                            return fieldValues
-                        }
-                        .bind(to: self.fieldValues)
-                        .disposed(by: cellViewModel.bag)
-
-                    // Bind values to cell ViewModel
-                    self.fieldValues
-                        .map { $0[cellViewModel.key] ?? nil }
-                        .do(onNext: { Log.debug("VM: \(cellViewModel.key): \($0)") })
-                        .bind(to: cellViewModel.valueInput)
-                        .disposed(by: cellViewModel.bag)
-
-                    self.classificationValueType
-                        .unwrap()
-                        .bind(to: cellViewModel.valueType)
-                        .disposed(by: cellViewModel.bag)
-
+                    self.bind(cellViewModel: cellViewModel)
                     return .dynamicValue(viewModel: cellViewModel)
                 }
             }
@@ -157,9 +135,9 @@ final class GroupClassificationViewModel: TablePickerViewModel {
 
         let groupCode = repository.groups.value[groupSelectedIndex.value]
         let classificationId = repository.classifications.value[classificationSelectedIndex.value]
-        let valueType = repository.classifications.value[classificationSelectedIndex.value].valueType
+        // TODO: pořešit value type pro celou tabulku vs. pro jednotlivé buňky
+        //        let valueType = repository.classifications.value[classificationSelectedIndex.value].valueType
 
-        classificationValueType.accept(valueType)
         repository.studentsFor(course: course.code, groupCode: groupCode.id, classificationId: classificationId.identifier)
     }
 }

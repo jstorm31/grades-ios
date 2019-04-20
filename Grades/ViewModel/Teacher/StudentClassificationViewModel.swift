@@ -9,7 +9,7 @@
 import RxCocoa
 import RxSwift
 
-final class StudentClassificationViewModel {
+final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArrayViewModelProtocol {
     typealias Dependencies = HasGradesAPI & HasCourseRepository
 
     // MARK: public properties
@@ -20,6 +20,8 @@ final class StudentClassificationViewModel {
     let error = BehaviorSubject<Error?>(value: nil)
     let totalPoints = PublishSubject<Double?>()
     let finalGrade = PublishSubject<String?>()
+    let valueType = PublishSubject<DynamicValueType?>()
+    let fieldValues = BehaviorRelay<[String: DynamicValue?]>(value: [:])
 
     lazy var studentName: Observable<String> = {
         selectedStudent.unwrap().map { $0.name }.share()
@@ -48,6 +50,8 @@ final class StudentClassificationViewModel {
             .asObservable()
             .bind(to: isloading)
             .disposed(by: bag)
+
+        fieldValues.debug().subscribe(onNext: { _ in }).disposed(by: bag)
     }
 
     // MARK: Bindings
@@ -92,21 +96,31 @@ final class StudentClassificationViewModel {
     }
 
     private func bindDataSource() {
-        selectedStudent.unwrap()
+        // Get classifications
+        let classifications = selectedStudent.unwrap()
             .flatMap { [weak self] student -> Observable<[Classification]> in
                 self?.dependencies.courseRepository.classifications(forStudent: student.username) ?? Observable.just([])
             }
-            .map { $0.map { classification in
-                let cellViewModel = DynamicValueCellViewModel(key: classification.identifier, title: classification.getLocalizedText())
+            .share()
 
-                // TODO: setup cellVM bindings
+        // Bind to data source
+        classifications
+            .map { [weak self] classifications in
+                classifications.map { classification in
+                    let cellViewModel = DynamicValueCellViewModel(key: classification.identifier, title: classification.getLocalizedText())
+                    self?.bind(cellViewModel: cellViewModel)
 
-                return DynamicValueCellConfigurator(item: cellViewModel)
-            } }
-            .map { cells in
-                [TableSection(header: L10n.Teacher.Students.grading, items: cells)]
+                    return DynamicValueCellConfigurator(item: cellViewModel)
+                }
             }
+            .map { [TableSection(header: L10n.Teacher.Students.grading, items: $0)] }
             .bind(to: dataSource)
+            .disposed(by: bag)
+
+        // Bind to fields array
+        classifications
+            .map { Dictionary(uniqueKeysWithValues: $0.map { ($0.identifier, $0.value) }) }
+            .bind(to: fieldValues)
             .disposed(by: bag)
     }
 }

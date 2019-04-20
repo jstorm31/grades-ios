@@ -12,24 +12,38 @@ final class DynamicValueCellViewModel {
     let key: String
     let title: String?
 
-    let valueType = PublishSubject<DynamicValueType>()
+    let value = PublishSubject<DynamicValue?>()
+    let bag = DisposeBag()
+
+    // MARK: Cell output
+
     let stringValue = PublishSubject<String?>()
     let boolValue = PublishSubject<Bool>()
 
-    let valueInput = PublishSubject<DynamicValue?>()
-    let valueOutput = PublishSubject<DynamicValue>()
+    lazy var showTextField: Observable<Bool> = {
+        value.unwrap()
+            .map { type -> Bool in
+                switch type {
+                case .string, .number:
+                    return false
+                case .bool:
+                    return true
+                }
+            }
+            .share()
+    }()
 
-    let bag = DisposeBag()
+    // MARK: Initialization
 
     init(key: String, title: String? = nil) {
         self.key = key
         self.title = title
-
-        valueInput.subscribe(onNext: { Log.debug("Cell VM: \(key): \($0)") }).disposed(by: bag)
     }
 
+    // MARK: Binding
+
     func bindOutput() {
-        let sharedValue = valueInput.share()
+        let sharedValue = value.share()
 
         sharedValue
             .map { (value: DynamicValue?) -> String? in
@@ -44,7 +58,6 @@ final class DynamicValueCellViewModel {
                     return nil
                 }
             }
-            .do(onNext: { Log.debug("After unwrap: \(self.key) \($0)") })
             .bind(to: stringValue)
             .disposed(by: bag)
 

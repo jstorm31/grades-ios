@@ -110,6 +110,7 @@
 		96C569A42268E2E900B16A7C /* UISecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A32268E2E900B16A7C /* UISecondaryButton.swift */; };
 		96C569A62268E4AF00B16A7C /* UIGradingOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A52268E4AF00B16A7C /* UIGradingOverview.swift */; };
 		96C569A8226B0A9300B16A7C /* TableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A7226B0A9300B16A7C /* TableDataSource.swift */; };
+		96C569AA226B18B800B16A7C /* DynamicValueFieldArrayViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A9226B18B800B16A7C /* DynamicValueFieldArrayViewModelProtocol.swift */; };
 		96C7B9CA226069FA00E39F9A /* CoursesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */; };
 		96C87472224BEDA9009FB47F /* CoursesRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */; };
 		96E8C642224BE60C005F32F8 /* AppDependencyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */; };
@@ -256,6 +257,7 @@
 		96C569A32268E2E900B16A7C /* UISecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISecondaryButton.swift; sourceTree = "<group>"; };
 		96C569A52268E4AF00B16A7C /* UIGradingOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGradingOverview.swift; sourceTree = "<group>"; };
 		96C569A7226B0A9300B16A7C /* TableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableDataSource.swift; sourceTree = "<group>"; };
+		96C569A9226B18B800B16A7C /* DynamicValueFieldArrayViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicValueFieldArrayViewModelProtocol.swift; sourceTree = "<group>"; };
 		96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryTests.swift; sourceTree = "<group>"; };
 		96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryMock.swift; sourceTree = "<group>"; };
 		96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencyMock.swift; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 				96F3A3722239080B00FB63EF /* BaseViewModel.swift */,
 				961A8784223F8B1200846538 /* SettingsViewModel.swift */,
 				968D05B92261E917003F7D49 /* TablePickerViewModel.swift */,
+				96C569A9226B18B800B16A7C /* DynamicValueFieldArrayViewModelProtocol.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1049,6 +1052,7 @@
 				968D05BC2261EDF6003F7D49 /* CellItemType.swift in Sources */,
 				96B49FAC223EC1C500B23A5B /* SettingsRepository.swift in Sources */,
 				96861073222AA55F0069B81B /* UIColor+.swift in Sources */,
+				96C569AA226B18B800B16A7C /* DynamicValueFieldArrayViewModelProtocol.swift in Sources */,
 				9654A4FD2246A02200778ED1 /* TeacherCourseCell.swift in Sources */,
 				96B49FAA223EBF8E00B23A5B /* Settings.swift in Sources */,
 				96F3A3832239B02E00FB63EF /* ClassificationCell.swift in Sources */,
