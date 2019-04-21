@@ -80,6 +80,8 @@ internal enum L10n {
     }
 
     internal enum Students {
+        /// Search student
+        internal static let search = L10n.tr("Localizable", "students.search")
         /// Students
         internal static let title = L10n.tr("Localizable", "students.title")
     }

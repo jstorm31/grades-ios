@@ -9,6 +9,14 @@
 import RxSwift
 import UIKit
 
+extension UISearchBar {
+    var textField: UITextField? {
+        return subviews.map { $0.subviews.first(where: { $0 is UITextInputTraits }) as? UITextField }
+            .compactMap { $0 }
+            .first
+    }
+}
+
 final class StudentSearchViewController: BaseTableViewController, BindableType, TableDataSource {
     var viewModel: StudentSearchViewModel!
     let dataSource = configureDataSource()
@@ -19,15 +27,7 @@ final class StudentSearchViewController: BaseTableViewController, BindableType, 
     override func loadView() {
         loadView(hasTableHeaderView: false)
         navigationItem.title = L10n.Students.title
-
-        let search = UISearchController(searchResultsController: nil)
-        search.searchResultsUpdater = self
-        search.obscuresBackgroundDuringPresentation = false
-        search.searchBar.placeholder = "Search student"
-        navigationItem.searchController = search
-        definesPresentationContext = true
-
-        loadUI()
+        setupSearchBar()
     }
 
     override func viewDidLoad() {
@@ -58,7 +58,22 @@ final class StudentSearchViewController: BaseTableViewController, BindableType, 
 
     // MARK: UI setup
 
-    private func loadUI() {}
+    private func setupSearchBar() {
+        let search = UISearchController(searchResultsController: nil)
+        search.searchResultsUpdater = self
+        search.obscuresBackgroundDuringPresentation = false
+        search.searchBar.placeholder = L10n.Students.search
+        search.searchBar.barStyle = .black
+        search.searchBar.searchBarStyle = .default
+        search.searchBar.tintColor = .white
+        search.searchBar.barTintColor = UIColor.Theme.textFieldWhiteOpaciy
+        search.searchBar.textField?.textColor = .white
+        search.searchBar.textField?.backgroundColor = UIColor.Theme.textFieldWhiteOpaciy
+
+        navigationItem.searchController = search
+        navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
+    }
 }
 
 extension StudentSearchViewController: UITableViewDelegate {

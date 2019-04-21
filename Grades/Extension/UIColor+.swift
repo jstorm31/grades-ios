@@ -18,6 +18,7 @@ extension UIColor {
         static let text = UIColor(hex: 0x2D2D2D)
         static let grayText = UIColor(hex: 0x8B8B8B)
         static let borderGray = UIColor(hex: 0xD8D8D8)
+        static let textFieldWhiteOpaciy = UIColor(red: 255, green: 255, blue: 255, a: 0.2)
 
         static let success = UIColor(hex: 0x73C0A2)
         static let danger = UIColor(hex: 0xCB544B)
