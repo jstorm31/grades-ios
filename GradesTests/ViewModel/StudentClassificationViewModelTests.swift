@@ -28,7 +28,7 @@ class StudentClassificationViewModelTests: XCTestCase {
 		gradesApi.result = .success
 		let studentsObservable = viewModel.students.subscribeOn(scheduler)
 		viewModel.bindOutput()
-		
+
 		do {
 			guard let students = try studentsObservable.skip(1).toBlocking(timeout: 2).first() else {
 				XCTFail("should not be nil")
@@ -45,7 +45,7 @@ class StudentClassificationViewModelTests: XCTestCase {
 		gradesApi.result = .success
 		let studentObservable = viewModel.studentName.subscribeOn(scheduler)
 		viewModel.bindOutput()
-		
+
 		do {
 			guard let result = try studentObservable.toBlocking(timeout: 2).first() else {
 				XCTFail("should not be nil")
@@ -58,11 +58,29 @@ class StudentClassificationViewModelTests: XCTestCase {
 		}
 	}
 	
+	func testDataSource() {
+		gradesApi.result = .success
+		let dataSourceObservable = viewModel.dataSource.subscribeOn(scheduler)
+		viewModel.bindOutput()
+
+		do {
+			guard let result = try dataSourceObservable.skip(1).toBlocking(timeout: 2).first() else {
+				XCTFail("should not be nil")
+				return
+			}
+			
+			XCTAssertEqual(result.count, 1)
+			XCTAssertEqual(result[0].items.count, 10)
+		} catch {
+			XCTFail(error.localizedDescription)
+		}
+	}
+	
 	func testError() {
 		gradesApi.result = .failure
 		let errorObservable = viewModel.error.subscribeOn(scheduler)
 		viewModel.bindOutput()
-		
+
 		do {
 			guard let result = try errorObservable.skip(1).toBlocking(timeout: 2).first() else {
 				XCTFail("should not be nil")

@@ -20,8 +20,6 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
     let error = BehaviorSubject<Error?>(value: nil)
     let totalPoints = PublishSubject<Double?>()
     let finalGrade = PublishSubject<String?>()
-    let valueType = PublishSubject<DynamicValueType?>()
-    let fieldValues = BehaviorRelay<[String: DynamicValue?]>(value: [:])
 
     lazy var studentName: Observable<String> = {
         selectedStudent.unwrap().map { $0.name }.share()
@@ -35,6 +33,8 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
     private let course: Course
     private let bag = DisposeBag()
     private let selectedStudent = BehaviorSubject<User?>(value: nil)
+    private let valueType = PublishSubject<DynamicValueType?>()
+    internal let fieldValues = BehaviorRelay<[String: DynamicValue?]>(value: [:])
 
     // MARK: Initialization
 
