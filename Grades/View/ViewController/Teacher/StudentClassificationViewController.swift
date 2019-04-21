@@ -66,6 +66,8 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
             .asDriver(onErrorJustReturn: true)
             .drive(noContentLabel.rx.isHidden)
             .disposed(by: bag)
+
+        changeStudentButton.rx.action = viewModel.changeStudentAction
     }
 
     private func bindOverview() {
@@ -134,6 +136,7 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
             make.trailing.equalToSuperview()
             make.centerY.equalTo(titleLabel.snp.centerY)
         }
+        changeStudentButton = button
 
         let gradingView = UIGradingOverview()
         containerView.addSubview(gradingView)

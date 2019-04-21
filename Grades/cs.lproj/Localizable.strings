@@ -36,3 +36,5 @@
 "teacher.students.changeButton" = "Změnit";
 "teacher.students.finalGradeEmpty" = "Chybí celkové hodnocení";
 "teacher.students.grading" = "Klasifikace";
+
+"students.title" = "Studenti";

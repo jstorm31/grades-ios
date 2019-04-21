@@ -79,6 +79,11 @@ internal enum L10n {
         internal static let user = L10n.tr("Localizable", "settings.user")
     }
 
+    internal enum Students {
+        /// Students
+        internal static let title = L10n.tr("Localizable", "students.title")
+    }
+
     internal enum Teacher {
         internal enum Group {
             /// Students

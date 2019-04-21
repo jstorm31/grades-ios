@@ -93,5 +93,16 @@ class StudentClassificationViewModelTests: XCTestCase {
 			XCTFail(error.localizedDescription)
 		}
 	}
+	
+	func testTransitionToStudentSearch() {
+		let _ = viewModel.changeStudentAction.execute().subscribeOn(scheduler).toBlocking(timeout: 1).materialize()
+		
+		XCTAssertNotNil(coordinator.targetScene)
+		if case .studentSearch = coordinator.targetScene! {
+			XCTAssertTrue(true) // Success
+		} else {
+			XCTFail("incorrect scene")
+		}
+	}
 
 }
