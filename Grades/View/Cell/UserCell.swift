@@ -12,7 +12,7 @@ final class UserCell: BasicCell, ConfigurableCell {
     typealias DataType = User
 
     func configure(data user: User) {
-        titleLabel.text = user.name
+        titleLabel.text = user.nameReverse
         subtitleLabel.text = user.username
     }
 }

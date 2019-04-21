@@ -16,6 +16,10 @@ class User: Codable {
         return "\(firstName) \(lastName)"
     }
 
+    var nameReverse: String {
+        return "\(lastName) \(firstName)"
+    }
+
     init(userId: Int, username: String, firstName: String, lastName: String) {
         self.userId = userId
         self.username = username

@@ -41,6 +41,11 @@ final class StudentSearchViewController: BaseTableViewController, BindableType, 
         viewModel.dataSource.asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
+
+        tableView.rx.itemSelected
+            .map { $0.item }
+            .bind(to: viewModel.itemSelected)
+            .disposed(by: bag)
     }
 
     // MARK: UI setup

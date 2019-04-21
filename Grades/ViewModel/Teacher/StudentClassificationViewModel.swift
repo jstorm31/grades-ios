@@ -31,7 +31,7 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
     lazy var changeStudentAction = CocoaAction { [weak self] in
         guard let `self` = self else { return Observable.empty() }
 
-        let studentSearchViewModel = StudentSearchViewModel(coordinator: self.coordinator, students: self.students)
+        let studentSearchViewModel = StudentSearchViewModel(coordinator: self.coordinator, students: self.students, selectedStudent: self.selectedStudent)
         return self.coordinator.transition(to: .studentSearch(studentSearchViewModel), type: .push)
             .asObservable().map { _ in }
     }
