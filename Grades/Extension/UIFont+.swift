@@ -19,5 +19,6 @@ extension UIFont {
         static let navigationBarTitle = UIFont(name: "Avenir-Black", size: 18) ?? UIFont.boldSystemFont(ofSize: 18)
         static let navigationBarLargeTitle = UIFont(name: "Avenir-Black", size: 30) ?? UIFont.boldSystemFont(ofSize: 30)
         static let display = UIFont(name: "Avenir-Black", size: 24) ?? UIFont.boldSystemFont(ofSize: 24)
+        static let displaySmall = UIFont(name: "Avenir-Black", size: 20) ?? UIFont.boldSystemFont(ofSize: 20)
     }
 }

@@ -15,7 +15,7 @@ typealias StudentCourseCellConfigurator = TableCellConfigurator<StudentCourseCel
 typealias TeacherCourseCellConfigurator = TableCellConfigurator<TeacherCourseCell, TeacherCourse>
 
 class CourseListViewModel: BaseViewModel {
-    typealias Dependencies = HasCoursesRepository & HasCourseStudentRepositoryFactory
+    typealias Dependencies = HasCoursesRepository
 
     private let dependencies: Dependencies
     private let sceneCoordinator: SceneCoordinatorType
@@ -62,9 +62,12 @@ class CourseListViewModel: BaseViewModel {
         if indexPath.section == 0 {
             guard !courses.value.student.isEmpty else { return }
 
-            let course = courses.value.student[indexPath.item]
-            let repository = dependencies.courseStudentRepositoryFactory(user.username, course)
-            let courseDetailVM = CourseDetailStudentViewModel(coordinator: sceneCoordinator, repository: repository)
+            let courseDetailVM = CourseDetailStudentViewModel(
+                dependencies: AppDependency.shared,
+                coordinator: sceneCoordinator,
+                course: courses.value.student[indexPath.item],
+                username: user.username
+            )
 
             sceneCoordinator.transition(to: .courseDetailStudent(courseDetailVM), type: .push)
         } else if indexPath.section == 1 {

@@ -6,8 +6,8 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
-// TODO: could be replaced with StudentCourse class?
-struct CourseStudent: Decodable {
+// Object for decoding classifications of student
+struct StudentClassifications: Decodable {
     var classifications: [Classification]
 
     enum CodingKeys: String, CodingKey {

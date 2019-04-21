@@ -11,35 +11,51 @@ import RxCocoa
 import RxSwift
 
 final class CourseDetailStudentViewModel: BaseViewModel {
-    private let repository: CourseStudentRepositoryProtocol
-    private let coordinator: SceneCoordinatorType
-    private let bag = DisposeBag()
+    typealias Dependencies = HasCourseRepository
 
-    let courseCode: String
-    let courseName: String?
+    // MARK: Properties
+
     let classifications = BehaviorRelay<[GroupedClassification]>(value: [])
-    let totalPoints = BehaviorRelay<Double?>(value: nil)
-    let totalGrade = BehaviorRelay<String?>(value: nil)
-    let isFetching = BehaviorRelay<Bool>(value: false)
+    let totalPoints = BehaviorSubject<Double?>(value: nil)
+    let finalGrade = BehaviorSubject<String?>(value: nil)
+    let isFetching = BehaviorSubject<Bool>(value: false)
     let error = BehaviorSubject<Error?>(value: nil)
     var onBack: CocoaAction
 
-    init(coordinator: SceneCoordinatorType, repository: CourseStudentRepositoryProtocol) {
+    var courseCode: String {
+        return dependencies.courseRepository.course?.code ?? ""
+    }
+
+    var courseName: String? {
+        return dependencies.courseRepository.course?.name
+    }
+
+    private let dependencies: Dependencies
+    private let repository: CourseRepositoryProtocol
+    private let coordinator: SceneCoordinatorType
+    private let bag = DisposeBag()
+    private let studentUsername: String
+
+    // MARK: Initialization
+
+    init(dependencies: Dependencies, coordinator: SceneCoordinatorType, course: Course, username: String) {
         self.coordinator = coordinator
-        self.repository = repository
-        courseCode = repository.code
-        courseName = repository.name
+        self.dependencies = dependencies
+        studentUsername = username
+        repository = dependencies.courseRepository
+        repository.set(course: course)
 
         onBack = CocoaAction {
-            coordinator.didPop()
-                .asObservable().map { _ in }
+            coordinator.didPop().asObservable().map { _ in }
         }
 
         super.init()
     }
 
+    // MARK: Binding
+
     func bindOutput() {
-        repository.groupedClassifications
+        repository.groupedClassifications(forStudent: studentUsername)
             .map {
                 $0.filter {
                     $0.type != ClassificationType.pointsTotal.rawValue && $0.type != ClassificationType.finalScore.rawValue
@@ -51,44 +67,8 @@ final class CourseDetailStudentViewModel: BaseViewModel {
         repository.isFetching.bind(to: isFetching).disposed(by: bag)
         repository.error.bind(to: error).disposed(by: bag)
 
-        let allClassifications = repository.course.unwrap()
-            .map { $0.classifications }
-            .share()
-
-        // Total points
-        allClassifications
-            .map { $0.first { $0.type == ClassificationType.pointsTotal.rawValue } ?? nil }
-            .unwrap()
-            .map { (item: Classification) -> Double? in
-                guard let value = item.value else { return nil }
-
-                switch value {
-                case let .number(number):
-                    return number
-                default:
-                    return nil
-                }
-            }
-            .bind(to: totalPoints)
-            .disposed(by: bag)
-
-        // Final grade
-        allClassifications
-            .map { $0.first { $0.type == ClassificationType.finalScore.rawValue } ?? nil }
-            .unwrap()
-            .map { (item: Classification) -> String? in
-                guard let value = item.value else { return nil }
-
-                switch value {
-                case let .string(string):
-                    return string
-                default:
-                    return nil
-                }
-            }
-            .bind(to: totalGrade)
-            .disposed(by: bag)
-
-        repository.bindOutput()
+        let overview = repository.overview(forStudent: studentUsername).share(replay: 1, scope: .whileConnected)
+        overview.map({ $0.totalPoints }).bind(to: totalPoints).disposed(by: bag)
+        overview.map({ $0.finalGrade }).bind(to: finalGrade).disposed(by: bag)
     }
 }

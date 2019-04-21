@@ -32,3 +32,7 @@
 "teacher.tab.student" = "Student";
 "teacher.students.classification" = "Klasifikace";
 "teacher.group.students" = "Studenti";
+"teacher.students.title" = "Student";
+"teacher.students.changeButton" = "Změnit";
+"teacher.students.finalGradeEmpty" = "Chybí celkové hodnocení";
+"teacher.students.grading" = "Klasifikace";

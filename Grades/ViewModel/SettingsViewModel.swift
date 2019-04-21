@@ -19,7 +19,7 @@ class SettingsViewModel: TablePickerViewModel {
 
     // MARK: output
 
-    let settings = BehaviorRelay<[TableSection]>(value: [])
+    let settings = BehaviorRelay<[TableSectionPolymorphic]>(value: [])
 
     // MARK: actions
 
@@ -53,7 +53,7 @@ class SettingsViewModel: TablePickerViewModel {
             let semesterValueIndex = semesterOptions.firstIndex { $0 == settings.semester } ?? 0
 
             return [
-                TableSection(header: L10n.Settings.options, items: [
+                TableSectionPolymorphic(header: L10n.Settings.options, items: [
                     .picker(title: L10n.Settings.semester, options: semesterOptions.map { $0 }, valueIndex: semesterValueIndex)
                 ])
             ]

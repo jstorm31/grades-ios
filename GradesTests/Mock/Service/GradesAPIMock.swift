@@ -47,10 +47,10 @@ class GradesAPIMock: GradesAPIProtocol {
 		return Observable.just(Course(code: code, name: "Programming paradigmas"))
 	}
 	
-	func getCourseStudentClassification(username: String, code: String) -> Observable<CourseStudent> {
+	func getCourseStudentClassification(username: String, code: String) -> Observable<[Classification]> {
 		switch result {
 		case .success:
-			return Observable<CourseStudent>.just(CourseStudent(classifications: CourseStudentMockData.classifications))
+			return Observable.just(CourseStudentMockData.classifications)
 		case .failure:
 			return Observable.error(ApiError.general)
 		}
@@ -88,8 +88,8 @@ class GradesAPIMock: GradesAPIProtocol {
 		switch result {
 		case .success:
 			return Observable.just([
-				StudentGroup(id: "A145", name: "Cvičení 1", description: nil),
-				StudentGroup(id: "A146", name: "Cvičení 2", description: "Místost A:144")
+				StudentGroup(id: "A145", name: "Cvičení 1"),
+				StudentGroup(id: "A146", name: "Cvičení 2")
 			])
 		case .failure:
 			return Observable.error(ApiError.general)
@@ -99,5 +99,23 @@ class GradesAPIMock: GradesAPIProtocol {
 	func getClassifications(forCourse: String) -> Observable<[Classification]> {
 		fatalError("getClassifications in GradesApiMock not implemented")
 		return Observable.empty()
+	}
+	
+	func getGroupClassifications(courseCode: String, groupCode: String, classificationId: String) -> Observable<[StudentClassification]> {
+		fatalError("getClassifications in GradesApiMock not implemented")
+		return Observable.empty()
+	}
+	
+	func getTeacherStudents(courseCode: String) -> Observable<[User]> {
+		switch result {
+		case .success:
+			return Observable.just([
+				User(userId: 1, username: "kucerj48", firstName: "Jan", lastName: "Kučera"),
+				User(userId: 2, username: "janatpa3", firstName: "Pavel", lastName: "Janata"),
+				User(userId: 3, username: "ottastep", firstName: "Štěpán", lastName: "Otta")
+			]).delaySubscription(0.5, scheduler: MainScheduler.instance)
+		case .failure:
+			return Observable.error(ApiError.general).delaySubscription(0.5, scheduler: MainScheduler.instance)
+		}
 	}
 }

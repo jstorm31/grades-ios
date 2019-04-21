@@ -22,6 +22,9 @@ final class AppDependencyMock {
 	
 	lazy var settingsRepository: SettingsRepositoryProtocol = SettingsRepositoryMock()
 	lazy var coursesRepository: CoursesRepositoryProtocol = CoursesRepositoryMock()
+	
+	let _courseRepository = CourseRepositoryMock()
+	lazy var courseRepository: CourseRepositoryProtocol = CourseRepositoryMock()
 }
 
 extension AppDependencyMock: HasAuthenticationService {}
@@ -30,11 +33,4 @@ extension AppDependencyMock: HasGradesAPI {}
 
 extension AppDependencyMock: HasSettingsRepository {}
 extension AppDependencyMock: HasCoursesRepository {}
-
-extension AppDependencyMock: HasCourseStudentRepositoryFactory {
-	var courseStudentRepositoryFactory: CourseStudentRepositoryFactory {
-		return { username, course in
-			CourseStudentRepository(dependencies: self, username: username, course: course)
-		}
-	}
-}
+extension AppDependencyMock: HasCourseRepository {}

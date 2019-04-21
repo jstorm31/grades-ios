@@ -86,10 +86,18 @@ internal enum L10n {
         }
 
         internal enum Students {
+            /// Change
+            internal static let changeButton = L10n.tr("Localizable", "teacher.students.changeButton")
             /// Classification
             internal static let classification = L10n.tr("Localizable", "teacher.students.classification")
+            /// Final grade not specified
+            internal static let finalGradeEmpty = L10n.tr("Localizable", "teacher.students.finalGradeEmpty")
+            /// Grading
+            internal static let grading = L10n.tr("Localizable", "teacher.students.grading")
             /// Group
             internal static let group = L10n.tr("Localizable", "teacher.students.group")
+            /// Student
+            internal static let title = L10n.tr("Localizable", "teacher.students.title")
         }
 
         internal enum Tab {

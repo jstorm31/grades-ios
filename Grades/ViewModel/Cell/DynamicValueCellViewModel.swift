@@ -11,25 +11,42 @@ import RxSwift
 final class DynamicValueCellViewModel {
     let key: String
     let title: String?
+    let subtitle: String?
 
-    let valueType = PublishSubject<DynamicValueType>()
+    let value = BehaviorSubject<DynamicValue?>(value: nil)
+    let bag = DisposeBag()
+
+    // MARK: Cell output
+
+    let showTextField = PublishSubject<Bool>()
     let stringValue = PublishSubject<String?>()
     let boolValue = PublishSubject<Bool>()
 
-    let valueInput = PublishSubject<DynamicValue?>()
-    let valueOutput = PublishSubject<DynamicValue>()
+    // MARK: Initialization
 
-    let bag = DisposeBag()
-
-    init(key: String, title: String? = nil) {
+    init(key: String, title: String? = nil, subtitle: String? = nil) {
         self.key = key
         self.title = title
-
-        valueInput.subscribe(onNext: { Log.debug("Cell VM: \(key): \($0)") }).disposed(by: bag)
+        self.subtitle = subtitle
     }
 
+    // MARK: Binding
+
     func bindOutput() {
-        let sharedValue = valueInput.share()
+        let sharedValue = value.share(replay: 1, scope: .whileConnected).debug()
+
+        sharedValue
+            .unwrap()
+            .map { type -> Bool in
+                switch type {
+                case .string, .number:
+                    return true
+                case .bool:
+                    return false
+                }
+            }
+            .bind(to: showTextField)
+            .disposed(by: bag)
 
         sharedValue
             .map { (value: DynamicValue?) -> String? in
@@ -44,7 +61,6 @@ final class DynamicValueCellViewModel {
                     return nil
                 }
             }
-            .do(onNext: { Log.debug("After unwrap: \(self.key) \($0)") })
             .bind(to: stringValue)
             .disposed(by: bag)
 
@@ -57,7 +73,7 @@ final class DynamicValueCellViewModel {
                 }
                 return nil
             }
-            .map { $0 != nil }
+            .map { $0 == nil ? false : $0! }
             .bind(to: boolValue)
             .disposed(by: bag)
     }

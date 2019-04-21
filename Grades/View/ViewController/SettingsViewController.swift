@@ -29,8 +29,8 @@ final class SettingsViewController: BaseTableViewController & BindableType & Con
 
     // MARK: data source
 
-    private var dataSource: RxTableViewSectionedReloadDataSource<TableSection> {
-        return RxTableViewSectionedReloadDataSource<TableSection>(
+    private var dataSource: RxTableViewSectionedReloadDataSource<TableSectionPolymorphic> {
+        return RxTableViewSectionedReloadDataSource<TableSectionPolymorphic>(
             configureCell: { [weak self] dataSource, tableView, indexPath, _ in
 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath)

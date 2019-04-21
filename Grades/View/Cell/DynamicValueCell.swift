@@ -11,7 +11,11 @@ import RxSwift
 import SnapKit
 import UIKit
 
-final class DynamicValueCell: UITableViewCell {
+typealias DynamicValueCellConfigurator = TableCellConfigurator<DynamicValueCell, DynamicValueCellViewModel>
+
+final class DynamicValueCell: UITableViewCell, ConfigurableCell {
+    typealias DataType = DynamicValueCellViewModel
+
     private var titleLabel: UILabel!
     private var subtitleLabel: UILabel!
     private var fieldLabel: UILabel!
@@ -37,12 +41,16 @@ final class DynamicValueCell: UITableViewCell {
         bag = DisposeBag()
     }
 
-    func setup(viewModel: DynamicValueCellViewModel) {
-        self.viewModel = viewModel
+    // MARK: Configuration
+
+    func configure(data cellViewModel: DynamicValueCell.DataType) {
+        viewModel = cellViewModel
         bindViewModel()
         viewModel.bindOutput()
         bindOutput()
     }
+
+    // MARK: Binding
 
     private func bindOutput() {
         valueTextField.rx.text
@@ -56,25 +64,24 @@ final class DynamicValueCell: UITableViewCell {
                     return DynamicValue.string(text)
                 }
             }
-            .bind(to: viewModel.valueOutput)
+            .bind(to: viewModel.value)
             .disposed(by: bag)
 
         valueSwitch.rx.isOn
             .skip(1)
             .map { DynamicValue.bool($0) }
-            .bind(to: viewModel.valueOutput)
+            .bind(to: viewModel.value)
             .disposed(by: bag)
     }
 
     private func bindViewModel() {
         titleLabel.text = viewModel.title
-        subtitleLabel.text = viewModel.key
+        subtitleLabel.text = viewModel.subtitle
 
         // Bind values to controls
 
         viewModel.stringValue
             .distinctUntilChanged()
-            .do(onNext: { Log.debug("Cell: \(self.subtitleLabel.text) \($0)") })
             .asDriver(onErrorJustReturn: nil)
             .drive(valueTextField.rx.text)
             .disposed(by: bag)
@@ -86,21 +93,10 @@ final class DynamicValueCell: UITableViewCell {
             .disposed(by: bag)
 
         // Show / hide controls
-
-        let showTextField = viewModel.valueType
-            .map { type -> Bool in
-                switch type {
-                case .string, .number:
-                    return false
-                case .bool:
-                    return true
-                }
-            }
-            .share()
-
-        showTextField.asDriver(onErrorJustReturn: false).drive(valueTextField.rx.isHidden).disposed(by: bag)
-        showTextField.asDriver(onErrorJustReturn: false).drive(fieldLabel.rx.isHidden).disposed(by: bag)
-        showTextField.map { !$0 }.asDriver(onErrorJustReturn: true).drive(valueSwitch.rx.isHidden).disposed(by: bag)
+        let sharedShowTextField = viewModel.showTextField.share()
+        sharedShowTextField.map { !$0 }.asDriver(onErrorJustReturn: false).drive(valueTextField.rx.isHidden).disposed(by: bag)
+        sharedShowTextField.map { !$0 }.asDriver(onErrorJustReturn: false).drive(fieldLabel.rx.isHidden).disposed(by: bag)
+        sharedShowTextField.asDriver(onErrorJustReturn: true).drive(valueSwitch.rx.isHidden).disposed(by: bag)
     }
 
     // MARK: UI setup

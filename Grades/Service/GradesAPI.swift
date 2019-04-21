@@ -18,11 +18,12 @@ protocol GradesAPIProtocol {
     func getTeacherCourses(username: String) -> Observable<[TeacherCourse]>
     func getStudentCourses(username: String) -> Observable<[StudentCourse]>
     func getCourse(code: String) -> Observable<Course>
-    func getCourseStudentClassification(username: String, code: String) -> Observable<CourseStudent>
+    func getCourseStudentClassification(username: String, code: String) -> Observable<[Classification]>
     func getCurrentSemestrCode() -> Observable<String>
     func getStudentGroups(forCourse course: String, username: String?) -> Observable<[StudentGroup]>
     func getClassifications(forCourse: String) -> Observable<[Classification]>
     func getGroupClassifications(courseCode: String, groupCode: String, classificationId: String) -> Observable<[StudentClassification]>
+    func getTeacherStudents(courseCode: String) -> Observable<[User]>
 }
 
 final class GradesAPI: GradesAPIProtocol {
@@ -64,6 +65,7 @@ final class GradesAPI: GradesAPIProtocol {
         case studentGroups(String)
         case courseClassifications(String)
         case groupClassifications(String, String, String)
+        case courseStudents(String, String)
     }
 
     // MARK: Endpoint requests
@@ -95,11 +97,12 @@ final class GradesAPI: GradesAPIProtocol {
     }
 
     /// Fetch course classification for student
-    func getCourseStudentClassification(username: String, code: String) -> Observable<CourseStudent> {
+    func getCourseStudentClassification(username: String, code: String) -> Observable<[Classification]> {
         var parameters = defaultParameters
         parameters["showHidden"] = false
 
         return httpService.get(url: createURL(from: .studentCourse(username, code)), parameters: parameters)
+            .map { (raw: StudentClassifications) in raw.classifications }
     }
 
     func getCurrentSemestrCode() -> Observable<String> {
@@ -128,6 +131,23 @@ final class GradesAPI: GradesAPIProtocol {
     func getGroupClassifications(courseCode: String, groupCode: String, classificationId: String) -> Observable<[StudentClassification]> {
         let url = createURL(from: .groupClassifications(courseCode, groupCode, classificationId))
         return httpService.get(url: url, parameters: defaultParameters)
+    }
+
+    /// Fetch all students for logged user with role teacher
+    func getTeacherStudents(courseCode: String) -> Observable<[User]> {
+        // swiftlint:disable force_cast
+        if let environment = Bundle.main.infoDictionary!["ConfigEnvironment"], (environment as! String) == "Debug" {
+            // Return mock data in Debug
+            return Observable.just([
+                User(userId: 2, username: "janatpa3", firstName: "Pavel", lastName: "Janata"),
+                User(userId: 1, username: "rousemat", firstName: "Matyáš", lastName: "Rousek"),
+                User(userId: 3, username: "ottastep", firstName: "Štěpán", lastName: "Otta")
+            ]).delaySubscription(1, scheduler: MainScheduler.instance)
+        } else {
+            // Get from API in Release
+            let url = createURL(from: .courseStudents(courseCode, "MY_PARALLELS"))
+            return httpService.get(url: url, parameters: defaultParameters)
+        }
     }
 
     // MARK: helpers
@@ -161,6 +181,10 @@ final class GradesAPI: GradesAPIProtocol {
                 .replacingOccurrences(of: ":courseCode", with: courseCode)
                 .replacingOccurrences(of: ":groupCode", with: groupCode)
                 .replacingOccurrences(of: ":id", with: classificationId)
+        case let .courseStudents(courseCode, groupCode):
+            endpointValue = config["CourseStudents"]!
+                .replacingOccurrences(of: ":courseCode", with: courseCode)
+                .replacingOccurrences(of: ":groupCode", with: groupCode)
         }
 
         return URL(string: "\(baseUrl)\(endpointValue)")!

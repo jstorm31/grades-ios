@@ -49,3 +49,21 @@ enum DynamicValue: Codable {
         }
     }
 }
+
+extension DynamicValue: Equatable {
+    static func == (lhs: DynamicValue, rhs: DynamicValue) -> Bool {
+        if case let .string(lhsVal) = lhs, case let .string(rhsVal) = rhs {
+            return lhsVal == rhsVal
+        }
+
+        if case let .number(lhsVal) = lhs, case let .number(rhsVal) = rhs {
+            return lhsVal == rhsVal
+        }
+
+        if case let .bool(lhsVal) = lhs, case let .bool(rhsVal) = rhs {
+            return lhsVal == rhsVal
+        }
+
+        return false
+    }
+}

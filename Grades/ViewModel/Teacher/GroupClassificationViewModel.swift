@@ -10,14 +10,13 @@ import Action
 import RxCocoa
 import RxSwift
 
-final class GroupClassificationViewModel: TablePickerViewModel {
+final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFieldArrayViewModelProtocol {
     typealias Dependencies = HasTeacherRepository
 
     // MARK: public properties
 
-    let studentsClassification = BehaviorRelay<[TableSection]>(value: [])
-    let classificationValueType = BehaviorRelay<DynamicValueType?>(value: nil)
-    let fieldValues = BehaviorRelay<[String: DynamicValue?]>(value: [:])
+    let studentsClassification = BehaviorRelay<[TableSectionPolymorphic]>(value: [])
+    let fieldValues = BehaviorRelay<GroupClassificationViewModel.FieldsDict>(value: [:])
     let isloading = PublishSubject<Bool>()
     let error = PublishSubject<Error>()
 
@@ -56,17 +55,16 @@ final class GroupClassificationViewModel: TablePickerViewModel {
          2) Get items for chosen group and classification
          */
         Observable.combineLatest(groupSelectedIndex, classificationSelectedIndex) { ($0, $1) }
-            .debug()
-            .flatMap { [weak self] indexes -> Observable<TableSection> in
+            .flatMap { [weak self] indexes -> Observable<TableSectionPolymorphic> in
                 guard let `self` = self else {
-                    return Observable.just(TableSection(header: "", items: []))
+                    return Observable.just(TableSectionPolymorphic(header: "", items: []))
                 }
 
                 return Observable.zip(
                     self.repository.groups,
                     self.repository.classifications
-                ) { (groups, classifications) -> TableSection in
-                    TableSection(header: "", items: [
+                ) { (groups, classifications) -> TableSectionPolymorphic in
+                    TableSectionPolymorphic(header: "", items: [
                         CellItemType.picker(
                             title: L10n.Teacher.Students.group,
                             options: groups.map { $0.id },
@@ -82,7 +80,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
             }
             .flatMap { [weak self] headerSection in
                 self?.buildDatasourceItems(groupClassifications).map { studentClassifications in
-                    [headerSection, TableSection(header: L10n.Teacher.Group.students, items: studentClassifications)]
+                    [headerSection, TableSectionPolymorphic(header: L10n.Teacher.Group.students, items: studentClassifications)]
                 }.asObservable() ?? Observable.just([])
             }
             .bind(to: studentsClassification)
@@ -109,28 +107,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
                         title: "\(item.lastName ?? "") \(item.firstName ?? "")"
                     )
 
-                    // Bind cell's output to view model
-                    cellViewModel.valueOutput
-                        .map { value in
-                            var fieldValues = self.fieldValues.value
-                            fieldValues[cellViewModel.key] = value
-                            return fieldValues
-                        }
-                        .bind(to: self.fieldValues)
-                        .disposed(by: cellViewModel.bag)
-
-                    // Bind values to cell ViewModel
-                    self.fieldValues
-                        .map { $0[cellViewModel.key] ?? nil }
-                        .do(onNext: { Log.debug("VM: \(cellViewModel.key): \($0)") })
-                        .bind(to: cellViewModel.valueInput)
-                        .disposed(by: cellViewModel.bag)
-
-                    self.classificationValueType
-                        .unwrap()
-                        .bind(to: cellViewModel.valueType)
-                        .disposed(by: cellViewModel.bag)
-
+                    self.bind(cellViewModel: cellViewModel)
                     return .dynamicValue(viewModel: cellViewModel)
                 }
             }
@@ -158,9 +135,9 @@ final class GroupClassificationViewModel: TablePickerViewModel {
 
         let groupCode = repository.groups.value[groupSelectedIndex.value]
         let classificationId = repository.classifications.value[classificationSelectedIndex.value]
-        let valueType = repository.classifications.value[classificationSelectedIndex.value].valueType
+        // TODO: pořešit value type pro celou tabulku vs. pro jednotlivé buňky
+        //        let valueType = repository.classifications.value[classificationSelectedIndex.value].valueType
 
-        classificationValueType.accept(valueType)
         repository.studentsFor(course: course.code, groupCode: groupCode.id, classificationId: classificationId.identifier)
     }
 }

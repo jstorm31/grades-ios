@@ -26,7 +26,7 @@ class TeacherClassificationViewController: BaseViewController, BindableType {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        displayTab(forIndex: TeacherSceneIndex.groupClassification.rawValue)
+        displayTab(forIndex: viewModel.defaultScene.rawValue)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -68,7 +68,7 @@ class TeacherClassificationViewController: BaseViewController, BindableType {
 
     func loadUI() {
         let segmented = UISegmentedControl(items: [L10n.Teacher.Tab.group, L10n.Teacher.Tab.student])
-        segmented.selectedSegmentIndex = TeacherSceneIndex.groupClassification.rawValue
+        segmented.selectedSegmentIndex = viewModel.defaultScene.rawValue
         segmented.center = view.center
         segmented.tintColor = UIColor.Theme.primary
         segmented.layer.cornerRadius = 0

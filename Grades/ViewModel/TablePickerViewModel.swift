@@ -17,7 +17,7 @@ class TablePickerViewModel: BaseViewModel {
     let selectedOptionIndex = BehaviorRelay<Int>(value: 0)
     let options = BehaviorSubject<[String]>(value: [])
 
-    func bindOptions(dataSource: BehaviorRelay<[TableSection]>) {
+    func bindOptions(dataSource: BehaviorRelay<[TableSectionPolymorphic]>) {
         selectedCellIndex
             .map { [weak self] indexPath in
                 guard self != nil, let indexPath = indexPath else { return [] }

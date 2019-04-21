@@ -14,8 +14,7 @@ import UIKit
 
 class CourseDetailStudentViewController: BaseTableViewController, BindableType {
     var headerLabel: UILabel!
-    var headerPointsLabel: UILabel!
-    var headerGradeLabel: UILabel!
+    var headerGradingOverview: UIGradingOverview!
 
     var viewModel: CourseDetailStudentViewModel!
     private let bag = DisposeBag()
@@ -74,12 +73,12 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
             .disposed(by: bag)
 
         classificationsObservable
-            .map { $0.isEmpty }
+            .map { !$0.isEmpty }
             .asDriver(onErrorJustReturn: true)
-            .drive(showNoContent)
+            .drive(noContentLabel.rx.isHidden)
             .disposed(by: bag)
 
-        viewModel.isFetching.asDriver()
+        viewModel.isFetching.asDriver(onErrorJustReturn: false)
             .drive(tableView.refreshControl!.rx.isRefreshing)
             .disposed(by: bag)
 
@@ -94,16 +93,16 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
             .unwrap()
             .map { "\($0) \(L10n.Courses.points)" }
             .asDriver(onErrorJustReturn: "")
-            .drive(headerPointsLabel.rx.text)
+            .drive(headerGradingOverview.pointsLabel.rx.text)
             .disposed(by: bag)
 
-        viewModel.totalGrade
+        viewModel.finalGrade
             .unwrap()
             .do(onNext: { [weak self] grade in
-                self?.headerPointsLabel.textColor = UIColor.Theme.setGradeColor(forGrade: grade)
+                self?.headerGradingOverview.gradeLabel.textColor = UIColor.Theme.setGradeColor(forGrade: grade)
             })
             .asDriver(onErrorJustReturn: "")
-            .drive(headerGradeLabel.rx.text)
+            .drive(headerGradingOverview.gradeLabel.rx.text)
             .disposed(by: bag)
     }
 
@@ -112,41 +111,39 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
     }
 
     private func loadUI() {
+        let headerView = UIView()
+        let containerView = UIView()
+        headerView.addSubview(containerView)
+        containerView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
         // Header label
         let header = UILabel()
         header.text = L10n.Classification.total
         header.font = UIFont.Grades.cellTitle
         header.textColor = UIColor.Theme.text
-        tableView.tableHeaderView?.addSubview(header)
+        containerView.addSubview(header)
         header.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.centerY.equalToSuperview()
         }
         headerLabel = header
 
-        // Grade label
-        let grade = UILabel()
-        grade.font = UIFont.Grades.display
-        grade.textColor = UIColor.Theme.text
-        grade.textAlignment = .right
-        tableView.tableHeaderView?.addSubview(grade)
-        grade.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
+        let gradingOverview = UIGradingOverview()
+        containerView.addSubview(gradingOverview)
+        gradingOverview.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
-        }
-        headerGradeLabel = grade
-
-        // Points label
-        let points = UILabel()
-        points.font = UIFont.Grades.body
-        points.textColor = UIColor.Theme.text
-        points.textAlignment = .right
-        tableView.tableHeaderView?.addSubview(points)
-        points.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalTo(headerGradeLabel.snp.leading).offset(-13)
         }
-        headerPointsLabel = points
+        headerGradingOverview = gradingOverview
+
+        tableView.tableHeaderView = headerView
+        headerView.snp.makeConstraints { make in
+            make.width.equalToSuperview().inset(20)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(42)
+        }
     }
 }
 

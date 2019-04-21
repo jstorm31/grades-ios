@@ -10,49 +10,45 @@ import RxSwift
 import RxCocoa
 @testable import GradesDev
 
-class CourseStudentRepositoryMock: CourseStudentRepositoryProtocol {
-	private let bag = DisposeBag()
-	var emitError = false
+final class CourseRepositoryMock: CourseRepositoryProtocol {
+	var course: Course?
+	var isFetching = BehaviorSubject<Bool>(value: false)
+	var error = BehaviorSubject<Error?>(value: nil)
 	
-	let code: String
-	let username: String
-	var name: String?
-	let gradesApi: GradesAPIProtocol
+	var result = Result.success
 	
-	let course = BehaviorRelay<CourseStudent?>(value: nil)
-	let groupedClassifications = BehaviorSubject<[GroupedClassification]>(value: [])
-	let isFetching = BehaviorSubject<Bool>(value: false)
-	let error = BehaviorSubject<Error?>(value: nil)
-
-	init(gradesApi: GradesAPIProtocol = GradesAPIMock(), username: String = "mockuser", code: String = "BI-PPA", name: String? = nil) {
-		self.code = code
-		self.username = username
-		self.name = name
-		self.gradesApi = gradesApi
+	func set(course: Course) {
+		self.course = course
 	}
 	
-	
-	func bindOutput() {
-		course.accept(CourseStudent(classifications: CourseStudentMockData.classifications))
-		
-		let classification = Classification(id: 2, text: [], scope: nil, type: nil, valueType: .string, value: nil, parentId: nil, isHidden: false)
-		groupedClassifications.onNext(
-			[GroupedClassification(fromClassification: classification, items: CourseStudentMockData.classifications)]
-		)
-		
-		isFetching.onNext(true)
-		Observable.zip(Observable.just(false), Observable<Int>.interval(RxTimeInterval(1), scheduler: MainScheduler.instance)) { bool, index in
-			bool
+	func classifications(forStudent: String) -> Observable<[Classification]> {
+		switch result {
+		case .success:
+			return Observable.just(CourseStudentMockData.classifications)
+				.delaySubscription(1, scheduler: MainScheduler.instance)
+		case .failure:
+			return Observable.error(ApiError.general)
 		}
-		.subscribe(onNext: { [weak self] value in
-			self?.isFetching.onNext(value)
-		})
-		.disposed(by: bag)
-		
-		isFetching.onNext(true)
-		
-		isFetching.onNext(false)
-		
-		error.onNext(emitError ? ApiError.general : nil)
+	}
+	
+	func groupedClassifications(forStudent: String) -> Observable<[GroupedClassification]> {
+		switch result {
+		case .success:
+			let classification = Classification(id: 2, identifier: "test-24", text: [], scope: nil, type: nil, valueType: .string, value: nil, parentId: nil, isHidden: false)
+			return Observable.just([GroupedClassification(fromClassification: classification, items: CourseStudentMockData.classifications)])
+				.delaySubscription(1, scheduler: MainScheduler.instance)
+		case .failure:
+			return Observable.error(ApiError.general)
+		}
+	}
+	
+	func overview(forStudent: String) -> Observable<StudentOverview> {
+		switch result {
+		case .success:
+			return Observable.just((totalPoints: 64.0, finalGrade: "D"))
+				.delaySubscription(1, scheduler: MainScheduler.instance)
+		case .failure:
+			return Observable.error(ApiError.general)
+		}
 	}
 }

@@ -30,8 +30,8 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         }
     }
 
-    private var dataSource: RxTableViewSectionedReloadDataSource<TableSection> {
-        return RxTableViewSectionedReloadDataSource<TableSection>(
+    private var dataSource: RxTableViewSectionedReloadDataSource<TableSectionPolymorphic> {
+        return RxTableViewSectionedReloadDataSource<TableSectionPolymorphic>(
             configureCell: { [weak self] dataSource, tableView, indexPath, _ in
                 var cell = tableView.dequeueReusableCell(withIdentifier: "StudentsClassificationCell", for: indexPath)
                 guard let `self` = self else { return cell }
@@ -44,7 +44,7 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
                 case let .dynamicValue(cellViewModel):
                     // swiftlint:disable force_cast
                     let textFieldCell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! DynamicValueCell
-                    textFieldCell.setup(viewModel: cellViewModel)
+                    textFieldCell.configure(data: cellViewModel)
                     return textFieldCell
 
                 default:
@@ -61,7 +61,6 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
 
     override func loadView() {
         loadView(hasTableHeaderView: false)
-        view.backgroundColor = .yellow
         loadUI()
     }
 
@@ -90,9 +89,9 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
             .disposed(by: bag)
 
         studentsClassification
-            .map { $0[1].items.isEmpty }
+            .map { $0.isEmpty ? false : !$0[1].items.isEmpty }
             .asDriver(onErrorJustReturn: true)
-            .drive(showNoContent)
+            .drive(noContentLabel.rx.isHidden)
             .disposed(by: bag)
 
         viewModel.options

@@ -16,7 +16,7 @@ enum Scene {
     case settings(SettingsViewModel)
     case teacherClassification(TeacherClassificationViewModelProtocol)
     case groupClassification(GroupClassificationViewModel)
-    case studentClassification(StudentClassificationViewModelProtocol)
+    case studentClassification(StudentClassificationViewModel)
 }
 
 extension Scene {
