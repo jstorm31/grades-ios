@@ -33,6 +33,7 @@ final class StudentSearchViewModel: BaseViewModel {
             .disposed(by: bag)
 
         itemSelected
+            .filter { students.value.count > $0 }
             .map { students.value[$0] }
             .do(onNext: { [weak self] _ in self?.coordinator.pop(animated: true) })
             .bind(to: selectedStudent)

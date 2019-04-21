@@ -110,6 +110,7 @@
 		96C0A843226C78DC00AE733A /* StudentSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C0A842226C78DC00AE733A /* StudentSearchViewController.swift */; };
 		96C0A845226C832D00AE733A /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C0A844226C832D00AE733A /* UserCell.swift */; };
 		96C0A847226C83D400AE733A /* BasicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C0A846226C83D400AE733A /* BasicCell.swift */; };
+		96C0A84B226CDA7C00AE733A /* StudentSearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C0A84A226CDA7C00AE733A /* StudentSearchViewModelTests.swift */; };
 		96C569A22268D99A00B16A7C /* StudentClassificationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A12268D99A00B16A7C /* StudentClassificationViewModelTests.swift */; };
 		96C569A42268E2E900B16A7C /* UISecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A32268E2E900B16A7C /* UISecondaryButton.swift */; };
 		96C569A62268E4AF00B16A7C /* UIGradingOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A52268E4AF00B16A7C /* UIGradingOverview.swift */; };
@@ -262,6 +263,7 @@
 		96C0A842226C78DC00AE733A /* StudentSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSearchViewController.swift; sourceTree = "<group>"; };
 		96C0A844226C832D00AE733A /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		96C0A846226C83D400AE733A /* BasicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicCell.swift; sourceTree = "<group>"; };
+		96C0A84A226CDA7C00AE733A /* StudentSearchViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSearchViewModelTests.swift; sourceTree = "<group>"; };
 		96C569A12268D99A00B16A7C /* StudentClassificationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassificationViewModelTests.swift; sourceTree = "<group>"; };
 		96C569A32268E2E900B16A7C /* UISecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISecondaryButton.swift; sourceTree = "<group>"; };
 		96C569A52268E4AF00B16A7C /* UIGradingOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGradingOverview.swift; sourceTree = "<group>"; };
@@ -656,6 +658,7 @@
 				96580713222FFA810065E23D /* CourseListViewModelTests.swift */,
 				96C569A12268D99A00B16A7C /* StudentClassificationViewModelTests.swift */,
 				96C569AB226B623600B16A7C /* DynamicValueCellViewModelTests.swift */,
+				96C0A84A226CDA7C00AE733A /* StudentSearchViewModelTests.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1094,6 +1097,7 @@
 				965ADAF32235976300AA8CF4 /* Result.swift in Sources */,
 				96E8C642224BE60C005F32F8 /* AppDependencyMock.swift in Sources */,
 				96939EF4223C274C00A49E57 /* CourseStudentRepositoryMock.swift in Sources */,
+				96C0A84B226CDA7C00AE733A /* StudentSearchViewModelTests.swift in Sources */,
 				96C87472224BEDA9009FB47F /* CoursesRepositoryMock.swift in Sources */,
 				96C569A22268D99A00B16A7C /* StudentClassificationViewModelTests.swift in Sources */,
 				963C62902234307300B01818 /* EnvironmentConfigurationMock.swift in Sources */,
