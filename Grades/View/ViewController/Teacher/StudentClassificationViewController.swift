@@ -21,7 +21,7 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
     var viewModel: StudentClassificationViewModel!
     private let bag = DisposeBag()
 
-    internal var dataSource = configureDataSource()
+    let dataSource = configureDataSource()
 
     // MARK: lifecycle methods
 

@@ -13,7 +13,7 @@ import RxSwift
 final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArrayViewModelProtocol {
     typealias Dependencies = HasGradesAPI & HasCourseRepository
 
-    // MARK: public properties
+    // MARK: Public properties
 
     let dataSource = BehaviorRelay<[TableSection]>(value: [])
     let students = BehaviorRelay<[User]>(value: [])
@@ -26,10 +26,12 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
         selectedStudent.unwrap().map { $0.name }.share()
     }()
 
+    // MARK: Actions
+
     lazy var changeStudentAction = CocoaAction { [weak self] in
         guard let `self` = self else { return Observable.empty() }
 
-        let studentSearchViewModel = StudentSearchViewModel(coordinator: self.coordinator)
+        let studentSearchViewModel = StudentSearchViewModel(coordinator: self.coordinator, students: self.students)
         return self.coordinator.transition(to: .studentSearch(studentSearchViewModel), type: .push)
             .asObservable().map { _ in }
     }

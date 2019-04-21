@@ -14,7 +14,7 @@ import RxDataSources
  To configure TableView's data source, call provided configureDataSource() method.
  */
 protocol TableDataSource {
-    var dataSource: RxTableViewSectionedReloadDataSource<TableSection> { get set }
+    var dataSource: RxTableViewSectionedReloadDataSource<TableSection> { get }
 }
 
 extension TableDataSource {

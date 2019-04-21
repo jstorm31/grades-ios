@@ -108,6 +108,8 @@
 		96B49FAC223EC1C500B23A5B /* SettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B49FAB223EC1C500B23A5B /* SettingsRepository.swift */; };
 		96C0A841226C784C00AE733A /* StudentSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C0A840226C784C00AE733A /* StudentSearchViewModel.swift */; };
 		96C0A843226C78DC00AE733A /* StudentSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C0A842226C78DC00AE733A /* StudentSearchViewController.swift */; };
+		96C0A845226C832D00AE733A /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C0A844226C832D00AE733A /* UserCell.swift */; };
+		96C0A847226C83D400AE733A /* BasicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C0A846226C83D400AE733A /* BasicCell.swift */; };
 		96C569A22268D99A00B16A7C /* StudentClassificationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A12268D99A00B16A7C /* StudentClassificationViewModelTests.swift */; };
 		96C569A42268E2E900B16A7C /* UISecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A32268E2E900B16A7C /* UISecondaryButton.swift */; };
 		96C569A62268E4AF00B16A7C /* UIGradingOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A52268E4AF00B16A7C /* UIGradingOverview.swift */; };
@@ -258,6 +260,8 @@
 		96B49FAB223EC1C500B23A5B /* SettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepository.swift; sourceTree = "<group>"; };
 		96C0A840226C784C00AE733A /* StudentSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSearchViewModel.swift; sourceTree = "<group>"; };
 		96C0A842226C78DC00AE733A /* StudentSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSearchViewController.swift; sourceTree = "<group>"; };
+		96C0A844226C832D00AE733A /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		96C0A846226C83D400AE733A /* BasicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicCell.swift; sourceTree = "<group>"; };
 		96C569A12268D99A00B16A7C /* StudentClassificationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassificationViewModelTests.swift; sourceTree = "<group>"; };
 		96C569A32268E2E900B16A7C /* UISecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISecondaryButton.swift; sourceTree = "<group>"; };
 		96C569A52268E4AF00B16A7C /* UIGradingOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGradingOverview.swift; sourceTree = "<group>"; };
@@ -472,6 +476,8 @@
 				9654A4FA22469D0500778ED1 /* StudentCourseCell.swift */,
 				9654A4FC2246A02200778ED1 /* TeacherCourseCell.swift */,
 				968D05C322637F36003F7D49 /* DynamicValueCell.swift */,
+				96C0A844226C832D00AE733A /* UserCell.swift */,
+				96C0A846226C83D400AE733A /* BasicCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1022,6 +1028,7 @@
 				968D05BA2261E917003F7D49 /* TablePickerViewModel.swift in Sources */,
 				964181782247A83E0019CABD /* StudentClassificationViewController.swift in Sources */,
 				96861080222AEC680069B81B /* UIFont+.swift in Sources */,
+				96C0A847226C83D400AE733A /* BasicCell.swift in Sources */,
 				961A2FE1222988D700A624DC /* AuthenticationService.swift in Sources */,
 				961A2FDE22294F4500A624DC /* PlistDocument.swift in Sources */,
 				96939EDD223AD8A500A49E57 /* Double+.swift in Sources */,
@@ -1054,6 +1061,7 @@
 				966ABB57222D986A007DD046 /* Course.swift in Sources */,
 				96861082222AEFE60069B81B /* Scene.swift in Sources */,
 				9641817022478C900019CABD /* TeacherClassificationViewModel.swift in Sources */,
+				96C0A845226C832D00AE733A /* UserCell.swift in Sources */,
 				964181802247C5570019CABD /* TeacherRepository.swift in Sources */,
 				961A878F2240484200846538 /* Language.swift in Sources */,
 				9699ABA42232A2C7006D2F73 /* ApiError.swift in Sources */,
