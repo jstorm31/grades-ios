@@ -33,6 +33,14 @@ class User: Codable {
         firstName = info.firstName
         lastName = info.lastName
     }
+
+    func contains(_ text: String) -> Bool {
+        return username.lowercased().contains(text)
+            || firstName.lowercased().contains(text)
+            || lastName.lowercased().contains(text)
+            || name.lowercased().contains(text)
+            || nameReverse.lowercased().contains(text)
+    }
 }
 
 extension User: Equatable {

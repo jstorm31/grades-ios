@@ -19,6 +19,14 @@ final class StudentSearchViewController: BaseTableViewController, BindableType, 
     override func loadView() {
         loadView(hasTableHeaderView: false)
         navigationItem.title = L10n.Students.title
+
+        let search = UISearchController(searchResultsController: nil)
+        search.searchResultsUpdater = self
+        search.obscuresBackgroundDuringPresentation = false
+        search.searchBar.placeholder = "Search student"
+        navigationItem.searchController = search
+        definesPresentationContext = true
+
         loadUI()
     }
 
@@ -56,5 +64,11 @@ final class StudentSearchViewController: BaseTableViewController, BindableType, 
 extension StudentSearchViewController: UITableViewDelegate {
     func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         return 60
+    }
+}
+
+extension StudentSearchViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        viewModel.searchText.onNext(searchController.searchBar.text!)
     }
 }
