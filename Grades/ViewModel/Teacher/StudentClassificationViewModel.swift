@@ -41,24 +41,25 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
     }
 
     lazy var saveAction = CocoaAction { [weak self] in
-        self?.fieldValues
+        Observable.just(self?.fieldValues.value)
+            .unwrap()
             .map { $0.filter { $0.value != nil } }
-            .flatMap { [weak self] values -> Observable<[StudentClassification]> in
-                guard let `self` = self else { return Observable.just([]) }
-                return self.selectedStudent.map { student in
-                    values.map { StudentClassification(identifier: $0.key, username: student?.username ?? "", value: $0.value) }
-                }
+            .map { [weak self] values -> [StudentClassification] in
+                guard let `self` = self else { return [] }
+
+                let username = self.selectedStudent.value?.username ?? ""
+                return values.map { StudentClassification(identifier: $0.key, username: username, value: $0.value) }
             }
             .flatMap { [weak self] classifications -> Observable<Void> in
                 guard let `self` = self else { return Observable.empty() }
                 return self.dependencies.gradesApi.putStudentsClassifications(courseCode: self.course.code, data: classifications)
-            } ?? Observable.empty()
+            }
     }
 
     // MARK: private properties
 
     internal let fieldValues = BehaviorRelay<[String: DynamicValue?]>(value: [:])
-    private let selectedStudent = BehaviorSubject<User?>(value: nil)
+    private let selectedStudent = BehaviorRelay<User?>(value: nil)
     private let course: Course
 
     private let dependencies: Dependencies

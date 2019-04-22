@@ -17,6 +17,7 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
     private var studentNameLabel: UILabel!
     private var changeStudentButton: UISecondaryButton!
     private var gradingOverview: UIGradingOverview!
+    private var saveButton: UIBarButtonItem!
 
     var viewModel: StudentClassificationViewModel!
     private let bag = DisposeBag()
@@ -37,9 +38,6 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        var saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
-        saveButton.rx.action = viewModel.saveAction
         parent!.navigationItem.rightBarButtonItem = saveButton
     }
 
@@ -75,6 +73,23 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
             .disposed(by: bag)
 
         changeStudentButton.rx.action = viewModel.changeStudentAction
+        saveButton.rx.action = viewModel.saveAction
+
+        saveButton.rx.action!.elements
+            .asDriver(onErrorJustReturn: ())
+            .map { L10n.Students.updateSuccess }
+            .drive(view.rx.successMessage)
+            .disposed(by: bag)
+
+        saveButton.rx.action!.underlyingError
+            .asDriver(onErrorJustReturn: ApiError.general)
+            .drive(view.rx.errorMessage)
+            .disposed(by: bag)
+
+        saveButton.rx.action!.executing
+            .asDriver(onErrorJustReturn: false)
+            .drive(view.rx.refreshing)
+            .disposed(by: bag)
     }
 
     private func bindOverview() {
@@ -105,6 +120,10 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
     private func loadUI() {
         loadRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
+
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
+        self.saveButton = saveButton
+
         loadTableHeader()
     }
 

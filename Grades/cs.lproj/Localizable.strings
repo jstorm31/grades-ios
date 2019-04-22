@@ -39,3 +39,4 @@
 
 "students.title" = "Studenti";
 "students.search" = "Hledat studenta";
+"students.updateSuccess" = "Klasifikace byla úspěšně změněna.";

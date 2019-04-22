@@ -157,7 +157,7 @@ final class GradesAPI: GradesAPIProtocol {
 
     func putStudentsClassifications(courseCode: String, data: [StudentClassification]) -> Observable<Void> {
         let url = createURL(from: .studentsClassifications(courseCode))
-        return httpService.put(url: url, parameters: [:], body: data).map { _ in }
+        return httpService.put(url: url, parameters: [:], body: data)
     }
 
     // MARK: helpers

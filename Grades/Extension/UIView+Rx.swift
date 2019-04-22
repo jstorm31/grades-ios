@@ -29,4 +29,10 @@ extension Reactive where Base: UIView {
             }
         }
     }
+
+    public var successMessage: Binder<String> {
+        return Binder(base) { view, message in
+            view.makeCustomToast(message, type: .success)
+        }
+    }
 }

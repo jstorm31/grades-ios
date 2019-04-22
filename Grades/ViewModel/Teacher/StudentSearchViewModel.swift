@@ -21,7 +21,7 @@ final class StudentSearchViewModel: BaseViewModel {
 
     // MARK: Initialization
 
-    init(coordinator: SceneCoordinatorType, students: BehaviorRelay<[User]>, selectedStudent: BehaviorSubject<User?>) {
+    init(coordinator: SceneCoordinatorType, students: BehaviorRelay<[User]>, selectedStudent: BehaviorRelay<User?>) {
         self.coordinator = coordinator
         super.init()
 
