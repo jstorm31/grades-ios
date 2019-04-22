@@ -39,6 +39,18 @@ class StudentSearchViewModelTests: XCTestCase {
 		XCTAssertEqual(result![0].items.count, 2)
 	}
 	
+	func testStudentFilter() {
+		let dataSource = viewModel.dataSource.subscribeOn(scheduler)
+		viewModel.searchText.onNext("ond")
+		var result = try! dataSource.toBlocking(timeout: 2).first()
+		XCTAssertEqual(result![0].items.count, 1)
+		
+		// Reset search
+		viewModel.searchText.onNext("")
+		result = try! dataSource.toBlocking(timeout: 2).first()
+		XCTAssertEqual(result![0].items.count, 2)
+	}
+	
 	func testStudentSelection() {
 		let testScheduler = TestScheduler(initialClock: 0)
 		let selectedUser = testScheduler.createObserver(User?.self)

@@ -28,10 +28,7 @@ final class StudentSearchViewModel: BaseViewModel {
         onBackAction = CocoaAction { coordinator.didPop().asObservable().map { _ in } }
 
         // Filter students and bind it to dataSource
-        let filteredStudents = Observable.combineLatest(
-            students,
-            searchText.debounce(0.25, scheduler: MainScheduler.instance)
-        ) { ($0, $1) }
+        let filteredStudents = Observable.combineLatest(students, searchText) { ($0, $1) }
             .map { arg -> [User] in
                 let (students, text) = arg
                 return text.isEmpty ? students : students.filter { $0.contains(text.lowercased()) }

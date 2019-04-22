@@ -50,9 +50,17 @@ final class StudentSearchViewController: BaseTableViewController, BindableType, 
             .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
 
+        // Bind input to view model
+
         tableView.rx.itemSelected
             .map { $0.item }
             .bind(to: viewModel.itemSelected)
+            .disposed(by: bag)
+
+        navigationItem.searchController!.searchBar.rx.text
+            .debounce(0.25, scheduler: MainScheduler.instance)
+            .unwrap()
+            .bind(to: viewModel.searchText)
             .disposed(by: bag)
     }
 
@@ -83,7 +91,5 @@ extension StudentSearchViewController: UITableViewDelegate {
 }
 
 extension StudentSearchViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        viewModel.searchText.onNext(searchController.searchBar.text!)
-    }
+    func updateSearchResults(for _: UISearchController) {}
 }
