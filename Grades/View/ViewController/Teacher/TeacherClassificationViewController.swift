@@ -6,15 +6,16 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import Action
 import SnapKit
 import UIKit
 
-class TeacherClassificationViewController: BaseViewController, BindableType {
+final class TeacherClassificationViewController: BaseViewController, BindableType {
     var segmentedControl: UISegmentedControl!
     var contentView: UIView!
     var currentViewController: UIViewController?
 
-    var viewModel: TeacherClassificationViewModelProtocol!
+    var viewModel: TeacherClassificationViewModel!
 
     // MARK: lifecycle
 

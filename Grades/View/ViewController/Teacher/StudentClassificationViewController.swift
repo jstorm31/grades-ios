@@ -35,6 +35,14 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
         viewModel.bindOutput()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        var saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
+        saveButton.rx.action = viewModel.saveAction
+        parent!.navigationItem.rightBarButtonItem = saveButton
+    }
+
     // MARK: binding
 
     func bindViewModel() {
@@ -62,7 +70,6 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
 
         dataSource
             .map { $0.isEmpty ? true : !$0[0].items.isEmpty }
-            .debug()
             .asDriver(onErrorJustReturn: true)
             .drive(noContentLabel.rx.isHidden)
             .disposed(by: bag)

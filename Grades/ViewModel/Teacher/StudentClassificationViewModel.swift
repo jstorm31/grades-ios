@@ -40,6 +40,11 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
             .asObservable().map { _ in }
     }
 
+    var saveAction = CocoaAction {
+        Log.debug("Save not implemented")
+        return Observable.empty()
+    }
+
     // MARK: private properties
 
     private let dependencies: Dependencies

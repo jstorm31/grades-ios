@@ -20,6 +20,11 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
     let isloading = PublishSubject<Bool>()
     let error = PublishSubject<Error>()
 
+    var saveAction = CocoaAction {
+        Log.debug("Save not implemented")
+        return Observable.empty()
+    }
+
     // MARK: private properties
 
     private let dependencies: Dependencies
