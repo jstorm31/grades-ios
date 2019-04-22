@@ -6,13 +6,14 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import Action
 import RxCocoa
 import RxSwift
 
 final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArrayViewModelProtocol {
     typealias Dependencies = HasGradesAPI & HasCourseRepository
 
-    // MARK: public properties
+    // MARK: Public properties
 
     let dataSource = BehaviorRelay<[TableSection]>(value: [])
     let students = BehaviorRelay<[User]>(value: [])
@@ -24,6 +25,20 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
     lazy var studentName: Observable<String> = {
         selectedStudent.unwrap().map { $0.name }.share()
     }()
+
+    // MARK: Actions
+
+    lazy var changeStudentAction = CocoaAction { [weak self] in
+        guard let `self` = self else { return Observable.empty() }
+
+        let studentSearchViewModel = StudentSearchViewModel(
+            coordinator: self.coordinator,
+            students: self.students,
+            selectedStudent: self.selectedStudent
+        )
+        return self.coordinator.transition(to: .studentSearch(studentSearchViewModel), type: .push)
+            .asObservable().map { _ in }
+    }
 
     // MARK: private properties
 

@@ -8,7 +8,6 @@
 
 import UIKit
 
-// TODO: move from View layer
 enum Scene {
     case login(LoginViewModel)
     case courseList(CourseListViewModel)
@@ -17,6 +16,7 @@ enum Scene {
     case teacherClassification(TeacherClassificationViewModelProtocol)
     case groupClassification(GroupClassificationViewModel)
     case studentClassification(StudentClassificationViewModel)
+    case studentSearch(StudentSearchViewModel)
 }
 
 extension Scene {
@@ -54,9 +54,14 @@ extension Scene {
             return groupClassificationVC
 
         case let .studentClassification(viewModel):
-            var studentClassificationVC = StudentClassificationViewController()
-            studentClassificationVC.bindViewModel(to: viewModel)
-            return studentClassificationVC
+            var studentClassificationVc = StudentClassificationViewController()
+            studentClassificationVc.bindViewModel(to: viewModel)
+            return studentClassificationVc
+
+        case let .studentSearch(viewModel):
+            var studentSearchVC = StudentSearchViewController()
+            studentSearchVC.bindViewModel(to: viewModel)
+            return studentSearchVC
         }
     }
 }

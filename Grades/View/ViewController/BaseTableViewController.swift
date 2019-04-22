@@ -58,7 +58,7 @@ class BaseTableViewController: BaseViewController {
     }
 
     override func viewWillAppear(_: Bool) {
-        if let index = tableView.indexPathForSelectedRow {
+        if let tableView = self.tableView, let index = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: index, animated: true)
         }
     }

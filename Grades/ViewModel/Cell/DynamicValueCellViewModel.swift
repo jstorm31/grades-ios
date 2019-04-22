@@ -33,7 +33,7 @@ final class DynamicValueCellViewModel {
     // MARK: Binding
 
     func bindOutput() {
-        let sharedValue = value.share(replay: 1, scope: .whileConnected).debug()
+        let sharedValue = value.share(replay: 1, scope: .whileConnected)
 
         sharedValue
             .unwrap()

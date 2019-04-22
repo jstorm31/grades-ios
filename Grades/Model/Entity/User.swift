@@ -16,6 +16,10 @@ class User: Codable {
         return "\(firstName) \(lastName)"
     }
 
+    var nameReverse: String {
+        return "\(lastName) \(firstName)"
+    }
+
     init(userId: Int, username: String, firstName: String, lastName: String) {
         self.userId = userId
         self.username = username
@@ -28,5 +32,19 @@ class User: Codable {
         username = info.username
         firstName = info.firstName
         lastName = info.lastName
+    }
+
+    func contains(_ text: String) -> Bool {
+        return username.lowercased().contains(text)
+            || firstName.lowercased().contains(text)
+            || lastName.lowercased().contains(text)
+            || name.lowercased().contains(text)
+            || nameReverse.lowercased().contains(text)
+    }
+}
+
+extension User: Equatable {
+    static func == (lhs: User, rhs: User) -> Bool {
+        return lhs.username == rhs.username
     }
 }

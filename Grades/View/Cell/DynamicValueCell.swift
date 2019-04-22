@@ -13,11 +13,9 @@ import UIKit
 
 typealias DynamicValueCellConfigurator = TableCellConfigurator<DynamicValueCell, DynamicValueCellViewModel>
 
-final class DynamicValueCell: UITableViewCell, ConfigurableCell {
+final class DynamicValueCell: BasicCell, ConfigurableCell {
     typealias DataType = DynamicValueCellViewModel
 
-    private var titleLabel: UILabel!
-    private var subtitleLabel: UILabel!
     private var fieldLabel: UILabel!
     private var valueTextField: UITextField!
     private var valueSwitch: UISwitch!
@@ -102,26 +100,6 @@ final class DynamicValueCell: UITableViewCell, ConfigurableCell {
     // MARK: UI setup
 
     private func loadUI() {
-        let title = UILabel()
-        title.font = UIFont.Grades.body
-        title.textColor = UIColor.Theme.text
-        contentView.addSubview(title)
-        title.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().inset(20)
-        }
-        titleLabel = title
-
-        let subtitle = UILabel()
-        subtitle.font = UIFont.Grades.smallText
-        subtitle.textColor = UIColor.Theme.grayText
-        contentView.addSubview(subtitle)
-        subtitle.snp.makeConstraints { make in
-            make.bottom.equalTo(title.snp.bottom)
-            make.leading.equalTo(title.snp.trailing).offset(8)
-        }
-        subtitleLabel = subtitle
-
         let fieldLabel = UILabel()
         fieldLabel.font = UIFont.Grades.body
         fieldLabel.textColor = UIColor.Theme.text
