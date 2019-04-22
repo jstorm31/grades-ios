@@ -29,7 +29,8 @@ final class TeacherClassificationViewModel: BaseViewModel {
         let viewModel = StudentClassificationViewModel(
             dependencies: AppDependency.shared,
             coordinator: coordinator,
-            course: course
+            course: course,
+            user: user
         )
         return .studentClassification(viewModel)
     }()

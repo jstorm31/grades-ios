@@ -40,28 +40,39 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
             .asObservable().map { _ in }
     }
 
-    var saveAction = CocoaAction {
-        Log.debug("Save not implemented")
-        return Observable.empty()
+    lazy var saveAction = CocoaAction { [weak self] in
+        self?.fieldValues
+            .map { $0.filter { $0.value != nil } }
+            .map { [weak self] values -> [StudentClassification] in
+                guard let `self` = self else { return [] }
+                return values.map { StudentClassification(identifier: $0.key, username: self.user.username, value: $0.value) }
+            }
+            .do(onNext: { classifications in
+                Log.debug("\(classifications)")
+                // TODO: put to api
+            })
+            .map { _ in } ?? Observable.empty()
     }
 
     // MARK: private properties
 
+    internal let fieldValues = BehaviorRelay<[String: DynamicValue?]>(value: [:])
+    private let selectedStudent = BehaviorSubject<User?>(value: nil)
+    private let course: Course
+    private let user: User
+
     private let dependencies: Dependencies
     private let coordinator: SceneCoordinatorType
     private let activityIndicator = ActivityIndicator()
-    private let course: Course
     private let bag = DisposeBag()
-    private let selectedStudent = BehaviorSubject<User?>(value: nil)
-    private let valueType = PublishSubject<DynamicValueType?>()
-    internal let fieldValues = BehaviorRelay<[String: DynamicValue?]>(value: [:])
 
     // MARK: Initialization
 
-    init(dependencies: Dependencies, coordinator: SceneCoordinatorType, course: Course) {
+    init(dependencies: Dependencies, coordinator: SceneCoordinatorType, course: Course, user: User) {
         self.dependencies = dependencies
         self.coordinator = coordinator
         self.course = course
+        self.user = user
 
         dependencies.courseRepository.set(course: course)
 

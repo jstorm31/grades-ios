@@ -12,6 +12,12 @@ struct StudentClassification {
     var lastName: String?
     var username: String
     var value: DynamicValue?
+
+    init(identifier: String, username: String, value: DynamicValue?) {
+        ident = identifier
+        self.username = username
+        self.value = value
+    }
 }
 
 extension StudentClassification: Codable {
