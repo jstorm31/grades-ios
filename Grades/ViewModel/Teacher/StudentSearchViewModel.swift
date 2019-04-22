@@ -42,12 +42,16 @@ final class StudentSearchViewModel: BaseViewModel {
             .disposed(by: bag)
 
         // Bind selected item
-        itemSelected
+        let selected = itemSelected
             .flatMap { index in
                 filteredStudents.map { $0[index] }
             }
-            .do(onNext: { [weak self] _ in self?.coordinator.pop(animated: true) })
-            .bind(to: selectedStudent)
-            .disposed(by: bag)
+            .share()
+
+        selected.bind(to: selectedStudent).disposed(by: bag)
+
+        selected.take(1).subscribe(onNext: { [weak self] _ in
+            self?.coordinator.pop(animated: true)
+        }).disposed(by: bag)
     }
 }
