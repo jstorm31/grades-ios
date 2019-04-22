@@ -43,15 +43,16 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
     lazy var saveAction = CocoaAction { [weak self] in
         self?.fieldValues
             .map { $0.filter { $0.value != nil } }
-            .map { [weak self] values -> [StudentClassification] in
-                guard let `self` = self else { return [] }
-                return values.map { StudentClassification(identifier: $0.key, username: self.user.username, value: $0.value) }
+            .flatMap { [weak self] values -> Observable<[StudentClassification]> in
+                guard let `self` = self else { return Observable.just([]) }
+                return self.selectedStudent.map { student in
+                    values.map { StudentClassification(identifier: $0.key, username: student?.username ?? "", value: $0.value) }
+                }
             }
-            .do(onNext: { classifications in
-                Log.debug("\(classifications)")
-                // TODO: put to api
-            })
-            .map { _ in } ?? Observable.empty()
+            .flatMap { [weak self] classifications -> Observable<Void> in
+                guard let `self` = self else { return Observable.empty() }
+                return self.dependencies.gradesApi.putStudentsClassifications(courseCode: self.course.code, data: classifications)
+            } ?? Observable.empty()
     }
 
     // MARK: private properties
@@ -59,7 +60,6 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
     internal let fieldValues = BehaviorRelay<[String: DynamicValue?]>(value: [:])
     private let selectedStudent = BehaviorSubject<User?>(value: nil)
     private let course: Course
-    private let user: User
 
     private let dependencies: Dependencies
     private let coordinator: SceneCoordinatorType
@@ -68,11 +68,10 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
 
     // MARK: Initialization
 
-    init(dependencies: Dependencies, coordinator: SceneCoordinatorType, course: Course, user: User) {
+    init(dependencies: Dependencies, coordinator: SceneCoordinatorType, course: Course) {
         self.dependencies = dependencies
         self.coordinator = coordinator
         self.course = course
-        self.user = user
 
         dependencies.courseRepository.set(course: course)
 
