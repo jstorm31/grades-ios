@@ -6,6 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import Action
 import RxCocoa
 import RxSwift
 import SnapKit
@@ -90,6 +91,23 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
             .drive(valueSwitch.rx.isOn)
             .disposed(by: bag)
 
+        // Keyboard type
+        viewModel.value.unwrap()
+            .map { type -> Bool in
+                if case .number = type {
+                    return true
+                }
+                return false
+            }
+            .subscribe(onNext: { [weak self] isNumber in
+                self?.valueTextField.keyboardType = isNumber ? .numberPad : .default
+                self?.valueTextField.attributedPlaceholder = NSAttributedString(
+                    string: isNumber ? "0" : "",
+                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.Theme.grayText]
+                )
+            })
+            .disposed(by: bag)
+
         // Show / hide controls
         let sharedShowTextField = viewModel.showTextField.share()
         sharedShowTextField.map { !$0 }.asDriver(onErrorJustReturn: false).drive(valueTextField.rx.isHidden).disposed(by: bag)
@@ -115,10 +133,10 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
         textField.font = UIFont.Grades.body
         textField.textColor = UIColor.Theme.text
         textField.setBottomBorder(color: UIColor.Theme.borderGray, size: 1.0)
-        textField.attributedPlaceholder = NSAttributedString(
-            string: "0",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.Theme.grayText]
-        )
+        textField.addDoneButton(doneAction: CocoaAction {
+            self.contentView.endEditing(false)
+            return Observable.empty()
+        })
         contentView.addSubview(textField)
         textField.snp.makeConstraints { make in
             make.width.equalTo(50)

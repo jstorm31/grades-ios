@@ -72,16 +72,20 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
             .drive(noContentLabel.rx.isHidden)
             .disposed(by: bag)
 
-        changeStudentButton.rx.action = viewModel.changeStudentAction
         saveButton.rx.action = viewModel.saveAction
+		changeStudentButton.rx.action = viewModel.changeStudentAction
 
+		// Save action
+		
         saveButton.rx.action!.elements
             .asDriver(onErrorJustReturn: ())
             .map { L10n.Students.updateSuccess }
+            .do(onNext: { [weak self] _ in self?.view.endEditing(false) })
             .drive(view.rx.successMessage)
             .disposed(by: bag)
 
         saveButton.rx.action!.underlyingError
+			.do(onNext: { [weak self] _ in self?.view.endEditing(false) })
             .asDriver(onErrorJustReturn: ApiError.general)
             .drive(view.rx.errorMessage)
             .disposed(by: bag)
@@ -119,6 +123,7 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
 
     private func loadUI() {
         loadRefreshControl()
+        tableView.keyboardDismissMode = .onDrag
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
 
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
