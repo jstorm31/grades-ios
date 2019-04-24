@@ -126,6 +126,8 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
     // MARK: UI setup
 
     private func loadUI() {
+        selectionStyle = .none
+
         let fieldLabel = UILabel()
         fieldLabel.font = UIFont.Grades.body
         fieldLabel.textColor = UIColor.Theme.text
