@@ -34,11 +34,18 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
     override func viewDidLoad() {
         tableView.register(DynamicValueCell.self, forCellReuseIdentifier: "DynamicValueCell")
         viewModel.bindOutput()
+        bindOutput()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         parent!.navigationItem.rightBarButtonItem = saveButton
+        addKeyboardFrameChangesObserver()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        removeKeyboardFrameChangesObserver()
     }
 
     // MARK: binding
@@ -71,29 +78,6 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
             .asDriver(onErrorJustReturn: true)
             .drive(noContentLabel.rx.isHidden)
             .disposed(by: bag)
-
-        saveButton.rx.action = viewModel.saveAction
-        changeStudentButton.rx.action = viewModel.changeStudentAction
-
-        // Save action
-
-        saveButton.rx.action!.elements
-            .asDriver(onErrorJustReturn: ())
-            .map { L10n.Students.updateSuccess }
-            .do(onNext: { [weak self] _ in self?.view.endEditing(false) })
-            .drive(view.rx.successMessage)
-            .disposed(by: bag)
-
-        saveButton.rx.action!.underlyingError
-            .do(onNext: { [weak self] _ in self?.view.endEditing(false) })
-            .asDriver(onErrorJustReturn: ApiError.general)
-            .drive(view.rx.errorMessage)
-            .disposed(by: bag)
-
-        saveButton.rx.action!.executing
-            .asDriver(onErrorJustReturn: false)
-            .drive(view.rx.refreshing)
-            .disposed(by: bag)
     }
 
     private func bindOverview() {
@@ -115,6 +99,39 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
             })
             .asDriver(onErrorJustReturn: "")
             .drive(gradingOverview.gradeLabel.rx.text)
+            .disposed(by: bag)
+    }
+
+    private func bindOutput() {
+        saveButton.rx.action = viewModel.saveAction
+        changeStudentButton.rx.action = viewModel.changeStudentAction
+
+        // Table cell seleciton
+
+        tableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                self?.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+            })
+            .disposed(by: bag)
+
+        // Save action
+
+        saveButton.rx.action!.elements
+            .asDriver(onErrorJustReturn: ())
+            .map { L10n.Students.updateSuccess }
+            .do(onNext: { [weak self] _ in self?.view.endEditing(false) })
+            .drive(view.rx.successMessage)
+            .disposed(by: bag)
+
+        saveButton.rx.action!.underlyingError
+            .do(onNext: { [weak self] _ in self?.view.endEditing(false) })
+            .asDriver(onErrorJustReturn: ApiError.general)
+            .drive(view.rx.errorMessage)
+            .disposed(by: bag)
+
+        saveButton.rx.action!.executing
+            .asDriver(onErrorJustReturn: false)
+            .drive(view.rx.refreshing)
             .disposed(by: bag)
     }
 
@@ -195,4 +212,8 @@ extension StudentClassificationViewController: UITableViewDelegate {
     func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         return 60
     }
+}
+
+extension StudentClassificationViewController: ModifableInsetsOnKeyboardFrameChanges {
+    var scrollViewToModify: UIScrollView { return tableView }
 }
