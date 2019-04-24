@@ -6,6 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import Action
 import Foundation
 import OAuthSwift
 import RxSwift
@@ -16,6 +17,7 @@ protocol HasAuthenticationService {
 
 protocol AuthenticationServiceProtocol {
     var handler: OAuth2Swift { get }
+    var renewAccessToken: CocoaAction { get }
 
     func authenticate(useBuiltInSafari: Bool, viewController: UIViewController?) -> Observable<Bool>
 }
@@ -26,11 +28,12 @@ final class AuthenticationService: AuthenticationServiceProtocol {
     private let authorizationHeader: String
     private let scope: String
     private let bag = DisposeBag()
+    private let config: EnvironmentConfiguration
 
     // MARK: initializers
 
     init() {
-        let config = EnvironmentConfiguration.shared
+        config = EnvironmentConfiguration.shared
 
         callbackUrl = URL(string: config.auth.redirectUri)!
         authorizationHeader = "Basic \(config.auth.clientHash)"
@@ -77,6 +80,51 @@ final class AuthenticationService: AuthenticationServiceProtocol {
 
             return Disposables.create {
                 handle?.cancel()
+            }
+        }
+    }
+
+    /// Renew access token with refresh token
+    lazy var renewAccessToken = CocoaAction { [weak self] in
+        Observable.create { [weak self] observer in
+            guard let `self` = self else { return Disposables.create() }
+            let credential = self.handler.client.credential
+
+            // Build request
+            var request = URLRequest(url: URL(string: self.config.auth.tokenUrl)!)
+            request.httpMethod = "POST"
+            request.setValue(self.authorizationHeader, forHTTPHeaderField: "Authorization")
+            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+            let body = "grant_type=refresh_token&refresh_token=\(credential.oauthRefreshToken)"
+            request.httpBody = body.data(using: .utf8)
+
+            // Make request
+            let task = URLSession.shared.dataTask(with: request) { data, _, error in
+                if let error = error {
+                    Log.error("AuthenticationService:renewAccessToken: \(error)")
+                    observer.onError(error)
+                } else {
+                    if let data = data {
+                        do {
+                            let tokenResponse = try JSONDecoder().decode(AuthTokenResponse.self, from: data)
+
+                            // Set new tokens
+                            credential.oauthToken = tokenResponse.accessToken.safeStringByRemovingPercentEncoding
+                            credential.oauthRefreshToken = tokenResponse.refreshToken.safeStringByRemovingPercentEncoding
+                            credential.oauthTokenExpiresAt = Date(timeInterval: tokenResponse.expiresIn, since: Date())
+
+                            observer.onNext(())
+                            observer.onCompleted()
+                        } catch {
+                            observer.onError(ApiError.unprocessableData)
+                        }
+                    }
+                }
+            }
+            task.resume()
+
+            return Disposables.create {
+                task.cancel()
             }
         }
     }

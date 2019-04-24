@@ -26,6 +26,8 @@
 		961FC4F82244118B000A4CDA /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961FC4F72244118B000A4CDA /* AppDependency.swift */; };
 		9639AE662270989B009C35A9 /* ModifableInsetsOnKeyboardFrameChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE642270989B009C35A9 /* ModifableInsetsOnKeyboardFrameChanges.swift */; };
 		9639AE672270989C009C35A9 /* KeyboardChangeFrameObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE652270989B009C35A9 /* KeyboardChangeFrameObserver.swift */; };
+		9639AE692270AAA1009C35A9 /* AuthTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE682270AAA1009C35A9 /* AuthTokenResponse.swift */; };
+		9639AE6B2270ADDF009C35A9 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE6A2270ADDF009C35A9 /* String+.swift */; };
 		963C62842233B7C000B01818 /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963C62832233B7C000B01818 /* HttpService.swift */; };
 		963C628B22341FDC00B01818 /* GradesAPIMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965807152230099D0065E23D /* GradesAPIMock.swift */; };
 		963C628D22342ED300B01818 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963C628C22342ED300B01818 /* LoginViewModelTests.swift */; };
@@ -177,6 +179,8 @@
 		961FC4F72244118B000A4CDA /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
 		9639AE642270989B009C35A9 /* ModifableInsetsOnKeyboardFrameChanges.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifableInsetsOnKeyboardFrameChanges.swift; sourceTree = "<group>"; };
 		9639AE652270989B009C35A9 /* KeyboardChangeFrameObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardChangeFrameObserver.swift; sourceTree = "<group>"; };
+		9639AE682270AAA1009C35A9 /* AuthTokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTokenResponse.swift; sourceTree = "<group>"; };
+		9639AE6A2270ADDF009C35A9 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		963C62832233B7C000B01818 /* HttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpService.swift; sourceTree = "<group>"; };
 		963C628C22342ED300B01818 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
 		963C628F2234307300B01818 /* EnvironmentConfigurationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentConfigurationMock.swift; sourceTree = "<group>"; };
@@ -569,6 +573,7 @@
 				961A8788223FFC3300846538 /* UITextField+.swift */,
 				9644779422427B3100E960F4 /* UIViewController+ConfirmationModal.swift */,
 				964181812247E8B20019CABD /* UIViewController+PickerPresentable.swift */,
+				9639AE6A2270ADDF009C35A9 /* String+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -689,6 +694,7 @@
 				96B49FA9223EBF8E00B23A5B /* Settings.swift */,
 				964181792247BE6C0019CABD /* StudentGroup.swift */,
 				968D05C122625CC2003F7D49 /* StudentClassification.swift */,
+				9639AE682270AAA1009C35A9 /* AuthTokenResponse.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1025,6 +1031,7 @@
 				96C0A841226C784C00AE733A /* StudentSearchViewModel.swift in Sources */,
 				968D05BA2261E917003F7D49 /* TablePickerViewModel.swift in Sources */,
 				964181782247A83E0019CABD /* StudentClassificationViewController.swift in Sources */,
+				9639AE6B2270ADDF009C35A9 /* String+.swift in Sources */,
 				96861080222AEC680069B81B /* UIFont+.swift in Sources */,
 				96C0A847226C83D400AE733A /* BasicCell.swift in Sources */,
 				961A2FE1222988D700A624DC /* AuthenticationService.swift in Sources */,
@@ -1071,6 +1078,7 @@
 				96861073222AA55F0069B81B /* UIColor+.swift in Sources */,
 				96C569AA226B18B800B16A7C /* DynamicValueFieldArrayViewModelProtocol.swift in Sources */,
 				9654A4FD2246A02200778ED1 /* TeacherCourseCell.swift in Sources */,
+				9639AE692270AAA1009C35A9 /* AuthTokenResponse.swift in Sources */,
 				96B49FAA223EBF8E00B23A5B /* Settings.swift in Sources */,
 				96F3A3832239B02E00FB63EF /* ClassificationCell.swift in Sources */,
 				9686108B222B1B210069B81B /* SceneTransitionType.swift in Sources */,

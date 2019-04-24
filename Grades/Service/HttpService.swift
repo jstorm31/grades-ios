@@ -130,7 +130,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
     }
 
     func renew() {
-        renewAccessToken.execute()
+        dependencies.authService.renewAccessToken.execute()
             .subscribe(
                 onError: { error in
                     Log.error("HttpService.refreshToken: Error refreshing token: \(error.localizedDescription)")
@@ -149,7 +149,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
      */
     private func handle(error: Error) {
         if case OAuthSwiftError.tokenExpired = error {
-            renewAccessToken.execute()
+            dependencies.authService.renewAccessToken.execute()
                 .subscribe(
                     onError: { error in
                         Log.error("HttpService.refreshToken: Error refreshing token: \(error.localizedDescription)")
@@ -160,45 +160,6 @@ final class HttpService: NSObject, HttpServiceProtocol {
                 .disposed(by: bag)
         } else {
             Log.error("HttpService.request: External API error: \(error.localizedDescription)")
-        }
-    }
-
-    /// Renew access token with refresh token
-    private lazy var renewAccessToken = CocoaAction { [weak self] in
-        Observable.create { [weak self] observer in
-            guard let `self` = self else { return Disposables.create() }
-
-//            self.client.request(
-//                URL(string: EnvironmentConfiguration.shared.auth.tokenUrl)!,
-//                method: .POST,
-//                parameters: [
-//                    "grant_type": "refresh_token",
-//                    "refresh_token": self.client.credential.oauthRefreshToken,
-//                ],
-//                headers: [:],
-//                success: { response in
-//                    let data = response.data
-//
-//                    //					let decodedResponse = String(decoding: data, as: UTF8.self)
-//                    observer.onNext(())
-//                    observer.onCompleted()
-//                }, failure: { error in
-//                    observer.onError(error)
-//                }
-//            )
-
-            self.dependencies.authService.handler.renewAccessToken(
-                withRefreshToken: self.client.credential.oauthRefreshToken,
-                success: { _, _, _ in
-                    observer.onNext(())
-                    observer.onCompleted()
-                },
-                failure: { error in
-                    observer.onError(error)
-                }
-            )
-
-            return Disposables.create()
         }
     }
 }
