@@ -68,13 +68,11 @@ final class AuthenticationService: AuthenticationServiceProtocol {
                                observer.onNext(true)
                                observer.onCompleted()
                            }, failure: { error in
-                               Log.error("AuthenticationService.authenticate: Authentication error.")
+                               Log.error("AuthenticationService.authenticate: Authentication error. \(error.localizedDescription)")
                                #if DEBUG
                                    observer.onError(error)
                                #endif
-                               observer.onError(
-                                   AuthenticationError.generic
-                               )
+                               observer.onError(AuthenticationError.generic)
                 })
 
             return Disposables.create {

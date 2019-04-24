@@ -61,7 +61,7 @@ class DynamicValueCellViewModelTests: XCTestCase {
 		let boolValue = scheduler.createObserver(Bool.self)
 		
 		cellViewModel.showTextField.bind(to: showTextField).disposed(by: bag)
-		cellViewModel.boolValue.debug().bind(to: boolValue).disposed(by: bag)
+		cellViewModel.boolValue.bind(to: boolValue).disposed(by: bag)
 		
 		scheduler
 			.createColdObservable([.next(10, DynamicValue.bool(false))])

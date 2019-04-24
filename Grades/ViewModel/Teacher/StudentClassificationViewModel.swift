@@ -40,16 +40,35 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
             .asObservable().map { _ in }
     }
 
+    lazy var saveAction = CocoaAction { [weak self] in
+        Observable.just(self?.fieldValues.value)
+            .unwrap()
+            .map { $0.filter { $0.value != nil } }
+            .map { [weak self] values -> [StudentClassification] in
+                guard let `self` = self else { return [] }
+
+                let username = self.selectedStudent.value?.username ?? ""
+                return values.map { StudentClassification(identifier: $0.key, username: username, value: $0.value) }
+            }
+            .flatMap { [weak self] classifications -> Observable<Void> in
+                guard let `self` = self else { return Observable.empty() }
+                return self.dependencies.gradesApi.putStudentsClassifications(courseCode: self.course.code, data: classifications)
+            }
+            .do(onCompleted: { [weak self] in
+                self?.bindOutput()
+            })
+    }
+
     // MARK: private properties
+
+    internal let fieldValues = BehaviorRelay<[String: DynamicValue?]>(value: [:])
+    private let selectedStudent = BehaviorRelay<User?>(value: nil)
+    private let course: Course
 
     private let dependencies: Dependencies
     private let coordinator: SceneCoordinatorType
     private let activityIndicator = ActivityIndicator()
-    private let course: Course
     private let bag = DisposeBag()
-    private let selectedStudent = BehaviorSubject<User?>(value: nil)
-    private let valueType = PublishSubject<DynamicValueType?>()
-    internal let fieldValues = BehaviorRelay<[String: DynamicValue?]>(value: [:])
 
     // MARK: Initialization
 
@@ -120,7 +139,11 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
         classifications
             .map { [weak self] classifications in
                 classifications.map { classification in
-                    let cellViewModel = DynamicValueCellViewModel(key: classification.identifier, title: classification.getLocalizedText())
+                    let cellViewModel = DynamicValueCellViewModel(
+                        valueType: classification.valueType,
+                        key: classification.identifier,
+                        title: classification.getLocalizedText()
+                    )
                     self?.bind(cellViewModel: cellViewModel)
 
                     return DynamicValueCellConfigurator(item: cellViewModel)

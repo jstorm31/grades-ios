@@ -72,8 +72,9 @@ class SceneCoordinator: SceneCoordinatorType {
                 .sentMessage(#selector(UINavigationControllerDelegate.navigationController(_:didShow:animated:)))
                 .map { _ in }
                 .bind(to: subject)
-            guard navigationController.popViewController(animated: animated) != nil else {
-                fatalError("can't navigate back from \(currentViewController)")
+            if navigationController.popViewController(animated: animated) == nil {
+                Log.error("can't navigate back from \(currentViewController)")
+                return Observable.just(()).ignoreElements()
             }
             currentViewController = SceneCoordinator
                 .actualViewController(for: navigationController.viewControllers.last!)

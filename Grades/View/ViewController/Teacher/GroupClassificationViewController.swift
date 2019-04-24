@@ -73,6 +73,14 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         viewModel.getData()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        var saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
+        saveButton.rx.action = viewModel.saveAction
+        parent!.navigationItem.rightBarButtonItem = saveButton
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.getData()

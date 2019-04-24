@@ -6,6 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import Action
 import RxCocoa
 import RxSwift
 import SnapKit
@@ -55,10 +56,13 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
             .skip(1)
             .unwrap()
             .debounce(0.25, scheduler: MainScheduler.instance)
-            .map { text in
-                if let number = Double(text) {
-                    return DynamicValue.number(number)
-                } else {
+            .map { [weak self] text in
+                guard let type = self?.viewModel.valueType else { return DynamicValue.string(nil) }
+
+                switch type {
+                case .number:
+                    return DynamicValue.number(Double(text) ?? nil)
+                default:
                     return DynamicValue.string(text)
                 }
             }
@@ -90,20 +94,45 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
             .drive(valueSwitch.rx.isOn)
             .disposed(by: bag)
 
-        // Show / hide controls
-        let sharedShowTextField = viewModel.showTextField.share()
-        sharedShowTextField.map { !$0 }.asDriver(onErrorJustReturn: false).drive(valueTextField.rx.isHidden).disposed(by: bag)
-        sharedShowTextField.map { !$0 }.asDriver(onErrorJustReturn: false).drive(fieldLabel.rx.isHidden).disposed(by: bag)
-        sharedShowTextField.asDriver(onErrorJustReturn: true).drive(valueSwitch.rx.isHidden).disposed(by: bag)
+        // Keyboard type
+        viewModel.value.unwrap()
+            .map { type -> Bool in
+                if case .number = type {
+                    return true
+                }
+                return false
+            }
+            .subscribe(onNext: { [weak self] isNumber in
+                self?.valueTextField.keyboardType = isNumber ? .numberPad : .default
+                self?.valueTextField.attributedPlaceholder = NSAttributedString(
+                    string: isNumber ? "0" : "",
+                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.Theme.grayText]
+                )
+            })
+            .disposed(by: bag)
+
+        // Show right controls for type
+        switch viewModel.valueType {
+        case .string:
+            valueTextField.isHidden = false
+        case .number:
+            valueTextField.isHidden = false
+            fieldLabel.isHidden = false
+        case .bool:
+            valueSwitch.isHidden = false
+        }
     }
 
     // MARK: UI setup
 
     private func loadUI() {
+        selectionStyle = .none
+
         let fieldLabel = UILabel()
         fieldLabel.font = UIFont.Grades.body
         fieldLabel.textColor = UIColor.Theme.text
         fieldLabel.text = L10n.Courses.points
+        fieldLabel.isHidden = true
         contentView.addSubview(fieldLabel)
         fieldLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
@@ -115,10 +144,11 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
         textField.font = UIFont.Grades.body
         textField.textColor = UIColor.Theme.text
         textField.setBottomBorder(color: UIColor.Theme.borderGray, size: 1.0)
-        textField.attributedPlaceholder = NSAttributedString(
-            string: "0",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.Theme.grayText]
-        )
+        textField.isHidden = true
+        textField.addDoneButton(doneAction: CocoaAction {
+            self.contentView.endEditing(false)
+            return Observable.empty()
+        })
         contentView.addSubview(textField)
         textField.snp.makeConstraints { make in
             make.width.equalTo(50)

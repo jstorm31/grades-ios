@@ -15,15 +15,7 @@ enum TeacherSceneIndex: Int {
     case studentClassification = 1
 }
 
-protocol TeacherClassificationViewModelProtocol {
-    var defaultScene: TeacherSceneIndex { get }
-    var course: TeacherCourse { get }
-    var onBackAction: CocoaAction { get }
-
-    func scene(forSegmentIndex index: Int) -> Scene?
-}
-
-final class TeacherClassificationViewModel: BaseViewModel, TeacherClassificationViewModelProtocol {
+final class TeacherClassificationViewModel: BaseViewModel {
     // MARK: private properties
 
     private let coordinator: SceneCoordinatorType

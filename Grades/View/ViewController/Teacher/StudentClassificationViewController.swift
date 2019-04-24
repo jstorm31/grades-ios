@@ -17,6 +17,7 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
     private var studentNameLabel: UILabel!
     private var changeStudentButton: UISecondaryButton!
     private var gradingOverview: UIGradingOverview!
+    private var saveButton: UIBarButtonItem!
 
     var viewModel: StudentClassificationViewModel!
     private let bag = DisposeBag()
@@ -33,6 +34,18 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
     override func viewDidLoad() {
         tableView.register(DynamicValueCell.self, forCellReuseIdentifier: "DynamicValueCell")
         viewModel.bindOutput()
+        bindOutput()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        parent!.navigationItem.rightBarButtonItem = saveButton
+        addKeyboardFrameChangesObserver()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        removeKeyboardFrameChangesObserver()
     }
 
     // MARK: binding
@@ -62,12 +75,9 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
 
         dataSource
             .map { $0.isEmpty ? true : !$0[0].items.isEmpty }
-            .debug()
             .asDriver(onErrorJustReturn: true)
             .drive(noContentLabel.rx.isHidden)
             .disposed(by: bag)
-
-        changeStudentButton.rx.action = viewModel.changeStudentAction
     }
 
     private func bindOverview() {
@@ -77,14 +87,13 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
             .disposed(by: bag)
 
         viewModel.totalPoints
-            .unwrap()
-            .map { "\(L10n.Classification.total) \($0) \(L10n.Courses.points)" }
+            .map { $0 != nil ? "\(L10n.Classification.total) \($0!) \(L10n.Courses.points)" : "" }
             .asDriver(onErrorJustReturn: "")
             .drive(gradingOverview.pointsLabel.rx.text)
             .disposed(by: bag)
 
         viewModel.finalGrade
-            .unwrap()
+            .map { $0 ?? "" }
             .do(onNext: { [weak self] grade in
                 self?.gradingOverview.gradeLabel.textColor = UIColor.Theme.setGradeColor(forGrade: grade)
             })
@@ -93,11 +102,49 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
             .disposed(by: bag)
     }
 
+    private func bindOutput() {
+        saveButton.rx.action = viewModel.saveAction
+        changeStudentButton.rx.action = viewModel.changeStudentAction
+
+        // Table cell seleciton
+
+        tableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                self?.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+            })
+            .disposed(by: bag)
+
+        // Save action
+
+        saveButton.rx.action!.elements
+            .asDriver(onErrorJustReturn: ())
+            .map { L10n.Students.updateSuccess }
+            .do(onNext: { [weak self] _ in self?.view.endEditing(false) })
+            .drive(view.rx.successMessage)
+            .disposed(by: bag)
+
+        saveButton.rx.action!.underlyingError
+            .do(onNext: { [weak self] _ in self?.view.endEditing(false) })
+            .asDriver(onErrorJustReturn: ApiError.general)
+            .drive(view.rx.errorMessage)
+            .disposed(by: bag)
+
+        saveButton.rx.action!.executing
+            .asDriver(onErrorJustReturn: false)
+            .drive(view.rx.refreshing)
+            .disposed(by: bag)
+    }
+
     // MARK: UI setup
 
     private func loadUI() {
         loadRefreshControl()
+        tableView.keyboardDismissMode = .onDrag
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
+
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
+        self.saveButton = saveButton
+
         loadTableHeader()
     }
 
@@ -165,4 +212,8 @@ extension StudentClassificationViewController: UITableViewDelegate {
     func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         return 60
     }
+}
+
+extension StudentClassificationViewController: ModifableInsetsOnKeyboardFrameChanges {
+    var scrollViewToModify: UIScrollView { return tableView }
 }

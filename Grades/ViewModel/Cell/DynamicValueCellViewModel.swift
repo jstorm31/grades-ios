@@ -9,6 +9,7 @@
 import RxSwift
 
 final class DynamicValueCellViewModel {
+    let valueType: DynamicValueType
     let key: String
     let title: String?
     let subtitle: String?
@@ -18,13 +19,13 @@ final class DynamicValueCellViewModel {
 
     // MARK: Cell output
 
-    let showTextField = PublishSubject<Bool>()
     let stringValue = PublishSubject<String?>()
     let boolValue = PublishSubject<Bool>()
 
     // MARK: Initialization
 
-    init(key: String, title: String? = nil, subtitle: String? = nil) {
+    init(valueType: DynamicValueType, key: String, title: String? = nil, subtitle: String? = nil) {
+        self.valueType = valueType
         self.key = key
         self.title = title
         self.subtitle = subtitle
@@ -34,19 +35,6 @@ final class DynamicValueCellViewModel {
 
     func bindOutput() {
         let sharedValue = value.share(replay: 1, scope: .whileConnected)
-
-        sharedValue
-            .unwrap()
-            .map { type -> Bool in
-                switch type {
-                case .string, .number:
-                    return true
-                case .bool:
-                    return false
-                }
-            }
-            .bind(to: showTextField)
-            .disposed(by: bag)
 
         sharedValue
             .map { (value: DynamicValue?) -> String? in

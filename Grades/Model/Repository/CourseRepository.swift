@@ -80,7 +80,7 @@ final class CourseRepository: CourseRepositoryProtocol {
 
     @discardableResult
     func overview(forStudent username: String) -> Observable<StudentOverview> {
-        let classifications = self.classifications(forStudent: username).share().debug()
+        let classifications = self.classifications(forStudent: username).share()
 
         let pointsTotal = classifications
             .map { $0.first { $0.type == ClassificationType.pointsTotal.rawValue } ?? nil }

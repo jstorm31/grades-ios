@@ -20,6 +20,11 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
     let isloading = PublishSubject<Bool>()
     let error = PublishSubject<Error>()
 
+    var saveAction = CocoaAction {
+        Log.debug("Save not implemented")
+        return Observable.empty()
+    }
+
     // MARK: private properties
 
     private let dependencies: Dependencies
@@ -103,6 +108,7 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
 
                 return classifications.map { (item: StudentClassification) -> CellItemType in
                     let cellViewModel = DynamicValueCellViewModel(
+                        valueType: .string, // TODO: replace with dynamic value type for current classification
                         key: item.username,
                         title: "\(item.lastName ?? "") \(item.firstName ?? "")"
                     )

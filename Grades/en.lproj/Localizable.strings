@@ -39,3 +39,4 @@
 
 "students.title" = "Students";
 "students.search" = "Search student";
+"students.updateSuccess" = "Grading was successfuly updated.";
