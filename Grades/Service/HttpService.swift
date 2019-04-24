@@ -6,6 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import Action
 import OAuthSwift
 import RxSwift
 
@@ -25,18 +26,24 @@ protocol HttpServiceProtocol {
 
     @discardableResult
     func put<T: Encodable>(url: URL, parameters: HttpParameters?, body: T) -> Observable<Void>
+
+    func renew()
 }
 
 /// RxSwift wrapper around OAuthSwift http client to make requests signed with access token
 final class HttpService: NSObject, HttpServiceProtocol {
-    private let client: OAuthSwiftClient
+    typealias Dependencies = HasAuthenticationService
 
+    private let dependencies: Dependencies
+    private let client: OAuthSwiftClient
     private let defaultHeaders = [
         "Content-Type": "application/json;charset=UTF-8"
     ]
+    private let bag = DisposeBag()
 
-    init(client: OAuthSwiftClient) {
-        self.client = client
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
+        client = dependencies.authService.handler.client
     }
 
     /// Make HTTP GET request and return Observable of given type that emits request reuslt
@@ -59,7 +66,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
                         observer.onError(ApiError.unprocessableData)
                     }
                 }, failure: { error in
-                    Log.error("HttpService.request: External API error: \(error.localizedDescription)")
+                    self?.handle(error: error)
                     observer.onError(ApiError.getError(forCode: error.errorCode))
                 }
             )
@@ -83,7 +90,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
                     observer.onNext(decodedResponse)
                     observer.onCompleted()
                 }, failure: { error in
-                    Log.error("HttpService.request: External API error: \(error.localizedDescription)")
+                    self?.handle(error: error)
                     observer.onError(ApiError.getError(forCode: error.errorCode))
                 }
             )
@@ -112,9 +119,82 @@ final class HttpService: NSObject, HttpServiceProtocol {
                 success: { _ in
                     observer.onNext(())
                     observer.onCompleted()
-                }, failure: { error in
-                    Log.error("HttpService.request: External API error: \(error.localizedDescription)")
+                }, failure: { [weak self] error in
+                    self?.handle(error: error)
                     observer.onError(ApiError.getError(forCode: error.errorCode))
+                }
+            )
+
+            return Disposables.create()
+        }
+    }
+
+    func renew() {
+        renewAccessToken.execute()
+            .subscribe(
+                onError: { error in
+                    Log.error("HttpService.refreshToken: Error refreshing token: \(error.localizedDescription)")
+                }, onCompleted: {
+                    Log.info("Token refreshed!")
+                }
+            )
+            .disposed(by: bag)
+    }
+
+    // MARK: Helper methods
+
+    /**
+     Handle error by http request
+     Renew access token when expired
+     */
+    private func handle(error: Error) {
+        if case OAuthSwiftError.tokenExpired = error {
+            renewAccessToken.execute()
+                .subscribe(
+                    onError: { error in
+                        Log.error("HttpService.refreshToken: Error refreshing token: \(error.localizedDescription)")
+                    }, onCompleted: {
+                        Log.info("Token refreshed!")
+                    }
+                )
+                .disposed(by: bag)
+        } else {
+            Log.error("HttpService.request: External API error: \(error.localizedDescription)")
+        }
+    }
+
+    /// Renew access token with refresh token
+    private lazy var renewAccessToken = CocoaAction { [weak self] in
+        Observable.create { [weak self] observer in
+            guard let `self` = self else { return Disposables.create() }
+
+//            self.client.request(
+//                URL(string: EnvironmentConfiguration.shared.auth.tokenUrl)!,
+//                method: .POST,
+//                parameters: [
+//                    "grant_type": "refresh_token",
+//                    "refresh_token": self.client.credential.oauthRefreshToken,
+//                ],
+//                headers: [:],
+//                success: { response in
+//                    let data = response.data
+//
+//                    //					let decodedResponse = String(decoding: data, as: UTF8.self)
+//                    observer.onNext(())
+//                    observer.onCompleted()
+//                }, failure: { error in
+//                    observer.onError(error)
+//                }
+//            )
+
+            self.dependencies.authService.handler.renewAccessToken(
+                withRefreshToken: self.client.credential.oauthRefreshToken,
+                success: { _, _, _ in
+                    observer.onNext(())
+                    observer.onCompleted()
+                },
+                failure: { error in
+                    observer.onError(error)
                 }
             )
 
