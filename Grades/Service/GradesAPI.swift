@@ -88,8 +88,6 @@ final class GradesAPI: GradesAPIProtocol {
 
     /// Fetch courses for current user
     func getStudentCourses(username: String) -> Observable<[StudentCourse]> {
-        httpService.renew()
-
         return httpService.get(url: createURL(from: .courses(username)), parameters: defaultParameters)
             .map { (rawCourses: [StudentCourseRaw]) -> [StudentCourse] in
                 rawCourses.map { (course: StudentCourseRaw) -> StudentCourse in StudentCourse(fromRawCourse: course) }
