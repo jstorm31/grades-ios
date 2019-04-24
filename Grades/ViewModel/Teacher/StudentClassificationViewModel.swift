@@ -54,6 +54,9 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
                 guard let `self` = self else { return Observable.empty() }
                 return self.dependencies.gradesApi.putStudentsClassifications(courseCode: self.course.code, data: classifications)
             }
+            .do(onCompleted: { [weak self] in
+                self?.bindOutput()
+            })
     }
 
     // MARK: private properties

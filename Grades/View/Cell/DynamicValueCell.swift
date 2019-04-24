@@ -56,10 +56,13 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
             .skip(1)
             .unwrap()
             .debounce(0.25, scheduler: MainScheduler.instance)
-            .map { text in
-                if let number = Double(text) {
-                    return DynamicValue.number(number)
-                } else {
+            .map { [weak self] text in
+                guard let type = self?.viewModel.valueType else { return DynamicValue.string(nil) }
+
+                switch type {
+                case .number:
+                    return DynamicValue.number(Double(text) ?? nil)
+                default:
                     return DynamicValue.string(text)
                 }
             }
