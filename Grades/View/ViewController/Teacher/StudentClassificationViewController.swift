@@ -103,14 +103,13 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
             .disposed(by: bag)
 
         viewModel.totalPoints
-            .unwrap()
-            .map { "\(L10n.Classification.total) \($0) \(L10n.Courses.points)" }
+            .map { $0 != nil ? "\(L10n.Classification.total) \($0!) \(L10n.Courses.points)" : "" }
             .asDriver(onErrorJustReturn: "")
             .drive(gradingOverview.pointsLabel.rx.text)
             .disposed(by: bag)
 
         viewModel.finalGrade
-            .unwrap()
+            .map { $0 ?? "" }
             .do(onNext: { [weak self] grade in
                 self?.gradingOverview.gradeLabel.textColor = UIColor.Theme.setGradeColor(forGrade: grade)
             })
