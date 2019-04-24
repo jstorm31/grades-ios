@@ -108,6 +108,7 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
 
                 return classifications.map { (item: StudentClassification) -> CellItemType in
                     let cellViewModel = DynamicValueCellViewModel(
+                        valueType: .string, // TODO: replace with dynamic value type for current classification
                         key: item.username,
                         title: "\(item.lastName ?? "") \(item.firstName ?? "")"
                     )

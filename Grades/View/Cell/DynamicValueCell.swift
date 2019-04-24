@@ -108,11 +108,16 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
             })
             .disposed(by: bag)
 
-        // Show / hide controls
-        let sharedShowTextField = viewModel.showTextField.share()
-        sharedShowTextField.map { !$0 }.asDriver(onErrorJustReturn: false).drive(valueTextField.rx.isHidden).disposed(by: bag)
-        sharedShowTextField.map { !$0 }.asDriver(onErrorJustReturn: false).drive(fieldLabel.rx.isHidden).disposed(by: bag)
-        sharedShowTextField.asDriver(onErrorJustReturn: true).drive(valueSwitch.rx.isHidden).disposed(by: bag)
+        // Show right controls for type
+        switch viewModel.valueType {
+        case .string:
+            valueTextField.isHidden = false
+        case .number:
+            valueTextField.isHidden = false
+            fieldLabel.isHidden = false
+        case .bool:
+            valueSwitch.isHidden = false
+        }
     }
 
     // MARK: UI setup
@@ -122,6 +127,7 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
         fieldLabel.font = UIFont.Grades.body
         fieldLabel.textColor = UIColor.Theme.text
         fieldLabel.text = L10n.Courses.points
+        fieldLabel.isHidden = true
         contentView.addSubview(fieldLabel)
         fieldLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
@@ -133,6 +139,7 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
         textField.font = UIFont.Grades.body
         textField.textColor = UIColor.Theme.text
         textField.setBottomBorder(color: UIColor.Theme.borderGray, size: 1.0)
+        textField.isHidden = true
         textField.addDoneButton(doneAction: CocoaAction {
             self.contentView.endEditing(false)
             return Observable.empty()

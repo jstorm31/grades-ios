@@ -136,7 +136,11 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
         classifications
             .map { [weak self] classifications in
                 classifications.map { classification in
-                    let cellViewModel = DynamicValueCellViewModel(key: classification.identifier, title: classification.getLocalizedText())
+                    let cellViewModel = DynamicValueCellViewModel(
+                        valueType: classification.valueType,
+                        key: classification.identifier,
+                        title: classification.getLocalizedText()
+                    )
                     self?.bind(cellViewModel: cellViewModel)
 
                     return DynamicValueCellConfigurator(item: cellViewModel)

@@ -73,10 +73,10 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
             .disposed(by: bag)
 
         saveButton.rx.action = viewModel.saveAction
-		changeStudentButton.rx.action = viewModel.changeStudentAction
+        changeStudentButton.rx.action = viewModel.changeStudentAction
 
-		// Save action
-		
+        // Save action
+
         saveButton.rx.action!.elements
             .asDriver(onErrorJustReturn: ())
             .map { L10n.Students.updateSuccess }
@@ -85,7 +85,7 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
             .disposed(by: bag)
 
         saveButton.rx.action!.underlyingError
-			.do(onNext: { [weak self] _ in self?.view.endEditing(false) })
+            .do(onNext: { [weak self] _ in self?.view.endEditing(false) })
             .asDriver(onErrorJustReturn: ApiError.general)
             .drive(view.rx.errorMessage)
             .disposed(by: bag)
