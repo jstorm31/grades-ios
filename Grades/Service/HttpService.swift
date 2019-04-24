@@ -46,12 +46,12 @@ final class HttpService: NSObject, HttpServiceProtocol {
 
     /// Make HTTP GET request and return Observable of given type that emits request reuslt
     func get<T>(url: URL, parameters: HttpParameters? = nil) -> Observable<T> where T: Decodable {
-		return request(url, method: .GET, parameters: parameters ?? [:], headers: defaultHeaders, body: nil)
+        return request(url, method: .GET, parameters: parameters, headers: defaultHeaders)
     }
 
     /// Make HTTP GET request and return Observable string
     func get(url: URL, parameters: HttpParameters? = nil) -> Observable<String> {
-        return Observable.create { [weak self] observer in
+        let request = Observable<String>.create { [weak self] observer in
             self?.client.request(
                 url,
                 method: .GET,
@@ -70,54 +70,33 @@ final class HttpService: NSObject, HttpServiceProtocol {
             )
             return Disposables.create()
         }
+
+        return request.retryWhen { [weak self] events in
+            events.enumerated().flatMap { [weak self] (_, error) -> Observable<Void> in
+                self?.handleError(error) ?? Observable.empty()
+            }
+        }
     }
 
     /// Make HTTP PUT request
     func put<T>(url: URL, parameters: HttpParameters?, body: T) -> Observable<Void> where T: Encodable {
-        return Observable.create { [weak self] observer in
-            var data: Data!
-
-            do {
-                data = try JSONEncoder().encode(body)
-            } catch {
-                Log.error("HttpService.request: Could not encode data to JSON.\n\(error)\n")
-                observer.onError(ApiError.unprocessableData)
-            }
-
-            self?.client.request(
-                url,
-                method: .PUT,
-                parameters: parameters ?? [:],
-                headers: self?.defaultHeaders ?? [:],
-                body: data,
-                success: { _ in
-                    observer.onNext(())
-                    observer.onCompleted()
-                }, failure: { [weak self] error in
-                    self?.handleError(error)
-                    observer.onError(ApiError.getError(forCode: error.errorCode))
-                }
-            )
-
-            return Disposables.create()
-        }
+        return request(url, method: .PUT, parameters: parameters, headers: defaultHeaders, body: body)
     }
 
     // MARK: Helper methods
 
-    /// Reactive wrapper for OAuthSwift reqeust
+    /// Reactive wrapper for OAuthSwift reqeust with generic Decodable return type
     private func request<T>(
         _ url: URLConvertible,
-        method: OAuthSwiftHTTPRequest.Method,
-        parameters: OAuthSwift.Parameters = [:],
-        headers: OAuthSwift.Headers? = nil,
-        body _: Data? = nil
+        method: HttpMethod,
+        parameters: HttpParameters? = nil,
+        headers: OAuthSwift.Headers? = nil
     ) -> Observable<T> where T: Decodable {
         let request = Observable<T>.create { [weak self] observer in
             self?.client.request(
                 url,
                 method: method,
-                parameters: parameters,
+                parameters: parameters ?? [:],
                 headers: headers,
                 success: { response in
                     let data = response.data
@@ -137,7 +116,51 @@ final class HttpService: NSObject, HttpServiceProtocol {
 
             return Disposables.create()
         }
+		
+		// If error is returned, check access token validity and if invalid refresh, otherwise propagate the error
+        return request.retryWhen { [weak self] events in
+            events.enumerated().flatMap { [weak self] (_, error) -> Observable<Void> in
+                self?.handleError(error) ?? Observable.empty()
+            }
+        }
+    }
+	
+	/// Reactive wrapper for OAuthSwift reqeust with Codable data and returns no response (Void)
+    private func request<T>(
+        _ url: URLConvertible,
+        method: HttpMethod,
+        parameters: HttpParameters? = nil,
+        headers: OAuthSwift.Headers? = nil,
+        body: T
+    ) -> Observable<Void> where T: Encodable {
+        let request = Observable<Void>.create { [weak self] observer in
+            var data: Data!
 
+            do {
+                data = try JSONEncoder().encode(body)
+            } catch {
+                Log.error("HttpService.request: Could not encode data to JSON.\n\(error)\n")
+                observer.onError(ApiError.unprocessableData)
+            }
+
+            self?.client.request(
+                url,
+                method: method,
+                parameters: parameters ?? [:],
+                headers: headers,
+                body: data,
+                success: { _ in
+                    observer.onNext(())
+                    observer.onCompleted()
+                }, failure: { error in
+                    observer.onError(ApiError.getError(forCode: error.errorCode))
+                }
+            )
+
+            return Disposables.create()
+        }
+		
+		// If error is returned, check access token validity and if invalid refresh, otherwise propagate the error
         return request.retryWhen { [weak self] events in
             events.enumerated().flatMap { [weak self] (_, error) -> Observable<Void> in
                 self?.handleError(error) ?? Observable.empty()
