@@ -118,4 +118,9 @@ class GradesAPIMock: GradesAPIProtocol {
 			return Observable.error(ApiError.general).delaySubscription(0.5, scheduler: MainScheduler.instance)
 		}
 	}
+	
+	func putStudentsClassifications(courseCode: String, data: [StudentClassification]) -> Observable<Void> {
+		fatalError("putStudentsClassifications in GradesApiMock not implemented")
+		return Observable.empty()
+	}
 }

@@ -16,7 +16,7 @@ class StudentSearchViewModelTests: XCTestCase {
 	var scheduler: ConcurrentDispatchQueueScheduler!
 	var viewModel: StudentSearchViewModel!
 	var coordinator: SceneCoordinatorMock!
-	var selectedUser: BehaviorSubject<User?>!
+	var selectedUser: BehaviorRelay<User?>!
 	private let bag = DisposeBag()
 	
 	override func setUp() {
@@ -28,7 +28,7 @@ class StudentSearchViewModelTests: XCTestCase {
 			User(userId: 2, username: "ondra6", firstName: "Ondřej", lastName: "Pavlita")
 		])
 		
-		selectedUser = BehaviorSubject<User?>(value: nil)
+		selectedUser = BehaviorRelay<User?>(value: nil)
 		
 		viewModel = StudentSearchViewModel(coordinator: coordinator, students: students, selectedStudent: selectedUser)
 	}

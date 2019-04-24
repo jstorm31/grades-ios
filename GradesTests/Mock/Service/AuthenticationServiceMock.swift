@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import Action
 import OAuthSwift
 @testable import GradesDev
 
@@ -33,5 +34,10 @@ class AuthenticationServiceMock: AuthenticationServiceProtocol {
 		case .failure:
 			return Observable.error(AuthenticationError.generic)
 		}
+	}
+	
+	var renewAccessToken = CocoaAction {
+		// TODO: implement
+		return Observable.empty()
 	}
 }

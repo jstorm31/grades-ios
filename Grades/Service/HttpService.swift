@@ -116,16 +116,16 @@ final class HttpService: NSObject, HttpServiceProtocol {
 
             return Disposables.create()
         }
-		
-		// If error is returned, check access token validity and if invalid refresh, otherwise propagate the error
+
+        // If error is returned, check access token validity and if invalid refresh, otherwise propagate the error
         return request.retryWhen { [weak self] events in
             events.enumerated().flatMap { [weak self] (_, error) -> Observable<Void> in
                 self?.handleError(error) ?? Observable.empty()
             }
         }
     }
-	
-	/// Reactive wrapper for OAuthSwift reqeust with Codable data and returns no response (Void)
+
+    /// Reactive wrapper for OAuthSwift reqeust with Codable data and returns no response (Void)
     private func request<T>(
         _ url: URLConvertible,
         method: HttpMethod,
@@ -159,8 +159,8 @@ final class HttpService: NSObject, HttpServiceProtocol {
 
             return Disposables.create()
         }
-		
-		// If error is returned, check access token validity and if invalid refresh, otherwise propagate the error
+
+        // If error is returned, check access token validity and if invalid refresh, otherwise propagate the error
         return request.retryWhen { [weak self] events in
             events.enumerated().flatMap { [weak self] (_, error) -> Observable<Void> in
                 self?.handleError(error) ?? Observable.empty()
