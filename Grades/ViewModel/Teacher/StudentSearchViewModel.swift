@@ -51,7 +51,7 @@ final class StudentSearchViewModel: BaseViewModel {
         selected.bind(to: selectedStudent).disposed(by: bag)
 
         selected.take(1).subscribe(onNext: { [weak self] _ in
-            self?.coordinator.pop(animated: true)
+            self?.coordinator.pop()
         }).disposed(by: bag)
     }
 }

@@ -60,6 +60,7 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
         return Observable.create { [weak self] observer in
             guard let `self` = self else { return Disposables.create() }
 
+            // Request authorization
             UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert]) { granted, _ in
                 if granted {
                     DispatchQueue.main.async {
@@ -70,7 +71,6 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
                     observer.onCompleted()
                 }
             }
-
             UNUserNotificationCenter.current().delegate = self
 
             // Register user for notifications
@@ -87,6 +87,9 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
                         observer.onCompleted()
                     })
                     .disposed(by: self.bag)
+            } else {
+                observer.onNext(true)
+                observer.onCompleted()
             }
 
             return Disposables.create()
@@ -118,7 +121,7 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
     /// Register user with app's notification token
     private func registerUserForNotifications(token: String) -> Observable<Void> {
         let url = URL(string: "\(EnvironmentConfiguration.shared.notificationServerUrl)/token")!
-		let body = NotificationRegistration(token: token, type: "ANDROID") // Set type "ANDROID" because notifications are handled by Firebase, not APNs
+        let body = NotificationRegistration(token: token, type: "ANDROID") // Set type "ANDROID" because notifications are handled by Firebase, not APNs
 
         return dependencies.httpService.post(url: url, parameters: nil, body: body)
             .do(onCompleted: { [weak self] in

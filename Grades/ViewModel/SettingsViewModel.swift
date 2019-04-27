@@ -25,7 +25,7 @@ class SettingsViewModel: TablePickerViewModel {
 
     lazy var logoutAction = CocoaAction { [weak self] in
         self?.dependencies.pushNotificationsService.isUserRegisteredForNotifications = false
-        self?.coordinator.pop()
+        self?.coordinator.pop(animated: true, presented: true)
         return Observable.empty()
     }
 
