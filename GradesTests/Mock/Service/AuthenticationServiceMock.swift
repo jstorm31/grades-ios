@@ -17,6 +17,7 @@ extension AuthenticationServiceProtocol {
 
 class AuthenticationServiceMock: AuthenticationServiceProtocol {
 	let handler: OAuth2Swift
+	let client: AuthClientProtocol = AuthClientMock()
 	var result = Result.success
 	
 	init() {
