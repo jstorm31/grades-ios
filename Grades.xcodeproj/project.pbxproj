@@ -116,6 +116,7 @@
 		96A8AEF1227466020076CCD2 /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AEE1227461CF0076CCD2 /* Protobuf.framework */; };
 		96A8AEF3227466440076CCD2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AEF2227466440076CCD2 /* StoreKit.framework */; };
 		96A8AEF5227469E90076CCD2 /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8AEF4227469E90076CCD2 /* PushNotificationService.swift */; };
+		96A8AEF82274AE400076CCD2 /* NotificationRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8AEF72274AE400076CCD2 /* NotificationRegistration.swift */; };
 		96B20DA32236692E004794BE /* CourseDetailStudentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA22236692E004794BE /* CourseDetailStudentViewModel.swift */; };
 		96B20DA5223669CC004794BE /* CourseDetailStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */; };
 		96B20DA72236C838004794BE /* UINavigationBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA62236C838004794BE /* UINavigationBar+.swift */; };
@@ -283,6 +284,7 @@
 		96A8AEF2227466440076CCD2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		96A8AEF4227469E90076CCD2 /* PushNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationService.swift; sourceTree = "<group>"; };
 		96A8AEF6227479860076CCD2 /* GradesDev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GradesDev.entitlements; sourceTree = "<group>"; };
+		96A8AEF72274AE400076CCD2 /* NotificationRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRegistration.swift; sourceTree = "<group>"; };
 		96B20DA22236692E004794BE /* CourseDetailStudentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewModel.swift; sourceTree = "<group>"; };
 		96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewController.swift; sourceTree = "<group>"; };
 		96B20DA62236C838004794BE /* UINavigationBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+.swift"; sourceTree = "<group>"; };
@@ -751,6 +753,7 @@
 				964181792247BE6C0019CABD /* StudentGroup.swift */,
 				968D05C122625CC2003F7D49 /* StudentClassification.swift */,
 				9639AE682270AAA1009C35A9 /* AuthTokenResponse.swift */,
+				96A8AEF72274AE400076CCD2 /* NotificationRegistration.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1146,6 +1149,7 @@
 				9686108B222B1B210069B81B /* SceneTransitionType.swift in Sources */,
 				96F3A3852239B4B200FB63EF /* BaseTableViewController.swift in Sources */,
 				96B20DAB2236CEA9004794BE /* CAGradeintLayer+.swift in Sources */,
+				96A8AEF82274AE400076CCD2 /* NotificationRegistration.swift in Sources */,
 				968D05C422637F36003F7D49 /* DynamicValueCell.swift in Sources */,
 				96A8AEF5227469E90076CCD2 /* PushNotificationService.swift in Sources */,
 				96939EF0223C1FEE00A49E57 /* Unwrap+.swift in Sources */,
@@ -1422,9 +1426,10 @@
 				APP_VERSION = 1.0.0;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Grades/GradesDev.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CONFIG_ENVIRONMENT = Release;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2PY9RKK8A7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1444,7 +1449,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "FIT Grades - ad hoc";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

@@ -54,6 +54,7 @@ protocol NSClassificationConfiguration {
     var defaultLanguage: String { get }
     var auth: Auth { get }
     var gradesAPI: [String: String] { get }
+    var notificationServerUrl: String { get }
 }
 
 // swiftlint:disable force_cast
@@ -80,5 +81,9 @@ extension EnvironmentConfiguration: NSClassificationConfiguration {
         dict["BaseURL"] = config["GradesApiUrl"] as? String
 
         return dict
+    }
+
+    var notificationServerUrl: String {
+        return config["NotificationServerUrl"] as! String
     }
 }

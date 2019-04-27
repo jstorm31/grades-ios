@@ -11,9 +11,9 @@ import RxCocoa
 import RxSwift
 
 class SettingsViewModel: TablePickerViewModel {
-    typealias Dependencies = HasSettingsRepository
+    typealias Dependencies = HasSettingsRepository & HasPushNotificationService
 
-    private let dependencies: Dependencies
+    private var dependencies: Dependencies
     private let coordinator: SceneCoordinatorType
     private let bag = DisposeBag()
 
@@ -24,6 +24,7 @@ class SettingsViewModel: TablePickerViewModel {
     // MARK: actions
 
     lazy var logoutAction = CocoaAction { [weak self] in
+        self?.dependencies.pushNotificationsService.isUserRegisteredForNotifications = false
         self?.coordinator.pop()
         return Observable.empty()
     }

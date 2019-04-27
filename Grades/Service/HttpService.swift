@@ -25,6 +25,9 @@ protocol HttpServiceProtocol {
     func get(url: URL, parameters: HttpParameters?) -> Observable<String>
 
     @discardableResult
+    func post<T: Encodable>(url: URL, parameters: HttpParameters?, body: T) -> Observable<Void>
+
+    @discardableResult
     func put<T: Encodable>(url: URL, parameters: HttpParameters?, body: T) -> Observable<Void>
 }
 
@@ -76,6 +79,11 @@ final class HttpService: NSObject, HttpServiceProtocol {
                 self?.handleError(error) ?? Observable.empty()
             }
         }
+    }
+
+    /// Make HTTP POST request
+    func post<T>(url: URL, parameters: HttpParameters?, body: T) -> Observable<Void> where T: Encodable {
+        return request(url, method: .POST, parameters: parameters, headers: defaultHeaders, body: body)
     }
 
     /// Make HTTP PUT request

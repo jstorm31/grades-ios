@@ -29,6 +29,10 @@ final class LoginViewModel: BaseViewModel {
         self.sceneCoordinator = sceneCoordinator
     }
 
+    deinit {
+        dependencies.pushNotificationsService.stop()
+    }
+
     // MARK: methods
 
     func authenticate(viewController: UIViewController) -> Observable<Void> {
