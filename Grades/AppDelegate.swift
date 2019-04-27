@@ -7,7 +7,8 @@
 //
 
 import Bagel
-import OAuthSwift
+import Firebase
+import OAuthSwift // TODO: remove on release!
 import UIKit
 
 @UIApplicationMain
@@ -20,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.rootViewController = LoginViewController()
+
+        FirebaseApp.configure()
 
         Bagel.start() // TODO: remove on release!
 
