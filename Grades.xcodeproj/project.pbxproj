@@ -115,6 +115,7 @@
 		96A8AEF0227466020076CCD2 /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AEDC227460490076CCD2 /* nanopb.framework */; };
 		96A8AEF1227466020076CCD2 /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AEE1227461CF0076CCD2 /* Protobuf.framework */; };
 		96A8AEF3227466440076CCD2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AEF2227466440076CCD2 /* StoreKit.framework */; };
+		96A8AEF5227469E90076CCD2 /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8AEF4227469E90076CCD2 /* PushNotificationService.swift */; };
 		96B20DA32236692E004794BE /* CourseDetailStudentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA22236692E004794BE /* CourseDetailStudentViewModel.swift */; };
 		96B20DA5223669CC004794BE /* CourseDetailStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */; };
 		96B20DA72236C838004794BE /* UINavigationBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA62236C838004794BE /* UINavigationBar+.swift */; };
@@ -280,6 +281,7 @@
 		96A8AEE32274620B0076CCD2 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = Carthage/Build/iOS/Firebase.framework; sourceTree = "<group>"; };
 		96A8AEE6227464990076CCD2 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		96A8AEF2227466440076CCD2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		96A8AEF4227469E90076CCD2 /* PushNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationService.swift; sourceTree = "<group>"; };
 		96B20DA22236692E004794BE /* CourseDetailStudentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewModel.swift; sourceTree = "<group>"; };
 		96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewController.swift; sourceTree = "<group>"; };
 		96B20DA62236C838004794BE /* UINavigationBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+.swift"; sourceTree = "<group>"; };
@@ -388,6 +390,7 @@
 				961BCE80222C515700BD6663 /* GradesAPI.swift */,
 				963C62832233B7C000B01818 /* HttpService.swift */,
 				961FC4F72244118B000A4CDA /* AppDependency.swift */,
+				96A8AEF4227469E90076CCD2 /* PushNotificationService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1137,6 +1140,7 @@
 				96F3A3852239B4B200FB63EF /* BaseTableViewController.swift in Sources */,
 				96B20DAB2236CEA9004794BE /* CAGradeintLayer+.swift in Sources */,
 				968D05C422637F36003F7D49 /* DynamicValueCell.swift in Sources */,
+				96A8AEF5227469E90076CCD2 /* PushNotificationService.swift in Sources */,
 				96939EF0223C1FEE00A49E57 /* Unwrap+.swift in Sources */,
 				964181722247A7BB0019CABD /* StudentClassificationViewModel.swift in Sources */,
 				96C0A843226C78DC00AE733A /* StudentSearchViewController.swift in Sources */,
