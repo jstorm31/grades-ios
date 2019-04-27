@@ -18,15 +18,13 @@ class DynamicValueCellViewModelTests: XCTestCase {
 
     override func setUp() {
 		scheduler = TestScheduler(initialClock: 0)
-        cellViewModel = DynamicValueCellViewModel(key: "testCell")
-		cellViewModel.bindOutput()
     }
 	
 	func testStringValue() {
-		let showTextField = scheduler.createObserver(Bool.self)
+		cellViewModel = DynamicValueCellViewModel(valueType: .string, key: "testCell")
+		cellViewModel.bindOutput()
+		
 		let stringValue = scheduler.createObserver(String?.self)
-
-		cellViewModel.showTextField.bind(to: showTextField).disposed(by: bag)
 		cellViewModel.stringValue.bind(to: stringValue).disposed(by: bag)
 
 		scheduler
@@ -35,15 +33,14 @@ class DynamicValueCellViewModelTests: XCTestCase {
 			.disposed(by: bag)
 		scheduler.start()
 		
-		XCTAssertEqual(showTextField.events, [.next(10, true)])
 		XCTAssertEqual(stringValue.events, [.next(10, "B")])
 	}
 	
 	func testNumberValue() {
-		let showTextField = scheduler.createObserver(Bool.self)
+		cellViewModel = DynamicValueCellViewModel(valueType: .number, key: "testCell")
+		cellViewModel.bindOutput()
+
 		let stringValue = scheduler.createObserver(String?.self)
-		
-		cellViewModel.showTextField.bind(to: showTextField).disposed(by: bag)
 		cellViewModel.stringValue.bind(to: stringValue).disposed(by: bag)
 		
 		scheduler
@@ -52,15 +49,14 @@ class DynamicValueCellViewModelTests: XCTestCase {
 			.disposed(by: bag)
 		scheduler.start()
 		
-		XCTAssertEqual(showTextField.events, [.next(10, true)])
 		XCTAssertEqual(stringValue.events, [.next(10, "14.5")])
 	}
 	
 	func testBoolValue() {
-		let showTextField = scheduler.createObserver(Bool.self)
+		cellViewModel = DynamicValueCellViewModel(valueType: .bool, key: "testCell")
+		cellViewModel.bindOutput()
+
 		let boolValue = scheduler.createObserver(Bool.self)
-		
-		cellViewModel.showTextField.bind(to: showTextField).disposed(by: bag)
 		cellViewModel.boolValue.bind(to: boolValue).disposed(by: bag)
 		
 		scheduler
@@ -69,7 +65,6 @@ class DynamicValueCellViewModelTests: XCTestCase {
 			.disposed(by: bag)
 		scheduler.start()
 		
-		XCTAssertEqual(showTextField.events, [.next(10, false)])
 		XCTAssertEqual(boolValue.events, [.next(10, false)])
 	}
 
