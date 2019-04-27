@@ -8,6 +8,7 @@
 
 import Bagel
 import Firebase
+import FirebaseMessaging
 import OAuthSwift // TODO: remove on release!
 import UIKit
 
@@ -44,5 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         return true
+    }
+
+    func application(_: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Messaging.messaging().apnsToken = deviceToken
     }
 }

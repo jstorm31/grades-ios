@@ -282,6 +282,7 @@
 		96A8AEE6227464990076CCD2 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		96A8AEF2227466440076CCD2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		96A8AEF4227469E90076CCD2 /* PushNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationService.swift; sourceTree = "<group>"; };
+		96A8AEF6227479860076CCD2 /* GradesDev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GradesDev.entitlements; sourceTree = "<group>"; };
 		96B20DA22236692E004794BE /* CourseDetailStudentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewModel.swift; sourceTree = "<group>"; };
 		96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewController.swift; sourceTree = "<group>"; };
 		96B20DA62236C838004794BE /* UINavigationBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+.swift"; sourceTree = "<group>"; };
@@ -494,6 +495,7 @@
 		96520E932223D65F00AB6499 /* Grades */ = {
 			isa = PBXGroup;
 			children = (
+				96A8AEF6227479860076CCD2 /* GradesDev.entitlements */,
 				96A8AECA22745A620076CCD2 /* GoogleService-Info.plist */,
 				96861087222B1A670069B81B /* Scene */,
 				9699AB9A22326506006D2F73 /* Utilities */,
@@ -865,6 +867,11 @@
 					96520E902223D65F00AB6499 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					9682A6AC222D1ABC00773E28 = {
 						CreatedOnToolsVersion = 10.1;
@@ -1379,6 +1386,7 @@
 			buildSettings = {
 				APP_VERSION = 1.0.0;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Grades/GradesDev.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CONFIG_ENVIRONMENT = Debug;
@@ -1413,6 +1421,7 @@
 			buildSettings = {
 				APP_VERSION = 1.0.0;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Grades/GradesDev.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				CONFIG_ENVIRONMENT = Release;
 				DEVELOPMENT_TEAM = "";

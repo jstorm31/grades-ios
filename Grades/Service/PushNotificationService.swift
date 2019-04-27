@@ -6,11 +6,12 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import RxSwift
 import UIKit
 import UserNotifications
 
 protocol PushNotificationServiceProtocol {
-    func start()
+    func start() -> Observable<Bool>
     func stop()
 }
 
@@ -25,16 +26,38 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
         super.init()
     }
 
-    func start() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert]) { granted, _ in
-            if granted {
-                DispatchQueue.main.async {
-                    UIApplication.shared.registerForRemoteNotifications()
-                }
-            }
-        }
+    func start() -> Observable<Bool> {
+        return Observable.create { observer in
 
-        UNUserNotificationCenter.current().delegate = self
+            if #available(iOS 10.0, *) {
+                // For iOS 10 display notification (sent via APNS)
+                UNUserNotificationCenter.current().delegate = self
+
+                UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert]) { granted, _ in
+                    if granted {
+                        DispatchQueue.main.async {
+                            UIApplication.shared.registerForRemoteNotifications()
+                            observer.onNext(true)
+                            observer.onCompleted()
+                        }
+                    } else {
+                        observer.onNext(false)
+                        observer.onCompleted()
+                    }
+                }
+            } else {
+                let settings: UIUserNotificationSettings =
+                    UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+                UIApplication.shared.registerUserNotificationSettings(settings)
+                observer.onNext(true)
+                observer.onCompleted()
+            }
+
+            UIApplication.shared.registerForRemoteNotifications()
+            UNUserNotificationCenter.current().delegate = self
+
+            return Disposables.create()
+        }
     }
 
     func stop() {
