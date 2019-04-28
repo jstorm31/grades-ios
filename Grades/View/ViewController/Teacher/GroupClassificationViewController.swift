@@ -72,7 +72,7 @@ final class GroupClassificationViewController: BaseTableViewController, TableDat
             .disposed(by: bag)
 
         dataSource
-			.map { $0.count > 1 ? !$0[1].items.isEmpty : false }
+            .map { $0.count > 1 ? !$0[1].items.isEmpty : false }
             .asDriver(onErrorJustReturn: true)
             .drive(noContentLabel.rx.isHidden)
             .disposed(by: bag)
@@ -96,6 +96,12 @@ final class GroupClassificationViewController: BaseTableViewController, TableDat
         viewModel.error.asDriver(onErrorJustReturn: ApiError.general)
             .drive(view.rx.errorMessage)
             .disposed(by: bag)
+
+        viewModel.selectedCellOptionIndex.asDriver(onErrorJustReturn: 0)
+            .drive(onNext: { [weak self] index in
+                self?.pickerView.selectRow(index, inComponent: 0, animated: true)
+            })
+            .disposed(by: bag)
     }
 
     func setupBindings() {
@@ -110,7 +116,6 @@ final class GroupClassificationViewController: BaseTableViewController, TableDat
 
                 self?.viewModel.handleOptionChange(cellIndexPath: indexPath)
                 self?.showPicker()
-                //				self?.pickerView.selectRow(selectedValueIndex, inComponent: 0, animated: true)
 //                self.tableView.deselectRow(at: indexPath, animated: true)
             })
             .disposed(by: bag)

@@ -20,6 +20,26 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
     let isloading = PublishSubject<Bool>()
     let error = PublishSubject<Error>()
 
+    lazy var selectedCellOptionIndex: Observable<Int> = {
+        selectedCellIndex
+            .unwrap()
+            .filter { $0.section == 0 }
+            .map { $0.item }
+            .flatMap { [weak self] cellIndex -> Observable<Int> in
+                guard let `self` = self else { return Observable.just(0) }
+
+                return Observable.combineLatest(self.groupSelectedIndex,
+                                                self.classificationSelectedIndex) { groupIndex, classificationIndex in
+                    if cellIndex == 0 {
+                        return groupIndex
+                    } else if cellIndex == 1 {
+                        return classificationIndex
+                    }
+                    return 0
+                }
+            }
+    }()
+
     var saveAction = CocoaAction {
         Log.debug("Save not implemented")
         return Observable.empty()
@@ -52,8 +72,8 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
     // MARK: methods
 
     func bindOutput() {
-		bindOptions()
-		
+        bindOptions()
+
         let groupClassifications = repository.groupClassifications.map { $0.sorted() }.share()
 
         /**
@@ -88,50 +108,50 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
         repository.isLoading.bind(to: isloading).disposed(by: bag)
         repository.error.unwrap().bind(to: error).disposed(by: bag)
     }
-	
-	/// Bind selected options
-	func bindOptions() {
-		groupSelectedIndex
-			.flatMap { [weak self] index -> Observable<String> in
-				self?.repository.groups.map { options in
-					if options.count - 1 > index {
-						return options[index].id
-					}
-					return ""
-					} ?? Observable.just("")
-			}
-			.bind(to: groupsCellViewModel.selectedOption)
-			.disposed(by: bag)
-		
-		classificationSelectedIndex
-			.flatMap { [weak self] index -> Observable<String> in
-				self?.repository.classifications.map { options in
-					if options.count - 1 > index {
-						return options[index].getLocalizedText()
-					}
-					return ""
-					} ?? Observable.just("")
-			}
-			.bind(to: classificationsCellViewModel.selectedOption)
-			.disposed(by: bag)
-		
-		selectedCellIndex
-			.unwrap()
-			.filter { $0.section == 0 }
-			.map { $0.item }
-			.flatMap { [weak self] index -> Observable<[String]> in
-				guard let `self` = self else { return Observable.just([]) }
-				
-				if index == 0 {
-					return self.repository.groups.map { $0.map { $0.id } }
-				} else if index == 1 {
-					return self.repository.classifications.map { $0.map { $0.getLocalizedText() } }
-				}
-				return Observable.just([])
-			}
-			.bind(to: options)
-			.disposed(by: bag)
-	}
+
+    /// Bind selected options
+    func bindOptions() {
+        groupSelectedIndex
+            .flatMap { [weak self] index -> Observable<String> in
+                self?.repository.groups.map { options in
+                    if options.count - 1 > index {
+                        return options[index].id
+                    }
+                    return ""
+                } ?? Observable.just("")
+            }
+            .bind(to: groupsCellViewModel.selectedOption)
+            .disposed(by: bag)
+
+        classificationSelectedIndex
+            .flatMap { [weak self] index -> Observable<String> in
+                self?.repository.classifications.map { options in
+                    if options.count - 1 > index {
+                        return options[index].getLocalizedText()
+                    }
+                    return ""
+                } ?? Observable.just("")
+            }
+            .bind(to: classificationsCellViewModel.selectedOption)
+            .disposed(by: bag)
+
+        selectedCellIndex
+            .unwrap()
+            .filter { $0.section == 0 }
+            .map { $0.item }
+            .flatMap { [weak self] index -> Observable<[String]> in
+                guard let `self` = self else { return Observable.just([]) }
+
+                if index == 0 {
+                    return self.repository.groups.map { $0.map { $0.id } }
+                } else if index == 1 {
+                    return self.repository.classifications.map { $0.map { $0.getLocalizedText() } }
+                }
+                return Observable.just([])
+            }
+            .bind(to: options)
+            .disposed(by: bag)
+    }
 
     /// Initialize and bind CellViewModel for each item
     func buildDatasourceItems(_ source: Observable<[StudentClassification]>) -> Observable<[CellItemType]> {
