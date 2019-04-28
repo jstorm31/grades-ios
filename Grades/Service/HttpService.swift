@@ -67,8 +67,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
                     observer.onNext(decodedResponse)
                     observer.onCompleted()
                 }, failure: { error in
-                    self?.handleError(error)
-                    observer.onError(ApiError.getError(forCode: error.errorCode))
+					observer.onError(ApiError.getError(forCode: error.errorCode))
                 }
             )
             return Disposables.create()
