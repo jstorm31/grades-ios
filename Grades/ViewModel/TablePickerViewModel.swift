@@ -10,6 +10,7 @@ import RxCocoa
 import RxSwift
 
 /// Class providing logic for multiple pickers with options
+// TODO: consider deleting
 class TablePickerViewModel: BaseViewModel {
     private let bag = DisposeBag()
 
@@ -36,5 +37,9 @@ class TablePickerViewModel: BaseViewModel {
     func handleOptionChange(cellIndexPath: IndexPath, optionIndex: Int) {
         selectedCellIndex.accept(cellIndexPath)
         selectedOptionIndex.accept(optionIndex)
+    }
+
+    func handleOptionChange(cellIndexPath: IndexPath) {
+        selectedCellIndex.accept(cellIndexPath)
     }
 }

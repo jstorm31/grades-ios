@@ -13,7 +13,7 @@ import RxDataSources
 import RxSwift
 import UIKit
 
-final class GroupClassificationViewController: BaseTableViewController & BindableType & PickerPresentable {
+final class GroupClassificationViewController: BaseTableViewController, TableDataSource, BindableType, PickerPresentable {
     var pickerView: UIPickerView!
     var pickerTextField: UITextField!
 
@@ -22,39 +22,14 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
     var viewModel: GroupClassificationViewModel!
     private let bag = DisposeBag()
 
+    let dataSource = configureDataSource()
+
     private var pickerDoneAction: CocoaAction {
         return CocoaAction { [weak self] in
             self?.hidePicker()
             self?.viewModel.submitSelectedValue()
             return Observable.empty()
         }
-    }
-
-    private var dataSource: RxTableViewSectionedReloadDataSource<TableSectionPolymorphic> {
-        return RxTableViewSectionedReloadDataSource<TableSectionPolymorphic>(
-            configureCell: { [weak self] dataSource, tableView, indexPath, _ in
-                var cell = tableView.dequeueReusableCell(withIdentifier: "StudentsClassificationCell", for: indexPath)
-                guard let `self` = self else { return cell }
-
-                switch dataSource[indexPath] {
-                case let .picker(title, options, valueIndex):
-                    self.configurePickerCell(&cell, title, options, valueIndex)
-                    return cell
-
-                case let .dynamicValue(cellViewModel):
-                    // swiftlint:disable force_cast
-                    let textFieldCell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! DynamicValueCell
-                    textFieldCell.configure(data: cellViewModel)
-                    return textFieldCell
-
-                default:
-                    return cell
-                }
-            },
-            titleForHeaderInSection: { dataSource, index in
-                dataSource.sectionModels[index].header
-            }
-        )
     }
 
     // MARK: lifecycle
@@ -66,8 +41,8 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "StudentsClassificationCell")
-        tableView.register(DynamicValueCell.self, forCellReuseIdentifier: "TextFieldCell")
+        tableView.register(PickerCell.self, forCellReuseIdentifier: "PickerCell")
+//        tableView.register(DynamicValueCell.self, forCellReuseIdentifier: "TextFieldCell")
         setupBindings()
         viewModel.bindOutput()
         viewModel.getData()
@@ -89,14 +64,14 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
     // MARK: bindings
 
     func bindViewModel() {
-        let studentsClassification = viewModel.studentsClassification.share()
+        let dataSource = viewModel.dataSource.share()
 
-        studentsClassification
+        dataSource
             .asDriver(onErrorJustReturn: [])
-            .drive(tableView.rx.items(dataSource: dataSource))
+            .drive(tableView.rx.items(dataSource: self.dataSource))
             .disposed(by: bag)
 
-        studentsClassification
+        dataSource
             .map { $0.isEmpty ? false : !$0[1].items.isEmpty }
             .asDriver(onErrorJustReturn: true)
             .drive(noContentLabel.rx.isHidden)
@@ -131,17 +106,12 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
 
         tableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
-                guard let `self` = self else { return }
-                let item = self.viewModel.studentsClassification.value[indexPath.section].items[indexPath.item]
+                guard indexPath.section == 0 else { return }
 
-                // On table cell selection, set selected cell index in view model to display right options in picker view
-                if case let .picker(_, _, selectedValueIndex) = item {
-                    self.viewModel.handleOptionChange(cellIndexPath: indexPath, optionIndex: selectedValueIndex)
-                    self.showPicker()
-                    self.pickerView.selectRow(selectedValueIndex, inComponent: 0, animated: true)
-                }
-
-                self.tableView.deselectRow(at: indexPath, animated: true)
+                self?.viewModel.handleOptionChange(cellIndexPath: indexPath)
+                self?.showPicker()
+                //				self?.pickerView.selectRow(selectedValueIndex, inComponent: 0, animated: true)
+//                self.tableView.deselectRow(at: indexPath, animated: true)
             })
             .disposed(by: bag)
     }
@@ -153,6 +123,7 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         pickerTextField = UITextField()
         pickerTextField.inputView = pickerView
         pickerTextField.isHidden = true
+        view.addSubview(pickerTextField)
 
         setupPicker(doneAction: pickerDoneAction)
 
@@ -167,7 +138,6 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         cell.textLabel?.text = title
 
         let accessoryView = UIView()
-        accessoryView.addSubview(pickerTextField)
 
         let pickerLabel = UIPickerLabel()
         if options.isEmpty == false {

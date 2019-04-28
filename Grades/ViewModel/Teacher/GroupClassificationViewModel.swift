@@ -15,7 +15,7 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
 
     // MARK: public properties
 
-    let studentsClassification = BehaviorRelay<[TableSectionPolymorphic]>(value: [])
+    let dataSource = BehaviorRelay<[TableSection]>(value: [])
     let fieldValues = BehaviorRelay<GroupClassificationViewModel.FieldsDict>(value: [:])
     let isloading = PublishSubject<Bool>()
     let error = PublishSubject<Error>()
@@ -36,6 +36,9 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
     private let groupSelectedIndex = BehaviorRelay<Int>(value: 0)
     private let classificationSelectedIndex = BehaviorRelay<Int>(value: 0)
 
+    private let groupsCellViewModel = PickerCellViewModel(title: L10n.Teacher.Students.group)
+    private let classificationsCellViewModel = PickerCellViewModel(title: L10n.Teacher.Students.classification)
+
     // MARK: initialization
 
     init(dependencies: AppDependency, course: Course, user: User) {
@@ -45,7 +48,7 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
         self.user = user
         super.init()
 
-        bindOptions(dataSource: studentsClassification)
+//        bindOptions(dataSource: studentsClassification)
     }
 
     // MARK: methods
@@ -53,42 +56,54 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
     func bindOutput() {
         let groupClassifications = repository.groupClassifications.map { $0.sorted() }.share()
 
+        groupSelectedIndex
+            .flatMap { [weak self] index -> Observable<String> in
+                self?.repository.groups.map { options in
+                    if options.count - 1 > index {
+                        return options[index].id
+                    }
+                    return ""
+                } ?? Observable.just("")
+            }
+            .debug("🤖", trimOutput: true)
+            .bind(to: groupsCellViewModel.selectedOption)
+            .disposed(by: bag)
+
+        classificationSelectedIndex
+            .flatMap { [weak self] index -> Observable<String> in
+                self?.repository.classifications.map { options in
+                    if options.count - 1 > index {
+                        return options[index].getLocalizedText()
+                    }
+                    return ""
+                } ?? Observable.just("")
+            }
+            .debug("🤖", trimOutput: true)
+            .bind(to: classificationsCellViewModel.selectedOption)
+            .disposed(by: bag)
+
         /**
          Build data source for view
 
          1) Get picker options and create first table section with two picker cells
          2) Get items for chosen group and classification
          */
-        Observable.combineLatest(groupSelectedIndex, classificationSelectedIndex) { ($0, $1) }
-            .flatMap { [weak self] indexes -> Observable<TableSectionPolymorphic> in
-                guard let `self` = self else {
-                    return Observable.just(TableSectionPolymorphic(header: "", items: []))
-                }
+        Observable.combineLatest(groupSelectedIndex, classificationSelectedIndex) { _, _ in }
+            .map { [weak self] _ in
+                guard let `self` = self else { return TableSection(header: "", items: []) }
 
-                return Observable.zip(
-                    self.repository.groups,
-                    self.repository.classifications
-                ) { (groups, classifications) -> TableSectionPolymorphic in
-                    TableSectionPolymorphic(header: "", items: [
-                        CellItemType.picker(
-                            title: L10n.Teacher.Students.group,
-                            options: groups.map { $0.id },
-                            valueIndex: indexes.0
-                        ),
-                        CellItemType.picker(
-                            title: L10n.Teacher.Students.classification,
-                            options: classifications.map { $0.getLocalizedText() },
-                            valueIndex: indexes.1
-                        )
-                    ])
-                }.asObservable()
+                return TableSection(header: "", items: [
+                    PickerCellConfigurator(item: self.groupsCellViewModel),
+                    PickerCellConfigurator(item: self.classificationsCellViewModel),
+                ])
             }
-            .flatMap { [weak self] headerSection in
-                self?.buildDatasourceItems(groupClassifications).map { studentClassifications in
-                    [headerSection, TableSectionPolymorphic(header: L10n.Teacher.Group.students, items: studentClassifications)]
-                }.asObservable() ?? Observable.just([])
-            }
-            .bind(to: studentsClassification)
+            .map { [$0] }
+//            .flatMap { [weak self] headerSection in
+//                self?.buildDatasourceItems(groupClassifications).map { studentClassifications in
+//                    [headerSection, TableSectionPolymorphic(header: L10n.Teacher.Group.students, items: studentClassifications)]
+//                }.asObservable() ?? Observable.just([])
+//            }
+            .bind(to: dataSource)
             .disposed(by: bag)
 
         groupClassifications

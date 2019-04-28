@@ -36,7 +36,7 @@ final class TeacherClassificationViewModel: BaseViewModel {
 
     // MARK: public properties
 
-    let defaultScene = TeacherSceneIndex.studentClassification
+    let defaultScene = TeacherSceneIndex.groupClassification
     let course: TeacherCourse
     let user: User
 
