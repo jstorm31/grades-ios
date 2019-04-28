@@ -10,36 +10,12 @@ import RxCocoa
 import RxSwift
 
 /// Class providing logic for multiple pickers with options
-// TODO: consider deleting
 class TablePickerViewModel: BaseViewModel {
     private let bag = DisposeBag()
 
     let selectedCellIndex = BehaviorRelay<IndexPath?>(value: nil)
     let selectedOptionIndex = BehaviorRelay<Int>(value: 0)
     let options = BehaviorSubject<[String]>(value: [])
-
-    // TODO: delete after settings refactor
-    func bindOptions(dataSource: BehaviorRelay<[TableSectionPolymorphic]>) {
-        selectedCellIndex
-            .map { [weak self] indexPath in
-                guard self != nil, let indexPath = indexPath else { return [] }
-                let item = dataSource.value[indexPath.section].items[indexPath.item]
-
-                if case let .picker(_, options, _) = item {
-                    return options
-                }
-
-                return []
-            }
-            .bind(to: options)
-            .disposed(by: bag)
-    }
-
-    // TODO: delete after settings refactor
-    func handleOptionChange(cellIndexPath: IndexPath, optionIndex: Int) {
-        selectedCellIndex.accept(cellIndexPath)
-        selectedOptionIndex.accept(optionIndex)
-    }
 
     func handleOptionChange(cellIndexPath: IndexPath) {
         selectedCellIndex.accept(cellIndexPath)

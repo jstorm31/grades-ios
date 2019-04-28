@@ -10,5 +10,5 @@ import RxSwift
 
 struct PickerCellViewModel {
     let title: String
-    let selectedOption = PublishSubject<String>()
+    let selectedOption = BehaviorSubject<String>(value: "")
 }

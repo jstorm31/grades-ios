@@ -13,7 +13,7 @@ import RxDataSources
 import RxSwift
 import UIKit
 
-final class GroupClassificationViewController: BaseTableViewController, TableDataSource, BindableType, PickerPresentable {
+final class GroupClassificationViewController: BaseTableViewController, BindableType, TableDataSource, PickerPresentable {
     var pickerView: UIPickerView!
     var pickerTextField: UITextField!
 
