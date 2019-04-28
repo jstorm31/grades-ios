@@ -7,7 +7,9 @@
 //
 
 import Bagel
-import OAuthSwift
+import Firebase
+import FirebaseMessaging
+import OAuthSwift // TODO: remove on release!
 import UIKit
 
 @UIApplicationMain
@@ -20,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.rootViewController = LoginViewController()
+
+        FirebaseApp.configure()
 
         Bagel.start() // TODO: remove on release!
 
@@ -41,5 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         return true
+    }
+
+    func application(_: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Messaging.messaging().apnsToken = deviceToken
     }
 }

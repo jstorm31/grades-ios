@@ -62,8 +62,16 @@ class SceneCoordinator: SceneCoordinatorType {
     }
 
     @discardableResult
-    func pop(animated: Bool) -> Completable {
+    func pop(animated: Bool, presented: Bool = false) -> Completable {
         let subject = PublishSubject<Void>()
+
+        if presented, let presenter = currentViewController.presentingViewController {
+            // dismiss a modal controller
+            currentViewController.dismiss(animated: animated) {
+                self.currentViewController = SceneCoordinator.actualViewController(for: presenter)
+                subject.onCompleted()
+            }
+        }
 
         if let navigationController = currentViewController.navigationController {
             // navigate up the stack
@@ -78,12 +86,6 @@ class SceneCoordinator: SceneCoordinatorType {
             }
             currentViewController = SceneCoordinator
                 .actualViewController(for: navigationController.viewControllers.last!)
-        } else if let presenter = currentViewController.presentingViewController {
-            // dismiss a modal controller
-            currentViewController.dismiss(animated: animated) {
-                self.currentViewController = SceneCoordinator.actualViewController(for: presenter)
-                subject.onCompleted()
-            }
         } else {
             fatalError("Not a modal, no navigation controller: can't navigate back from \(currentViewController)")
         }

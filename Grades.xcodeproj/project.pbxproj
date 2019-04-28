@@ -103,6 +103,20 @@
 		96A80A6F222F191F00986A90 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A80A6E222F191F00986A90 /* RxDataSources.framework */; };
 		96A80A71222F1B3000986A90 /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A80A70222F1B3000986A90 /* Differentiator.framework */; };
 		96A80A75222F1D0400986A90 /* CourseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A80A74222F1D0400986A90 /* CourseListViewController.swift */; };
+		96A8AECB22745A620076CCD2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96A8AECA22745A620076CCD2 /* GoogleService-Info.plist */; };
+		96A8AEE8227466020076CCD2 /* FIRAnalyticsConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AED622745FD00076CCD2 /* FIRAnalyticsConnector.framework */; };
+		96A8AEE9227466020076CCD2 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AED022745F1F0076CCD2 /* FirebaseAnalytics.framework */; };
+		96A8AEEA227466020076CCD2 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AECC22745DB70076CCD2 /* FirebaseCore.framework */; };
+		96A8AEEB227466020076CCD2 /* FirebaseCoreDiagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AEDA2274603B0076CCD2 /* FirebaseCoreDiagnostics.framework */; };
+		96A8AEEC227466020076CCD2 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AED822745FE00076CCD2 /* FirebaseInstanceID.framework */; };
+		96A8AEED227466020076CCD2 /* FirebaseMessaging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AECE22745DBC0076CCD2 /* FirebaseMessaging.framework */; };
+		96A8AEEE227466020076CCD2 /* GoogleAppMeasurement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AED422745FB20076CCD2 /* GoogleAppMeasurement.framework */; };
+		96A8AEEF227466020076CCD2 /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AED222745F700076CCD2 /* GoogleUtilities.framework */; };
+		96A8AEF0227466020076CCD2 /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AEDC227460490076CCD2 /* nanopb.framework */; };
+		96A8AEF1227466020076CCD2 /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AEE1227461CF0076CCD2 /* Protobuf.framework */; };
+		96A8AEF3227466440076CCD2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AEF2227466440076CCD2 /* StoreKit.framework */; };
+		96A8AEF5227469E90076CCD2 /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8AEF4227469E90076CCD2 /* PushNotificationService.swift */; };
+		96A8AEF82274AE400076CCD2 /* NotificationRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8AEF72274AE400076CCD2 /* NotificationRegistration.swift */; };
 		96B20DA32236692E004794BE /* CourseDetailStudentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA22236692E004794BE /* CourseDetailStudentViewModel.swift */; };
 		96B20DA5223669CC004794BE /* CourseDetailStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */; };
 		96B20DA72236C838004794BE /* UINavigationBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA62236C838004794BE /* UINavigationBar+.swift */; };
@@ -254,6 +268,23 @@
 		96A80A6E222F191F00986A90 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		96A80A70222F1B3000986A90 /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
 		96A80A74222F1D0400986A90 /* CourseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewController.swift; sourceTree = "<group>"; };
+		96A8AECA22745A620076CCD2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		96A8AECC22745DB70076CCD2 /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCore.framework; path = Carthage/Build/iOS/FirebaseCore.framework; sourceTree = "<group>"; };
+		96A8AECE22745DBC0076CCD2 /* FirebaseMessaging.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseMessaging.framework; path = Carthage/Build/iOS/FirebaseMessaging.framework; sourceTree = "<group>"; };
+		96A8AED022745F1F0076CCD2 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Carthage/Build/iOS/FirebaseAnalytics.framework; sourceTree = "<group>"; };
+		96A8AED222745F700076CCD2 /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = Carthage/Build/iOS/GoogleUtilities.framework; sourceTree = "<group>"; };
+		96A8AED422745FB20076CCD2 /* GoogleAppMeasurement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleAppMeasurement.framework; path = Carthage/Build/iOS/GoogleAppMeasurement.framework; sourceTree = "<group>"; };
+		96A8AED622745FD00076CCD2 /* FIRAnalyticsConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FIRAnalyticsConnector.framework; path = Carthage/Build/iOS/FIRAnalyticsConnector.framework; sourceTree = "<group>"; };
+		96A8AED822745FE00076CCD2 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = Carthage/Build/iOS/FirebaseInstanceID.framework; sourceTree = "<group>"; };
+		96A8AEDA2274603B0076CCD2 /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCoreDiagnostics.framework; path = Carthage/Build/iOS/FirebaseCoreDiagnostics.framework; sourceTree = "<group>"; };
+		96A8AEDC227460490076CCD2 /* nanopb.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = nanopb.framework; path = Carthage/Build/iOS/nanopb.framework; sourceTree = "<group>"; };
+		96A8AEE1227461CF0076CCD2 /* Protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Protobuf.framework; path = Carthage/Build/iOS/Protobuf.framework; sourceTree = "<group>"; };
+		96A8AEE32274620B0076CCD2 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = Carthage/Build/iOS/Firebase.framework; sourceTree = "<group>"; };
+		96A8AEE6227464990076CCD2 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		96A8AEF2227466440076CCD2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		96A8AEF4227469E90076CCD2 /* PushNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationService.swift; sourceTree = "<group>"; };
+		96A8AEF6227479860076CCD2 /* GradesDev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GradesDev.entitlements; sourceTree = "<group>"; };
+		96A8AEF72274AE400076CCD2 /* NotificationRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRegistration.swift; sourceTree = "<group>"; };
 		96B20DA22236692E004794BE /* CourseDetailStudentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewModel.swift; sourceTree = "<group>"; };
 		96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewController.swift; sourceTree = "<group>"; };
 		96B20DA62236C838004794BE /* UINavigationBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+.swift"; sourceTree = "<group>"; };
@@ -297,6 +328,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96A8AEF3227466440076CCD2 /* StoreKit.framework in Frameworks */,
+				96A8AEE8227466020076CCD2 /* FIRAnalyticsConnector.framework in Frameworks */,
+				96A8AEE9227466020076CCD2 /* FirebaseAnalytics.framework in Frameworks */,
+				96A8AEEA227466020076CCD2 /* FirebaseCore.framework in Frameworks */,
+				96A8AEEB227466020076CCD2 /* FirebaseCoreDiagnostics.framework in Frameworks */,
+				96A8AEEC227466020076CCD2 /* FirebaseInstanceID.framework in Frameworks */,
+				96A8AEED227466020076CCD2 /* FirebaseMessaging.framework in Frameworks */,
+				96A8AEEE227466020076CCD2 /* GoogleAppMeasurement.framework in Frameworks */,
+				96A8AEEF227466020076CCD2 /* GoogleUtilities.framework in Frameworks */,
+				96A8AEF0227466020076CCD2 /* nanopb.framework in Frameworks */,
+				96A8AEF1227466020076CCD2 /* Protobuf.framework in Frameworks */,
 				96939EEC223BDCCC00A49E57 /* RxAtomic.framework in Frameworks */,
 				9658071922304B420065E23D /* Action.framework in Frameworks */,
 				967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */,
@@ -351,6 +393,7 @@
 				961BCE80222C515700BD6663 /* GradesAPI.swift */,
 				963C62832233B7C000B01818 /* HttpService.swift */,
 				961FC4F72244118B000A4CDA /* AppDependency.swift */,
+				96A8AEF4227469E90076CCD2 /* PushNotificationService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -454,6 +497,8 @@
 		96520E932223D65F00AB6499 /* Grades */ = {
 			isa = PBXGroup;
 			children = (
+				96A8AEF6227479860076CCD2 /* GradesDev.entitlements */,
+				96A8AECA22745A620076CCD2 /* GoogleService-Info.plist */,
 				96861087222B1A670069B81B /* Scene */,
 				9699AB9A22326506006D2F73 /* Utilities */,
 				96861086222B15B40069B81B /* Model */,
@@ -497,6 +542,19 @@
 		967D1E3F2223DDD3007E5217 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				96A8AEF2227466440076CCD2 /* StoreKit.framework */,
+				96A8AEE6227464990076CCD2 /* libc++.tbd */,
+				96A8AEE32274620B0076CCD2 /* Firebase.framework */,
+				96A8AEE1227461CF0076CCD2 /* Protobuf.framework */,
+				96A8AEDC227460490076CCD2 /* nanopb.framework */,
+				96A8AEDA2274603B0076CCD2 /* FirebaseCoreDiagnostics.framework */,
+				96A8AED822745FE00076CCD2 /* FirebaseInstanceID.framework */,
+				96A8AED622745FD00076CCD2 /* FIRAnalyticsConnector.framework */,
+				96A8AED422745FB20076CCD2 /* GoogleAppMeasurement.framework */,
+				96A8AED222745F700076CCD2 /* GoogleUtilities.framework */,
+				96A8AED022745F1F0076CCD2 /* FirebaseAnalytics.framework */,
+				96A8AECE22745DBC0076CCD2 /* FirebaseMessaging.framework */,
+				96A8AECC22745DB70076CCD2 /* FirebaseCore.framework */,
 				961789302232F65D007006E8 /* RxBlocking.framework */,
 				9699ABA12232902A006D2F73 /* ToastSwiftFramework.framework */,
 				9658071A22304D5B0065E23D /* RxAtomic.framework */,
@@ -695,6 +753,7 @@
 				964181792247BE6C0019CABD /* StudentGroup.swift */,
 				968D05C122625CC2003F7D49 /* StudentClassification.swift */,
 				9639AE682270AAA1009C35A9 /* AuthTokenResponse.swift */,
+				96A8AEF72274AE400076CCD2 /* NotificationRegistration.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -811,6 +870,11 @@
 					96520E902223D65F00AB6499 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					9682A6AC222D1ABC00773E28 = {
 						CreatedOnToolsVersion = 10.1;
@@ -852,6 +916,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96520E9F2223D66000AB6499 /* LaunchScreen.storyboard in Resources */,
+				96A8AECB22745A620076CCD2 /* GoogleService-Info.plist in Resources */,
 				9608B9AD2223F10F00E1CEAF /* Localizable.strings in Resources */,
 				96520E9C2223D66000AB6499 /* Assets.xcassets in Resources */,
 				96520E9A2223D65F00AB6499 /* Main.storyboard in Resources */,
@@ -1084,7 +1149,9 @@
 				9686108B222B1B210069B81B /* SceneTransitionType.swift in Sources */,
 				96F3A3852239B4B200FB63EF /* BaseTableViewController.swift in Sources */,
 				96B20DAB2236CEA9004794BE /* CAGradeintLayer+.swift in Sources */,
+				96A8AEF82274AE400076CCD2 /* NotificationRegistration.swift in Sources */,
 				968D05C422637F36003F7D49 /* DynamicValueCell.swift in Sources */,
+				96A8AEF5227469E90076CCD2 /* PushNotificationService.swift in Sources */,
 				96939EF0223C1FEE00A49E57 /* Unwrap+.swift in Sources */,
 				964181722247A7BB0019CABD /* StudentClassificationViewModel.swift in Sources */,
 				96C0A843226C78DC00AE733A /* StudentSearchViewController.swift in Sources */,
@@ -1234,6 +1301,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1296,6 +1364,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1321,6 +1390,7 @@
 			buildSettings = {
 				APP_VERSION = 1.0.0;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Grades/GradesDev.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CONFIG_ENVIRONMENT = Debug;
@@ -1332,15 +1402,21 @@
 				INFOPLIST_FILE = Grades/Info.plist;
 				INFOPLIST_PREFIX_HEADER = "$(PROJECT_DIR)/info_preprocess_header.h";
 				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"$(OTHER_LDFLAGS)",
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades;
 				PRODUCT_NAME = GradesDev;
 				PROVISIONING_PROFILE_SPECIFIER = "FIT Grades - ad hoc";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1349,9 +1425,11 @@
 			buildSettings = {
 				APP_VERSION = 1.0.0;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Grades/GradesDev.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CONFIG_ENVIRONMENT = Release;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2PY9RKK8A7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1359,15 +1437,21 @@
 				INFOPLIST_FILE = Grades/Info.plist;
 				INFOPLIST_PREFIX_HEADER = "$(PROJECT_DIR)/info_preprocess_header.h";
 				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"$(OTHER_LDFLAGS)",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "FIT Grades - ad hoc";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

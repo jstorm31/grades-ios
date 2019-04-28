@@ -16,7 +16,7 @@ protocol LoginViewModelProtocol {
 }
 
 final class LoginViewModel: BaseViewModel {
-    typealias Dependencies = HasAuthenticationService & HasGradesAPI & HasSettingsRepository
+    typealias Dependencies = HasAuthenticationService & HasGradesAPI & HasSettingsRepository & HasPushNotificationService
 
     private let dependencies: Dependencies
     private let sceneCoordinator: SceneCoordinatorType
@@ -29,12 +29,19 @@ final class LoginViewModel: BaseViewModel {
         self.sceneCoordinator = sceneCoordinator
     }
 
+    deinit {
+        dependencies.pushNotificationsService.stop()
+    }
+
     // MARK: methods
 
     func authenticate(viewController: UIViewController) -> Observable<Void> {
         return dependencies.authService
             .authenticate(useBuiltInSafari: false, viewController: viewController)
             .filter { $0 == true }
+            .flatMap { [weak self] _ in
+                self?.dependencies.pushNotificationsService.start() ?? Observable.empty()
+            }
             .map { _ in }
             .flatMap(dependencies.settingsRepository.fetchCurrentSemester)
             .map { _ in }
