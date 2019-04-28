@@ -47,40 +47,14 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
         self.course = course
         self.user = user
         super.init()
-
-//        bindOptions(dataSource: studentsClassification)
     }
 
     // MARK: methods
 
     func bindOutput() {
+		bindOptions()
+		
         let groupClassifications = repository.groupClassifications.map { $0.sorted() }.share()
-
-        groupSelectedIndex
-            .flatMap { [weak self] index -> Observable<String> in
-                self?.repository.groups.map { options in
-                    if options.count - 1 > index {
-                        return options[index].id
-                    }
-                    return ""
-                } ?? Observable.just("")
-            }
-            .debug("🤖", trimOutput: true)
-            .bind(to: groupsCellViewModel.selectedOption)
-            .disposed(by: bag)
-
-        classificationSelectedIndex
-            .flatMap { [weak self] index -> Observable<String> in
-                self?.repository.classifications.map { options in
-                    if options.count - 1 > index {
-                        return options[index].getLocalizedText()
-                    }
-                    return ""
-                } ?? Observable.just("")
-            }
-            .debug("🤖", trimOutput: true)
-            .bind(to: classificationsCellViewModel.selectedOption)
-            .disposed(by: bag)
 
         /**
          Build data source for view
@@ -106,14 +80,58 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
             .bind(to: dataSource)
             .disposed(by: bag)
 
-        groupClassifications
-            .map { Dictionary(uniqueKeysWithValues: $0.map { ($0.username, $0.value) }) }
-            .bind(to: fieldValues)
-            .disposed(by: bag)
+//        groupClassifications
+//            .map { Dictionary(uniqueKeysWithValues: $0.map { ($0.username, $0.value) }) }
+//            .bind(to: fieldValues)
+//            .disposed(by: bag)
 
         repository.isLoading.bind(to: isloading).disposed(by: bag)
         repository.error.unwrap().bind(to: error).disposed(by: bag)
     }
+	
+	/// Bind selected options
+	func bindOptions() {
+		groupSelectedIndex
+			.flatMap { [weak self] index -> Observable<String> in
+				self?.repository.groups.map { options in
+					if options.count - 1 > index {
+						return options[index].id
+					}
+					return ""
+					} ?? Observable.just("")
+			}
+			.bind(to: groupsCellViewModel.selectedOption)
+			.disposed(by: bag)
+		
+		classificationSelectedIndex
+			.flatMap { [weak self] index -> Observable<String> in
+				self?.repository.classifications.map { options in
+					if options.count - 1 > index {
+						return options[index].getLocalizedText()
+					}
+					return ""
+					} ?? Observable.just("")
+			}
+			.bind(to: classificationsCellViewModel.selectedOption)
+			.disposed(by: bag)
+		
+		selectedCellIndex
+			.unwrap()
+			.filter { $0.section == 0 }
+			.map { $0.item }
+			.flatMap { [weak self] index -> Observable<[String]> in
+				guard let `self` = self else { return Observable.just([]) }
+				
+				if index == 0 {
+					return self.repository.groups.map { $0.map { $0.id } }
+				} else if index == 1 {
+					return self.repository.classifications.map { $0.map { $0.getLocalizedText() } }
+				}
+				return Observable.just([])
+			}
+			.bind(to: options)
+			.disposed(by: bag)
+	}
 
     /// Initialize and bind CellViewModel for each item
     func buildDatasourceItems(_ source: Observable<[StudentClassification]>) -> Observable<[CellItemType]> {
@@ -144,7 +162,7 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
             classificationSelectedIndex.accept(selectedOptionIndex.value)
         }
 
-        getData()
+//        getData()
     }
 
     /// Get students for selected group and classifiaction

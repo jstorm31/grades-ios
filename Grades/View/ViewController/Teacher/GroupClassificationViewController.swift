@@ -72,7 +72,7 @@ final class GroupClassificationViewController: BaseTableViewController, TableDat
             .disposed(by: bag)
 
         dataSource
-            .map { $0.isEmpty ? false : !$0[1].items.isEmpty }
+			.map { $0.count > 1 ? !$0[1].items.isEmpty : false }
             .asDriver(onErrorJustReturn: true)
             .drive(noContentLabel.rx.isHidden)
             .disposed(by: bag)

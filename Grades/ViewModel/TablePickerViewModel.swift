@@ -18,6 +18,7 @@ class TablePickerViewModel: BaseViewModel {
     let selectedOptionIndex = BehaviorRelay<Int>(value: 0)
     let options = BehaviorSubject<[String]>(value: [])
 
+    // TODO: delete after settings refactor
     func bindOptions(dataSource: BehaviorRelay<[TableSectionPolymorphic]>) {
         selectedCellIndex
             .map { [weak self] indexPath in
@@ -34,6 +35,7 @@ class TablePickerViewModel: BaseViewModel {
             .disposed(by: bag)
     }
 
+    // TODO: delete after settings refactor
     func handleOptionChange(cellIndexPath: IndexPath, optionIndex: Int) {
         selectedCellIndex.accept(cellIndexPath)
         selectedOptionIndex.accept(optionIndex)
