@@ -36,7 +36,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
     typealias Dependencies = HasAuthenticationService
 
     private let dependencies: Dependencies
-    private let client: OAuthSwiftClient
+    private let client: AuthClientProtocol
     private let defaultHeaders = [
         "Content-Type": "application/json;charset=UTF-8"
     ]
@@ -44,7 +44,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
 
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
-        client = dependencies.authService.handler.client
+        client = dependencies.authService.client
     }
 
     /// Make HTTP GET request and return Observable of given type that emits request reuslt
@@ -60,9 +60,9 @@ final class HttpService: NSObject, HttpServiceProtocol {
                 method: .GET,
                 parameters: parameters ?? [:],
                 headers: self?.defaultHeaders ?? [:],
+                body: nil,
                 success: { response in
                     let data = response.data
-
                     let decodedResponse = String(decoding: data, as: UTF8.self)
                     observer.onNext(decodedResponse)
                     observer.onCompleted()
@@ -74,6 +74,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
         }
 
         return request.retryWhen { [weak self] events in
+            // TODO: handle infinite loop
             events.enumerated().flatMap { [weak self] (_, error) -> Observable<Void> in
                 self?.handleError(error) ?? Observable.empty()
             }
@@ -105,6 +106,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
                 method: method,
                 parameters: parameters ?? [:],
                 headers: headers,
+                body: nil,
                 success: { response in
                     let data = response.data
 

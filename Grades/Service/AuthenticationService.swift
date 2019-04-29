@@ -17,13 +17,15 @@ protocol HasAuthenticationService {
 
 protocol AuthenticationServiceProtocol {
     var handler: OAuth2Swift { get }
+    var client: AuthClientProtocol { get }
     var renewAccessToken: CocoaAction { get }
 
     func authenticate(useBuiltInSafari: Bool, viewController: UIViewController?) -> Observable<Bool>
 }
 
 final class AuthenticationService: AuthenticationServiceProtocol {
-    var handler: OAuth2Swift
+    let handler: OAuth2Swift
+    let client: AuthClientProtocol
     private let callbackUrl: URL
     private let authorizationHeader: String
     private let scope: String
@@ -45,6 +47,7 @@ final class AuthenticationService: AuthenticationServiceProtocol {
                               accessTokenUrl: config.auth.tokenUrl,
                               responseType: config.auth.responseType)
         handler.allowMissingStateCheck = true
+        client = AuthClient(client: handler.client)
     }
 
     // MARK: public methods

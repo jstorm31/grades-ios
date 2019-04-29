@@ -28,6 +28,9 @@
 		9639AE672270989C009C35A9 /* KeyboardChangeFrameObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE652270989B009C35A9 /* KeyboardChangeFrameObserver.swift */; };
 		9639AE692270AAA1009C35A9 /* AuthTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE682270AAA1009C35A9 /* AuthTokenResponse.swift */; };
 		9639AE6B2270ADDF009C35A9 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE6A2270ADDF009C35A9 /* String+.swift */; };
+		9639AE6D2270CA62009C35A9 /* HttpServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE6C2270CA62009C35A9 /* HttpServiceTests.swift */; };
+		9639AE6F2270FF89009C35A9 /* AuthClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE6E2270FF89009C35A9 /* AuthClientMock.swift */; };
+		9639AE7122710058009C35A9 /* AuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE7022710058009C35A9 /* AuthClient.swift */; };
 		963C62842233B7C000B01818 /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963C62832233B7C000B01818 /* HttpService.swift */; };
 		963C628B22341FDC00B01818 /* GradesAPIMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965807152230099D0065E23D /* GradesAPIMock.swift */; };
 		963C628D22342ED300B01818 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963C628C22342ED300B01818 /* LoginViewModelTests.swift */; };
@@ -196,6 +199,9 @@
 		9639AE652270989B009C35A9 /* KeyboardChangeFrameObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardChangeFrameObserver.swift; sourceTree = "<group>"; };
 		9639AE682270AAA1009C35A9 /* AuthTokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTokenResponse.swift; sourceTree = "<group>"; };
 		9639AE6A2270ADDF009C35A9 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		9639AE6C2270CA62009C35A9 /* HttpServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpServiceTests.swift; sourceTree = "<group>"; };
+		9639AE6E2270FF89009C35A9 /* AuthClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthClientMock.swift; sourceTree = "<group>"; };
+		9639AE7022710058009C35A9 /* AuthClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthClient.swift; sourceTree = "<group>"; };
 		963C62832233B7C000B01818 /* HttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpService.swift; sourceTree = "<group>"; };
 		963C628C22342ED300B01818 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
 		963C628F2234307300B01818 /* EnvironmentConfigurationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentConfigurationMock.swift; sourceTree = "<group>"; };
@@ -396,6 +402,7 @@
 				963C62832233B7C000B01818 /* HttpService.swift */,
 				961FC4F72244118B000A4CDA /* AppDependency.swift */,
 				96A8AEF4227469E90076CCD2 /* PushNotificationService.swift */,
+				9639AE7022710058009C35A9 /* AuthClient.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -587,6 +594,7 @@
 		9682A6AE222D1ABC00773E28 /* GradesTests */ = {
 			isa = PBXGroup;
 			children = (
+				9639AE6C2270CA62009C35A9 /* HttpServiceTests.swift */,
 				96C7B9CC2260709E00E39F9A /* ViewModel */,
 				96C7B9CB2260709500E39F9A /* Repository */,
 				96939EE2223B98A300A49E57 /* MockData */,
@@ -739,6 +747,7 @@
 				965807152230099D0065E23D /* GradesAPIMock.swift */,
 				963C6295223432FD00B01818 /* AuthenticationServiceMock.swift */,
 				963C62972234542E00B01818 /* HttpServiceMock.swift */,
+				9639AE6E2270FF89009C35A9 /* AuthClientMock.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1100,6 +1109,7 @@
 				968D05BA2261E917003F7D49 /* TablePickerViewModel.swift in Sources */,
 				964181782247A83E0019CABD /* StudentClassificationViewController.swift in Sources */,
 				9639AE6B2270ADDF009C35A9 /* String+.swift in Sources */,
+				9639AE7122710058009C35A9 /* AuthClient.swift in Sources */,
 				96861080222AEC680069B81B /* UIFont+.swift in Sources */,
 				96C0A847226C83D400AE733A /* BasicCell.swift in Sources */,
 				961A2FE1222988D700A624DC /* AuthenticationService.swift in Sources */,
@@ -1182,7 +1192,9 @@
 				96E8C644224BE8BA005F32F8 /* SettingsRepositoryMock.swift in Sources */,
 				96580714222FFA810065E23D /* CourseListViewModelTests.swift in Sources */,
 				963C62922234314200B01818 /* SceneCoordinatorMock.swift in Sources */,
+				9639AE6F2270FF89009C35A9 /* AuthClientMock.swift in Sources */,
 				96C7B9CA226069FA00E39F9A /* CoursesRepositoryTests.swift in Sources */,
+				9639AE6D2270CA62009C35A9 /* HttpServiceTests.swift in Sources */,
 				963C6296223432FD00B01818 /* AuthenticationServiceMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1234,9 +1246,12 @@
 		961BCE7E222C3D8E00BD6663 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FKAQE2Z826;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = GradesUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1244,6 +1259,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.jiri.zdvomka.GradesUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Grades;
@@ -1253,9 +1269,12 @@
 		961BCE7F222C3D8E00BD6663 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FKAQE2Z826;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = GradesUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1263,6 +1282,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.jiri.zdvomka.GradesUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Grades;
@@ -1322,7 +1342,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1379,7 +1399,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1463,8 +1483,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FKAQE2Z826;
+				DEVELOPMENT_TEAM = 2PY9RKK8A7;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1478,6 +1500,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.jiri.zdvomka.GradesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GradesDev.app/GradesDev";
@@ -1488,8 +1511,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FKAQE2Z826;
+				DEVELOPMENT_TEAM = 2PY9RKK8A7;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1503,6 +1528,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.jiri.zdvomka.GradesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GradesDev.app/GradesDev";
