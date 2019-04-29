@@ -16,7 +16,6 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
     // MARK: public properties
 
     let dataSource = BehaviorRelay<[TableSection]>(value: [])
-    let fieldValues = BehaviorRelay<GroupClassificationViewModel.FieldsDict>(value: [:])
     let isloading = PublishSubject<Bool>()
     let error = PublishSubject<Error>()
 
@@ -59,6 +58,8 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
     private let groupsCellViewModel = PickerCellViewModel(title: L10n.Teacher.Students.group)
     private let classificationsCellViewModel = PickerCellViewModel(title: L10n.Teacher.Students.classification)
 
+    internal let fieldValues = BehaviorRelay<[String: DynamicValue?]>(value: [:])
+
     // MARK: initialization
 
     init(dependencies: AppDependency, course: Course, user: User) {
@@ -88,25 +89,45 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
 
                 return TableSection(header: "", items: [
                     PickerCellConfigurator(item: self.groupsCellViewModel),
-                    PickerCellConfigurator(item: self.classificationsCellViewModel),
+                    PickerCellConfigurator(item: self.classificationsCellViewModel)
                 ])
             }
-            .map { [$0] }
-//            .flatMap { [weak self] headerSection in
-//                self?.buildDatasourceItems(groupClassifications).map { studentClassifications in
-//                    [headerSection, TableSectionPolymorphic(header: L10n.Teacher.Group.students, items: studentClassifications)]
-//                }.asObservable() ?? Observable.just([])
-//            }
+            .flatMap { [weak self] headerSection in
+                self?.buildDatasourceItems(groupClassifications).map { studentClassifications in
+                    [headerSection, TableSection(header: L10n.Teacher.Group.students, items: studentClassifications)]
+                }.asObservable() ?? Observable.just([])
+            }
             .bind(to: dataSource)
             .disposed(by: bag)
 
-//        groupClassifications
-//            .map { Dictionary(uniqueKeysWithValues: $0.map { ($0.username, $0.value) }) }
-//            .bind(to: fieldValues)
-//            .disposed(by: bag)
+        groupClassifications
+            .map { Dictionary(uniqueKeysWithValues: $0.map { ($0.username, $0.value) }) }
+            .bind(to: fieldValues)
+            .disposed(by: bag)
 
         repository.isLoading.bind(to: isloading).disposed(by: bag)
         repository.error.unwrap().bind(to: error).disposed(by: bag)
+    }
+
+    /// Initialize and bind CellViewModel for each item
+    func buildDatasourceItems(_ source: Observable<[StudentClassification]>) -> Observable<[DynamicValueCellConfigurator]> {
+        return source
+            .map { [weak self] (classifications: [StudentClassification]) -> [DynamicValueCellConfigurator] in
+                guard let `self` = self else { return [] }
+
+                return classifications.map { (item: StudentClassification) -> DynamicValueCellConfigurator in
+                    let valueType = self.repository.classifications.value[self.classificationSelectedIndex.value].valueType
+
+                    let cellViewModel = DynamicValueCellViewModel(
+                        valueType: valueType,
+                        key: item.username,
+                        title: "\(item.lastName ?? "") \(item.firstName ?? "")"
+                    )
+
+//                    self.bind(cellViewModel: cellViewModel)
+                    return DynamicValueCellConfigurator(item: cellViewModel)
+                }
+            }
     }
 
     /// Bind selected options
@@ -153,25 +174,6 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
             .disposed(by: bag)
     }
 
-    /// Initialize and bind CellViewModel for each item
-    func buildDatasourceItems(_ source: Observable<[StudentClassification]>) -> Observable<[CellItemType]> {
-        return source
-            .map { [weak self] (classifications: [StudentClassification]) -> [CellItemType] in
-                guard let `self` = self else { return [] }
-
-                return classifications.map { (item: StudentClassification) -> CellItemType in
-                    let cellViewModel = DynamicValueCellViewModel(
-                        valueType: .string, // TODO: replace with dynamic value type for current classification
-                        key: item.username,
-                        title: "\(item.lastName ?? "") \(item.firstName ?? "")"
-                    )
-
-                    self.bind(cellViewModel: cellViewModel)
-                    return .dynamicValue(viewModel: cellViewModel)
-                }
-            }
-    }
-
     /// Submit current value for current index path
     func submitSelectedValue() {
         guard let index = self.selectedCellIndex.value else { return }
@@ -182,7 +184,7 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
             classificationSelectedIndex.accept(selectedOptionIndex.value)
         }
 
-//        getData()
+        getData()
     }
 
     /// Get students for selected group and classifiaction
@@ -194,8 +196,6 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
 
         let groupCode = repository.groups.value[groupSelectedIndex.value]
         let classificationId = repository.classifications.value[classificationSelectedIndex.value]
-        // TODO: pořešit value type pro celou tabulku vs. pro jednotlivé buňky
-        //        let valueType = repository.classifications.value[classificationSelectedIndex.value].valueType
 
         repository.studentsFor(course: course.code, groupCode: groupCode.id, classificationId: classificationId.identifier)
     }

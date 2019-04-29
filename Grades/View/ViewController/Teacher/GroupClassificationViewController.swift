@@ -42,10 +42,9 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(PickerCell.self, forCellReuseIdentifier: "PickerCell")
-//        tableView.register(DynamicValueCell.self, forCellReuseIdentifier: "TextFieldCell")
+        tableView.register(DynamicValueCell.self, forCellReuseIdentifier: "DynamicValueCell")
         setupBindings()
         viewModel.bindOutput()
-        viewModel.getData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -54,10 +53,7 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
         var saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
         saveButton.rx.action = viewModel.saveAction
         parent!.navigationItem.rightBarButtonItem = saveButton
-    }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         viewModel.getData()
     }
 

@@ -29,6 +29,12 @@ final class DynamicValueCellViewModel {
         self.key = key
         self.title = title
         self.subtitle = subtitle
+
+        Log.debug("[Allocated]: \(key)")
+    }
+
+    deinit {
+        Log.debug("[Deallocated]: \(key)")
     }
 
     // MARK: Binding

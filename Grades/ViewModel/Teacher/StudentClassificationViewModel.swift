@@ -144,7 +144,9 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
                         key: classification.identifier,
                         title: classification.getLocalizedText()
                     )
+
                     self?.bind(cellViewModel: cellViewModel)
+					// TODO: zkusit mít array cell view modelů a alokovat je vždy znova + two way binding mezi cellVM a cellou 
 
                     return DynamicValueCellConfigurator(item: cellViewModel)
                 }
