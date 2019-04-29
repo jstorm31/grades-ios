@@ -79,11 +79,7 @@ final class StudentClassificationViewModel: BaseViewModel {
 
         dependencies.courseRepository.set(course: course)
 
-        activityIndicator
-            .distinctUntilChanged()
-            .asObservable()
-            .bind(to: isloading)
-            .disposed(by: bag)
+        activityIndicator.distinctUntilChanged().asObservable().bind(to: isloading).disposed(by: bag)
     }
 
     // MARK: Bindings

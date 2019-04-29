@@ -97,11 +97,11 @@ final class GroupClassificationViewModel: TablePickerViewModel {
          2) Get items for chosen group and classification
          */
         Observable.zip(repository.groups, repository.classifications) { $1 }
-            .filter { !$0.isEmpty }
             .flatMap { [weak self] classifications -> Observable<(DynamicValueType, Int, Int)> in
                 guard let `self` = self else { return Observable.empty() }
 
                 return Observable.combineLatest(self.refreshData, self.groupSelectedIndex, self.classificationSelectedIndex) { ($1, $2) }
+                    .filter { classifications.count - 1 > $1 }
                     .map { indexes in
                         let (groupIndex, classificationIndex) = indexes
 
