@@ -82,14 +82,22 @@ final class GroupClassificationViewModel: TablePickerViewModel {
          1) Get picker options and create first table section with two picker cells
          2) Get items for chosen group and classification
          */
-        Observable.combineLatest(refreshData, groupSelectedIndex, classificationSelectedIndex) { $2 }
-            .flatMap { [weak self] classificationIndex -> Observable<DynamicValueType> in
-                self?.repository.classifications
-                    .filter { $0.count - 1 > classificationIndex }
-                    .map { $0[classificationIndex].valueType } ?? Observable.empty()
+        Observable.zip(repository.groups, repository.classifications) { $1 }
+            .filter { !$0.isEmpty }
+            .flatMap { [weak self] classifications -> Observable<(DynamicValueType, Int, Int)> in
+                guard let `self` = self else { return Observable.empty() }
+
+                return Observable.combineLatest(self.refreshData, self.groupSelectedIndex, self.classificationSelectedIndex) { ($1, $2) }
+                    .map { indexes in
+                        let (groupIndex, classificationIndex) = indexes
+
+                        return (classifications[classificationIndex].valueType, groupIndex, classificationIndex)
+                    }
             }
-            .flatMap { [weak self] valueType -> Observable<TableSection> in
-                self?.studentClassifications(valueType: valueType)
+            .flatMap { [weak self] arg -> Observable<TableSection> in
+                let (valueType, groupIndex, classificationIndex) = arg
+
+                return self?.studentClassifications(valueType, groupIndex, classificationIndex)
                     .map { studentClassifications in
                         TableSection(header: L10n.Teacher.Group.students, items: studentClassifications)
                     } ?? Observable.empty()
@@ -115,14 +123,14 @@ final class GroupClassificationViewModel: TablePickerViewModel {
     }
 
     /// Initialize and bind CellViewModel for each item
-    private func studentClassifications(valueType: DynamicValueType) -> Observable<[DynamicValueCellConfigurator]> {
-        guard !repository.groups.value.isEmpty, !repository.classifications.value.isEmpty else { return Observable.just([]) }
+    private func studentClassifications(_ valueType: DynamicValueType, _ groupIndex: Int, _ classificationIndex: Int) -> Observable<[DynamicValueCellConfigurator]> {
+//        guard !repository.groups.value.isEmpty, !repository.classifications.value.isEmpty else { return Observable.just([]) }
 
-        let groupCode = repository.groups.value[groupSelectedIndex.value]
-        let classificationId = repository.classifications.value[classificationSelectedIndex.value]
+        let groupCode = repository.groups.value[groupIndex]
+        let classificationId = repository.classifications.value[classificationIndex]
 
         return repository.studentClassifications(course: course.code, groupCode: groupCode.id,
-												 classificationId: classificationId.identifier)
+                                                 classificationId: classificationId.identifier)
             .do(onNext: { [weak self] _ in
                 self?.dynamicCellViewModels = [] // Reset view models array to clean memory
             })

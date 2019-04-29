@@ -30,12 +30,6 @@ final class DynamicValueCellViewModel {
         self.key = key
         self.title = title
         self.subtitle = subtitle
-
-        Log.debug("Init VM \(key) with value \(valueType)")
-    }
-
-    deinit {
-        Log.debug("Deinit VM \(key) with value \(valueType)")
     }
 
     // MARK: Binding
