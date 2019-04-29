@@ -199,7 +199,14 @@ final class GroupClassificationViewModel: TablePickerViewModel {
                 if index == 0 {
                     return self.repository.groups.map { $0.map { $0.id } }
                 } else if index == 1 {
-                    return self.repository.classifications.map { $0.map { $0.getLocalizedText() } }
+                    return self.repository.classifications
+                        .map { $0.filter { classification in
+                            if case .manual = classification.evaluationType {
+                                return true
+                            }
+                            return false
+                        } }
+                        .map { $0.map { $0.getLocalizedText() } }
                 }
                 return Observable.just([])
             }

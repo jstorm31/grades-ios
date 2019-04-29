@@ -12,7 +12,7 @@ struct Classification {
     var id: Int
     var identifier: String
     var text: [ClassificationText]
-    var scope: String?
+    var evaluationType: EvaluationType
     var type: String?
     var valueType: DynamicValueType
     var value: DynamicValue?
@@ -36,10 +36,9 @@ struct Classification {
 extension Classification: Codable {
     enum CodingKeys: String, CodingKey {
         case text = "classificationTextDtos"
-        case scope = "aggregationScope"
         case type = "classificationType"
         case isHidden = "hidden"
-        case id, identifier, value, valueType, parentId
+        case id, identifier, value, valueType, parentId, evaluationType
     }
 }
 
