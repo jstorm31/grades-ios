@@ -16,6 +16,7 @@ import UIKit
 final class GroupClassificationViewController: BaseTableViewController, BindableType, TableDataSource, PickerPresentable {
     var pickerView: UIPickerView!
     var pickerTextField: UITextField!
+    private var saveButton: UIBarButtonItem!
 
     // MARK: properties
 
@@ -41,18 +42,23 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         tableView.register(PickerCell.self, forCellReuseIdentifier: "PickerCell")
         tableView.register(DynamicValueCell.self, forCellReuseIdentifier: "DynamicValueCell")
-        setupBindings()
+
         viewModel.bindOutput()
+        setupBindings()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        var saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
-        saveButton.rx.action = viewModel.saveAction
         parent!.navigationItem.rightBarButtonItem = saveButton
+        addKeyboardFrameChangesObserver()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        removeKeyboardFrameChangesObserver()
     }
 
     // MARK: bindings
@@ -113,6 +119,27 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
 //                self.tableView.deselectRow(at: indexPath, animated: true)
             })
             .disposed(by: bag)
+
+        // Save action
+        saveButton.rx.action = viewModel.saveAction
+
+        saveButton.rx.action!.elements
+            .asDriver(onErrorJustReturn: ())
+            .map { L10n.Students.updateSuccess }
+            .do(onNext: { [weak self] _ in self?.view.endEditing(false) })
+            .drive(view.rx.successMessage)
+            .disposed(by: bag)
+
+        saveButton.rx.action!.underlyingError
+            .do(onNext: { [weak self] _ in self?.view.endEditing(false) })
+            .asDriver(onErrorJustReturn: ApiError.general)
+            .drive(view.rx.errorMessage)
+            .disposed(by: bag)
+
+        saveButton.rx.action!.executing
+            .asDriver(onErrorJustReturn: false)
+            .drive(view.rx.refreshing)
+            .disposed(by: bag)
     }
 
     // MARK: UI setup
@@ -128,6 +155,9 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
 
         loadRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
+
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
+        self.saveButton = saveButton
     }
 
     private func configurePickerCell(_ cell: inout UITableViewCell, _ title: String, _ options: [String], _ valueIndex: Int) {
@@ -162,4 +192,8 @@ extension GroupClassificationViewController: UITableViewDelegate {
     func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         return 60
     }
+}
+
+extension GroupClassificationViewController: ModifableInsetsOnKeyboardFrameChanges {
+    var scrollViewToModify: UIScrollView { return tableView }
 }

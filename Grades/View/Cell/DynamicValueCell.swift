@@ -115,6 +115,7 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
         switch viewModel.valueType {
         case .string:
             valueTextField.isHidden = false
+			fieldLabel.isHidden = true
             valueSwitch.isHidden = true
         case .number:
             valueTextField.isHidden = false

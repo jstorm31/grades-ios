@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 
 final class GroupClassificationViewModel: TablePickerViewModel {
-    typealias Dependencies = HasTeacherRepository
+    typealias Dependencies = HasTeacherRepository & HasGradesAPI
 
     // MARK: public properties
 
@@ -40,9 +40,23 @@ final class GroupClassificationViewModel: TablePickerViewModel {
             }
     }()
 
-    var saveAction = CocoaAction {
-        Log.debug("Save not implemented")
-        return Observable.empty()
+    lazy var saveAction = CocoaAction { [weak self] in
+        Observable.just(self?.dynamicCellViewModels)
+            .unwrap()
+            .map { $0.filter { $0.value.value != nil } }
+            .map { [weak self] values -> [StudentClassification] in
+                guard let `self` = self else { return [] }
+
+                let identifier = self.repository.classifications.value[self.classificationSelectedIndex.value].identifier
+                return values.map { StudentClassification(identifier: identifier, username: $0.key, value: $0.value.value) }
+            }
+            .flatMap { [weak self] classifications -> Observable<Void> in
+                guard let `self` = self else { return Observable.empty() }
+                return self.dependencies.gradesApi.putStudentsClassifications(courseCode: self.course.code, data: classifications)
+            }
+            .do(onCompleted: { [weak self] in
+                self?.refreshData.onNext(())
+            })
     }
 
     // MARK: private properties
@@ -124,8 +138,6 @@ final class GroupClassificationViewModel: TablePickerViewModel {
 
     /// Initialize and bind CellViewModel for each item
     private func studentClassifications(_ valueType: DynamicValueType, _ groupIndex: Int, _ classificationIndex: Int) -> Observable<[DynamicValueCellConfigurator]> {
-//        guard !repository.groups.value.isEmpty, !repository.classifications.value.isEmpty else { return Observable.just([]) }
-
         let groupCode = repository.groups.value[groupIndex]
         let classificationId = repository.classifications.value[classificationIndex]
 
