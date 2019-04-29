@@ -10,7 +10,7 @@ import Action
 import RxCocoa
 import RxSwift
 
-final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFieldArrayViewModelProtocol {
+final class GroupClassificationViewModel: TablePickerViewModel {
     typealias Dependencies = HasTeacherRepository
 
     // MARK: public properties
@@ -18,6 +18,7 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
     let dataSource = BehaviorRelay<[TableSection]>(value: [])
     let isloading = PublishSubject<Bool>()
     let error = PublishSubject<Error>()
+    let refreshData = BehaviorSubject<Void>(value: ())
 
     lazy var selectedCellOptionIndex: Observable<Int> = {
         selectedCellIndex
@@ -58,7 +59,7 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
     private let groupsCellViewModel = PickerCellViewModel(title: L10n.Teacher.Students.group)
     private let classificationsCellViewModel = PickerCellViewModel(title: L10n.Teacher.Students.classification)
 
-    internal let fieldValues = BehaviorRelay<[String: DynamicValue?]>(value: [:])
+    private var dynamicCellViewModels = [DynamicValueCellViewModel]()
 
     // MARK: initialization
 
@@ -75,63 +76,75 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
     func bindOutput() {
         bindOptions()
 
-        let groupClassifications = repository.groupClassifications.map { $0.sorted() }.share()
-
         /**
          Build data source for view
 
          1) Get picker options and create first table section with two picker cells
          2) Get items for chosen group and classification
          */
-        Observable.combineLatest(groupSelectedIndex, classificationSelectedIndex) { _, _ in }
-            .map { [weak self] _ in
-                guard let `self` = self else { return TableSection(header: "", items: []) }
-
-                return TableSection(header: "", items: [
-                    PickerCellConfigurator(item: self.groupsCellViewModel),
-                    PickerCellConfigurator(item: self.classificationsCellViewModel)
-                ])
+        Observable.combineLatest(refreshData, groupSelectedIndex, classificationSelectedIndex) { $2 }
+            .flatMap { [weak self] classificationIndex -> Observable<DynamicValueType> in
+                self?.repository.classifications
+                    .filter { $0.count - 1 > classificationIndex }
+                    .map { $0[classificationIndex].valueType } ?? Observable.empty()
             }
-            .flatMap { [weak self] headerSection in
-                self?.buildDatasourceItems(groupClassifications).map { studentClassifications in
-                    [headerSection, TableSection(header: L10n.Teacher.Group.students, items: studentClassifications)]
-                }.asObservable() ?? Observable.just([])
+            .flatMap { [weak self] valueType -> Observable<TableSection> in
+                self?.studentClassifications(valueType: valueType)
+                    .map { studentClassifications in
+                        TableSection(header: L10n.Teacher.Group.students, items: studentClassifications)
+                    } ?? Observable.empty()
+            }
+            .map { [weak self] itemsSection in
+                guard let `self` = self else { return [] }
+
+                return [
+                    TableSection(header: "", items: [
+                        PickerCellConfigurator(item: self.groupsCellViewModel),
+                        PickerCellConfigurator(item: self.classificationsCellViewModel)
+                    ]),
+                    itemsSection
+                ]
             }
             .bind(to: dataSource)
             .disposed(by: bag)
 
-        groupClassifications
-            .map { Dictionary(uniqueKeysWithValues: $0.map { ($0.username, $0.value) }) }
-            .bind(to: fieldValues)
-            .disposed(by: bag)
-
+        repository.getClassificationOptions(forCourse: course.code)
+        repository.getGroupOptions(forCourse: course.code, username: user.username)
         repository.isLoading.bind(to: isloading).disposed(by: bag)
         repository.error.unwrap().bind(to: error).disposed(by: bag)
     }
 
     /// Initialize and bind CellViewModel for each item
-    func buildDatasourceItems(_ source: Observable<[StudentClassification]>) -> Observable<[DynamicValueCellConfigurator]> {
-        return source
+    private func studentClassifications(valueType: DynamicValueType) -> Observable<[DynamicValueCellConfigurator]> {
+        guard !repository.groups.value.isEmpty, !repository.classifications.value.isEmpty else { return Observable.just([]) }
+
+        let groupCode = repository.groups.value[groupSelectedIndex.value]
+        let classificationId = repository.classifications.value[classificationSelectedIndex.value]
+
+        return repository.studentClassifications(course: course.code, groupCode: groupCode.id,
+												 classificationId: classificationId.identifier)
+            .do(onNext: { [weak self] _ in
+                self?.dynamicCellViewModels = [] // Reset view models array to clean memory
+            })
             .map { [weak self] (classifications: [StudentClassification]) -> [DynamicValueCellConfigurator] in
                 guard let `self` = self else { return [] }
 
                 return classifications.map { (item: StudentClassification) -> DynamicValueCellConfigurator in
-                    let valueType = self.repository.classifications.value[self.classificationSelectedIndex.value].valueType
-
                     let cellViewModel = DynamicValueCellViewModel(
                         valueType: valueType,
                         key: item.username,
                         title: "\(item.lastName ?? "") \(item.firstName ?? "")"
                     )
+                    cellViewModel.value.accept(item.value)
+                    self.dynamicCellViewModels.append(cellViewModel)
 
-//                    self.bind(cellViewModel: cellViewModel)
                     return DynamicValueCellConfigurator(item: cellViewModel)
                 }
             }
     }
 
     /// Bind selected options
-    func bindOptions() {
+    private func bindOptions() {
         groupSelectedIndex
             .flatMap { [weak self] index -> Observable<String> in
                 self?.repository.groups.map { options in
@@ -183,20 +196,5 @@ final class GroupClassificationViewModel: TablePickerViewModel, DynamicValueFiel
         } else if index.section == 0, index.item == 1 {
             classificationSelectedIndex.accept(selectedOptionIndex.value)
         }
-
-        getData()
-    }
-
-    /// Get students for selected group and classifiaction
-    func getData() {
-        repository.getClassificationOptions(forCourse: course.code)
-        repository.getGroupOptions(forCourse: course.code, username: user.username)
-
-        guard !repository.groups.value.isEmpty, !repository.classifications.value.isEmpty else { return }
-
-        let groupCode = repository.groups.value[groupSelectedIndex.value]
-        let classificationId = repository.classifications.value[classificationSelectedIndex.value]
-
-        repository.studentsFor(course: course.code, groupCode: groupCode.id, classificationId: classificationId.identifier)
     }
 }

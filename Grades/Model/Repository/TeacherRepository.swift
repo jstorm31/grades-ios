@@ -16,13 +16,12 @@ protocol HasTeacherRepository {
 protocol TeacherRepositoryProtocol {
     var groups: BehaviorRelay<[StudentGroup]> { get }
     var classifications: BehaviorRelay<[Classification]> { get }
-    var groupClassifications: BehaviorRelay<[StudentClassification]> { get }
     var isLoading: BehaviorSubject<Bool> { get }
     var error: BehaviorSubject<Error?> { get }
 
     func getGroupOptions(forCourse: String, username: String)
     func getClassificationOptions(forCourse: String)
-    func studentsFor(course: String, groupCode: String, classificationId: String)
+    func studentClassifications(course: String, groupCode: String, classificationId: String) -> Observable<[StudentClassification]>
 }
 
 final class TeacherRepository: TeacherRepositoryProtocol {
@@ -78,14 +77,13 @@ final class TeacherRepository: TeacherRepositoryProtocol {
             .disposed(by: bag)
     }
 
-    func studentsFor(course: String, groupCode: String, classificationId: String) {
-        dependencies.gradesApi.getGroupClassifications(courseCode: course, groupCode: groupCode, classificationId: classificationId)
+    func studentClassifications(course: String, groupCode: String, classificationId: String) -> Observable<[StudentClassification]> {
+        return dependencies.gradesApi.getGroupClassifications(courseCode: course, groupCode: groupCode, classificationId: classificationId)
             .trackActivity(activityIndicator)
             .catchError { [weak self] error in
                 self?.error.onNext(error)
                 return Observable.just([])
             }
-            .bind(to: groupClassifications)
-            .disposed(by: bag)
+            .map { $0.sorted() }
     }
 }

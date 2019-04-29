@@ -130,7 +130,7 @@ final class StudentClassificationViewModel: BaseViewModel {
     private func bindDataSource() {
         selectedStudent.unwrap()
             .flatMap { [weak self] student -> Observable<[Classification]> in
-                return self?.dependencies.courseRepository.classifications(forStudent: student.username) ?? Observable.just([])
+                self?.dependencies.courseRepository.classifications(forStudent: student.username) ?? Observable.just([])
             }
             .do(onNext: { [weak self] _ in
                 self?.cellViewModels = [] // Reset view models array to clean memory

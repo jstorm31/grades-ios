@@ -53,8 +53,6 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
         var saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
         saveButton.rx.action = viewModel.saveAction
         parent!.navigationItem.rightBarButtonItem = saveButton
-
-        viewModel.getData()
     }
 
     // MARK: bindings
@@ -156,7 +154,7 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
     // MARK: events
 
     @objc private func refreshControlPulled(_: UIRefreshControl) {
-        viewModel.getData()
+        viewModel.refreshData.onNext(())
     }
 }
 

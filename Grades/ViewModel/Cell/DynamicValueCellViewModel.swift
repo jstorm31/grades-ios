@@ -31,11 +31,11 @@ final class DynamicValueCellViewModel {
         self.title = title
         self.subtitle = subtitle
 
-        Log.debug("[Allocated]: \(key)")
+        Log.debug("Init VM \(key) with value \(valueType)")
     }
 
     deinit {
-        Log.debug("[Deallocated]: \(key)")
+        Log.debug("Deinit VM \(key) with value \(valueType)")
     }
 
     // MARK: Binding

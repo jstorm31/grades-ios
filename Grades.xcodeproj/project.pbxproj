@@ -119,7 +119,6 @@
 		96A8AEF82274AE400076CCD2 /* NotificationRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8AEF72274AE400076CCD2 /* NotificationRegistration.swift */; };
 		96B101FB2276004F00E7FA98 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B101FA2276004F00E7FA98 /* PickerCell.swift */; };
 		96B101FD227600F500E7FA98 /* PickerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B101FC227600F500E7FA98 /* PickerCellViewModel.swift */; };
-		96B101FF2276CD5400E7FA98 /* Rx+TwoWayBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B101FE2276CD5400E7FA98 /* Rx+TwoWayBinding.swift */; };
 		96B20DA32236692E004794BE /* CourseDetailStudentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA22236692E004794BE /* CourseDetailStudentViewModel.swift */; };
 		96B20DA5223669CC004794BE /* CourseDetailStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */; };
 		96B20DA72236C838004794BE /* UINavigationBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA62236C838004794BE /* UINavigationBar+.swift */; };
@@ -136,7 +135,6 @@
 		96C569A42268E2E900B16A7C /* UISecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A32268E2E900B16A7C /* UISecondaryButton.swift */; };
 		96C569A62268E4AF00B16A7C /* UIGradingOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A52268E4AF00B16A7C /* UIGradingOverview.swift */; };
 		96C569A8226B0A9300B16A7C /* TableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A7226B0A9300B16A7C /* TableDataSource.swift */; };
-		96C569AA226B18B800B16A7C /* DynamicValueFieldArrayViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A9226B18B800B16A7C /* DynamicValueFieldArrayViewModelProtocol.swift */; };
 		96C569AC226B623600B16A7C /* DynamicValueCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569AB226B623600B16A7C /* DynamicValueCellViewModelTests.swift */; };
 		96C7B9CA226069FA00E39F9A /* CoursesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */; };
 		96C87472224BEDA9009FB47F /* CoursesRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */; };
@@ -290,7 +288,6 @@
 		96A8AEF72274AE400076CCD2 /* NotificationRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRegistration.swift; sourceTree = "<group>"; };
 		96B101FA2276004F00E7FA98 /* PickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 		96B101FC227600F500E7FA98 /* PickerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerCellViewModel.swift; sourceTree = "<group>"; };
-		96B101FE2276CD5400E7FA98 /* Rx+TwoWayBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rx+TwoWayBinding.swift"; sourceTree = "<group>"; };
 		96B20DA22236692E004794BE /* CourseDetailStudentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewModel.swift; sourceTree = "<group>"; };
 		96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewController.swift; sourceTree = "<group>"; };
 		96B20DA62236C838004794BE /* UINavigationBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+.swift"; sourceTree = "<group>"; };
@@ -307,7 +304,6 @@
 		96C569A32268E2E900B16A7C /* UISecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISecondaryButton.swift; sourceTree = "<group>"; };
 		96C569A52268E4AF00B16A7C /* UIGradingOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGradingOverview.swift; sourceTree = "<group>"; };
 		96C569A7226B0A9300B16A7C /* TableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableDataSource.swift; sourceTree = "<group>"; };
-		96C569A9226B18B800B16A7C /* DynamicValueFieldArrayViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicValueFieldArrayViewModelProtocol.swift; sourceTree = "<group>"; };
 		96C569AB226B623600B16A7C /* DynamicValueCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicValueCellViewModelTests.swift; sourceTree = "<group>"; };
 		96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryTests.swift; sourceTree = "<group>"; };
 		96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryMock.swift; sourceTree = "<group>"; };
@@ -415,7 +411,6 @@
 				96F3A3722239080B00FB63EF /* BaseViewModel.swift */,
 				961A8784223F8B1200846538 /* SettingsViewModel.swift */,
 				968D05B92261E917003F7D49 /* TablePickerViewModel.swift */,
-				96C569A9226B18B800B16A7C /* DynamicValueFieldArrayViewModelProtocol.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -640,7 +635,6 @@
 				9644779422427B3100E960F4 /* UIViewController+ConfirmationModal.swift */,
 				964181812247E8B20019CABD /* UIViewController+PickerPresentable.swift */,
 				9639AE6A2270ADDF009C35A9 /* String+.swift */,
-				96B101FE2276CD5400E7FA98 /* Rx+TwoWayBinding.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1099,7 +1093,6 @@
 				9641816E22478A940019CABD /* TeacherClassificationViewController.swift in Sources */,
 				96939EEB223BDAE600A49E57 /* ActivityIndicator.swift in Sources */,
 				9608B9C92224364200E1CEAF /* EnvironmentConfiguration.swift in Sources */,
-				96B101FF2276CD5400E7FA98 /* Rx+TwoWayBinding.swift in Sources */,
 				96F3A3812239A84F00FB63EF /* DynamicValue.swift in Sources */,
 				961BCE81222C515700BD6663 /* GradesAPI.swift in Sources */,
 				96F3A37922390F6800FB63EF /* CourseStudent.swift in Sources */,
@@ -1153,7 +1146,6 @@
 				96B49FAC223EC1C500B23A5B /* SettingsRepository.swift in Sources */,
 				96861073222AA55F0069B81B /* UIColor+.swift in Sources */,
 				96B101FB2276004F00E7FA98 /* PickerCell.swift in Sources */,
-				96C569AA226B18B800B16A7C /* DynamicValueFieldArrayViewModelProtocol.swift in Sources */,
 				9654A4FD2246A02200778ED1 /* TeacherCourseCell.swift in Sources */,
 				9639AE692270AAA1009C35A9 /* AuthTokenResponse.swift in Sources */,
 				96B49FAA223EBF8E00B23A5B /* Settings.swift in Sources */,
