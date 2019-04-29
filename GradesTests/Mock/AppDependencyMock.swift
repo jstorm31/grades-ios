@@ -16,6 +16,7 @@ final class AppDependencyMock {
 	lazy var authService: AuthenticationServiceProtocol = { return _authService }()
 	
 	lazy var httpService: HttpServiceProtocol = HttpServiceMock()
+	lazy var pushNotificationsService: PushNotificationServiceProtocol = PushNotificationService(dependencies: self)
 	
 	let _gradesApi = GradesAPIMock()
 	lazy var gradesApi: GradesAPIProtocol = { return _gradesApi }()
@@ -30,6 +31,7 @@ final class AppDependencyMock {
 extension AppDependencyMock: HasAuthenticationService {}
 extension AppDependencyMock: HasHttpService {}
 extension AppDependencyMock: HasGradesAPI {}
+extension AppDependencyMock: HasPushNotificationService {}
 
 extension AppDependencyMock: HasSettingsRepository {}
 extension AppDependencyMock: HasCoursesRepository {}

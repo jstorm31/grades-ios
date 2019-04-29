@@ -6,6 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import RxCocoa
 import RxSwift
 
 final class DynamicValueCellViewModel {
@@ -14,7 +15,7 @@ final class DynamicValueCellViewModel {
     let title: String?
     let subtitle: String?
 
-    let value = BehaviorSubject<DynamicValue?>(value: nil)
+    let value = BehaviorRelay<DynamicValue?>(value: nil)
     let bag = DisposeBag()
 
     // MARK: Cell output

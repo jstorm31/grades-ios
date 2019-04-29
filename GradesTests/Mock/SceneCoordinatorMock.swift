@@ -10,10 +10,16 @@ import RxSwift
 @testable import GradesDev
 
 class SceneCoordinatorMock: SceneCoordinatorType {
+
 	var targetScene: Scene?
 	var popped = false
 	
 	func pop(animated: Bool) -> Completable {
+		popped = true
+		return Completable.empty()
+	}
+	
+	func pop(animated: Bool, presented: Bool) -> Completable {
 		popped = true
 		return Completable.empty()
 	}

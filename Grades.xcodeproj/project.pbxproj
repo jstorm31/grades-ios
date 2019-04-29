@@ -119,6 +119,7 @@
 		96A8AEF82274AE400076CCD2 /* NotificationRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8AEF72274AE400076CCD2 /* NotificationRegistration.swift */; };
 		96B101FB2276004F00E7FA98 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B101FA2276004F00E7FA98 /* PickerCell.swift */; };
 		96B101FD227600F500E7FA98 /* PickerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B101FC227600F500E7FA98 /* PickerCellViewModel.swift */; };
+		96B101FF2276CD5400E7FA98 /* Rx+TwoWayBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B101FE2276CD5400E7FA98 /* Rx+TwoWayBinding.swift */; };
 		96B20DA32236692E004794BE /* CourseDetailStudentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA22236692E004794BE /* CourseDetailStudentViewModel.swift */; };
 		96B20DA5223669CC004794BE /* CourseDetailStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */; };
 		96B20DA72236C838004794BE /* UINavigationBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA62236C838004794BE /* UINavigationBar+.swift */; };
@@ -289,6 +290,7 @@
 		96A8AEF72274AE400076CCD2 /* NotificationRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRegistration.swift; sourceTree = "<group>"; };
 		96B101FA2276004F00E7FA98 /* PickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 		96B101FC227600F500E7FA98 /* PickerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerCellViewModel.swift; sourceTree = "<group>"; };
+		96B101FE2276CD5400E7FA98 /* Rx+TwoWayBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rx+TwoWayBinding.swift"; sourceTree = "<group>"; };
 		96B20DA22236692E004794BE /* CourseDetailStudentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewModel.swift; sourceTree = "<group>"; };
 		96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewController.swift; sourceTree = "<group>"; };
 		96B20DA62236C838004794BE /* UINavigationBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+.swift"; sourceTree = "<group>"; };
@@ -638,6 +640,7 @@
 				9644779422427B3100E960F4 /* UIViewController+ConfirmationModal.swift */,
 				964181812247E8B20019CABD /* UIViewController+PickerPresentable.swift */,
 				9639AE6A2270ADDF009C35A9 /* String+.swift */,
+				96B101FE2276CD5400E7FA98 /* Rx+TwoWayBinding.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1096,6 +1099,7 @@
 				9641816E22478A940019CABD /* TeacherClassificationViewController.swift in Sources */,
 				96939EEB223BDAE600A49E57 /* ActivityIndicator.swift in Sources */,
 				9608B9C92224364200E1CEAF /* EnvironmentConfiguration.swift in Sources */,
+				96B101FF2276CD5400E7FA98 /* Rx+TwoWayBinding.swift in Sources */,
 				96F3A3812239A84F00FB63EF /* DynamicValue.swift in Sources */,
 				961BCE81222C515700BD6663 /* GradesAPI.swift in Sources */,
 				96F3A37922390F6800FB63EF /* CourseStudent.swift in Sources */,
@@ -1474,6 +1478,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = GradesTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1498,6 +1503,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = GradesTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

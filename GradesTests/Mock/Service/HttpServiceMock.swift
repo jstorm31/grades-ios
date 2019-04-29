@@ -11,6 +11,10 @@ import RxSwift
 @testable import GradesDev
 
 class HttpServiceMock: HttpServiceProtocol {
+	func post<T>(url: URL, parameters: HttpServiceProtocol.HttpParameters?, body: T) -> Observable<Void> where T : Encodable {
+		return Observable.empty()
+	}
+	
 	func put<T>(url: URL, parameters: HttpServiceProtocol.HttpParameters?, body: T) -> Observable<Void> where T : Encodable {
 		return Observable.empty()
 	}

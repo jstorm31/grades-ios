@@ -10,7 +10,7 @@ import Action
 import RxCocoa
 import RxSwift
 
-final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArrayViewModelProtocol {
+final class StudentClassificationViewModel: BaseViewModel {
     typealias Dependencies = HasGradesAPI & HasCourseRepository
 
     // MARK: Public properties
@@ -41,27 +41,27 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
     }
 
     lazy var saveAction = CocoaAction { [weak self] in
-        Observable.just(self?.fieldValues.value)
+        Observable.just(self?.cellViewModels)
             .unwrap()
-            .map { $0.filter { $0.value != nil } }
+            .map { $0.filter { $0.value.value != nil } }
             .map { [weak self] values -> [StudentClassification] in
                 guard let `self` = self else { return [] }
 
                 let username = self.selectedStudent.value?.username ?? ""
-                return values.map { StudentClassification(identifier: $0.key, username: username, value: $0.value) }
+                return values.map { StudentClassification(identifier: $0.key, username: username, value: $0.value.value) }
             }
             .flatMap { [weak self] classifications -> Observable<Void> in
                 guard let `self` = self else { return Observable.empty() }
                 return self.dependencies.gradesApi.putStudentsClassifications(courseCode: self.course.code, data: classifications)
             }
             .do(onCompleted: { [weak self] in
-                self?.bindOutput()
+                self?.bindDataSource()
             })
     }
 
     // MARK: private properties
 
-    internal let fieldValues = BehaviorRelay<[String: DynamicValue?]>(value: [:])
+    private var cellViewModels = [DynamicValueCellViewModel]()
     private let selectedStudent = BehaviorRelay<User?>(value: nil)
     private let course: Course
 
@@ -128,15 +128,13 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
     }
 
     private func bindDataSource() {
-        // Get classifications
-        let classifications = selectedStudent.unwrap()
+        selectedStudent.unwrap()
             .flatMap { [weak self] student -> Observable<[Classification]> in
-                self?.dependencies.courseRepository.classifications(forStudent: student.username) ?? Observable.just([])
+                return self?.dependencies.courseRepository.classifications(forStudent: student.username) ?? Observable.just([])
             }
-            .share()
-
-        // Bind to data source
-        classifications
+            .do(onNext: { [weak self] _ in
+                self?.cellViewModels = [] // Reset view models array to clean memory
+            })
             .map { [weak self] classifications in
                 classifications.map { classification in
                     let cellViewModel = DynamicValueCellViewModel(
@@ -145,20 +143,14 @@ final class StudentClassificationViewModel: BaseViewModel, DynamicValueFieldArra
                         title: classification.getLocalizedText()
                     )
 
-                    self?.bind(cellViewModel: cellViewModel)
-					// TODO: zkusit mít array cell view modelů a alokovat je vždy znova + two way binding mezi cellVM a cellou 
+                    cellViewModel.value.accept(classification.value)
+                    self?.cellViewModels.append(cellViewModel)
 
                     return DynamicValueCellConfigurator(item: cellViewModel)
                 }
             }
             .map { [TableSection(header: L10n.Teacher.Students.grading, items: $0)] }
             .bind(to: dataSource)
-            .disposed(by: bag)
-
-        // Bind to fields array
-        classifications
-            .map { Dictionary(uniqueKeysWithValues: $0.map { ($0.identifier, $0.value) }) }
-            .bind(to: fieldValues)
             .disposed(by: bag)
     }
 }
