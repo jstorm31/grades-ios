@@ -12,12 +12,18 @@ import RxDataSources
 import RxSwift
 import UIKit
 
-final class SettingsViewController: BaseTableViewController & BindableType & ConfirmationModalPresentable & PickerPresentable {
+final class SettingsViewController: BaseTableViewController,
+    BindableType,
+    TableDataSource,
+    ConfirmationModalPresentable,
+    PickerPresentable {
     var pickerView: UIPickerView!
     var pickerTextField: UITextField!
 
     var viewModel: SettingsViewModel!
     private let bag = DisposeBag()
+
+    let dataSource = configureDataSource()
 
     private var pickerDoneAction: CocoaAction {
         return CocoaAction { [weak self] in
@@ -27,82 +33,20 @@ final class SettingsViewController: BaseTableViewController & BindableType & Con
         }
     }
 
-    // MARK: data source
-
-    private var dataSource: RxTableViewSectionedReloadDataSource<TableSectionPolymorphic> {
-        return RxTableViewSectionedReloadDataSource<TableSectionPolymorphic>(
-            configureCell: { [weak self] dataSource, tableView, indexPath, _ in
-
-                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath)
-                cell.textLabel?.font = UIFont.Grades.boldBody
-                cell.textLabel?.textColor = UIColor.Theme.text
-
-                guard let `self` = self else { return cell }
-
-                switch dataSource[indexPath] {
-                    // MARK: text cell
-
-                case let .text(title, text):
-                    cell.textLabel?.text = title
-
-                    let label = UILabel()
-                    label.font = UIFont.Grades.body
-                    label.textColor = UIColor.Theme.text
-                    label.text = text
-
-                    cell.accessoryView = label
-                    return cell
-
-                    // MARK: picker cell
-
-                case let .picker(title, options, valueIndex):
-                    cell.textLabel?.text = title
-
-                    let accessoryView = UIView()
-                    accessoryView.addSubview(self.pickerTextField)
-
-                    let pickerLabel = UIPickerLabel()
-                    if options.isEmpty == false {
-                        pickerLabel.text = options[valueIndex]
-                    }
-                    accessoryView.addSubview(pickerLabel)
-                    pickerLabel.snp.makeConstraints { make in
-                        make.trailing.equalToSuperview()
-                        make.centerY.equalToSuperview()
-                    }
-
-                    cell.accessoryView = accessoryView
-                    return cell
-
-                default:
-                    return cell
-                }
-            },
-            titleForHeaderInSection: { dataSource, index in
-                dataSource.sectionModels[index].header
-            }
-        )
-    }
-
     // MARK: lifecycle
 
     override func loadView() {
         super.loadView()
         loadView(hasTableHeaderView: false)
 
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SettingsCell")
+        tableView.register(PickerCell.self, forCellReuseIdentifier: "PickerCell")
         navigationItem.title = L10n.Settings.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: L10n.Settings.logout,
                                                             style: .plain,
                                                             target: self,
                                                             action: #selector(logOutButtonTapped(_:)))
 
-        pickerView = UIPickerView()
-        pickerTextField = UITextField()
-        pickerTextField.inputView = pickerView
-        pickerTextField.isHidden = true
-
-        setupPicker(doneAction: pickerDoneAction)
+        loadUI()
     }
 
     override func viewDidLoad() {
@@ -133,18 +77,10 @@ final class SettingsViewController: BaseTableViewController & BindableType & Con
             .disposed(by: bag)
 
         tableView.rx.itemSelected
+            .filter { $0.section == 0 }
             .subscribe(onNext: { [weak self] indexPath in
-                guard let `self` = self else { return }
-                let item = self.viewModel.settings.value[indexPath.section].items[indexPath.item]
-
-                // On table cell selection, set selected cell index in view model to display right options in picker view
-                if case let .picker(_, _, selectedValueIndex) = item {
-                    self.viewModel.handleOptionChange(cellIndexPath: indexPath, optionIndex: selectedValueIndex)
-                    self.showPicker()
-                    self.pickerView.selectRow(selectedValueIndex, inComponent: 0, animated: true)
-                }
-
-                self.tableView.deselectRow(at: indexPath, animated: true)
+                self?.viewModel.handleOptionChange(cellIndexPath: indexPath)
+                self?.showPicker()
             })
             .disposed(by: bag)
     }
@@ -160,6 +96,24 @@ final class SettingsViewController: BaseTableViewController & BindableType & Con
             .asDriver(onErrorJustReturn: [])
             .drive(pickerView.rx.itemTitles) { _, element in element }
             .disposed(by: bag)
+
+        viewModel.selectedCellOptionIndex.asDriver(onErrorJustReturn: 0)
+            .drive(onNext: { [weak self] index in
+                self?.pickerView.selectRow(index, inComponent: 0, animated: true)
+            })
+            .disposed(by: bag)
+    }
+
+    // MARK: UI setup
+
+    private func loadUI() {
+        pickerView = UIPickerView()
+        pickerTextField = UITextField()
+        pickerTextField.inputView = pickerView
+        pickerTextField.isHidden = true
+        view.addSubview(pickerTextField)
+
+        setupPicker(doneAction: pickerDoneAction)
     }
 
     // MARK: events

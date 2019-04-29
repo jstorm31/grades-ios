@@ -17,24 +17,7 @@ class TablePickerViewModel: BaseViewModel {
     let selectedOptionIndex = BehaviorRelay<Int>(value: 0)
     let options = BehaviorSubject<[String]>(value: [])
 
-    func bindOptions(dataSource: BehaviorRelay<[TableSectionPolymorphic]>) {
-        selectedCellIndex
-            .map { [weak self] indexPath in
-                guard self != nil, let indexPath = indexPath else { return [] }
-                let item = dataSource.value[indexPath.section].items[indexPath.item]
-
-                if case let .picker(_, options, _) = item {
-                    return options
-                }
-
-                return []
-            }
-            .bind(to: options)
-            .disposed(by: bag)
-    }
-
-    func handleOptionChange(cellIndexPath: IndexPath, optionIndex: Int) {
+    func handleOptionChange(cellIndexPath: IndexPath) {
         selectedCellIndex.accept(cellIndexPath)
-        selectedOptionIndex.accept(optionIndex)
     }
 }

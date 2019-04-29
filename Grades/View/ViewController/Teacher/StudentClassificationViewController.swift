@@ -79,9 +79,6 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
             .drive(noContentLabel.rx.isHidden)
             .disposed(by: bag)
 
-        saveButton.rx.action = viewModel.saveAction
-        changeStudentButton.rx.action = viewModel.changeStudentAction
-
         // Save action
 
         saveButton.rx.action!.elements

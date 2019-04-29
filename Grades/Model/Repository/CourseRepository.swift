@@ -63,6 +63,9 @@ final class CourseRepository: CourseRepositoryProtocol {
             Log.info("Course is not set, emitting []")
             return Observable.just([])
         }
+
+        Log.debug("Called repo")
+
         return dependencies.gradesApi.getCourseStudentClassification(username: username, code: course.code)
             .trackActivity(activityIndicator)
             .catchError { [weak self] error in

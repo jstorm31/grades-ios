@@ -17,9 +17,23 @@ class SettingsViewModel: TablePickerViewModel {
     private let coordinator: SceneCoordinatorType
     private let bag = DisposeBag()
 
+    private let semesterSelectedIndex = BehaviorRelay<Int>(value: 0)
+    private let semesterCellViewModel = PickerCellViewModel(title: L10n.Settings.semester)
+
     // MARK: output
 
-    let settings = BehaviorRelay<[TableSectionPolymorphic]>(value: [])
+    let settings = BehaviorRelay<[TableSection]>(value: [])
+
+    lazy var selectedCellOptionIndex: Observable<Int> = {
+        selectedCellIndex
+            .unwrap()
+            .filter { $0.section == 0 }
+            .map { $0.item }
+            .flatMap { [weak self] _ -> Observable<Int> in
+                self?.semesterSelectedIndex.asObservable() ?? Observable.just(0)
+            }
+            .share()
+    }()
 
     // MARK: actions
 
@@ -40,27 +54,71 @@ class SettingsViewModel: TablePickerViewModel {
         self.dependencies = dependencies
         self.coordinator = coordinator
         super.init()
-
-        bindOptions(dataSource: settings)
     }
 
     // MARK: methods
 
     func bindOutput() {
-        Observable.combineLatest(
-            dependencies.settingsRepository.currentSettings,
-            dependencies.settingsRepository.semesterOptions
-        ) { settings, semesterOptions in
-            let semesterValueIndex = semesterOptions.firstIndex { $0 == settings.semester } ?? 0
+        // Data source
+        semesterSelectedIndex
+            .map { [weak self] _ in
+                guard let `self` = self else { return [] }
 
-            return [
-                TableSectionPolymorphic(header: L10n.Settings.options, items: [
-                    .picker(title: L10n.Settings.semester, options: semesterOptions.map { $0 }, valueIndex: semesterValueIndex)
-                ])
-            ]
-        }
-        .bind(to: settings)
-        .disposed(by: bag)
+                return [
+                    TableSection(header: L10n.Settings.options, items: [
+                        PickerCellConfigurator(item: self.semesterCellViewModel)
+                    ])
+                ]
+            }
+            .bind(to: settings)
+            .disposed(by: bag)
+
+        // Initial value of semester
+        let sharedSettings = dependencies.settingsRepository.currentSettings.share()
+
+        sharedSettings
+            .map { $0.semester }
+            .unwrap()
+            .flatMap { [weak self] semester -> Observable<Int> in
+                self?.dependencies.settingsRepository.semesterOptions.map { $0.firstIndex(of: semester) ?? 0 } ?? Observable.just(0)
+            }
+            .bind(to: semesterSelectedIndex)
+            .disposed(by: bag)
+
+        //		sharedSettings.map {  }
+
+        bindOptions()
+    }
+
+    func bindOptions() {
+        // Bind selected semester title
+        semesterSelectedIndex
+            .flatMap { [weak self] index -> Observable<String> in
+                self?.dependencies.settingsRepository.semesterOptions.map { options in
+                    if options.count - 1 > index {
+                        return options[index]
+                    }
+                    return ""
+                } ?? Observable.just("")
+            }
+            .bind(to: semesterCellViewModel.selectedOption)
+            .disposed(by: bag)
+
+        // Bind options
+        selectedCellIndex
+            .unwrap()
+            .filter { $0.section == 0 }
+            .map { $0.item }
+            .flatMap { [weak self] index -> Observable<[String]> in
+                guard let `self` = self else { return Observable.just([]) }
+
+                if index == 0 {
+                    return self.dependencies.settingsRepository.semesterOptions.asObservable()
+                }
+                return Observable.just([])
+            }
+            .bind(to: options)
+            .disposed(by: bag)
     }
 
     /// Submit current value for current index path

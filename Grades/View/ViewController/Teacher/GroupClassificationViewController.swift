@@ -13,14 +13,17 @@ import RxDataSources
 import RxSwift
 import UIKit
 
-final class GroupClassificationViewController: BaseTableViewController & BindableType & PickerPresentable {
+final class GroupClassificationViewController: BaseTableViewController, BindableType, TableDataSource, PickerPresentable {
     var pickerView: UIPickerView!
     var pickerTextField: UITextField!
+    private var saveButton: UIBarButtonItem!
 
     // MARK: properties
 
     var viewModel: GroupClassificationViewModel!
     private let bag = DisposeBag()
+
+    let dataSource = configureDataSource()
 
     private var pickerDoneAction: CocoaAction {
         return CocoaAction { [weak self] in
@@ -28,33 +31,6 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
             self?.viewModel.submitSelectedValue()
             return Observable.empty()
         }
-    }
-
-    private var dataSource: RxTableViewSectionedReloadDataSource<TableSectionPolymorphic> {
-        return RxTableViewSectionedReloadDataSource<TableSectionPolymorphic>(
-            configureCell: { [weak self] dataSource, tableView, indexPath, _ in
-                var cell = tableView.dequeueReusableCell(withIdentifier: "StudentsClassificationCell", for: indexPath)
-                guard let `self` = self else { return cell }
-
-                switch dataSource[indexPath] {
-                case let .picker(title, options, valueIndex):
-                    self.configurePickerCell(&cell, title, options, valueIndex)
-                    return cell
-
-                case let .dynamicValue(cellViewModel):
-                    // swiftlint:disable force_cast
-                    let textFieldCell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell", for: indexPath) as! DynamicValueCell
-                    textFieldCell.configure(data: cellViewModel)
-                    return textFieldCell
-
-                default:
-                    return cell
-                }
-            },
-            titleForHeaderInSection: { dataSource, index in
-                dataSource.sectionModels[index].header
-            }
-        )
     }
 
     // MARK: lifecycle
@@ -66,38 +42,37 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "StudentsClassificationCell")
-        tableView.register(DynamicValueCell.self, forCellReuseIdentifier: "TextFieldCell")
-        setupBindings()
+
+        tableView.register(PickerCell.self, forCellReuseIdentifier: "PickerCell")
+        tableView.register(DynamicValueCell.self, forCellReuseIdentifier: "DynamicValueCell")
+
         viewModel.bindOutput()
-        viewModel.getData()
+        setupBindings()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        var saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
-        saveButton.rx.action = viewModel.saveAction
         parent!.navigationItem.rightBarButtonItem = saveButton
+        addKeyboardFrameChangesObserver()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        viewModel.getData()
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        removeKeyboardFrameChangesObserver()
     }
 
     // MARK: bindings
 
     func bindViewModel() {
-        let studentsClassification = viewModel.studentsClassification.share()
+        let dataSource = viewModel.dataSource.share()
 
-        studentsClassification
+        dataSource
             .asDriver(onErrorJustReturn: [])
-            .drive(tableView.rx.items(dataSource: dataSource))
+            .drive(tableView.rx.items(dataSource: self.dataSource))
             .disposed(by: bag)
 
-        studentsClassification
-            .map { $0.isEmpty ? false : !$0[1].items.isEmpty }
+        dataSource
+            .map { $0.count > 1 ? !$0[1].items.isEmpty : false }
             .asDriver(onErrorJustReturn: true)
             .drive(noContentLabel.rx.isHidden)
             .disposed(by: bag)
@@ -121,6 +96,12 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         viewModel.error.asDriver(onErrorJustReturn: ApiError.general)
             .drive(view.rx.errorMessage)
             .disposed(by: bag)
+
+        viewModel.selectedCellOptionIndex.asDriver(onErrorJustReturn: 0)
+            .drive(onNext: { [weak self] index in
+                self?.pickerView.selectRow(index, inComponent: 0, animated: true)
+            })
+            .disposed(by: bag)
     }
 
     func setupBindings() {
@@ -131,18 +112,33 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
 
         tableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
-                guard let `self` = self else { return }
-                let item = self.viewModel.studentsClassification.value[indexPath.section].items[indexPath.item]
+                guard indexPath.section == 0 else { return }
 
-                // On table cell selection, set selected cell index in view model to display right options in picker view
-                if case let .picker(_, _, selectedValueIndex) = item {
-                    self.viewModel.handleOptionChange(cellIndexPath: indexPath, optionIndex: selectedValueIndex)
-                    self.showPicker()
-                    self.pickerView.selectRow(selectedValueIndex, inComponent: 0, animated: true)
-                }
-
-                self.tableView.deselectRow(at: indexPath, animated: true)
+                self?.viewModel.handleOptionChange(cellIndexPath: indexPath)
+                self?.showPicker()
+//                self.tableView.deselectRow(at: indexPath, animated: true)
             })
+            .disposed(by: bag)
+
+        // Save action
+        saveButton.rx.action = viewModel.saveAction
+
+        saveButton.rx.action!.elements
+            .asDriver(onErrorJustReturn: ())
+            .map { L10n.Students.updateSuccess }
+            .do(onNext: { [weak self] _ in self?.view.endEditing(false) })
+            .drive(view.rx.successMessage)
+            .disposed(by: bag)
+
+        saveButton.rx.action!.underlyingError
+            .do(onNext: { [weak self] _ in self?.view.endEditing(false) })
+            .asDriver(onErrorJustReturn: ApiError.general)
+            .drive(view.rx.errorMessage)
+            .disposed(by: bag)
+
+        saveButton.rx.action!.executing
+            .asDriver(onErrorJustReturn: false)
+            .drive(view.rx.refreshing)
             .disposed(by: bag)
     }
 
@@ -153,11 +149,15 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         pickerTextField = UITextField()
         pickerTextField.inputView = pickerView
         pickerTextField.isHidden = true
+        view.addSubview(pickerTextField)
 
         setupPicker(doneAction: pickerDoneAction)
 
         loadRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
+
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
+        self.saveButton = saveButton
     }
 
     private func configurePickerCell(_ cell: inout UITableViewCell, _ title: String, _ options: [String], _ valueIndex: Int) {
@@ -167,7 +167,6 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
         cell.textLabel?.text = title
 
         let accessoryView = UIView()
-        accessoryView.addSubview(pickerTextField)
 
         let pickerLabel = UIPickerLabel()
         if options.isEmpty == false {
@@ -185,7 +184,7 @@ final class GroupClassificationViewController: BaseTableViewController & Bindabl
     // MARK: events
 
     @objc private func refreshControlPulled(_: UIRefreshControl) {
-        viewModel.getData()
+        viewModel.refreshData.onNext(())
     }
 }
 
@@ -193,4 +192,8 @@ extension GroupClassificationViewController: UITableViewDelegate {
     func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         return 60
     }
+}
+
+extension GroupClassificationViewController: ModifableInsetsOnKeyboardFrameChanges {
+    var scrollViewToModify: UIScrollView { return tableView }
 }

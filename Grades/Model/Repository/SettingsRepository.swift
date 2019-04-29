@@ -61,14 +61,8 @@ final class SettingsRepository: SettingsRepositoryProtocol {
 
     func fetchCurrentSemester() -> Observable<Void> {
         return dependencies.gradesApi.getCurrentSemestrCode()
-            .map { (semesterCode: String) -> Settings in
-                var newSettings = self.currentSettings.value
-                newSettings.semester = semesterCode
-                self.currentSemesterCode = semesterCode
-                return newSettings
-            }
-            .do(onNext: { [weak self] newSettings in
-                self?.currentSettings.accept(newSettings)
+            .do(onNext: { [weak self] semesterCode in
+                self?.currentSemesterCode = semesterCode
             })
             .map { _ in }
     }

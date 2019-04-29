@@ -15,5 +15,9 @@ struct EnvironmentConfigurationMock: NSClassificationConfiguration {
 		return Auth()
 	}
 	
+	var notificationServerUrl: String {
+		return "http://testNotificationUrl.com"
+	}
+	
 	var gradesAPI: [String: String] = [:]
 }
