@@ -55,13 +55,13 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
         valueTextField.rx.text
             .skip(1)
             .unwrap()
-            .debounce(0.25, scheduler: MainScheduler.instance)
+            .debounce(1, scheduler: MainScheduler.instance)
             .map { [weak self] text in
                 guard let type = self?.viewModel.valueType else { return DynamicValue.string(nil) }
 
                 switch type {
                 case .number:
-                    return DynamicValue.number(Double(text) ?? nil)
+                    return DynamicValue.number(Double(text.replacingOccurrences(of: ",", with: ".")) ?? nil)
                 default:
                     return DynamicValue.string(text)
                 }
