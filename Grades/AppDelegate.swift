@@ -7,8 +7,6 @@
 //
 
 import Bagel
-import Firebase
-import FirebaseMessaging
 import OAuthSwift // TODO: remove on release!
 import UIKit
 
@@ -22,8 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.rootViewController = LoginViewController()
-
-        FirebaseApp.configure()
 
         Bagel.start() // TODO: remove on release!
 
@@ -52,7 +48,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         tokenObservable.onNext(token)
         tokenObservable.onCompleted()
-
-        //        Messaging.messaging().apnsToken = deviceToken
     }
 }

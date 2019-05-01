@@ -163,7 +163,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
                     observer.onNext(())
                     observer.onCompleted()
                 }, failure: { error in
-                    Log.error("\(error.localized)")
+                    Log.error("\(error.localizedDescription)")
                     observer.onError(ApiError.getError(forCode: error.errorCode))
                 }
             )

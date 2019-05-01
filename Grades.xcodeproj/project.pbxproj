@@ -108,17 +108,6 @@
 		96A80A71222F1B3000986A90 /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A80A70222F1B3000986A90 /* Differentiator.framework */; };
 		96A80A75222F1D0400986A90 /* CourseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A80A74222F1D0400986A90 /* CourseListViewController.swift */; };
 		96A8AECB22745A620076CCD2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96A8AECA22745A620076CCD2 /* GoogleService-Info.plist */; };
-		96A8AEE8227466020076CCD2 /* FIRAnalyticsConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AED622745FD00076CCD2 /* FIRAnalyticsConnector.framework */; };
-		96A8AEE9227466020076CCD2 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AED022745F1F0076CCD2 /* FirebaseAnalytics.framework */; };
-		96A8AEEA227466020076CCD2 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AECC22745DB70076CCD2 /* FirebaseCore.framework */; };
-		96A8AEEB227466020076CCD2 /* FirebaseCoreDiagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AEDA2274603B0076CCD2 /* FirebaseCoreDiagnostics.framework */; };
-		96A8AEEC227466020076CCD2 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AED822745FE00076CCD2 /* FirebaseInstanceID.framework */; };
-		96A8AEED227466020076CCD2 /* FirebaseMessaging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AECE22745DBC0076CCD2 /* FirebaseMessaging.framework */; };
-		96A8AEEE227466020076CCD2 /* GoogleAppMeasurement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AED422745FB20076CCD2 /* GoogleAppMeasurement.framework */; };
-		96A8AEEF227466020076CCD2 /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AED222745F700076CCD2 /* GoogleUtilities.framework */; };
-		96A8AEF0227466020076CCD2 /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AEDC227460490076CCD2 /* nanopb.framework */; };
-		96A8AEF1227466020076CCD2 /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AEE1227461CF0076CCD2 /* Protobuf.framework */; };
-		96A8AEF3227466440076CCD2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A8AEF2227466440076CCD2 /* StoreKit.framework */; };
 		96A8AEF5227469E90076CCD2 /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8AEF4227469E90076CCD2 /* PushNotificationService.swift */; };
 		96A8AEF82274AE400076CCD2 /* NotificationRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8AEF72274AE400076CCD2 /* NotificationRegistration.swift */; };
 		96B101FB2276004F00E7FA98 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B101FA2276004F00E7FA98 /* PickerCell.swift */; };
@@ -338,17 +327,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96A8AEF3227466440076CCD2 /* StoreKit.framework in Frameworks */,
-				96A8AEE8227466020076CCD2 /* FIRAnalyticsConnector.framework in Frameworks */,
-				96A8AEE9227466020076CCD2 /* FirebaseAnalytics.framework in Frameworks */,
-				96A8AEEA227466020076CCD2 /* FirebaseCore.framework in Frameworks */,
-				96A8AEEB227466020076CCD2 /* FirebaseCoreDiagnostics.framework in Frameworks */,
-				96A8AEEC227466020076CCD2 /* FirebaseInstanceID.framework in Frameworks */,
-				96A8AEED227466020076CCD2 /* FirebaseMessaging.framework in Frameworks */,
-				96A8AEEE227466020076CCD2 /* GoogleAppMeasurement.framework in Frameworks */,
-				96A8AEEF227466020076CCD2 /* GoogleUtilities.framework in Frameworks */,
-				96A8AEF0227466020076CCD2 /* nanopb.framework in Frameworks */,
-				96A8AEF1227466020076CCD2 /* Protobuf.framework in Frameworks */,
 				96939EEC223BDCCC00A49E57 /* RxAtomic.framework in Frameworks */,
 				9658071922304B420065E23D /* Action.framework in Frameworks */,
 				967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */,

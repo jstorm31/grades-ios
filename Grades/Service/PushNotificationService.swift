@@ -6,7 +6,6 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
-import FirebaseInstanceID
 import RxSwift
 import UIKit
 import UserNotifications
@@ -26,6 +25,8 @@ protocol HasPushNotificationService {
 final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
     typealias Dependencies = HasHttpService
 
+    private let dependencies: Dependencies
+
     var deviceToken = PublishSubject<String>()
 
     var isUserRegisteredForNotifications: Bool {
@@ -37,18 +38,6 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
             UserDefaults.standard.set(newValue, forKey: "IsUserRegisteredForNotifications")
         }
     }
-
-    // MARK: Private properties
-
-    private let dependencies: Dependencies
-    private let bag = DisposeBag()
-
-    // MARK: Errors
-
-//    enum NotificationError: Error {
-//        case noDeviceToken
-//        case couldNotComplete
-//    }
 
     // MARK: Initialization
 
@@ -81,7 +70,7 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
                 if let registered = self?.isUserRegisteredForNotifications, !registered {
                     return self?.registerUserForNotifications(token: deviceToken) ?? Observable.empty()
                 }
-                return Observable.empty()
+                return Observable.just(())
             }
     }
 
@@ -112,7 +101,7 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
     /// Register user with app's notification token
     private func registerUserForNotifications(token: String) -> Observable<Void> {
         let url = URL(string: "\(EnvironmentConfiguration.shared.notificationServerUrl)/token")!
-        let body = NotificationRegistration(token: token, type: "IOS") // Set type "ANDROID" because notifications are handled by Firebase, not APNs
+        let body = NotificationRegistration(token: token, type: "IOS")
 
         return dependencies.httpService.post(url: url, parameters: nil, body: body)
             .do(onCompleted: { [weak self] in

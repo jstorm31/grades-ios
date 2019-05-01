@@ -40,3 +40,6 @@
 "students.title" = "Students";
 "students.search" = "Search student";
 "students.updateSuccess" = "Grading was successfuly updated.";
+
+"notification.title" = "New notification";
+"notification.StudentClassificationChange" = "Grade change";

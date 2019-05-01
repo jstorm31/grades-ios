@@ -62,6 +62,13 @@ internal enum L10n {
         internal static let noContent = L10n.tr("Localizable", "labels.noContent")
     }
 
+    internal enum Notification {
+        /// Grade change
+        internal static let studentClassificationChange = L10n.tr("Localizable", "notification.StudentClassificationChange")
+        /// New notification
+        internal static let title = L10n.tr("Localizable", "notification.title")
+    }
+
     internal enum Settings {
         /// Language
         internal static let language = L10n.tr("Localizable", "settings.language")
