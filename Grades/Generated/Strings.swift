@@ -67,6 +67,16 @@ internal enum L10n {
         internal static let studentClassificationChange = L10n.tr("Localizable", "notification.StudentClassificationChange")
         /// New notification
         internal static let title = L10n.tr("Localizable", "notification.title")
+        internal enum Request {
+            ///
+            internal static let body = L10n.tr("Localizable", "notification.request.body")
+            ///
+            internal static let cancel = L10n.tr("Localizable", "notification.request.cancel")
+            ///
+            internal static let confirm = L10n.tr("Localizable", "notification.request.confirm")
+            ///
+            internal static let title = L10n.tr("Localizable", "notification.request.title")
+        }
     }
 
     internal enum Settings {

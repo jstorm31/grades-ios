@@ -19,10 +19,20 @@ extension ConfirmationModalPresentable {
 }
 
 extension ConfirmationModalPresentable {
-    func displayConfirmation(title: String, message: String? = nil, confirmedHandler: @escaping () -> Void) {
+    func displayConfirmation(title: String,
+                             message: String? = nil,
+                             cancelHandler: (() -> Void)? = nil,
+                             confirmedHandler: @escaping () -> Void) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
-        let cancelAction = UIAlertAction(title: L10n.Button.cancel, style: .cancel)
+        let cancelAction: UIAlertAction
+        if let cancelHandler = cancelHandler {
+            cancelAction = UIAlertAction(title: L10n.Button.cancel, style: .cancel) { _ in
+                cancelHandler()
+            }
+        } else {
+            cancelAction = UIAlertAction(title: L10n.Button.confirm, style: .default)
+        }
         alertController.addAction(cancelAction)
 
         let okAction = UIAlertAction(title: L10n.Button.confirm, style: .default) { _ in
