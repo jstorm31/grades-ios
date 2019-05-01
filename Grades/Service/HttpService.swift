@@ -119,6 +119,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
                         observer.onError(ApiError.unprocessableData)
                     }
                 }, failure: { error in
+                    Log.error("\(error.localizedDescription)")
                     observer.onError(ApiError.getError(forCode: error.errorCode))
                 }
             )
@@ -148,7 +149,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
             do {
                 data = try JSONEncoder().encode(body)
             } catch {
-                Log.error("HttpService.request: Could not encode data to JSON.\n\(error)\n")
+                Log.error("HttpService.request: Could not encode data to JSON: \(error)")
                 observer.onError(ApiError.unprocessableData)
             }
 
@@ -162,6 +163,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
                     observer.onNext(())
                     observer.onCompleted()
                 }, failure: { error in
+                    Log.error("\(error.localized)")
                     observer.onError(ApiError.getError(forCode: error.errorCode))
                 }
             )
