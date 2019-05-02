@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		96068D39227A12BA00890EF6 /* StudentClassifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96068D38227A12BA00890EF6 /* StudentClassifications.swift */; };
 		9608B9AD2223F10F00E1CEAF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9608B9AB2223F10F00E1CEAF /* Localizable.strings */; };
 		9608B9B12224149700E1CEAF /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9608B9B02224149700E1CEAF /* Strings.swift */; };
 		9608B9C92224364200E1CEAF /* EnvironmentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9608B9C82224364200E1CEAF /* EnvironmentConfiguration.swift */; };
@@ -134,7 +135,6 @@
 		96E8C642224BE60C005F32F8 /* AppDependencyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */; };
 		96E8C644224BE8BA005F32F8 /* SettingsRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C643224BE8BA005F32F8 /* SettingsRepositoryMock.swift */; };
 		96F3A3732239080B00FB63EF /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A3722239080B00FB63EF /* BaseViewModel.swift */; };
-		96F3A37922390F6800FB63EF /* CourseStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A37822390F6800FB63EF /* CourseStudent.swift */; };
 		96F3A37B22390FF200FB63EF /* Classification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A37A22390FF200FB63EF /* Classification.swift */; };
 		96F3A37D2239124F00FB63EF /* CourseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A37C2239124F00FB63EF /* CourseRepository.swift */; };
 		96F3A3812239A84F00FB63EF /* DynamicValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A3802239A84F00FB63EF /* DynamicValue.swift */; };
@@ -160,6 +160,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		96068D38227A12BA00890EF6 /* StudentClassifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassifications.swift; sourceTree = "<group>"; };
 		9608B9B02224149700E1CEAF /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		9608B9BD22241B9100E1CEAF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9608B9BE22241BCD00E1CEAF /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -254,7 +255,7 @@
 		96939EDC223AD8A500A49E57 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		96939EE0223B970600A49E57 /* CourseRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRepositoryTests.swift; sourceTree = "<group>"; };
 		96939EE3223B98BA00A49E57 /* CourseStudent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStudent.swift; sourceTree = "<group>"; };
-		96939EE5223BB97500A49E57 /* ClassificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassificationType.swift; sourceTree = "<group>"; };
+		96939EE5223BB97500A49E57 /* ClassificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClassificationType.swift; path = ../Entity/ClassificationType.swift; sourceTree = "<group>"; };
 		96939EEA223BDAE600A49E57 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		96939EEF223C1FEE00A49E57 /* Unwrap+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Unwrap+.swift"; sourceTree = "<group>"; };
 		96939EF3223C274C00A49E57 /* CourseStudentRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStudentRepositoryMock.swift; sourceTree = "<group>"; };
@@ -307,7 +308,6 @@
 		96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencyMock.swift; sourceTree = "<group>"; };
 		96E8C643224BE8BA005F32F8 /* SettingsRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepositoryMock.swift; sourceTree = "<group>"; };
 		96F3A3722239080B00FB63EF /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
-		96F3A37822390F6800FB63EF /* CourseStudent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStudent.swift; sourceTree = "<group>"; };
 		96F3A37A22390FF200FB63EF /* Classification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classification.swift; sourceTree = "<group>"; };
 		96F3A37C2239124F00FB63EF /* CourseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRepository.swift; sourceTree = "<group>"; };
 		96F3A3802239A84F00FB63EF /* DynamicValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicValue.swift; sourceTree = "<group>"; };
@@ -738,14 +738,13 @@
 				966ABB56222D986A007DD046 /* Course.swift */,
 				966ABB58222DA2DF007DD046 /* User.swift */,
 				9699AB98223256D2006D2F73 /* OverviewItem.swift */,
-				96F3A37822390F6800FB63EF /* CourseStudent.swift */,
-				96939EE5223BB97500A49E57 /* ClassificationType.swift */,
 				96F3A37A22390FF200FB63EF /* Classification.swift */,
 				96B49FA9223EBF8E00B23A5B /* Settings.swift */,
 				964181792247BE6C0019CABD /* StudentGroup.swift */,
 				968D05C122625CC2003F7D49 /* StudentClassification.swift */,
 				9639AE682270AAA1009C35A9 /* AuthTokenResponse.swift */,
 				96A8AEF72274AE400076CCD2 /* NotificationRegistration.swift */,
+				96068D38227A12BA00890EF6 /* StudentClassifications.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -764,6 +763,7 @@
 			children = (
 				96F3A3802239A84F00FB63EF /* DynamicValue.swift */,
 				96861084222AF2630069B81B /* BindableType.swift */,
+				96939EE5223BB97500A49E57 /* ClassificationType.swift */,
 				961A878E2240484200846538 /* Language.swift */,
 				968D05BB2261EDF6003F7D49 /* CellItemType.swift */,
 				968D05BD2261F289003F7D49 /* TableSection.swift */,
@@ -1085,7 +1085,6 @@
 				9608B9C92224364200E1CEAF /* EnvironmentConfiguration.swift in Sources */,
 				96F3A3812239A84F00FB63EF /* DynamicValue.swift in Sources */,
 				961BCE81222C515700BD6663 /* GradesAPI.swift in Sources */,
-				96F3A37922390F6800FB63EF /* CourseStudent.swift in Sources */,
 				96C0A841226C784C00AE733A /* StudentSearchViewModel.swift in Sources */,
 				968D05BA2261E917003F7D49 /* TablePickerViewModel.swift in Sources */,
 				964181782247A83E0019CABD /* StudentClassificationViewController.swift in Sources */,
@@ -1148,6 +1147,7 @@
 				96A8AEF82274AE400076CCD2 /* NotificationRegistration.swift in Sources */,
 				968D05C422637F36003F7D49 /* DynamicValueCell.swift in Sources */,
 				96A8AEF5227469E90076CCD2 /* PushNotificationService.swift in Sources */,
+				96068D39227A12BA00890EF6 /* StudentClassifications.swift in Sources */,
 				96939EF0223C1FEE00A49E57 /* Unwrap+.swift in Sources */,
 				964181722247A7BB0019CABD /* StudentClassificationViewModel.swift in Sources */,
 				96C0A843226C78DC00AE733A /* StudentSearchViewController.swift in Sources */,

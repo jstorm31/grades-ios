@@ -36,7 +36,6 @@ class LoginViewModelTests: XCTestCase {
 			XCTAssertEqual(result.count, 1, "emits one Void element")
 			XCTAssertNotNil(sceneMock.targetScene)
 		} catch {
-			Log.debug("\(error)")
 			XCTFail("should not throw error")
 		}
     }
