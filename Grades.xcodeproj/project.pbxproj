@@ -135,9 +135,11 @@
 		96E8C642224BE60C005F32F8 /* AppDependencyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */; };
 		96E8C644224BE8BA005F32F8 /* SettingsRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C643224BE8BA005F32F8 /* SettingsRepositoryMock.swift */; };
 		96F220D6227B62C10078AD2A /* HTTPDynamicStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F220D5227B62C10078AD2A /* HTTPDynamicStubs.swift */; };
-		96F220DD227B63930078AD2A /* courses.json in Resources */ = {isa = PBXBuildFile; fileRef = 96F220DC227B63930078AD2A /* courses.json */; };
 		96F220DF227B67670078AD2A /* Swifter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F220DE227B67670078AD2A /* Swifter.framework */; };
 		96F220E2227B68B80078AD2A /* Swifter.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 96F220DE227B67670078AD2A /* Swifter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		96F220E8227B70160078AD2A /* classification-overview.json in Resources */ = {isa = PBXBuildFile; fileRef = 96F220E7227B70160078AD2A /* classification-overview.json */; };
+		96F220EA227B714A0078AD2A /* user-roles.json in Resources */ = {isa = PBXBuildFile; fileRef = 96F220E9227B714A0078AD2A /* user-roles.json */; };
+		96F220EC227B72790078AD2A /* course-name.json in Resources */ = {isa = PBXBuildFile; fileRef = 96F220EB227B72790078AD2A /* course-name.json */; };
 		96F3A3732239080B00FB63EF /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A3722239080B00FB63EF /* BaseViewModel.swift */; };
 		96F3A37B22390FF200FB63EF /* Classification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A37A22390FF200FB63EF /* Classification.swift */; };
 		96F3A37D2239124F00FB63EF /* CourseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A37C2239124F00FB63EF /* CourseRepository.swift */; };
@@ -325,8 +327,10 @@
 		96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencyMock.swift; sourceTree = "<group>"; };
 		96E8C643224BE8BA005F32F8 /* SettingsRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepositoryMock.swift; sourceTree = "<group>"; };
 		96F220D5227B62C10078AD2A /* HTTPDynamicStubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPDynamicStubs.swift; sourceTree = "<group>"; };
-		96F220DC227B63930078AD2A /* courses.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = courses.json; sourceTree = "<group>"; };
 		96F220DE227B67670078AD2A /* Swifter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swifter.framework; path = Carthage/Build/iOS/Swifter.framework; sourceTree = "<group>"; };
+		96F220E7227B70160078AD2A /* classification-overview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "classification-overview.json"; sourceTree = "<group>"; };
+		96F220E9227B714A0078AD2A /* user-roles.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "user-roles.json"; sourceTree = "<group>"; };
+		96F220EB227B72790078AD2A /* course-name.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "course-name.json"; sourceTree = "<group>"; };
 		96F3A3722239080B00FB63EF /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		96F3A37A22390FF200FB63EF /* Classification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classification.swift; sourceTree = "<group>"; };
 		96F3A37C2239124F00FB63EF /* CourseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRepository.swift; sourceTree = "<group>"; };
@@ -759,7 +763,9 @@
 		96F220DB227B63740078AD2A /* Stubs */ = {
 			isa = PBXGroup;
 			children = (
-				96F220DC227B63930078AD2A /* courses.json */,
+				96F220E7227B70160078AD2A /* classification-overview.json */,
+				96F220E9227B714A0078AD2A /* user-roles.json */,
+				96F220EB227B72790078AD2A /* course-name.json */,
 			);
 			path = Stubs;
 			sourceTree = "<group>";
@@ -934,7 +940,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96F220DD227B63930078AD2A /* courses.json in Resources */,
+				96F220EA227B714A0078AD2A /* user-roles.json in Resources */,
+				96F220E8227B70160078AD2A /* classification-overview.json in Resources */,
+				96F220EC227B72790078AD2A /* course-name.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

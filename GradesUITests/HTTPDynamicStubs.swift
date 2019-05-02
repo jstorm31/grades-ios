@@ -74,5 +74,8 @@ struct HTTPStubInfo {
 }
 
 let initialStubs = [
-	HTTPStubInfo(url: "/public/courses/:courseCode/classifications", jsonFilename: "courses", method: .GET),
+	HTTPStubInfo(url: "api/v1/public/courses/classification-overview/testuser", jsonFilename: "classification-overview", method: .GET),
+	HTTPStubInfo(url: "api/v1/public/user-roles", jsonFilename: "user-roles", method: .GET),
+	HTTPStubInfo(url: "api/v1/public/courses/BI-PJS.1/information", jsonFilename: "course-name", method: .GET),
+	HTTPStubInfo(url: "api/v1/public/courses/MI-IOS/information", jsonFilename: "course-name", method: .GET),
 ]

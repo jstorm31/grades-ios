@@ -38,7 +38,7 @@ final class LoginViewModel: BaseViewModel {
     func authenticate(viewController: UIViewController) -> Observable<Void> {
         if CommandLine.arguments.contains("--stub-authentication") {
             return Observable.just(()).do(onNext: { _ in
-                let user = User(userId: 5, username: "adsf", firstName: "asdf", lastName: "adf")
+                let user = User(userId: 5, username: "testuser", firstName: "Test", lastName: "User")
                 self.transitionToCourseList(user: user)
             })
         }

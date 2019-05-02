@@ -36,14 +36,16 @@ class GradesUITests: XCTestCase {
 		
 		app.buttons["Login"].tap()
 
+		let jsCell = app.staticTexts["BI-PJS.1"]
+		let iosCell = app.staticTexts["MI-IOS"]
 		
-		
-//		let webViewTitle = app.webViews/*@START_MENU_TOKEN@*/.staticTexts["Authorization Server of CTU in Prague"]/*[[".otherElements[\"Authorization Server of CTU :: Login\"]",".otherElements[\"banner\"]",".otherElements[\"Authorization Server of CTU in Prague\"]",".staticTexts[\"1\"]",".staticTexts[\"Authorization Server of CTU in Prague\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/
-//		let exists = NSPredicate(format: "exists == 1")
-//		expectation(for: exists, evaluatedWith: webViewTitle, handler: nil)
-//
-//		waitForExpectations(timeout: 5, handler: nil)
-//		XCTAssert(webViewTitle.exists)
+		let exists = NSPredicate(format: "exists == true")
+		expectation(for: exists, evaluatedWith: jsCell, handler: nil)
+		expectation(for: exists, evaluatedWith: iosCell, handler: nil)
+
+		waitForExpectations(timeout: 5, handler: nil)
+		XCTAssert(jsCell.exists)
+		XCTAssert(iosCell.exists)
     }
 
 }
