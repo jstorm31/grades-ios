@@ -134,6 +134,10 @@
 		96C87472224BEDA9009FB47F /* CoursesRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */; };
 		96E8C642224BE60C005F32F8 /* AppDependencyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */; };
 		96E8C644224BE8BA005F32F8 /* SettingsRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C643224BE8BA005F32F8 /* SettingsRepositoryMock.swift */; };
+		96F220D6227B62C10078AD2A /* HTTPDynamicStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F220D5227B62C10078AD2A /* HTTPDynamicStubs.swift */; };
+		96F220DD227B63930078AD2A /* courses.json in Resources */ = {isa = PBXBuildFile; fileRef = 96F220DC227B63930078AD2A /* courses.json */; };
+		96F220DF227B67670078AD2A /* Swifter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F220DE227B67670078AD2A /* Swifter.framework */; };
+		96F220E2227B68B80078AD2A /* Swifter.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 96F220DE227B67670078AD2A /* Swifter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96F3A3732239080B00FB63EF /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A3722239080B00FB63EF /* BaseViewModel.swift */; };
 		96F3A37B22390FF200FB63EF /* Classification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A37A22390FF200FB63EF /* Classification.swift */; };
 		96F3A37D2239124F00FB63EF /* CourseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A37C2239124F00FB63EF /* CourseRepository.swift */; };
@@ -158,6 +162,19 @@
 			remoteInfo = Grades;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		96F220E1227B68960078AD2A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				96F220E2227B68B80078AD2A /* Swifter.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		96068D38227A12BA00890EF6 /* StudentClassifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassifications.swift; sourceTree = "<group>"; };
@@ -307,6 +324,9 @@
 		96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryMock.swift; sourceTree = "<group>"; };
 		96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencyMock.swift; sourceTree = "<group>"; };
 		96E8C643224BE8BA005F32F8 /* SettingsRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepositoryMock.swift; sourceTree = "<group>"; };
+		96F220D5227B62C10078AD2A /* HTTPDynamicStubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPDynamicStubs.swift; sourceTree = "<group>"; };
+		96F220DC227B63930078AD2A /* courses.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = courses.json; sourceTree = "<group>"; };
+		96F220DE227B67670078AD2A /* Swifter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swifter.framework; path = Carthage/Build/iOS/Swifter.framework; sourceTree = "<group>"; };
 		96F3A3722239080B00FB63EF /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		96F3A37A22390FF200FB63EF /* Classification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classification.swift; sourceTree = "<group>"; };
 		96F3A37C2239124F00FB63EF /* CourseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRepository.swift; sourceTree = "<group>"; };
@@ -320,6 +340,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96F220DF227B67670078AD2A /* Swifter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,8 +426,10 @@
 		961BCE77222C3D8E00BD6663 /* GradesUITests */ = {
 			isa = PBXGroup;
 			children = (
+				96F220DB227B63740078AD2A /* Stubs */,
 				961BCE78222C3D8E00BD6663 /* GradesUITests.swift */,
 				961BCE7A222C3D8E00BD6663 /* Info.plist */,
+				96F220D5227B62C10078AD2A /* HTTPDynamicStubs.swift */,
 			);
 			path = GradesUITests;
 			sourceTree = "<group>";
@@ -531,6 +554,7 @@
 		967D1E3F2223DDD3007E5217 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				96F220DE227B67670078AD2A /* Swifter.framework */,
 				96A8AEF2227466440076CCD2 /* StoreKit.framework */,
 				96A8AEE6227464990076CCD2 /* libc++.tbd */,
 				96A8AEE32274620B0076CCD2 /* Firebase.framework */,
@@ -732,6 +756,14 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		96F220DB227B63740078AD2A /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				96F220DC227B63930078AD2A /* courses.json */,
+			);
+			path = Stubs;
+			sourceTree = "<group>";
+		};
 		96F3A37422390F0C00FB63EF /* Entity */ = {
 			isa = PBXGroup;
 			children = (
@@ -792,8 +824,9 @@
 			buildConfigurationList = 961BCE7D222C3D8E00BD6663 /* Build configuration list for PBXNativeTarget "GradesUITests" */;
 			buildPhases = (
 				961BCE72222C3D8E00BD6663 /* Sources */,
-				961BCE73222C3D8E00BD6663 /* Frameworks */,
 				961BCE74222C3D8E00BD6663 /* Resources */,
+				96F220E1227B68960078AD2A /* CopyFiles */,
+				961BCE73222C3D8E00BD6663 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -901,6 +934,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96F220DD227B63930078AD2A /* courses.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1054,6 +1088,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				961BCE79222C3D8E00BD6663 /* GradesUITests.swift in Sources */,
+				96F220D6227B62C10078AD2A /* HTTPDynamicStubs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1232,6 +1267,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FKAQE2Z826;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = GradesUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1255,6 +1294,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FKAQE2Z826;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = GradesUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
