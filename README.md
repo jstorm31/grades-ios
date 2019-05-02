@@ -24,5 +24,5 @@ All configuration related files are located in `Configuration` folder. There are
  ### Adding an environment
  1. Add environment in your project info
  2. Add correct string to `$(CONFIG_ENVIRONMENT)` in app's build settings
- 3. Add `environment.plist` file
+ 3. Add `ENVIRONMENT_NAME.plist` file (replace `ENVIRONMENT_NAME` it with real environment name)
  4. `EnvironmentConfiguration` class may need update

@@ -140,6 +140,7 @@
 		96F220E8227B70160078AD2A /* classification-overview.json in Resources */ = {isa = PBXBuildFile; fileRef = 96F220E7227B70160078AD2A /* classification-overview.json */; };
 		96F220EA227B714A0078AD2A /* user-roles.json in Resources */ = {isa = PBXBuildFile; fileRef = 96F220E9227B714A0078AD2A /* user-roles.json */; };
 		96F220EC227B72790078AD2A /* course-name.json in Resources */ = {isa = PBXBuildFile; fileRef = 96F220EB227B72790078AD2A /* course-name.json */; };
+		96F220F2227B785F0078AD2A /* Test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96F220F1227B785F0078AD2A /* Test.plist */; };
 		96F3A3732239080B00FB63EF /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A3722239080B00FB63EF /* BaseViewModel.swift */; };
 		96F3A37B22390FF200FB63EF /* Classification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A37A22390FF200FB63EF /* Classification.swift */; };
 		96F3A37D2239124F00FB63EF /* CourseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A37C2239124F00FB63EF /* CourseRepository.swift */; };
@@ -331,6 +332,7 @@
 		96F220E7227B70160078AD2A /* classification-overview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "classification-overview.json"; sourceTree = "<group>"; };
 		96F220E9227B714A0078AD2A /* user-roles.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "user-roles.json"; sourceTree = "<group>"; };
 		96F220EB227B72790078AD2A /* course-name.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "course-name.json"; sourceTree = "<group>"; };
+		96F220F1227B785F0078AD2A /* Test.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Test.plist; sourceTree = "<group>"; };
 		96F3A3722239080B00FB63EF /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		96F3A37A22390FF200FB63EF /* Classification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classification.swift; sourceTree = "<group>"; };
 		96F3A37C2239124F00FB63EF /* CourseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRepository.swift; sourceTree = "<group>"; };
@@ -395,6 +397,7 @@
 				961A2FD522293AE000A624DC /* Release.plist */,
 				961A2FD722293AEA00A624DC /* Common.plist */,
 				961A2FDD22294F4500A624DC /* PlistDocument.swift */,
+				96F220F1227B785F0078AD2A /* Test.plist */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -951,6 +954,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96520E9F2223D66000AB6499 /* LaunchScreen.storyboard in Resources */,
+				96F220F2227B785F0078AD2A /* Test.plist in Resources */,
 				96A8AECB22745A620076CCD2 /* GoogleService-Info.plist in Resources */,
 				9608B9AD2223F10F00E1CEAF /* Localizable.strings in Resources */,
 				96520E9C2223D66000AB6499 /* Assets.xcassets in Resources */,
@@ -1568,6 +1572,159 @@
 			};
 			name = Release;
 		};
+		96F220ED227B78480078AD2A /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Test;
+		};
+		96F220EE227B78480078AD2A /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APP_VERSION = 1.0.0;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Grades/GradesDev.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CONFIG_ENVIRONMENT = Test;
+				DEVELOPMENT_TEAM = 2PY9RKK8A7;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = Grades/Info.plist;
+				INFOPLIST_PREFIX_HEADER = "$(PROJECT_DIR)/info_preprocess_header.h";
+				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"$(OTHER_LDFLAGS)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades;
+				PRODUCT_NAME = GradesDev;
+				PROVISIONING_PROFILE_SPECIFIER = "FIT Grades - ad hoc";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Test;
+		};
+		96F220EF227B78480078AD2A /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2PY9RKK8A7;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = GradesTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.jiri.zdvomka.GradesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GradesDev.app/GradesDev";
+			};
+			name = Test;
+		};
+		96F220F0227B78480078AD2A /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FKAQE2Z826;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = GradesUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.jiri.zdvomka.GradesUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Grades;
+			};
+			name = Test;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1575,6 +1732,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				961BCE7E222C3D8E00BD6663 /* Debug */,
+				96F220F0227B78480078AD2A /* Test */,
 				961BCE7F222C3D8E00BD6663 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1584,6 +1742,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				96520EA12223D66000AB6499 /* Debug */,
+				96F220ED227B78480078AD2A /* Test */,
 				96520EA22223D66000AB6499 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1593,6 +1752,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				96520EA42223D66000AB6499 /* Debug */,
+				96F220EE227B78480078AD2A /* Test */,
 				96520EA52223D66000AB6499 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1602,6 +1762,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9682A6B5222D1ABC00773E28 /* Debug */,
+				96F220EF227B78480078AD2A /* Test */,
 				9682A6B6222D1ABC00773E28 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
