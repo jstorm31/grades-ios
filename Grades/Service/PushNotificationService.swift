@@ -57,21 +57,25 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
      - Returns: observable sequence emmitting true when access has been granted and flase if it has not.
      */
     func start() -> Observable<Void> {
-        UNUserNotificationCenter.current().delegate = self
+        #if targetEnvironment(simulator)
+            return Observable.just(())
+        #else
+            UNUserNotificationCenter.current().delegate = self
 
-        return requestAuthorization()
-            .flatMap { [weak self] granted -> Observable<String> in
-                if granted {
-                    return self?.deviceToken.asObservable() ?? Observable.empty()
+            return requestAuthorization()
+                .flatMap { [weak self] granted -> Observable<String> in
+                    if granted {
+                        return self?.deviceToken.asObservable() ?? Observable.empty()
+                    }
+                    return Observable.empty()
                 }
-                return Observable.empty()
-            }
-            .flatMap { [weak self] deviceToken -> Observable<Void> in
-                if let registered = self?.isUserRegisteredForNotifications, !registered {
-                    return self?.registerUserForNotifications(token: deviceToken) ?? Observable.empty()
+                .flatMap { [weak self] deviceToken -> Observable<Void> in
+                    if let registered = self?.isUserRegisteredForNotifications, !registered {
+                        return self?.registerUserForNotifications(token: deviceToken) ?? Observable.empty()
+                    }
+                    return Observable.just(())
                 }
-                return Observable.just(())
-            }
+        #endif
     }
 
     func stop() {

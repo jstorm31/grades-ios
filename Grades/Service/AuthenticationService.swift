@@ -54,6 +54,10 @@ final class AuthenticationService: AuthenticationServiceProtocol {
 
     /// Authenticate with CTU OAuth2.0 server
     func authenticate(useBuiltInSafari: Bool = true, viewController: UIViewController? = nil) -> Observable<Bool> {
+        if CommandLine.arguments.contains("--stub-authentication") {
+            return Observable.just(true)
+        }
+
         if useBuiltInSafari, let viewController = viewController {
             handler.authorizeURLHandler = SafariURLHandler(viewController: viewController, oauthSwift: handler)
         }

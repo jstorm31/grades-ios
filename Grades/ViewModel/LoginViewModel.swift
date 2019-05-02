@@ -36,6 +36,13 @@ final class LoginViewModel: BaseViewModel {
     // MARK: methods
 
     func authenticate(viewController: UIViewController) -> Observable<Void> {
+        if CommandLine.arguments.contains("--stub-authentication") {
+            return Observable.just(()).do(onNext: { _ in
+                let user = User(userId: 5, username: "testuser", firstName: "Test", lastName: "User")
+                self.transitionToCourseList(user: user)
+            })
+        }
+
         return dependencies.authService
             .authenticate(useBuiltInSafari: false, viewController: viewController)
             .filter { $0 == true }

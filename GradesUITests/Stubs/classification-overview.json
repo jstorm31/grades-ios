@@ -1,0 +1,32 @@
+[
+	{
+		"overviewItems": [{
+			"classificationType": "FINAL_SCORE",
+			"value": "F",
+			"error": null
+		},
+		{
+			"classificationType": "POINTS_TOTAL",
+			"value": 28,
+			"error": null
+		}
+		],
+		"courseCode": "BI-PJS.1",
+		"semesterCode": "B182"
+	},
+	{
+		"overviewItems": [{
+			"classificationType": "FINAL_SCORE",
+			"value": null,
+			"error": "MISSING_DATA"
+		},
+		{
+			"classificationType": "POINTS_TOTAL",
+			"value": null,
+			"error": "MISSING_DATA"
+		}
+		],
+		"courseCode": "MI-IOS",
+		"semesterCode": "B182"
+	}
+]
