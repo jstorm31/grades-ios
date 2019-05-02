@@ -10,7 +10,7 @@ import RxSwift
 import SnapKit
 import UIKit
 
-class LoginViewController: BaseViewController, BindableType {
+class LoginViewController: BaseViewController, BindableType, ConfirmationModalPresentable {
     // MARK: UI elements
 
     var loginButton: UIButton!

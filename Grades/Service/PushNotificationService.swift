@@ -6,15 +6,15 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
-import FirebaseInstanceID
 import RxSwift
 import UIKit
 import UserNotifications
 
 protocol PushNotificationServiceProtocol {
+    var deviceToken: PublishSubject<String> { get set }
     var isUserRegisteredForNotifications: Bool { get set }
 
-    func start() -> Observable<Bool>
+    func start() -> Observable<Void>
     func stop()
 }
 
@@ -24,6 +24,10 @@ protocol HasPushNotificationService {
 
 final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
     typealias Dependencies = HasHttpService
+
+    private let dependencies: Dependencies
+
+    var deviceToken = PublishSubject<String>()
 
     var isUserRegisteredForNotifications: Bool {
         get {
@@ -35,18 +39,6 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
         }
     }
 
-    // MARK: Private properties
-
-    private let dependencies: Dependencies
-    private let bag = DisposeBag()
-
-    // MARK: Errors
-
-    enum NotificationError: Error {
-        case noDeviceToken
-        case couldNotComplete
-    }
-
     // MARK: Initialization
 
     init(dependencies: Dependencies) {
@@ -56,44 +48,30 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
 
     // MARK: Methods
 
-    func start() -> Observable<Bool> {
-        return Observable.create { [weak self] observer in
-            guard let `self` = self else { return Disposables.create() }
+    /**
+     Start and configure push notifications
+     - request user's authorization
+     - register user with device on notification server
+     - register for notifications
 
-            // Request authorization
-            UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert]) { granted, _ in
+     - Returns: observable sequence emmitting true when access has been granted and flase if it has not.
+     */
+    func start() -> Observable<Void> {
+        UNUserNotificationCenter.current().delegate = self
+
+        return requestAuthorization()
+            .flatMap { [weak self] granted -> Observable<String> in
                 if granted {
-                    DispatchQueue.main.async {
-                        UIApplication.shared.registerForRemoteNotifications()
-                    }
-                } else {
-                    observer.onNext(false)
-                    observer.onCompleted()
+                    return self?.deviceToken.asObservable() ?? Observable.empty()
                 }
+                return Observable.empty()
             }
-            UNUserNotificationCenter.current().delegate = self
-
-            // Register user for notifications
-            if !self.isUserRegisteredForNotifications {
-                self.fetchToken()
-                    .flatMap { [weak self] token in
-                        self?.registerUserForNotifications(token: token) ?? Observable.empty()
-                    }
-                    .subscribe(onError: { error in
-                        Log.error("PushNotificationService:start: \(error)")
-                        observer.onError(error)
-                    }, onCompleted: {
-                        observer.onNext(true)
-                        observer.onCompleted()
-                    })
-                    .disposed(by: self.bag)
-            } else {
-                observer.onNext(true)
-                observer.onCompleted()
+            .flatMap { [weak self] deviceToken -> Observable<Void> in
+                if let registered = self?.isUserRegisteredForNotifications, !registered {
+                    return self?.registerUserForNotifications(token: deviceToken) ?? Observable.empty()
+                }
+                return Observable.just(())
             }
-
-            return Disposables.create()
-        }
     }
 
     func stop() {
@@ -102,15 +80,17 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
 
     // MARK: Private methods
 
-    private func fetchToken() -> Observable<String> {
+    /// Reactive wrapper over requestAuthorization
+    private func requestAuthorization() -> Observable<Bool> {
         return Observable.create { observer in
-            InstanceID.instanceID().instanceID { result, error in
-                if let error = error {
-                    Log.error("Error getting notification token: \(error)")
-                    observer.onError(error)
-                } else if let result = result {
-                    observer.onNext(result.token)
-                    observer.onCompleted()
+            UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert]) { granted, _ in
+                if granted {
+                    DispatchQueue.main.async {
+                        UIApplication.shared.registerForRemoteNotifications()
+                        observer.onNext(true)
+                    }
+                } else {
+                    observer.onNext(false)
                 }
             }
 
@@ -121,7 +101,7 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
     /// Register user with app's notification token
     private func registerUserForNotifications(token: String) -> Observable<Void> {
         let url = URL(string: "\(EnvironmentConfiguration.shared.notificationServerUrl)/token")!
-        let body = NotificationRegistration(token: token, type: "ANDROID") // Set type "ANDROID" because notifications are handled by Firebase, not APNs
+        let body = NotificationRegistration(token: token, type: "IOS")
 
         return dependencies.httpService.post(url: url, parameters: nil, body: body)
             .do(onCompleted: { [weak self] in

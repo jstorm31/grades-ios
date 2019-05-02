@@ -40,3 +40,10 @@
 "students.title" = "Students";
 "students.search" = "Search student";
 "students.updateSuccess" = "Grading was successfuly updated.";
+
+"notification.request.title" = "";
+"notification.request.body" = "";
+"notification.request.cancel" = "";
+"notification.request.confirm" = "";
+"notification.title" = "New notification";
+"notification.StudentClassificationChange" = "Grade change";
