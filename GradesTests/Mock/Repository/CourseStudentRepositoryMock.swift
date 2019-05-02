@@ -34,7 +34,7 @@ final class CourseRepositoryMock: CourseRepositoryProtocol {
 	func groupedClassifications(forStudent: String) -> Observable<[GroupedClassification]> {
 		switch result {
 		case .success:
-			let classification = Classification(id: 2, identifier: "test-24", text: [], scope: nil, type: nil, valueType: .string, value: nil, parentId: nil, isHidden: false)
+			let classification = Classification(id: 2, identifier: "test-24", text: [], evaluationType: .manual, type: nil, valueType: .string, value: nil, parentId: nil, isHidden: false)
 			return Observable.just([GroupedClassification(fromClassification: classification, items: CourseStudentMockData.classifications)])
 				.delaySubscription(1, scheduler: MainScheduler.instance)
 		case .failure:

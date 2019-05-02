@@ -8,9 +8,9 @@
 
 // Object for decoding classifications of student
 struct StudentClassifications: Decodable {
-	var classifications: [Classification]
-	
-	enum CodingKeys: String, CodingKey {
-		case classifications = "studentClassificationFullDtos"
-	}
+    var classifications: [Classification]
+
+    enum CodingKeys: String, CodingKey {
+        case classifications = "studentClassificationFullDtos"
+    }
 }
