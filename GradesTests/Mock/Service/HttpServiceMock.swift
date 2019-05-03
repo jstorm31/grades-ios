@@ -11,6 +11,10 @@ import RxSwift
 @testable import GradesDev
 
 class HttpServiceMock: HttpServiceProtocol {
+	func delete<T>(url: URL, parameters: HttpServiceProtocol.HttpParameters?, body: T) -> Observable<Void> where T : Encodable {
+		return Observable.empty()
+	}
+	
 	func post<T>(url: URL, parameters: HttpServiceProtocol.HttpParameters?, body: T) -> Observable<Void> where T : Encodable {
 		return Observable.empty()
 	}
@@ -21,5 +25,9 @@ class HttpServiceMock: HttpServiceProtocol {
 	
 	func get<T>(url: URL, parameters: HttpServiceProtocol.HttpParameters?) -> Observable<T> where T : Decodable {
 		return Observable.empty()
+	}
+	
+	func get(url: URL, parameters: HttpParameters?) -> Observable<String> {
+		return Observable.just("")
 	}
 }
