@@ -6,8 +6,7 @@ cache:
 
 before_install:
   - brew update
-  - brew install carthage || true
-  - brew outdated carthage || brew upgrade carthage
+  - brew install carthage swiftlint swiftgen siwftformat || true
   - gem install xcpretty-travis-formatter
 
 before_script:
