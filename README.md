@@ -1,5 +1,7 @@
 # Grades iOS
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Build Status](https://travis-ci.com/jstorm31/grades-ios.svg?branch=master)](https://travis-ci.com/jstorm31/grades-ios)
+
 
 Client mobile application for [grading server](https://grades.fit.cvut.cz/) on FIT CTU running on iOS platform.
 
