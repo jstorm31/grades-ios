@@ -6,7 +6,7 @@ cache:
 
 before_install:
   - brew update
-  - brew install carthage swiftlint swiftgen siwftformat || true
+  - brew install carthage swiftlint swiftgen swiftformat || true
   - gem install xcpretty-travis-formatter
 
 before_script:
@@ -16,6 +16,5 @@ install:
   - carthage update --cache-builds
 script:
   - set -o pipefail
-  # - xcodebuild clean test -project Grades.xcodeproj -scheme Debug -destination 'platform=iOS Simulator,name=iPhone Xs,OS=12.2' | xcpretty -f `xcpretty-travis-formatter`
-  - xcodebuild clean test -project Grades.xcodeproj -scheme Debug -destination 'platform=iOS Simulator,name=iPhone Xs,OS=12.2'
-  - xcodebuild clean test -project Grades.xcodeproj -scheme "UI Tests" -destination 'platform=iOS Simulator,name=iPhone Xs,OS=12.2' | xcpretty -f `xcpretty-travis-formatter`
+  - xcodebuild clean test -project Grades.xcodeproj -scheme Debug -destination 'platform=iOS Simulator,name=iPhone Xs,OS=12.2' | xcpretty -f `xcpretty-travis-formatter`
+  # - xcodebuild clean test -project Grades.xcodeproj -scheme Debug -destination 'platform=iOS Simulator,name=iPhone Xs,OS=12.2'
