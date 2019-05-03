@@ -108,7 +108,6 @@
 		96A80A6F222F191F00986A90 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A80A6E222F191F00986A90 /* RxDataSources.framework */; };
 		96A80A71222F1B3000986A90 /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A80A70222F1B3000986A90 /* Differentiator.framework */; };
 		96A80A75222F1D0400986A90 /* CourseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A80A74222F1D0400986A90 /* CourseListViewController.swift */; };
-		96A8AECB22745A620076CCD2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96A8AECA22745A620076CCD2 /* GoogleService-Info.plist */; };
 		96A8AEF5227469E90076CCD2 /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8AEF4227469E90076CCD2 /* PushNotificationService.swift */; };
 		96A8AEF82274AE400076CCD2 /* NotificationRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8AEF72274AE400076CCD2 /* NotificationRegistration.swift */; };
 		96B101FB2276004F00E7FA98 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B101FA2276004F00E7FA98 /* PickerCell.swift */; };
@@ -954,11 +953,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				96520E9F2223D66000AB6499 /* LaunchScreen.storyboard in Resources */,
-				96F220F2227B785F0078AD2A /* Test.plist in Resources */,
-				96A8AECB22745A620076CCD2 /* GoogleService-Info.plist in Resources */,
 				9608B9AD2223F10F00E1CEAF /* Localizable.strings in Resources */,
 				96520E9C2223D66000AB6499 /* Assets.xcassets in Resources */,
 				96520E9A2223D65F00AB6499 /* Main.storyboard in Resources */,
+				96F220F2227B785F0078AD2A /* Test.plist in Resources */,
 				961A2FD422293AD000A624DC /* Debug.plist in Resources */,
 				961A2FD622293AE000A624DC /* Release.plist in Resources */,
 				961A2FD822293AEA00A624DC /* Common.plist in Resources */,
