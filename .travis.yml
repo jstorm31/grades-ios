@@ -13,7 +13,7 @@ before_script:
   - carthage bootstrap --platform iOS --no-use-binaries --cache-builds
 
 before_script:
-  - gpg --import <(echo "$GIT_SECRET_PRIVATE_KEY")
+  - gpg --import $GIT_SECRET_PRIVATE_KEY
   - git secret reveal
 
 script:
