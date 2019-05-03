@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -852,6 +852,7 @@
 			buildConfigurationList = 96520EA32223D66000AB6499 /* Build configuration list for PBXNativeTarget "Grades" */;
 			buildPhases = (
 				967D1E522223E2F3007E5217 /* SwiftLint */,
+				96552713227C6C660060500D /* LOG */,
 				9608B9C122241EC700E1CEAF /* SwiftGen */,
 				961A2FEE2229C59400A624DC /* SwiftFormat */,
 				967D1E3E2223DCEE007E5217 /* Carthage */,
@@ -999,6 +1000,7 @@
 			files = (
 			);
 			inputFileListPaths = (
+				"",
 			);
 			inputPaths = (
 			);
@@ -1009,8 +1011,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Generate strings\nswiftgen strings -t structured-swift4 Grades/en.lproj -o Grades/Generated/Strings.swift\n";
-			showEnvVarsInLog = 0;
+			shellScript = "# Generate strings\nswiftgen strings -t structured-swift4 \"$SRCROOT/Grades/en.lproj/Localizable.strings\" -o \"$SRCROOT/Grades/Generated/Strings.swift\"\n";
 		};
 		961A2FEE2229C59400A624DC /* SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1030,9 +1031,27 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftformat >/dev/null; then\n    swiftformat --disable trailingCommas --swiftversion 4.2 Grades\nelse\n    echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
 		};
-		967D1E3E2223DCEE007E5217 /* Carthage */ = {
+		96552713227C6C660060500D /* LOG */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = LOG;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\necho \"CUSTOM DEBUG LOG:\"\necho $SRCROOT\n";
+		};
+		967D1E3E2223DCEE007E5217 /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -1070,9 +1089,10 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaAsyncSocket.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Bagel.framework",
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+			showEnvVarsInLog = 0;
 		};
 		967D1E522223E2F3007E5217 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
