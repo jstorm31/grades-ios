@@ -265,7 +265,6 @@ platform :ios do
     crashlytics(
       notes: "Application succesfully uploaded to crashlytics \n" + %x[git log --oneline --since `date -v -1d +%d.%m.%Y`]
     )
-    post_deploy_to_slack(place: "Crashlytics")
 
   end
 
@@ -279,7 +278,6 @@ platform :ios do
       distribute_external: true,
       verbose: true,
     )
-    post_deploy_to_slack(place:"Apple Testflight")
     
   end
 
@@ -294,7 +292,6 @@ platform :ios do
       skip_metadata: true,
       skip_screenshots: true,
     )
-    post_deploy_to_slack(place:"App Store")
 
   end
 
@@ -359,15 +356,7 @@ platform :ios do
   # Error callback
   # -------------------------
   error do |lane, exception, options|
-    if is_ci?
-      slack(
-        message: exception.message,
-        success: false
-      )
-    else
-      UI.important "Error(x): #{exception.message}"      
-    end
-
+    UI.important "Error(x): #{exception.message}"      
   end
   
 end
