@@ -6,14 +6,16 @@ cache:
 
 before_install:
   - brew update
-  - brew install carthage swiftlint swiftgen swiftformat || true
+  - brew install git-secret carthage swiftlint swiftgen swiftformat || true
   - gem install xcpretty-travis-formatter
 
 before_script:
   - carthage bootstrap --platform iOS --no-use-binaries --cache-builds
 
-install:
-  - carthage update --cache-builds
+before_script:
+  - gpg --import <(echo "$GIT_SECRET_PRIVATE_KEY")
+  - git secret reveal
+
 script:
   - set -o pipefail
   - xcodebuild clean test -project Grades.xcodeproj -scheme Debug -destination 'platform=iOS Simulator,name=iPhone Xs,OS=12.2' | xcpretty -f `xcpretty-travis-formatter`
