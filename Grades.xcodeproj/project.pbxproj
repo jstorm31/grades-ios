@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -955,6 +955,7 @@
 				9608B9AD2223F10F00E1CEAF /* Localizable.strings in Resources */,
 				96520E9C2223D66000AB6499 /* Assets.xcassets in Resources */,
 				96520E9A2223D65F00AB6499 /* Main.storyboard in Resources */,
+				96F220F2227B785F0078AD2A /* Test.plist in Resources */,
 				961A2FD422293AD000A624DC /* Debug.plist in Resources */,
 				961A2FD622293AE000A624DC /* Release.plist in Resources */,
 				961A2FD822293AEA00A624DC /* Common.plist in Resources */,
@@ -995,8 +996,10 @@
 			files = (
 			);
 			inputFileListPaths = (
+				"",
 			);
 			inputPaths = (
+				"$(SRCROOT)/Grades/en.lproj/Localizable.strings",
 			);
 			name = SwiftGen;
 			outputFileListPaths = (
@@ -1005,7 +1008,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Generate strings\nswiftgen\n";
+			shellScript = "# Generate strings\nswiftgen strings -t structured-swift4 ${SCRIPT_INPUT_FILE_0} -o \"$SRCROOT/Grades/Generated/Strings.swift\"\n";
 			showEnvVarsInLog = 0;
 		};
 		961A2FEE2229C59400A624DC /* SwiftFormat */ = {
@@ -1028,7 +1031,7 @@
 		};
 		967D1E3E2223DCEE007E5217 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -1069,6 +1072,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+			showEnvVarsInLog = 0;
 		};
 		967D1E522223E2F3007E5217 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1087,6 +1091,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n   swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
