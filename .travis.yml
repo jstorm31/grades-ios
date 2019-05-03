@@ -11,3 +11,5 @@ install:
 before_script:
 - gpg --batch --import grades_private_key.txt
 - git secret reveal -p "$GIT_SECRET_PASSPHRASE"
+script:
+  - fastlane test

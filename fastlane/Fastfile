@@ -14,7 +14,7 @@
 
 setup_travis
 
-require 'dotenv/load'
+fastlane_require 'dotenv/load'
 
 # This is the minimum version number required.
 # Update this, if you use features of a newer version
@@ -333,7 +333,8 @@ platform :ios do
 
   desc "Run all tests (scan command). UNIT and UI"
   lane :test do
-    scan
+    scan(scheme: "Debug")
+    scan(scheme: "UI Tests")
   end
 
   desc "Run UI test and create snapshots (saves images o google drive)"
