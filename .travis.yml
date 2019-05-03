@@ -6,12 +6,10 @@ cache:
 before_install:
 - openssl aes-256-cbc -K $encrypted_6c55ef9b434a_key -iv $encrypted_6c55ef9b434a_iv
   -in grades_private_key.txt.enc -out grades_private_key.txt -d
-- brew update
 - brew install git-secret carthage swiftlint swiftgen swiftformat || true
 - gem install xcpretty-travis-formatter
 install:
 - carthage bootstrap --platform iOS --no-use-binaries --cache-builds
-- carthage update --cache-builds
 before_script:
 - gpg --batch --import grades_private_key.txt
 - git secret reveal -p "$GIT_SECRET_PASSPHRASE"
