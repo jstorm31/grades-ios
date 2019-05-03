@@ -22,7 +22,7 @@ struct CourseListViewModel {
             .zip(subjects, roles) { _, roles in
                 let groupedSubjects = [
                     CourseGroup(header: "Studuji"),
-                    CourseGroup(header: "Učím"),
+                    CourseGroup(header: "Učím")
                 ]
 
                 for subjectCode in roles.studentCourses

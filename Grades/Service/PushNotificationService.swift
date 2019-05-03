@@ -6,16 +6,18 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import RxCocoa
 import RxSwift
 import UIKit
 import UserNotifications
 
 protocol PushNotificationServiceProtocol {
-    var deviceToken: PublishSubject<String> { get set }
+    var deviceToken: BehaviorRelay<String?> { get set }
     var isUserRegisteredForNotifications: Bool { get set }
 
     func start() -> Observable<Void>
     func stop()
+    func unregisterUserFromDevice() -> Observable<Void>
 }
 
 protocol HasPushNotificationService {
@@ -26,8 +28,9 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
     typealias Dependencies = HasHttpService
 
     private let dependencies: Dependencies
+    private let tokenUrl = URL(string: "\(EnvironmentConfiguration.shared.notificationServerUrl)/token")!
 
-    var deviceToken = PublishSubject<String>()
+    var deviceToken = BehaviorRelay<String?>(value: nil)
 
     var isUserRegisteredForNotifications: Bool {
         get {
@@ -37,6 +40,10 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
         set {
             UserDefaults.standard.set(newValue, forKey: "IsUserRegisteredForNotifications")
         }
+    }
+
+    enum NotificationError: Error {
+        case tokenIsNil
     }
 
     // MARK: Initialization
@@ -63,12 +70,13 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
             UNUserNotificationCenter.current().delegate = self
 
             return requestAuthorization()
-                .flatMap { [weak self] granted -> Observable<String> in
+                .flatMap { [weak self] granted -> Observable<String?> in
                     if granted {
                         return self?.deviceToken.asObservable() ?? Observable.empty()
                     }
                     return Observable.empty()
                 }
+                .unwrap()
                 .flatMap { [weak self] deviceToken -> Observable<Void> in
                     if let registered = self?.isUserRegisteredForNotifications, !registered {
                         return self?.registerUserForNotifications(token: deviceToken) ?? Observable.empty()
@@ -80,6 +88,18 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
 
     func stop() {
         UIApplication.shared.unregisterForRemoteNotifications()
+    }
+
+    /// Unregisters user from device on notification server
+    func unregisterUserFromDevice() -> Observable<Void> {
+        isUserRegisteredForNotifications = false
+
+        guard let token = deviceToken.value else {
+            return Observable.empty()
+        }
+
+        let body = NotificationRegistration(token: token, type: "IOS")
+        return dependencies.httpService.delete(url: tokenUrl, parameters: nil, body: body)
     }
 
     // MARK: Private methods
@@ -104,10 +124,12 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
 
     /// Register user with app's notification token
     private func registerUserForNotifications(token: String) -> Observable<Void> {
-        let url = URL(string: "\(EnvironmentConfiguration.shared.notificationServerUrl)/token")!
-        let body = NotificationRegistration(token: token, type: "IOS")
+        guard let token = deviceToken.value else {
+            return Observable.error(NotificationError.tokenIsNil)
+        }
 
-        return dependencies.httpService.post(url: url, parameters: nil, body: body)
+        let body = NotificationRegistration(token: token, type: "IOS")
+        return dependencies.httpService.post(url: tokenUrl, parameters: nil, body: body)
             .do(onCompleted: { [weak self] in
                 self?.isUserRegisteredForNotifications = true
             })

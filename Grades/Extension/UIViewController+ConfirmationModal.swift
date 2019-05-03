@@ -31,7 +31,7 @@ extension ConfirmationModalPresentable {
                 cancelHandler()
             }
         } else {
-            cancelAction = UIAlertAction(title: L10n.Button.confirm, style: .default)
+            cancelAction = UIAlertAction(title: L10n.Button.cancel, style: .default)
         }
         alertController.addAction(cancelAction)
 
