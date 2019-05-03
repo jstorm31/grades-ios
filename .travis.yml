@@ -13,7 +13,7 @@ install:
 - carthage bootstrap --platform iOS --no-use-binaries --cache-builds
 - carthage update --cache-builds
 before_script:
-- echo "$GIT_SECRET_PRIVATE_KEY" | gpg --import
+- gpg --import grades_private_key.txt
 - git secret reveal
 script:
 - set -o pipefail
