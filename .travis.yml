@@ -13,8 +13,8 @@ install:
 - carthage bootstrap --platform iOS --no-use-binaries --cache-builds
 - carthage update --cache-builds
 before_script:
-- gpg --import grades_private_key.txt
-- git secret reveal
+- gpg --batch --import grades_private_key.txt
+- git secret reveal -p $GIT_SECRET_PASSPHRASE
 script:
 - set -o pipefail
 - xcodebuild clean test -project Grades.xcodeproj -scheme Debug -destination 'platform=iOS
