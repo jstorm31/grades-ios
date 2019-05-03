@@ -1,4 +1,6 @@
 # Grades iOS
+[![Build Status](https://travis-ci.com/jstorm31/grades-ios.svg?branch=master)](https://travis-ci.com/jstorm31/grades-ios)
+
 Client mobile application for [grading server](https://grades.fit.cvut.cz/) on FIT CTU running on iOS platform.
 
 ## Dependency management
