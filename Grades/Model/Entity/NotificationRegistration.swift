@@ -8,7 +8,7 @@
 
 struct NotificationRegistration {
     var token: String
-    var type: String
+    var type: String?
 }
 
 extension NotificationRegistration: Encodable {}

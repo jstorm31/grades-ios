@@ -29,6 +29,9 @@ protocol HttpServiceProtocol {
 
     @discardableResult
     func put<T: Encodable>(url: URL, parameters: HttpParameters?, body: T) -> Observable<Void>
+
+    @discardableResult
+    func delete<T: Encodable>(url: URL, parameters: HttpParameters?, body: T) -> Observable<Void>
 }
 
 /// RxSwift wrapper around OAuthSwift http client to make requests signed with access token
@@ -55,7 +58,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
     /// Make HTTP GET request and return Observable string
     func get(url: URL, parameters: HttpParameters? = nil) -> Observable<String> {
         let request = Observable<String>.create { [weak self] observer in
-            self?.client.request(
+            _ = self?.client.request(
                 url,
                 method: .GET,
                 parameters: parameters ?? [:],
@@ -91,6 +94,11 @@ final class HttpService: NSObject, HttpServiceProtocol {
         return request(url, method: .PUT, parameters: parameters, headers: defaultHeaders, body: body)
     }
 
+    /// Make HTTP DELETE request
+    func delete<T>(url: URL, parameters: HttpParameters?, body: T) -> Observable<Void> where T: Encodable {
+        return request(url, method: .DELETE, parameters: parameters, headers: defaultHeaders, body: body)
+    }
+
     // MARK: Helper methods
 
     /// Reactive wrapper for OAuthSwift reqeust with generic Decodable return type
@@ -101,7 +109,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
         headers: OAuthSwift.Headers? = nil
     ) -> Observable<T> where T: Decodable {
         let request = Observable<T>.create { [weak self] observer in
-            self?.client.request(
+            _ = self?.client.request(
                 url,
                 method: method,
                 parameters: parameters ?? [:],
@@ -153,7 +161,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
                 observer.onError(ApiError.unprocessableData)
             }
 
-            self?.client.request(
+            _ = self?.client.request(
                 url,
                 method: method,
                 parameters: parameters ?? [:],
