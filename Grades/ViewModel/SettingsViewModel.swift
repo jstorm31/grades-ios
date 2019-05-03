@@ -38,9 +38,12 @@ class SettingsViewModel: TablePickerViewModel {
     // MARK: actions
 
     lazy var logoutAction = CocoaAction { [weak self] in
-        self?.dependencies.pushNotificationsService.isUserRegisteredForNotifications = false
-        self?.coordinator.pop(animated: true, presented: true)
-        return Observable.empty()
+        guard let `self` = self else { return Observable.empty() }
+
+        return self.dependencies.pushNotificationsService.unregisterUserFromDevice()
+            .do(onCompleted: { [weak self] in
+                self?.coordinator.pop(animated: true, presented: true)
+            })
     }
 
     lazy var onBackAction = CocoaAction { [weak self] in
