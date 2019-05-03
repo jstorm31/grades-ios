@@ -1,0 +1,402 @@
+# Customise this file, documentation can be found here:
+# https://github.com/fastlane/fastlane/tree/master/docs
+# All available actions: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Actions.md
+# can also be listed using the `fastlane actions` command
+
+# Change the syntax highlighting to Ruby
+# All lines starting with a # are ignored when running `fastlane`
+
+# By default, fastlane will send which actions are used
+# No personal data is shared, more information on https://github.com/fastlane/enhancer
+# Uncomment the following line to opt out
+# opt_out_usage
+
+
+setup_travis
+
+require 'dotenv/load'
+
+# This is the minimum version number required.
+# Update this, if you use features of a newer version
+fastlane_version "2.100.0"
+default_platform :ios
+# If you want to automatically update fastlane if a new version is available:
+# update_fastlane
+
+# Commands
+# fastlane init
+# fastlane add_plugin versioning
+
+platform :ios do
+
+  # -------------------------
+  # Before all (If neccessary do something at begining of all lanes)
+  # -------------------------
+
+  before_all do
+    if is_ci?
+    #   unlock_keychain
+      version_set()
+    end
+    unlock_default_keychain()
+    if ENV["AUTO_REFRESH_PROFILE"]
+      refresh_profiles(readonly:true)
+    end
+  end
+
+  # -------------------------
+  # General
+  # -------------------------
+
+  desc "Clean all files before build (deletes derived data)"
+  lane :clean do
+    clear_derived_data
+  end
+
+  desc "Register new development device to provisioning profile (prompts name and UUID)"
+  lane :register do  |options|
+      device_name = prompt(text: "Enter the device name: ")
+      device_udid = prompt(text: "Enter the device UDID: ")
+      device_hash = {}
+      device_hash[device_name] = device_udid
+      register_devices(devices: device_hash)
+      if !options[:norefresh]
+        refresh_profiles
+      end
+  end
+
+  # -------------------------
+  # Version control
+  # -------------------------
+  desc "Clean all files before build (deletes derived data)"
+  lane :version_set do |options|
+    branch = git_branch()
+    if ['master', 'dev', 'develop'].include? branch.downcase
+      branch = ""
+    elsif branch.downcase.include? "release"
+      branch = ""
+    end
+      
+    build_number = "#{number_of_commits()}"
+    if branch != ""
+      build_number += "(#{branch})"
+    end
+    increment_build_number_in_plist(build_number: "#{build_number}")
+  end
+
+
+  # -------------------------
+  # Certificates
+  # -------------------------
+
+  lane :create_default_keychain do |options|
+    create_keychain(
+      default_keychain: false,
+      unlock: true,
+      timeout: false,
+      lock_when_sleeps: false
+    )
+  end
+
+  lane :unlock_default_keychain do |options|
+    begin
+      unlock_keychain()
+    rescue
+      create_keychain()
+    end
+  end
+
+  lane :delete_default_keychain do |options|
+    delete_keychain( # If the keychain file is located in the standard location `~/Library/Keychains`, then it is sufficient to provide the keychain file name, or file name with its suffix.
+    )
+  end
+
+  desc "Update certificates (readonly): scheme:{development, appstore, adhoc}"
+  lane :certificates do |options|
+    match(
+        type: options[:scheme],
+        verbose: false,
+        readonly: true
+      )
+  end
+
+  desc "Update certificates for all schemes (development, appstore, adhoc)"
+  lane :refresh_profiles do |options|
+    ["development", "adhoc", "appstore"].each do |type|
+      match(
+        type: type,
+        readonly: options[:readonly],
+        force_for_new_devices: !options[:readonly]
+      )
+    end
+  end
+
+  # -------------------------
+  # Informational
+  # -------------------------
+  desc "Prints information (like version ...) about project"
+  lane :info do |options|
+    version = get_info_plist_value(key: "CFBundleShortVersionString")
+    version_bundle = get_info_plist_value(key: "CFBundleVersion")
+    commits = number_of_commits()
+    dir  = sh("pwd")
+  
+    UI.important "Project Data:"
+    puts "Building dir:  \t #{dir}"
+    puts "App version:   \t #{version}"
+    puts "Bundle version:\t #{version_bundle}"
+    puts "Commits:       \t #{commits}"
+  end
+
+  # -------------------------
+  # Application building
+  # -------------------------
+
+  # Override this lane if needed (Getting privisioning profiles)
+  private_lane :get_provisioning_profiles do |options|
+    xcode_provisioning = options[:xcode_provisioning]
+
+    provisioningProfiles = Hash.new
+    provisioningProfiles[ENV["APP_IDENTIFIER"]] = xcode_provisioning
+
+    provisioningProfiles
+  end
+
+  #Override this lane if needed (In case entire build action needs to be changed)
+  private_lane :custom_gym do |options|
+
+    if is_ci?
+      clean()
+    end
+    provisioningProfiles = get_provisioning_profiles(options)
+    gym(
+      export_method: options[:xcode_export_method],
+      scheme: options[:xcode_scheme],
+      verbose: true,
+      export_options: {
+        provisioningProfiles: provisioningProfiles
+      }
+    )
+  end
+
+  desc "Build aplication scheme:{development, appstore, adhoc}"
+  lane :build do |options|
+    if options[:scheme] == "adhoc"
+      xcode_export_method = "ad-hoc"
+      xcode_scheme = ENV["XCODE_SCHEME_ADHOC"] ? ENV["XCODE_SCHEME_ADHOC"] : ENV["XCODE_SCHEME"]+"-Adhoc"
+      xcode_provisioning = ENV["XCODE_PROVISIONING_ADHOC"] ? ENV["XCODE_PROVISIONING_ADHOC"] : "match AdHoc "+ ENV["APP_IDENTIFIER"]
+    elsif options[:scheme] == "appstore"
+      xcode_export_method = "app-store"
+      xcode_scheme = ENV["XCODE_SCHEME_PROD"] ? ENV["XCODE_SCHEME_PROD"] : xcode_scheme = ENV["XCODE_SCHEME"]
+      xcode_provisioning = ENV["XCODE_PROVISIONING_PROD"] ? ENV["XCODE_PROVISIONING_PROD"] : "match AppStore "+ ENV["APP_IDENTIFIER"]
+    else
+      xcode_export_method = "development"
+      xcode_scheme = ENV["XCODE_SCHEME"]
+      xcode_provisioning = ENV["XCODE_PROVISIONING"] ? ENV["XCODE_PROVISIONING"] : "match Development "+ ENV["APP_IDENTIFIER"]
+    end
+    puts "xcode_provisioning: \t #{xcode_provisioning}"
+    custom_gym(
+      xcode_export_method: xcode_export_method,
+      xcode_scheme: xcode_scheme,
+      xcode_provisioning: xcode_provisioning
+    )
+  end
+
+
+
+  desc "Only build a project"
+  lane :build_only do
+    gym(
+      skip_package_ipa: true,
+      include_symbols: false,
+      scheme: ENV["XCODE_SCHEME"]
+    )
+  end
+
+  # -------------------------
+  # Deploying
+  # -------------------------
+  
+  desc "Setup Apple Two-factor Auth"
+  lane :setup_apple_login do |options|
+
+    if prompt(text: "Delete local fastlane credentials", boolean: true)
+      rm = `rm -rf ~/.fastlane/spaceship/`
+    end
+
+    change_user = prompt(text: "Use following login username (" + ENV["MATCH_USERNAME"] + ")", boolean: true)
+    if change_user
+      username = ENV["MATCH_USERNAME"]
+    else 
+      username =  prompt(text: "Enter new username")
+    end
+
+    set_app_pass = prompt(text: "Setup new App password? (" + ENV["FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD"] + ")", boolean: true)
+    new_app_pass = ""
+    if set_app_pass
+      new_app_pass = prompt(text: "Enter new App password? (https://appleid.apple.com/#!&page=signin)")
+    end
+
+    output = []
+    IO.popen("fastlane spaceauth -u " + username ).each do |line|
+      puts line
+      output << line.chomp
+    end
+
+    tokenString = output.join("\n").match(/Pass the following via the FASTLANE_SESSION environment variable:\n(^.*)/i).captures.join('###').gsub('[4m[36m', '').gsub('[0m[0m', '')
+    #puts "XXXX"+tokenString + "YYYY"
+    #puts "DIR: " + `pwd`
+
+    file_name = ".env.default"
+    text = File.read(file_name)
+    new_contents = text.gsub(/.*FASTLANE_SESSION.*\n/, "FASTLANE_SESSION = \"" + tokenString + "\"\n" )
+
+    if change_user
+      new_contents = new_contents.gsub(/.*MATCH_USERNAME.*\n/, "MATCH_USERNAME = \"" + username + "\"\n" )
+    end
+
+    if set_app_pass
+        new_contents = new_contents.gsub(/.*FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD.*\n/, "FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD = \"" + new_app_pass + "\"\n" )
+    end
+
+    File.open(file_name, "w") {|file| file.puts new_contents }
+
+
+    if prompt(text: "Commit changes in " + file_name + "?", boolean: true)
+      git_commit(path: ["./fastlane/"+file_name], message: "GIT: Updated Apple login authorization")
+      if prompt(text: "Push changes?", boolean: true)
+        push_to_git_remote()
+      end
+    end
+
+    #puts `fastlane spaceauth -u david2xn@gmail.com`
+    #tokenString = sh("fastlane spaceauth -u "+ENV["MATCH_USERNAME"]).match(/Pass the following via the FASTLANE_SESSION environment variable:\n(^.*)/i).captures.join('###')
+    #beforeStringLine = 'ENV["FASYLANE_SESSION"] = \''+ tokenString + '\''
+    #puts "XXXX"+tokenString + "YYYY"
+  end
+  
+  desc "Deploy application to crashlytics"
+  lane :deploy_crashlytics do |options|
+    if ENV["SUPRESS_DEPLOY"]
+      next
+    end
+
+    crashlytics(
+      notes: "Application succesfully uploaded to crashlytics \n" + %x[git log --oneline --since `date -v -1d +%d.%m.%Y`]
+    )
+    post_deploy_to_slack(place: "Crashlytics")
+
+  end
+
+  desc "Deploy application to pilot"
+  lane :deploy_pilot do
+    if ENV["SUPRESS_DEPLOY"]
+      next
+    end
+
+    pilot(
+      distribute_external: true,
+      verbose: true,
+    )
+    post_deploy_to_slack(place:"Apple Testflight")
+    
+  end
+
+  desc "Deploy application to appstore"
+  lane :deploy_appstore do
+    if ENV["SUPRESS_DEPLOY"]
+      next
+    end
+
+    deliver(
+      verbose: true,
+      skip_metadata: true,
+      skip_screenshots: true,
+    )
+    post_deploy_to_slack(place:"App Store")
+
+  end
+
+  desc "Release app (runs deploy_appstore)"
+  lane :release do
+    deploy_appstore()
+  end
+
+  # -------------------------
+  # Testing
+  # -------------------------
+
+  desc "Run swiftlint"
+  lane :lint do
+    swiftlint
+  end
+
+  desc "Run all tests (scan command). UNIT and UI"
+  lane :test do
+    scan
+  end
+
+  desc "Run UI test and create snapshots (saves images o google drive)"
+  lane :snapshots do
+    snapshot
+  end
+
+  desc "Post to 2N slack into app_monitoring channel"
+  lane :post_deploy_to_slack  do |options|
+    version = get_info_plist_value(key: "CFBundleShortVersionString")
+    version_bundle = get_info_plist_value(key: "CFBundleVersion")
+    short_name = ENV["APP_NAME_SHORT"]
+    place=options[:place]
+    slack(
+      message: "#{short_name}: New iOS #{version} (#{version_bundle}) has been uploaded to #{place}",
+    )
+  end
+
+  # -------------------------
+  # Complete lanes for CI
+  # -------------------------
+
+  desc "CI - Build and upload to crashlytics"
+  lane :ci_crashlytics do
+    #certificates(scheme: "adhoc")
+    refresh_profiles(readonly:true)
+    build(scheme: "adhoc")
+    deploy_crashlytics()
+  end
+
+  desc "CI - Build and upload to testflight"
+  lane :ci_testflight do
+    #certificates(scheme: "appstore")
+    build(scheme: "appstore")
+    deploy_pilot()
+  end
+
+  desc "CI - Build and upload to testflight"
+  lane :ci_appstore do
+    #certificates(scheme: "appstore")
+    build(scheme: "appstore")
+    deploy_appstore()
+  end
+
+  desc "CI nightbuild"
+  lane :ci_nightbuild do
+    ci_crashlytics()
+  end
+
+
+  # -------------------------
+  # Error callback
+  # -------------------------
+  error do |lane, exception, options|
+    if is_ci?
+      slack(
+        message: exception.message,
+        success: false
+      )
+    else
+      UI.important "Error(x): #{exception.message}"      
+    end
+
+  end
+  
+end

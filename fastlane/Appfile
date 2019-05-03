@@ -1,0 +1,8 @@
+app_identifier "cz.quanti.cvut.fit.grades" # The bundle identifier of your app
+apple_id "zdvomka.j@hotmail.cz" # Your Apple email address
+
+team_id "2PY9RKK8A7" # Developer Portal Team ID
+
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
