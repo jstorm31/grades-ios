@@ -48,6 +48,18 @@ enum DynamicValue: Codable {
             try container.encode(bool)
         }
     }
+
+    /// Get string representation of value
+    func toString() -> String {
+        switch self {
+        case let .number(value):
+            return value != nil ? "(\(value!) \(L10n.Courses.points))" : ""
+        case let .string(value):
+            return value ?? ""
+        case let .bool(value):
+            return value != nil ? "✓" : "𐄂"
+        }
+    }
 }
 
 extension DynamicValue: Equatable {
