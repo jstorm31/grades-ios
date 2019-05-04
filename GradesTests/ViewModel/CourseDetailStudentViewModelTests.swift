@@ -35,7 +35,7 @@ class CourseDetailStudentViewModelTests: XCTestCase {
 			}
 			
 			XCTAssertEqual(groups.count, 1)
-			XCTAssertEqual(groups[0].items.count, 8, "filter out final grade and total points")
+			XCTAssertEqual(groups[0].items.count, 7, "filter out final grade and total points + isHidden")
 		} catch {
 			XCTFail(error.localizedDescription)
 		}
