@@ -11,7 +11,7 @@
 struct CourseStudentMockData {
 	static var classifications: [Classification] {
 		let parent1 = Classification(id: 1, identifier: "test1", text: [ClassificationText(identifier: "en", name: "Activity")], evaluationType: .manual, type: "ACTIVITY", valueType: .number, value: .number(4), parentId: nil, isHidden: false)
-		let parent2 = Classification(id: 2, identifier: "test2", text: [ClassificationText(identifier: "en", name: "Exam")], evaluationType: .manual, type: "EXAM", valueType: .number, value: .number(20), parentId: nil, isHidden: false)
+		let parent2 = Classification(id: 2, identifier: "test2", text: [ClassificationText(identifier: "en", name: "Exam")], evaluationType: .aggregation, type: "EXAM", valueType: .number, value: .number(20), parentId: nil, isHidden: false)
 		
 		let activity1 = Classification(id: 3, identifier: "test3", text: [ClassificationText(identifier: "en", name: "Lecture 1")], evaluationType: .manual, type: "ACTIVITY", valueType: .number, value: .number(1), parentId: 1, isHidden: false)
 		let activity2 = Classification(id: 4, identifier: "test4", text: [ClassificationText(identifier: "en", name: "Lecture 2")], evaluationType: .manual, type: "ACTIVITY", valueType: .number, value: .number(2), parentId: 1, isHidden: true)
