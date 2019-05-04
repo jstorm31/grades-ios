@@ -50,18 +50,15 @@ class CourseRepositoryTests: XCTestCase {
 				return
 			}
 			
-			XCTAssertEqual(result.count, 4, "has right number of groups")
-			XCTAssertEqual(result[1].header, "Exam", "has correct header title")
-			XCTAssertEqual(result[0].items.count, 3, "first section has right number of child items")
-			XCTAssertEqual(result[1].items.count, 3, "second seciton has right number of child items")
+			XCTAssertEqual(result.count, 3, "has right number of groups")
+			XCTAssertEqual(result[0].items.count, 2, "show parent item with no childs in the first group")
+			XCTAssertEqual(result[1].items.count, 3, "first section has right number of child items")
+			XCTAssertEqual(result[2].items.count, 3, "second seciton has right number of child items")
+			XCTAssertEqual(result[2].header, "Exam", "has correct header title")
 		} catch {
 			XCTFail(error.localizedDescription)
 		}
     }
-	
-	func testGroupedClassificationsWithFlatStructure() {
-		// TODO
-	}
 	
 	func testOverview() {
 		gradesApi.result = .success

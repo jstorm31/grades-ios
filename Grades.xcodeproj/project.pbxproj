@@ -52,6 +52,7 @@
 		964181822247E8B20019CABD /* UIViewController+PickerPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964181812247E8B20019CABD /* UIViewController+PickerPresentable.swift */; };
 		96447793224249CD00E960F4 /* UIPickerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96447792224249CD00E960F4 /* UIPickerLabel.swift */; };
 		9644779522427B3100E960F4 /* UIViewController+ConfirmationModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9644779422427B3100E960F4 /* UIViewController+ConfirmationModal.swift */; };
+		96456456227D84EC00E48FC1 /* CourseDetailStudentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96456455227D84EB00E48FC1 /* CourseDetailStudentViewModelTests.swift */; };
 		96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E942223D65F00AB6499 /* AppDelegate.swift */; };
 		96520E972223D65F00AB6499 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E962223D65F00AB6499 /* LoginViewController.swift */; };
 		96520E9A2223D65F00AB6499 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E982223D65F00AB6499 /* Main.storyboard */; };
@@ -231,6 +232,7 @@
 		964181812247E8B20019CABD /* UIViewController+PickerPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PickerPresentable.swift"; sourceTree = "<group>"; };
 		96447792224249CD00E960F4 /* UIPickerLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerLabel.swift; sourceTree = "<group>"; };
 		9644779422427B3100E960F4 /* UIViewController+ConfirmationModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ConfirmationModal.swift"; sourceTree = "<group>"; };
+		96456455227D84EB00E48FC1 /* CourseDetailStudentViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewModelTests.swift; sourceTree = "<group>"; };
 		96520E912223D65F00AB6499 /* GradesDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GradesDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96520E942223D65F00AB6499 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96520E962223D65F00AB6499 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -421,6 +423,7 @@
 				964181732247A7C10019CABD /* Teacher */,
 				961A2FF02229D44A00A624DC /* LoginViewModel.swift */,
 				9682A6BD222D1F7600773E28 /* CourseListViewModel.swift */,
+				96B20DA22236692E004794BE /* CourseDetailStudentViewModel.swift */,
 				96F3A3722239080B00FB63EF /* BaseViewModel.swift */,
 				961A8784223F8B1200846538 /* SettingsViewModel.swift */,
 				968D05B92261E917003F7D49 /* TablePickerViewModel.swift */,
@@ -465,7 +468,6 @@
 		964181742247A7D70019CABD /* Student */ = {
 			isa = PBXGroup;
 			children = (
-				96B20DA22236692E004794BE /* CourseDetailStudentViewModel.swift */,
 			);
 			path = Student;
 			sourceTree = "<group>";
@@ -479,14 +481,6 @@
 				96C0A842226C78DC00AE733A /* StudentSearchViewController.swift */,
 			);
 			path = Teacher;
-			sourceTree = "<group>";
-		};
-		964181762247A7F60019CABD /* Student */ = {
-			isa = PBXGroup;
-			children = (
-				96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */,
-			);
-			path = Student;
 			sourceTree = "<group>";
 		};
 		96520E882223D65E00AB6499 = {
@@ -669,9 +663,9 @@
 		96861083222AEFED0069B81B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				964181762247A7F60019CABD /* Student */,
 				964181752247A7F10019CABD /* Teacher */,
 				96520E962223D65F00AB6499 /* LoginViewController.swift */,
+				96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */,
 				9686106F222AA4550069B81B /* BaseViewController.swift */,
 				96A80A74222F1D0400986A90 /* CourseListViewController.swift */,
 				96F3A3842239B4B200FB63EF /* BaseTableViewController.swift */,
@@ -735,6 +729,7 @@
 				96C569A12268D99A00B16A7C /* StudentClassificationViewModelTests.swift */,
 				96C569AB226B623600B16A7C /* DynamicValueCellViewModelTests.swift */,
 				96C0A84A226CDA7C00AE733A /* StudentSearchViewModelTests.swift */,
+				96456455227D84EB00E48FC1 /* CourseDetailStudentViewModelTests.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1209,6 +1204,7 @@
 				96939EE1223B970600A49E57 /* CourseRepositoryTests.swift in Sources */,
 				96939EE4223B98BA00A49E57 /* CourseStudent.swift in Sources */,
 				96C569AC226B623600B16A7C /* DynamicValueCellViewModelTests.swift in Sources */,
+				96456456227D84EC00E48FC1 /* CourseDetailStudentViewModelTests.swift in Sources */,
 				965ADAF32235976300AA8CF4 /* Result.swift in Sources */,
 				96E8C642224BE60C005F32F8 /* AppDependencyMock.swift in Sources */,
 				96939EF4223C274C00A49E57 /* CourseStudentRepositoryMock.swift in Sources */,

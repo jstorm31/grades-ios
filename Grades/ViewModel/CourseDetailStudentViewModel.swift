@@ -56,9 +56,14 @@ final class CourseDetailStudentViewModel: BaseViewModel {
 
     func bindOutput() {
         repository.groupedClassifications(forStudent: studentUsername)
-            .map {
-                $0.filter {
-                    $0.type != ClassificationType.pointsTotal.rawValue && $0.type != ClassificationType.finalScore.rawValue
+            .map { groups in
+                groups.map { group in
+                    let items = group.items.filter {
+                        !$0.isHidden
+                            && $0.type != ClassificationType.pointsTotal.rawValue
+                            && $0.type != ClassificationType.finalScore.rawValue
+                    }
+                    return GroupedClassification(original: group, items: items)
                 }
             }
             .bind(to: classifications)

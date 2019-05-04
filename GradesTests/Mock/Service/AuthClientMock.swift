@@ -30,12 +30,10 @@ final class AuthClientMock: AuthClientProtocol {
 			let data = Data(base64Encoded: "a")!
 			let response = HTTPURLResponse(url: URL(string: "http://google.com")!, mimeType: nil, expectedContentLength: 0, textEncodingName: nil)
 			success?(OAuthSwiftResponse(data: data, response: response, request: nil))
-			Log.debug("Success")
 		case .failure:
 			failure?(OAuthSwiftError.encodingError(urlString: url.string))
 		case .expires:
 			failure?(OAuthSwiftError.tokenExpired(error: nil))
-			Log.debug("Expires")
 		}
 		
 		return nil
