@@ -59,7 +59,9 @@ final class CourseDetailStudentViewModel: BaseViewModel {
             .map { groups in
                 groups.map { group in
                     let items = group.items.filter {
-                        $0.type != ClassificationType.pointsTotal.rawValue && $0.type != ClassificationType.finalScore.rawValue
+                        !$0.isHidden
+                            && $0.type != ClassificationType.pointsTotal.rawValue
+                            && $0.type != ClassificationType.finalScore.rawValue
                     }
                     return GroupedClassification(original: group, items: items)
                 }
