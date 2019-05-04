@@ -29,7 +29,7 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
             },
             titleForHeaderInSection: { dataSource, index in
                 let group = dataSource.sectionModels[index]
-                var title = group.header ?? ""
+                var title = group.header ?? L10n.Classification.other
 
                 if let value = group.totalValue {
                     title += " \(value.toString())"
@@ -93,8 +93,16 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
             .drive(headerLabel.rx.isHidden)
             .disposed(by: bag)
 
-        viewModel.isFetching.asDriver(onErrorJustReturn: false)
+        let sharedFetching = viewModel.isFetching.share()
+
+        sharedFetching
+            .asDriver(onErrorJustReturn: false)
             .drive(tableView.refreshControl!.rx.isRefreshing)
+            .disposed(by: bag)
+
+        sharedFetching
+            .asDriver(onErrorJustReturn: false)
+            .drive(view.rx.refreshing)
             .disposed(by: bag)
 
         viewModel.error.asObserver()
