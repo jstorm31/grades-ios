@@ -14,11 +14,11 @@ struct CourseStudentMockData {
 		let parent2 = Classification(id: 2, identifier: "test2", text: [ClassificationText(identifier: "en", name: "Exam")], evaluationType: .manual, type: "EXAM", valueType: .number, value: .number(20), parentId: nil, isHidden: false)
 		
 		let activity1 = Classification(id: 3, identifier: "test3", text: [ClassificationText(identifier: "en", name: "Lecture 1")], evaluationType: .manual, type: "ACTIVITY", valueType: .number, value: .number(1), parentId: 1, isHidden: false)
-		let activity2 = Classification(id: 4, identifier: "test4", text: [ClassificationText(identifier: "en", name: "Lecture 2")], evaluationType: .manual, type: "ACTIVITY", valueType: .number, value: .number(2), parentId: 1, isHidden: false)
+		let activity2 = Classification(id: 4, identifier: "test4", text: [ClassificationText(identifier: "en", name: "Lecture 2")], evaluationType: .manual, type: "ACTIVITY", valueType: .number, value: .number(2), parentId: 1, isHidden: true)
 		let subActivity1 = Classification(id: 5, identifier: "test5", text: [ClassificationText(identifier: "en", name: "Lecture 2.1")], evaluationType: .manual, type: "ACTIVITY", valueType: .number, value: .number(1), parentId: 4, isHidden: false)
 		
-		let exam1 = Classification(id: 5, identifier: "test6", text: [ClassificationText(identifier: "en", name: "Exam test")], evaluationType: .manual, type: "TEST", valueType: .number, value: .number(20), parentId: 2, isHidden: false)
-		let subExam1 = Classification(id: 6, identifier: "test7", text: [ClassificationText(identifier: "en", name: "Exam test - try 1")], evaluationType: .manual, type: "TEST", valueType: .number, value: .number(20), parentId: 5, isHidden: false)
+		let exam1 = Classification(id: 24, identifier: "test6", text: [ClassificationText(identifier: "en", name: "Exam test")], evaluationType: .manual, type: "TEST", valueType: .number, value: .number(20), parentId: 2, isHidden: false)
+		let subExam1 = Classification(id: 6, identifier: "test7", text: [ClassificationText(identifier: "en", name: "Exam test - try 1")], evaluationType: .manual, type: "TEST", valueType: .number, value: .number(20), parentId: 24, isHidden: false)
 		let subSubExam1 = Classification(id: 7, identifier: "test8", text: [ClassificationText(identifier: "en", name: "Exam test - try 2")], evaluationType: .manual, type: "TEST", valueType: .number, value: .number(20), parentId: 6, isHidden: false)
 		
 		let totalPoints = Classification(id: 8, identifier: "test9", text: [ClassificationText(identifier: "en", name: "Total points")], evaluationType: .manual, type: ClassificationType.pointsTotal.rawValue, valueType: .number, value: .number(73.5), parentId: nil, isHidden: false)
