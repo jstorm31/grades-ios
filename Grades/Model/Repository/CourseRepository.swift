@@ -9,6 +9,7 @@
 import RxSwift
 
 typealias StudentOverview = (totalPoints: Double?, finalGrade: String?)
+typealias CategorizedClassifications = ([Classification], [Classification], [Classification])
 
 protocol HasCourseRepository {
     var courseRepository: CourseRepositoryProtocol { get }
@@ -64,8 +65,6 @@ final class CourseRepository: CourseRepositoryProtocol {
             return Observable.just([])
         }
 
-        Log.debug("Called repo")
-
         return dependencies.gradesApi.getCourseStudentClassification(username: username, code: course.code)
             .trackActivity(activityIndicator)
             .catchError { [weak self] error in
@@ -118,10 +117,13 @@ final class CourseRepository: CourseRepositoryProtocol {
 
     /// Groups classifications by their root parent classification
     private func groupClassifications(classifications: [Classification]) -> [GroupedClassification] {
-        let childs = classifications.filter { $0.parentId != nil }
-        var groups = classifications
-            .filter { $0.parentId == nil }
-            .map { GroupedClassification(fromClassification: $0) }
+        let (parents, childs, childless) = categorizeItems(classifications)
+        var groups = parents.map { GroupedClassification(fromClassification: $0) }
+
+        if !childless.isEmpty {
+            // Add group of childless classifications at the beginning
+            groups.insert(GroupedClassification(fromClassification: nil, items: childless), at: 0)
+        }
 
         for item in childs {
             let rootId = findRootClassification(forChild: item, inClassifications: classifications)
@@ -130,6 +132,37 @@ final class CourseRepository: CourseRepositoryProtocol {
         }
 
         return groups
+    }
+
+    /**
+     Filters out items with childs
+     - Returns array of items that has no childs
+     */
+    private func categorizeItems(_ classifications: [Classification]) -> CategorizedClassifications {
+        let parentCandidates = classifications.filter { $0.parentId == nil }
+        let childs = classifications.filter { $0.parentId != nil }
+        var parents = [Classification]()
+        var childless = [Classification]()
+
+        for candidate in parentCandidates {
+            var hasChild = false
+
+            for child in childs {
+                let parentId = findRootClassification(forChild: child, inClassifications: classifications)
+                if parentId == candidate.id {
+                    hasChild = true
+                    break
+                }
+            }
+
+            if hasChild {
+                parents.append(candidate)
+            } else {
+                childless.append(candidate)
+            }
+        }
+
+        return (parents, childs, childless)
     }
 
     /**

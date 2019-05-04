@@ -47,20 +47,23 @@ struct ClassificationText: Codable {
     var name: String = ""
 }
 
+/// Group of classifications with same type
 struct GroupedClassification {
-    var id: Int
-    var identifier: String
-    var header: String
+    var id: Int?
+    var identifier: String?
+    var header: String?
     var type: String?
     var totalValue: DynamicValue?
     var items: [Classification]
 
-    init(fromClassification classification: Classification, items: [Classification] = []) {
-        id = classification.id
-        identifier = classification.identifier
-        header = classification.getLocalizedText()
-        type = classification.type
-        totalValue = classification.value
+    init(fromClassification classification: Classification?, items: [Classification] = []) {
+        if let classification = classification {
+            id = classification.id
+            identifier = classification.identifier
+            header = classification.getLocalizedText()
+            type = classification.type
+            totalValue = classification.value
+        }
         self.items = items
     }
 }
