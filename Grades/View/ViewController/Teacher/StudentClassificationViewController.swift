@@ -27,7 +27,7 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
     // MARK: lifecycle methods
 
     override func loadView() {
-        loadView(hasTableHeaderView: false)
+        super.loadView()
         loadUI()
     }
 

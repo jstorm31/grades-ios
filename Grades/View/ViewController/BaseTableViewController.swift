@@ -12,36 +12,18 @@ import RxSwift
 import UIKit
 
 class BaseTableViewController: BaseViewController {
-    private let HEADER_HEIGHT = 80
     var noContentLabel: UILabel!
     private let bag = DisposeBag()
 
     var tableView: UITableView!
 
-    func loadView(hasTableHeaderView: Bool = false) {
+    override func loadView() {
         super.loadView()
 
         let tableView = UITableView()
         view.addSubview(tableView)
-
-        if hasTableHeaderView {
-            let container = UIView()
-            tableView.tableHeaderView = container
-            container.snp.makeConstraints { make in
-                make.top.equalToSuperview()
-                make.leading.trailing.equalToSuperview().inset(20)
-                make.width.equalToSuperview().inset(20)
-                make.height.equalTo(HEADER_HEIGHT)
-            }
-        }
-
         tableView.snp.makeConstraints { make in
-            if hasTableHeaderView {
-                make.top.equalToSuperview().offset(HEADER_HEIGHT)
-                make.leading.trailing.bottom.equalToSuperview()
-            } else {
-                make.edges.equalToSuperview()
-            }
+            make.size.equalToSuperview()
         }
         self.tableView = tableView
 
@@ -72,8 +54,5 @@ class BaseTableViewController: BaseViewController {
         edgesForExtendedLayout = .all
         tableView.contentInsetAdjustmentBehavior = .always
         tableView.refreshControl!.sizeToFit()
-        let top = tableView.adjustedContentInset.top
-        let y = tableView.refreshControl!.frame.maxY + top + CGFloat(integerLiteral: HEADER_HEIGHT)
-        tableView.setContentOffset(CGPoint(x: 0, y: -y), animated: true)
     }
 }
