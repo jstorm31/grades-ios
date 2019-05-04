@@ -132,18 +132,20 @@ final class StudentClassificationViewModel: BaseViewModel {
                 self?.cellViewModels = [] // Reset view models array to clean memory
             })
             .map { [weak self] classifications in
-                classifications.map { classification in
-                    let cellViewModel = DynamicValueCellViewModel(
-                        valueType: classification.valueType,
-                        key: classification.identifier,
-                        title: classification.getLocalizedText()
-                    )
+                classifications
+                    .filter { $0.evaluationType == .manual }
+                    .map { classification in
+                        let cellViewModel = DynamicValueCellViewModel(
+                            valueType: classification.valueType,
+                            key: classification.identifier,
+                            title: classification.getLocalizedText()
+                        )
 
-                    cellViewModel.value.accept(classification.value)
-                    self?.cellViewModels.append(cellViewModel)
+                        cellViewModel.value.accept(classification.value)
+                        self?.cellViewModels.append(cellViewModel)
 
-                    return DynamicValueCellConfigurator(item: cellViewModel)
-                }
+                        return DynamicValueCellConfigurator(item: cellViewModel)
+                    }
             }
             .map { [TableSection(header: L10n.Teacher.Students.grading, items: $0)] }
             .bind(to: dataSource)
