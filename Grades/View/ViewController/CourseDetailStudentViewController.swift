@@ -28,7 +28,13 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
                 return cell
             },
             titleForHeaderInSection: { dataSource, index in
-                dataSource.sectionModels[index].header
+                let group = dataSource.sectionModels[index]
+                var title = group.header ?? ""
+
+                if let value = group.totalValue {
+                    title += " \(value.toString())"
+                }
+                return title
             }
         )
     }
