@@ -38,7 +38,9 @@ final class SettingsViewController: BaseTableViewController,
     override func loadView() {
         super.loadView()
 
+        tableView.register(SettingsCell.self, forCellReuseIdentifier: "SettingsCell")
         tableView.register(PickerCell.self, forCellReuseIdentifier: "PickerCell")
+
         navigationItem.title = L10n.Settings.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: L10n.Settings.logout,
                                                             style: .plain,
@@ -76,7 +78,7 @@ final class SettingsViewController: BaseTableViewController,
             .disposed(by: bag)
 
         tableView.rx.itemSelected
-            .filter { $0.section == 0 }
+            .filter { $0.section == 1 }
             .subscribe(onNext: { [weak self] indexPath in
                 self?.viewModel.handleOptionChange(cellIndexPath: indexPath)
                 self?.showPicker()

@@ -24,9 +24,11 @@
 "settings.logout" = "Log out";
 "settings.logoutConfirmTitle" = "Do you really wish to logout?";
 "settings.user" = "User";
+"settings.user.name" = "Name";
 "settings.options" = "Options";
 "settings.language" = "Language";
 "settings.semester" = "Semester";
+"settings.user" = "User";
 
 "teacher.tab.group" = "Detail";
 "teacher.tab.student" = "Student";
