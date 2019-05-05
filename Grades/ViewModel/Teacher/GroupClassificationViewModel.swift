@@ -47,7 +47,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
             .map { [weak self] values -> [StudentClassification] in
                 guard let `self` = self else { return [] }
 
-                let identifier = self.repository.classifications.value[self.classificationSelectedIndex.value].identifier
+                let identifier = self.teacherRepository.classifications.value[self.classificationSelectedIndex.value].identifier
                 return values.map { StudentClassification(identifier: identifier, username: $0.key, value: $0.value.value) }
             }
             .flatMap { [weak self] classifications -> Observable<Void> in
@@ -62,9 +62,8 @@ final class GroupClassificationViewModel: TablePickerViewModel {
     // MARK: private properties
 
     private let dependencies: Dependencies
-    private let repository: TeacherRepositoryProtocol
+    private let teacherRepository: TeacherRepositoryProtocol
     private let course: Course
-    private let user: User
     private let bag = DisposeBag()
 
     private let groupSelectedIndex = BehaviorRelay<Int>(value: 0)
@@ -77,11 +76,10 @@ final class GroupClassificationViewModel: TablePickerViewModel {
 
     // MARK: initialization
 
-    init(dependencies: AppDependency, course: Course, user: User) {
+    init(dependencies: AppDependency, course: Course) {
         self.dependencies = dependencies
-        repository = dependencies.teacherRepository
+        teacherRepository = dependencies.teacherRepository
         self.course = course
-        self.user = user
         super.init()
     }
 
@@ -96,7 +94,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
          1) Get picker options and create first table section with two picker cells
          2) Get items for chosen group and classification
          */
-        Observable.zip(repository.groups, repository.classifications) { $1 }
+        Observable.zip(teacherRepository.groups, teacherRepository.classifications) { $1 }
             .flatMap { [weak self] classifications -> Observable<(DynamicValueType, Int, Int)> in
                 guard let `self` = self else { return Observable.empty() }
 
@@ -130,19 +128,21 @@ final class GroupClassificationViewModel: TablePickerViewModel {
             .bind(to: dataSource)
             .disposed(by: bag)
 
-        repository.getClassificationOptions(forCourse: course.code)
-        repository.getGroupOptions(forCourse: course.code, username: user.username)
-        repository.isLoading.bind(to: isloading).disposed(by: bag)
-        repository.error.unwrap().bind(to: error).disposed(by: bag)
+        teacherRepository.getGroupOptions(forCourse: course.code)
+        teacherRepository.getClassificationOptions(forCourse: course.code)
+        teacherRepository.isLoading.bind(to: isloading).disposed(by: bag)
+        teacherRepository.error.unwrap().bind(to: error).disposed(by: bag)
     }
 
     /// Initialize and bind CellViewModel for each item
-    private func studentClassifications(_ valueType: DynamicValueType, _ groupIndex: Int, _ classificationIndex: Int) -> Observable<[DynamicValueCellConfigurator]> {
-        let groupCode = repository.groups.value[groupIndex]
-        let classificationId = repository.classifications.value[classificationIndex]
+    private func studentClassifications(_ valueType: DynamicValueType,
+                                        _ groupIndex: Int,
+                                        _ classificationIndex: Int) -> Observable<[DynamicValueCellConfigurator]> {
+        let groupCode = teacherRepository.groups.value[groupIndex]
+        let classificationId = teacherRepository.classifications.value[classificationIndex]
 
-        return repository.studentClassifications(course: course.code, groupCode: groupCode.id,
-                                                 classificationId: classificationId.identifier)
+        return teacherRepository.studentClassifications(course: course.code, groupCode: groupCode.id,
+                                                        classificationId: classificationId.identifier)
             .do(onNext: { [weak self] _ in
                 self?.dynamicCellViewModels = [] // Reset view models array to clean memory
             })
@@ -167,7 +167,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
     private func bindOptions() {
         groupSelectedIndex
             .flatMap { [weak self] index -> Observable<String> in
-                self?.repository.groups.map { options in
+                self?.teacherRepository.groups.map { options in
                     if options.count - 1 > index {
                         return options[index].id
                     }
@@ -179,7 +179,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
 
         classificationSelectedIndex
             .flatMap { [weak self] index -> Observable<String> in
-                self?.repository.classifications.map { options in
+                self?.teacherRepository.classifications.map { options in
                     if options.count - 1 > index {
                         return options[index].getLocalizedText()
                     }
@@ -197,9 +197,9 @@ final class GroupClassificationViewModel: TablePickerViewModel {
                 guard let `self` = self else { return Observable.just([]) }
 
                 if index == 0 {
-                    return self.repository.groups.map { $0.map { $0.id } }
+                    return self.teacherRepository.groups.map { $0.map { $0.id } }
                 } else if index == 1 {
-                    return self.repository.classifications
+                    return self.teacherRepository.classifications
                         .map { $0.filter { classification in
                             if case .manual = classification.evaluationType {
                                 return true

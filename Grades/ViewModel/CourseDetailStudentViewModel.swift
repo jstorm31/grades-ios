@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 
 final class CourseDetailStudentViewModel: BaseViewModel {
-    typealias Dependencies = HasCourseRepository
+    typealias Dependencies = HasCourseRepository & HasUserRepository
 
     // MARK: Properties
 
@@ -31,19 +31,15 @@ final class CourseDetailStudentViewModel: BaseViewModel {
     }
 
     private let dependencies: Dependencies
-    private let repository: CourseRepositoryProtocol
     private let coordinator: SceneCoordinatorType
     private let bag = DisposeBag()
-    private let studentUsername: String
 
     // MARK: Initialization
 
-    init(dependencies: Dependencies, coordinator: SceneCoordinatorType, course: Course, username: String) {
+    init(dependencies: Dependencies, coordinator: SceneCoordinatorType, course: Course) {
         self.coordinator = coordinator
         self.dependencies = dependencies
-        studentUsername = username
-        repository = dependencies.courseRepository
-        repository.set(course: course)
+        dependencies.courseRepository.set(course: course)
 
         onBack = CocoaAction {
             coordinator.didPop().asObservable().map { _ in }
@@ -55,24 +51,33 @@ final class CourseDetailStudentViewModel: BaseViewModel {
     // MARK: Binding
 
     func bindOutput() {
-        repository.groupedClassifications(forStudent: studentUsername)
-            .map { groups in
-                groups.map { group in
-                    let items = group.items.filter {
-                        !$0.isHidden
-                            && $0.type != ClassificationType.pointsTotal.rawValue
-                            && $0.type != ClassificationType.finalScore.rawValue
-                    }
-                    return GroupedClassification(original: group, items: items)
+        let user = dependencies.userRepository.user.asObservable().unwrap().share(replay: 2, scope: .whileConnected)
+
+        user.flatMap { [weak self] user in
+            self?.dependencies.courseRepository.groupedClassifications(forStudent: user.username) ?? Observable.empty()
+        }
+        .map { groups in
+            groups.map { group in
+                let items = group.items.filter {
+                    !$0.isHidden
+                        && $0.type != ClassificationType.pointsTotal.rawValue
+                        && $0.type != ClassificationType.finalScore.rawValue
                 }
+                return GroupedClassification(original: group, items: items)
             }
-            .bind(to: classifications)
-            .disposed(by: bag)
+        }
+        .bind(to: classifications)
+        .disposed(by: bag)
 
-        repository.isFetching.bind(to: isFetching).disposed(by: bag)
-        repository.error.bind(to: error).disposed(by: bag)
+        dependencies.courseRepository.isFetching.bind(to: isFetching).disposed(by: bag)
+        dependencies.courseRepository.error.bind(to: error).disposed(by: bag)
 
-        let overview = repository.overview(forStudent: studentUsername).share(replay: 1, scope: .whileConnected)
+        let overview = user
+            .flatMap { [weak self] user in
+                self?.dependencies.courseRepository.overview(forStudent: user.username) ?? Observable.empty()
+            }
+            .share()
+
         overview.map({ $0.totalPoints }).bind(to: totalPoints).disposed(by: bag)
         overview.map({ $0.finalGrade }).bind(to: finalGrade).disposed(by: bag)
     }

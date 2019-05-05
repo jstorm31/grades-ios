@@ -19,13 +19,13 @@ protocol TeacherRepositoryProtocol {
     var isLoading: BehaviorSubject<Bool> { get }
     var error: BehaviorSubject<Error?> { get }
 
-    func getGroupOptions(forCourse: String, username: String)
+    func getGroupOptions(forCourse: String)
     func getClassificationOptions(forCourse: String)
     func studentClassifications(course: String, groupCode: String, classificationId: String) -> Observable<[StudentClassification]>
 }
 
 final class TeacherRepository: TeacherRepositoryProtocol {
-    typealias Dependencies = HasGradesAPI
+    typealias Dependencies = HasGradesAPI & HasUserRepository
 
     // MARK: private properties
 
@@ -55,8 +55,11 @@ final class TeacherRepository: TeacherRepositoryProtocol {
 
     // MARK: methods
 
-    func getGroupOptions(forCourse course: String, username: String) {
-        dependencies.gradesApi.getStudentGroups(forCourse: course, username: username)
+    func getGroupOptions(forCourse course: String) {
+        dependencies.userRepository.user.asObservable().unwrap()
+            .flatMap { [weak self] user in
+                self?.dependencies.gradesApi.getStudentGroups(forCourse: course, username: user.username) ?? Observable.empty()
+            }
             .trackActivity(activityIndicator)
             .catchError { [weak self] error in
                 self?.error.onNext(error)

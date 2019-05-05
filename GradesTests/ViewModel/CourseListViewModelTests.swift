@@ -20,9 +20,7 @@ class CourseListViewModelTests: XCTestCase {
 	override func setUp() {
 		scheduler = ConcurrentDispatchQueueScheduler(qos: .default)
 		coordinator = SceneCoordinatorMock()
-		viewModel = CourseListViewModel(dependencies: AppDependencyMock.shared,
-										sceneCoordinator: coordinator,
-										user: GradesAPIMock.userInfo)
+		viewModel = CourseListViewModel(dependencies: AppDependencyMock.shared, sceneCoordinator: coordinator)
 	}
 	
 	func testOnItemSelectionStudentCourse() {
