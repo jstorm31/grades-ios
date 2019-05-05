@@ -22,7 +22,6 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
 
     override func loadView() {
         super.loadView()
-        loadView(hasTableHeaderView: false)
         loadRefreshControl()
 
         navigationItem.title = L10n.Courses.title

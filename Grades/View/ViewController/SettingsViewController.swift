@@ -37,7 +37,6 @@ final class SettingsViewController: BaseTableViewController,
 
     override func loadView() {
         super.loadView()
-        loadView(hasTableHeaderView: false)
 
         tableView.register(PickerCell.self, forCellReuseIdentifier: "PickerCell")
         navigationItem.title = L10n.Settings.title

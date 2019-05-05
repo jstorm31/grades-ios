@@ -29,7 +29,7 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
             },
             titleForHeaderInSection: { dataSource, index in
                 let group = dataSource.sectionModels[index]
-                var title = group.header ?? ""
+                var title = group.header ?? L10n.Classification.other
 
                 if let value = group.totalValue {
                     title += " \(value.toString())"
@@ -39,9 +39,10 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
         )
     }
 
+    // MARK: Lifecycle
+
     override func loadView() {
         super.loadView()
-        loadView(hasTableHeaderView: true)
         loadRefreshControl()
 
         navigationItem.title = viewModel.courseCode
@@ -70,6 +71,8 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
         }
     }
 
+    // MARK: Binding
+
     func bindViewModel() {
         let classificationsObservable = viewModel.classifications.share()
 
@@ -84,8 +87,22 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
             .drive(noContentLabel.rx.isHidden)
             .disposed(by: bag)
 
-        viewModel.isFetching.asDriver(onErrorJustReturn: false)
+        classificationsObservable
+            .map { $0.isEmpty }
+            .asDriver(onErrorJustReturn: false)
+            .drive(headerLabel.rx.isHidden)
+            .disposed(by: bag)
+
+        let sharedFetching = viewModel.isFetching.share()
+
+        sharedFetching
+            .asDriver(onErrorJustReturn: false)
             .drive(tableView.refreshControl!.rx.isRefreshing)
+            .disposed(by: bag)
+
+        sharedFetching
+            .asDriver(onErrorJustReturn: false)
+            .drive(view.rx.refreshing)
             .disposed(by: bag)
 
         viewModel.error.asObserver()
@@ -117,11 +134,18 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
     }
 
     private func loadUI() {
-        let headerView = UIView()
-        let containerView = UIView()
-        headerView.addSubview(containerView)
-        containerView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        let tableHeader = UIView()
+        tableView.tableHeaderView = tableHeader
+        tableHeader.snp.makeConstraints { make in
+            make.height.equalTo(60)
+            make.width.equalToSuperview()
+        }
+
+        let headerContainer = UIView()
+        tableView.tableHeaderView!.addSubview(headerContainer)
+        headerContainer.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(20)
         }
 
         // Header label
@@ -129,7 +153,8 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
         header.text = L10n.Classification.total
         header.font = UIFont.Grades.cellTitle
         header.textColor = UIColor.Theme.text
-        containerView.addSubview(header)
+        header.isHidden = true
+        headerContainer.addSubview(header)
         header.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.centerY.equalToSuperview()
@@ -137,15 +162,14 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
         headerLabel = header
 
         let gradingOverview = UIGradingOverview()
-        containerView.addSubview(gradingOverview)
+        headerContainer.addSubview(gradingOverview)
         gradingOverview.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
             make.centerY.equalToSuperview()
         }
         headerGradingOverview = gradingOverview
 
-        tableView.tableHeaderView = headerView
-        headerView.snp.makeConstraints { make in
+        headerContainer.snp.makeConstraints { make in
             make.width.equalToSuperview().inset(20)
             make.centerX.equalToSuperview()
             make.height.equalTo(42)

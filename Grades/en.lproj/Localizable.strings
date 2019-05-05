@@ -18,6 +18,7 @@
 
 "classification.notRated" = "Not rated";
 "classification.total" = "Total";
+"classification.other" = "Other";
 
 "settings.title" = "Settings";
 "settings.logout" = "Log out";

@@ -122,7 +122,7 @@ final class CourseRepository: CourseRepositoryProtocol {
 
         if !childless.isEmpty {
             // Add group of childless classifications at the beginning
-            groups.insert(GroupedClassification(fromClassification: nil, items: childless), at: 0)
+            groups.append(GroupedClassification(fromClassification: nil, items: childless))
         }
 
         for item in childs {
