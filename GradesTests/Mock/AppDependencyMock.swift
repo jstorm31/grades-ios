@@ -8,7 +8,7 @@
 
 @testable import GradesDev
 
-final class AppDependencyMock {
+final class AppDependencyMock: HasNoDependency {
 	private init() {}
 	static let shared = AppDependencyMock()
 	
@@ -20,6 +20,8 @@ final class AppDependencyMock {
 	
 	let _gradesApi = GradesAPIMock()
 	lazy var gradesApi: GradesAPIProtocol = { return _gradesApi }()
+	
+	lazy var userRepository: UserRepositoryProtocol = UserRepositoryMock(dependencies: self)
 	
 	lazy var settingsRepository: SettingsRepositoryProtocol = SettingsRepositoryMock()
 	lazy var coursesRepository: CoursesRepositoryProtocol = CoursesRepositoryMock()
@@ -33,6 +35,7 @@ extension AppDependencyMock: HasHttpService {}
 extension AppDependencyMock: HasGradesAPI {}
 extension AppDependencyMock: HasPushNotificationService {}
 
+extension AppDependencyMock: HasUserRepository {}
 extension AppDependencyMock: HasSettingsRepository {}
 extension AppDependencyMock: HasCoursesRepository {}
 extension AppDependencyMock: HasCourseRepository {}

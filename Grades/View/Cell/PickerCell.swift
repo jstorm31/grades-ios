@@ -54,6 +54,8 @@ final class PickerCell: BasicCell, ConfigurableCell {
     // MARK: UI setup
 
     private func loadUI() {
+        titleLabel.font = UIFont.Grades.boldBody
+
         let pickerLabel = UIPickerLabel()
         contentView.addSubview(pickerLabel)
         pickerLabel.snp.makeConstraints { make in

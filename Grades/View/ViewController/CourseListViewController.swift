@@ -107,9 +107,3 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
         viewModel.bindOutput()
     }
 }
-
-extension CourseListViewController: UITableViewDelegate {
-    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-        return 90
-    }
-}

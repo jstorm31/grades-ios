@@ -75,7 +75,22 @@ final class GradesAPI: GradesAPIProtocol {
 
     /// Fetch user info and roles
     func getUser() -> Observable<User> {
-        return httpService.get(url: createURL(from: .userInfo), parameters: nil)
+        return Observable.zip(
+            httpService.get(url: createURL(from: .userInfo), parameters: nil),
+            httpService.get(url: createURL(from: .roles), parameters: nil)
+        ) { (user: User, roles: CoursesByRolesRaw) -> User in
+            var userWithRoles = User(fromUser: user)
+
+            if !roles.studentCourses.isEmpty {
+                userWithRoles.roles.append(.student)
+            }
+
+            if !roles.teacherCourses.isEmpty {
+                userWithRoles.roles.append(.teacher)
+            }
+
+            return userWithRoles
+        }
     }
 
     /// Fetch user courses by their roles
@@ -141,10 +156,10 @@ final class GradesAPI: GradesAPIProtocol {
         // swiftlint:disable force_cast
         if let environment = Bundle.main.infoDictionary!["ConfigEnvironment"], (environment as! String) == "Debug" {
             // Return mock data in Debug
-            return Observable.just([
-                User(userId: 2, username: "janatpa3", firstName: "Pavel", lastName: "Janata"),
-                User(userId: 1, username: "rousemat", firstName: "Matyáš", lastName: "Rousek"),
-                User(userId: 3, username: "ottastep", firstName: "Štěpán", lastName: "Otta")
+            return Observable<[User]>.just([
+                User(id: 2, username: "janatpa3", firstName: "Pavel", lastName: "Janata"),
+                User(id: 1, username: "rousemat", firstName: "Matyáš", lastName: "Rousek"),
+                User(id: 3, username: "ottastep", firstName: "Štěpán", lastName: "Otta")
             ]).delaySubscription(1, scheduler: MainScheduler.instance)
         } else {
             // Get from API in Release

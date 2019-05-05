@@ -84,12 +84,6 @@ final class StudentSearchViewController: BaseTableViewController, BindableType, 
     }
 }
 
-extension StudentSearchViewController: UITableViewDelegate {
-    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-        return 60
-    }
-}
-
 extension StudentSearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for _: UISearchController) {}
 }
