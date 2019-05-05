@@ -96,6 +96,12 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "settings.title")
         /// User
         internal static let user = L10n.tr("Localizable", "settings.user")
+        internal enum User {
+            /// Name
+            internal static let name = L10n.tr("Localizable", "settings.user.name")
+            /// Roles
+            internal static let roles = L10n.tr("Localizable", "settings.user.roles")
+        }
     }
 
     internal enum Students {
@@ -120,7 +126,7 @@ internal enum L10n {
             internal static let classification = L10n.tr("Localizable", "teacher.students.classification")
             /// Final grade not specified
             internal static let finalGradeEmpty = L10n.tr("Localizable", "teacher.students.finalGradeEmpty")
-            /// Grading
+            /// Grades
             internal static let grading = L10n.tr("Localizable", "teacher.students.grading")
             /// Group
             internal static let group = L10n.tr("Localizable", "teacher.students.group")
@@ -134,6 +140,13 @@ internal enum L10n {
             /// Student
             internal static let student = L10n.tr("Localizable", "teacher.tab.student")
         }
+    }
+
+    internal enum UserRoles {
+        /// student
+        internal static let student = L10n.tr("Localizable", "userRoles.student")
+        /// teacher
+        internal static let teacher = L10n.tr("Localizable", "userRoles.teacher")
     }
 }
 

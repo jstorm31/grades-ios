@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 
 class SettingsViewModel: TablePickerViewModel {
-    typealias Dependencies = HasSettingsRepository & HasPushNotificationService
+    typealias Dependencies = HasSettingsRepository & HasPushNotificationService & HasUserRepository
 
     private var dependencies: Dependencies
     private let coordinator: SceneCoordinatorType
@@ -64,10 +64,20 @@ class SettingsViewModel: TablePickerViewModel {
     func bindOutput() {
         // Data source
         semesterSelectedIndex
-            .map { [weak self] _ in
+            .flatMap { [weak self] _ in
+                self?.dependencies.userRepository.user.unwrap() ?? Observable.empty()
+            }
+            .map { [weak self] user in
                 guard let `self` = self else { return [] }
 
                 return [
+                    TableSection(header: L10n.Settings.user, items: [
+                        SettingsCellConfigurator(item: (title: L10n.Settings.User.name, content: user.toString)),
+                        SettingsCellConfigurator(item: (
+                            title: L10n.Settings.User.roles,
+                            content: user.roles.map { $0.toString() }.joined(separator: ", ")
+                        ))
+                    ]),
                     TableSection(header: L10n.Settings.options, items: [
                         PickerCellConfigurator(item: self.semesterCellViewModel)
                     ])
@@ -77,9 +87,7 @@ class SettingsViewModel: TablePickerViewModel {
             .disposed(by: bag)
 
         // Initial value of semester
-        let sharedSettings = dependencies.settingsRepository.currentSettings.share()
-
-        sharedSettings
+        dependencies.settingsRepository.currentSettings
             .map { $0.semester }
             .unwrap()
             .flatMap { [weak self] semester -> Observable<Int> in
@@ -87,8 +95,6 @@ class SettingsViewModel: TablePickerViewModel {
             }
             .bind(to: semesterSelectedIndex)
             .disposed(by: bag)
-
-        //		sharedSettings.map {  }
 
         bindOptions()
     }

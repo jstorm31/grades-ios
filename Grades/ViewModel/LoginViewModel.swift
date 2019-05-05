@@ -16,7 +16,8 @@ protocol LoginViewModelProtocol {
 }
 
 final class LoginViewModel: BaseViewModel {
-    typealias Dependencies = HasAuthenticationService & HasGradesAPI & HasSettingsRepository & HasPushNotificationService
+    typealias Dependencies = HasAuthenticationService & HasGradesAPI & HasSettingsRepository
+        & HasPushNotificationService& HasUserRepository
 
     private let dependencies: Dependencies
     private let sceneCoordinator: SceneCoordinatorType
@@ -38,8 +39,7 @@ final class LoginViewModel: BaseViewModel {
     func authenticate(viewController: UIViewController) -> Observable<Void> {
         if CommandLine.arguments.contains("--stub-authentication") {
             return Observable.just(()).do(onNext: { _ in
-                let user = User(userId: 5, username: "testuser", firstName: "Test", lastName: "User")
-                self.transitionToCourseList(user: user)
+                self.transitionToCourseList()
             })
         }
 
@@ -54,14 +54,14 @@ final class LoginViewModel: BaseViewModel {
             .map { _ in }
             .flatMap(dependencies.gradesApi.getUser)
             .do(onNext: { [weak self] user in
-                self?.transitionToCourseList(user: user)
+                self?.dependencies.userRepository.user.accept(user)
+                self?.transitionToCourseList()
             })
             .map { _ in }
     }
 
-    private func transitionToCourseList(user: User) {
-        // Transition to course list scene
-        let courseListViewModel = CourseListViewModel(dependencies: AppDependency.shared, sceneCoordinator: sceneCoordinator, user: user)
+    private func transitionToCourseList() {
+        let courseListViewModel = CourseListViewModel(dependencies: AppDependency.shared, sceneCoordinator: sceneCoordinator)
         sceneCoordinator.transition(to: .courseList(courseListViewModel), type: .modal)
     }
 }

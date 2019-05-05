@@ -21,6 +21,7 @@ class BaseTableViewController: BaseViewController {
         super.loadView()
 
         let tableView = UITableView()
+        tableView.delegate = self
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.size.equalToSuperview()
@@ -54,5 +55,19 @@ class BaseTableViewController: BaseViewController {
         edgesForExtendedLayout = .all
         tableView.contentInsetAdjustmentBehavior = .always
         tableView.refreshControl!.sizeToFit()
+    }
+}
+
+extension BaseTableViewController: UITableViewDelegate {
+    func tableView(_: UITableView, willDisplayHeaderView view: UIView, forSection _: Int) {
+        guard let headerView = view as? UITableViewHeaderFooterView else { return }
+
+        headerView.backgroundColor = UIColor.Theme.lightGrayBackground
+        headerView.textLabel?.font = UIFont.Grades.body
+        headerView.textLabel?.textColor = UIColor.Theme.sectionGrayText
+    }
+
+    func tableView(_: UITableView, heightForHeaderInSection _: Int) -> CGFloat {
+        return 40
     }
 }

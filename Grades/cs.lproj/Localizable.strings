@@ -20,10 +20,15 @@
 "classification.total" = "Celkem";
 "classification.other" = "Ostatní";
 
+"userRoles.student" = "student";
+"userRoles.teacher" = "učitel";
+
 "settings.title" = "Nastavení";
 "settings.logout" = "Odhlásit";
 "settings.logoutConfirmTitle" = "Opravdu si přejete odhlásit?";
 "settings.user" = "Uživatel";
+"settings.user.name" = "Jméno";
+"settings.user.roles" = "Role";
 "settings.options" = "Možnosti";
 "settings.language" = "Jazyk";
 "settings.semester" = "Semestr";

@@ -21,7 +21,7 @@ final class TeacherClassificationViewModel: BaseViewModel {
     private let coordinator: SceneCoordinatorType
 
     private lazy var groupClassificationScene: Scene = {
-        let viewModel = GroupClassificationViewModel(dependencies: AppDependency.shared, course: course, user: user)
+        let viewModel = GroupClassificationViewModel(dependencies: AppDependency.shared, course: course)
         return .groupClassification(viewModel)
     }()
 
@@ -38,7 +38,6 @@ final class TeacherClassificationViewModel: BaseViewModel {
 
     let defaultScene = TeacherSceneIndex.groupClassification
     let course: TeacherCourse
-    let user: User
 
     lazy var onBackAction = CocoaAction { [weak self] in
         self?.coordinator.didPop()
@@ -47,10 +46,9 @@ final class TeacherClassificationViewModel: BaseViewModel {
 
     // MARK: initialization
 
-    init(coordinator: SceneCoordinatorType, course: TeacherCourse, user: User) {
+    init(coordinator: SceneCoordinatorType, course: TeacherCourse) {
         self.coordinator = coordinator
         self.course = course
-        self.user = user
     }
 
     // MARK: methods
