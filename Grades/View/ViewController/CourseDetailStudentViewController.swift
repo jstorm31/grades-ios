@@ -174,10 +174,12 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
             make.height.equalTo(42)
         }
     }
-}
 
-extension CourseDetailStudentViewController: UITableViewDelegate {
-    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-        return 60
+    override func tableView(_: UITableView, willDisplayHeaderView view: UIView, forSection _: Int) {
+        guard let headerView = view as? UITableViewHeaderFooterView else { return }
+
+        headerView.backgroundColor = UIColor.Theme.lightGrayBackground
+        headerView.textLabel?.font = UIFont.Grades.boldBody
+        headerView.textLabel?.textColor = UIColor.Theme.text
     }
 }

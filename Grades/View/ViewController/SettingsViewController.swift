@@ -125,9 +125,3 @@ final class SettingsViewController: BaseTableViewController,
         }
     }
 }
-
-extension SettingsViewController: UITableViewDelegate {
-    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-        return 60
-    }
-}

@@ -188,12 +188,6 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
     }
 }
 
-extension GroupClassificationViewController: UITableViewDelegate {
-    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-        return 60
-    }
-}
-
 extension GroupClassificationViewController: ModifableInsetsOnKeyboardFrameChanges {
     var scrollViewToModify: UIScrollView { return tableView }
 }

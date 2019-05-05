@@ -228,12 +228,6 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
     }
 }
 
-extension StudentClassificationViewController: UITableViewDelegate {
-    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-        return 60
-    }
-}
-
 extension StudentClassificationViewController: ModifableInsetsOnKeyboardFrameChanges {
     var scrollViewToModify: UIScrollView { return tableView }
 }
