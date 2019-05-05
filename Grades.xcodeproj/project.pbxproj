@@ -55,7 +55,6 @@
 		96456456227D84EC00E48FC1 /* CourseDetailStudentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96456455227D84EB00E48FC1 /* CourseDetailStudentViewModelTests.swift */; };
 		96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E942223D65F00AB6499 /* AppDelegate.swift */; };
 		96520E972223D65F00AB6499 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E962223D65F00AB6499 /* LoginViewController.swift */; };
-		96520E9A2223D65F00AB6499 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E982223D65F00AB6499 /* Main.storyboard */; };
 		96520E9C2223D66000AB6499 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96520E9B2223D66000AB6499 /* Assets.xcassets */; };
 		96520E9F2223D66000AB6499 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96520E9D2223D66000AB6499 /* LaunchScreen.storyboard */; };
 		9654A4F7224641A000778ED1 /* CoursesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9654A4F6224641A000778ED1 /* CoursesRepository.swift */; };
@@ -184,7 +183,6 @@
 		9608B9B02224149700E1CEAF /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		9608B9BD22241B9100E1CEAF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9608B9BE22241BCD00E1CEAF /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
-		9608B9BF22241BDC00E1CEAF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9608B9C022241BE000E1CEAF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9608B9C82224364200E1CEAF /* EnvironmentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentConfiguration.swift; sourceTree = "<group>"; };
 		9614CF0D2228669F00FB4A05 /* Bagel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bagel.framework; path = Carthage/Build/iOS/Bagel.framework; sourceTree = "<group>"; };
@@ -586,7 +584,6 @@
 		967D1E432223DE69007E5217 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				96520E982223D65F00AB6499 /* Main.storyboard */,
 				96520E9D2223D66000AB6499 /* LaunchScreen.storyboard */,
 				96520E9B2223D66000AB6499 /* Assets.xcassets */,
 			);
@@ -949,7 +946,6 @@
 				96F220F2227B785F0078AD2A /* Test.plist in Resources */,
 				9608B9AD2223F10F00E1CEAF /* Localizable.strings in Resources */,
 				96520E9C2223D66000AB6499 /* Assets.xcassets in Resources */,
-				96520E9A2223D65F00AB6499 /* Main.storyboard in Resources */,
 				96F220F2227B785F0078AD2A /* Test.plist in Resources */,
 				961A2FD422293AD000A624DC /* Debug.plist in Resources */,
 				961A2FD622293AE000A624DC /* Release.plist in Resources */,
@@ -1248,14 +1244,6 @@
 				9608B9BE22241BCD00E1CEAF /* cs */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		96520E982223D65F00AB6499 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9608B9BF22241BDC00E1CEAF /* en */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		96520E9D2223D66000AB6499 /* LaunchScreen.storyboard */ = {
