@@ -32,7 +32,7 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
         view.addSubview(logoView)
         logoView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(view.frame.height * 0.2) // Relative inset
+            make.top.equalToSuperview().inset(view.frame.height * 0.25) // Relative inset
         }
 
         // Login button
