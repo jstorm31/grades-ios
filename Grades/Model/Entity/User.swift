@@ -6,11 +6,12 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
-class User: Codable {
-    var userId: Int
+struct User {
+    var id: Int
     var username: String
     var firstName: String
     var lastName: String
+    var roles = [Role]()
 
     var name: String {
         return "\(firstName) \(lastName)"
@@ -24,18 +25,31 @@ class User: Codable {
         return "\(name) (\(username))"
     }
 
-    init(userId: Int, username: String, firstName: String, lastName: String) {
-        self.userId = userId
+    enum Role {
+        case student, teacher
+
+        func toString() -> String {
+            switch self {
+            case .student:
+                return L10n.UserRoles.student
+            case .teacher:
+                return L10n.UserRoles.teacher
+            }
+        }
+    }
+
+    init(id: Int, username: String, firstName: String, lastName: String) {
+        self.id = id
         self.username = username
         self.firstName = firstName
         self.lastName = lastName
     }
 
-    init(fromUserInfo info: User) {
-        userId = info.userId
-        username = info.username
-        firstName = info.firstName
-        lastName = info.lastName
+    init(fromUser user: User) {
+        id = user.id
+        username = user.username
+        firstName = user.firstName
+        lastName = user.lastName
     }
 
     func contains(_ text: String) -> Bool {
@@ -44,6 +58,13 @@ class User: Codable {
             || lastName.lowercased().contains(text)
             || name.lowercased().contains(text)
             || nameReverse.lowercased().contains(text)
+    }
+}
+
+extension User: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case id = "userId"
+        case username, firstName, lastName
     }
 }
 
