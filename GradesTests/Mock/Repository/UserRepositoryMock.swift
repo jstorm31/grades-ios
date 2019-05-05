@@ -14,7 +14,7 @@ final class UserRepositoryMock: UserRepositoryProtocol {
 	private let dependencies: Dependencies
 	
 	let user = BehaviorRelay<User?>(value:
-		User(userId: 14, username: "mockuser", firstName: "Ondřej", lastName: "Krátký"))
+		User(id: 14, username: "mockuser", firstName: "Ondřej", lastName: "Krátký"))
 	
 	init(dependencies: Dependencies) {
 		self.dependencies = dependencies
