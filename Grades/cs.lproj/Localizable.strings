@@ -18,6 +18,7 @@
 
 "classification.notRated" = "Nehodnoceno";
 "classification.total" = "Celkem";
+"classification.other" = "Ostatní";
 
 "settings.title" = "Nastavení";
 "settings.logout" = "Odhlásit";

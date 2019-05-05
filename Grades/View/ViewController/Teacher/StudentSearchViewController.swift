@@ -25,7 +25,7 @@ final class StudentSearchViewController: BaseTableViewController, BindableType, 
     // MARK: Lifecycle
 
     override func loadView() {
-        loadView(hasTableHeaderView: false)
+        super.loadView()
         navigationItem.title = L10n.Students.title
         setupSearchBar()
     }

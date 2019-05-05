@@ -28,6 +28,8 @@ internal enum L10n {
     internal enum Classification {
         /// Not rated
         internal static let notRated = L10n.tr("Localizable", "classification.notRated")
+        /// Other
+        internal static let other = L10n.tr("Localizable", "classification.other")
         /// Total
         internal static let total = L10n.tr("Localizable", "classification.total")
     }

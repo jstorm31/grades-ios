@@ -36,7 +36,7 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
     // MARK: lifecycle
 
     override func loadView() {
-        loadView(hasTableHeaderView: false)
+        super.loadView()
         loadUI()
     }
 
