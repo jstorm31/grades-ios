@@ -96,6 +96,10 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "settings.title")
         /// User
         internal static let user = L10n.tr("Localizable", "settings.user")
+        internal enum User {
+            /// Name
+            internal static let name = L10n.tr("Localizable", "settings.user.name")
+        }
     }
 
     internal enum Students {

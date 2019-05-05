@@ -20,6 +20,10 @@ class User: Codable {
         return "\(lastName) \(firstName)"
     }
 
+    var toString: String {
+        return "\(name) (\(username))"
+    }
+
     init(userId: Int, username: String, firstName: String, lastName: String) {
         self.userId = userId
         self.username = username

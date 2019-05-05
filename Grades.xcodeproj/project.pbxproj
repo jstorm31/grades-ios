@@ -126,6 +126,7 @@
 		96C0A845226C832D00AE733A /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C0A844226C832D00AE733A /* UserCell.swift */; };
 		96C0A847226C83D400AE733A /* BasicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C0A846226C83D400AE733A /* BasicCell.swift */; };
 		96C0A84B226CDA7C00AE733A /* StudentSearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C0A84A226CDA7C00AE733A /* StudentSearchViewModelTests.swift */; };
+		96C30AC7227F4274009D3849 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C30AC6227F4274009D3849 /* SettingCell.swift */; };
 		96C569A22268D99A00B16A7C /* StudentClassificationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A12268D99A00B16A7C /* StudentClassificationViewModelTests.swift */; };
 		96C569A42268E2E900B16A7C /* UISecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A32268E2E900B16A7C /* UISecondaryButton.swift */; };
 		96C569A62268E4AF00B16A7C /* UIGradingOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A52268E4AF00B16A7C /* UIGradingOverview.swift */; };
@@ -320,6 +321,7 @@
 		96C0A844226C832D00AE733A /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		96C0A846226C83D400AE733A /* BasicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicCell.swift; sourceTree = "<group>"; };
 		96C0A84A226CDA7C00AE733A /* StudentSearchViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSearchViewModelTests.swift; sourceTree = "<group>"; };
+		96C30AC6227F4274009D3849 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		96C569A12268D99A00B16A7C /* StudentClassificationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassificationViewModelTests.swift; sourceTree = "<group>"; };
 		96C569A32268E2E900B16A7C /* UISecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISecondaryButton.swift; sourceTree = "<group>"; };
 		96C569A52268E4AF00B16A7C /* UIGradingOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGradingOverview.swift; sourceTree = "<group>"; };
@@ -539,6 +541,7 @@
 				968D05C322637F36003F7D49 /* DynamicValueCell.swift */,
 				96C0A844226C832D00AE733A /* UserCell.swift */,
 				96C0A846226C83D400AE733A /* BasicCell.swift */,
+				96C30AC6227F4274009D3849 /* SettingCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1188,6 +1191,7 @@
 				96B49FAA223EBF8E00B23A5B /* Settings.swift in Sources */,
 				96F3A3832239B02E00FB63EF /* ClassificationCell.swift in Sources */,
 				9686108B222B1B210069B81B /* SceneTransitionType.swift in Sources */,
+				96C30AC7227F4274009D3849 /* SettingCell.swift in Sources */,
 				96F3A3852239B4B200FB63EF /* BaseTableViewController.swift in Sources */,
 				96B20DAB2236CEA9004794BE /* CAGradeintLayer+.swift in Sources */,
 				96A8AEF82274AE400076CCD2 /* NotificationRegistration.swift in Sources */,

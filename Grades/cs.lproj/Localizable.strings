@@ -24,9 +24,11 @@
 "settings.logout" = "Odhlásit";
 "settings.logoutConfirmTitle" = "Opravdu si přejete odhlásit?";
 "settings.user" = "Uživatel";
+"settings.user.name" = "Jméno";
 "settings.options" = "Možnosti";
 "settings.language" = "Jazyk";
 "settings.semester" = "Semestr";
+"settings.user" = "Uživatel";
 
 "teacher.tab.group" = "Detail";
 "teacher.students.group" = "Skupina";
