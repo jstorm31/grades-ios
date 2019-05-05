@@ -17,6 +17,7 @@ final class AppDependency: HasNoDependency {
     lazy var gradesApi: GradesAPIProtocol = GradesAPI(dependencies: self)
     lazy var pushNotificationsService: PushNotificationServiceProtocol = PushNotificationService(dependencies: self)
 
+    lazy var userRepository: UserRepositoryProtocol = UserRepository(dependencies: self)
     lazy var settingsRepository: SettingsRepositoryProtocol = SettingsRepository(dependencies: self)
     lazy var coursesRepository: CoursesRepositoryProtocol = CoursesRepository(dependencies: self)
     lazy var courseRepository: CourseRepositoryProtocol = CourseRepository(dependencies: self)
@@ -28,6 +29,7 @@ extension AppDependency: HasHttpService {}
 extension AppDependency: HasGradesAPI {}
 extension AppDependency: HasPushNotificationService {}
 
+extension AppDependency: HasUserRepository {}
 extension AppDependency: HasSettingsRepository {}
 extension AppDependency: HasCoursesRepository {}
 extension AppDependency: HasCourseRepository {}

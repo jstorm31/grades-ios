@@ -15,11 +15,10 @@ typealias StudentCourseCellConfigurator = TableCellConfigurator<StudentCourseCel
 typealias TeacherCourseCellConfigurator = TableCellConfigurator<TeacherCourseCell, TeacherCourse>
 
 class CourseListViewModel: BaseViewModel {
-    typealias Dependencies = HasCoursesRepository
+    typealias Dependencies = HasCoursesRepository & HasUserRepository
 
     private let dependencies: Dependencies
     private let sceneCoordinator: SceneCoordinatorType
-    private let user: User
     private let bag = DisposeBag()
 
     var openSettings: CocoaAction
@@ -32,9 +31,8 @@ class CourseListViewModel: BaseViewModel {
 
     // MARK: initialization
 
-    init(dependencies: Dependencies, sceneCoordinator: SceneCoordinatorType, user: User) {
+    init(dependencies: Dependencies, sceneCoordinator: SceneCoordinatorType) {
         self.dependencies = dependencies
-        self.user = user
         self.sceneCoordinator = sceneCoordinator
 
         openSettings = CocoaAction {
@@ -55,7 +53,12 @@ class CourseListViewModel: BaseViewModel {
     // MARK: methods
 
     func bindOutput() {
-        dependencies.coursesRepository.getUserCourses(username: user.username)
+        dependencies.userRepository.user.asObservable()
+            .unwrap()
+            .subscribe(onNext: { [weak self] user in
+                self?.dependencies.coursesRepository.getUserCourses(username: user.username)
+            })
+            .disposed(by: bag)
     }
 
     func onItemSelection(_ indexPath: IndexPath) {
@@ -65,14 +68,13 @@ class CourseListViewModel: BaseViewModel {
             let courseDetailVM = CourseDetailStudentViewModel(
                 dependencies: AppDependency.shared,
                 coordinator: sceneCoordinator,
-                course: courses.value.student[indexPath.item],
-                username: user.username
+                course: courses.value.student[indexPath.item]
             )
 
             sceneCoordinator.transition(to: .courseDetailStudent(courseDetailVM), type: .push)
         } else if indexPath.section == 1 {
             let course = courses.value.teacher[indexPath.item]
-            let teacherClassificationVM = TeacherClassificationViewModel(coordinator: sceneCoordinator, course: course, user: user)
+            let teacherClassificationVM = TeacherClassificationViewModel(coordinator: sceneCoordinator, course: course)
 
             sceneCoordinator.transition(to: .teacherClassification(teacherClassificationVM), type: .push)
         }

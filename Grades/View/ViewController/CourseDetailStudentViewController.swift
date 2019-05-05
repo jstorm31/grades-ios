@@ -137,7 +137,6 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
         let tableHeader = UIView()
         tableView.tableHeaderView = tableHeader
         tableHeader.snp.makeConstraints { make in
-            make.height.equalTo(60)
             make.width.equalToSuperview()
         }
 
