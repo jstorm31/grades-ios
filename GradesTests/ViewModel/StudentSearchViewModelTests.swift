@@ -24,8 +24,8 @@ class StudentSearchViewModelTests: XCTestCase {
 		coordinator = SceneCoordinatorMock()
 		
 		let students = BehaviorRelay<[User]>(value: [
-			User(userId: 1, username: "jindra5", firstName: "Jindřich", lastName: "Novák"),
-			User(userId: 2, username: "ondra6", firstName: "Ondřej", lastName: "Pavlita")
+			User(id: 1, username: "jindra5", firstName: "Jindřich", lastName: "Novák"),
+			User(id: 2, username: "ondra6", firstName: "Ondřej", lastName: "Pavlita")
 		])
 		
 		selectedUser = BehaviorRelay<User?>(value: nil)
@@ -62,7 +62,7 @@ class StudentSearchViewModelTests: XCTestCase {
 			.disposed(by: bag)
 		testScheduler.start()
 
-		let user = User(userId: 2, username: "ondra6", firstName: "Ondřej", lastName: "Pavlita")
+		let user = User(id: 2, username: "ondra6", firstName: "Ondřej", lastName: "Pavlita")
 		XCTAssertEqual(selectedUser.events, [.next(10, user)])
 	}
 }

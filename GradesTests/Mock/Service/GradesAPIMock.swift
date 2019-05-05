@@ -13,7 +13,7 @@ class GradesAPIMock: GradesAPIProtocol {
 	// MARK: mock data with default values
 	var result = Result.success
 	
-	static var userInfo = User(userId: 14, username: "mockuser", firstName: "Ondřej", lastName: "Krátký")
+	static var userInfo = User(id: 14, username: "mockuser", firstName: "Ondřej", lastName: "Krátký")
 	
 	private let courses = [
 		StudentCourse(code: "BI-PPA", finalValue: .number(4)),
@@ -110,9 +110,9 @@ class GradesAPIMock: GradesAPIProtocol {
 		switch result {
 		case .success:
 			return Observable.just([
-				User(userId: 1, username: "kucerj48", firstName: "Jan", lastName: "Kučera"),
-				User(userId: 2, username: "janatpa3", firstName: "Pavel", lastName: "Janata"),
-				User(userId: 3, username: "ottastep", firstName: "Štěpán", lastName: "Otta")
+				User(id: 1, username: "kucerj48", firstName: "Jan", lastName: "Kučera"),
+				User(id: 2, username: "janatpa3", firstName: "Pavel", lastName: "Janata"),
+				User(id: 3, username: "ottastep", firstName: "Štěpán", lastName: "Otta")
 			]).delaySubscription(0.5, scheduler: MainScheduler.instance)
 		case .failure:
 			return Observable.error(ApiError.general).delaySubscription(0.5, scheduler: MainScheduler.instance)
