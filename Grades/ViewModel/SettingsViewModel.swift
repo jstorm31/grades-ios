@@ -72,7 +72,11 @@ class SettingsViewModel: TablePickerViewModel {
 
                 return [
                     TableSection(header: L10n.Settings.user, items: [
-                        SettingsCellConfigurator(item: (title: L10n.Settings.User.name, content: user.toString))
+                        SettingsCellConfigurator(item: (title: L10n.Settings.User.name, content: user.toString)),
+                        SettingsCellConfigurator(item: (
+                            title: L10n.Settings.User.roles,
+                            content: user.roles.map { $0.toString() }.joined(separator: ", ")
+                        ))
                     ]),
                     TableSection(header: L10n.Settings.options, items: [
                         PickerCellConfigurator(item: self.semesterCellViewModel)
