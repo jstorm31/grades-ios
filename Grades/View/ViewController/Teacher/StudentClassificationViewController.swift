@@ -112,11 +112,8 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
 
         viewModel.finalGrade
             .map { $0 ?? "" }
-            .do(onNext: { [weak self] grade in
-                self?.gradingOverview.gradeLabel.textColor = UIColor.Theme.setGradeColor(forGrade: grade)
-            })
             .asDriver(onErrorJustReturn: "")
-            .drive(gradingOverview.gradeLabel.rx.text)
+            .drive(gradingOverview.grade)
             .disposed(by: bag)
     }
 

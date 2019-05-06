@@ -43,7 +43,7 @@ extension UIColor {
             return gradient
         }
 
-        static func setGradeColor(forGrade grade: String, defaultColor: UIColor? = nil) -> UIColor {
+        static func getGradeColor(forGrade grade: String, defaultColor: UIColor? = nil) -> UIColor {
             let color: UIColor
 
             switch grade {
