@@ -82,14 +82,20 @@ internal enum L10n {
     }
 
     internal enum Settings {
+        /// Credits
+        internal static let about = L10n.tr("Localizable", "settings.about")
         /// Language
         internal static let language = L10n.tr("Localizable", "settings.language")
+        /// License
+        internal static let license = L10n.tr("Localizable", "settings.license")
         /// Log out
         internal static let logout = L10n.tr("Localizable", "settings.logout")
         /// Do you really wish to logout?
         internal static let logoutConfirmTitle = L10n.tr("Localizable", "settings.logoutConfirmTitle")
         /// Options
         internal static let options = L10n.tr("Localizable", "settings.options")
+        /// Other
+        internal static let other = L10n.tr("Localizable", "settings.other")
         /// Semester
         internal static let semester = L10n.tr("Localizable", "settings.semester")
         /// Settings

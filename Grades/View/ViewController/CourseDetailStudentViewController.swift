@@ -124,11 +124,8 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
 
         viewModel.finalGrade
             .unwrap()
-            .do(onNext: { [weak self] grade in
-                self?.headerGradingOverview.gradeLabel.textColor = UIColor.Theme.setGradeColor(forGrade: grade)
-            })
             .asDriver(onErrorJustReturn: "")
-            .drive(headerGradingOverview.gradeLabel.rx.text)
+            .drive(headerGradingOverview.grade)
             .disposed(by: bag)
     }
 

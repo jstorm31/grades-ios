@@ -42,7 +42,7 @@ final class StudentCourseCell: CourseListCell, ConfigurableCell {
 
                 case let .string(string):
                     if let string = string {
-                        rightLabel.textColor = UIColor.Theme.setGradeColor(forGrade: string, defaultColor: UIColor.Theme.grayText)
+                        rightLabel.textColor = UIColor.Theme.getGradeColor(forGrade: string, defaultColor: UIColor.Theme.grayText)
                         rightLabel.text = string
                     }
 

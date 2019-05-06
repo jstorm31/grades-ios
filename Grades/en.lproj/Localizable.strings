@@ -32,6 +32,9 @@
 "settings.options" = "Options";
 "settings.language" = "Language";
 "settings.semester" = "Semester";
+"settings.other" = "Other";
+"settings.about" = "Credits";
+"settings.license" = "License";
 
 "teacher.tab.group" = "Detail";
 "teacher.tab.student" = "Student";

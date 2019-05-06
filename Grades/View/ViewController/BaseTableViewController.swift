@@ -21,12 +21,14 @@ class BaseTableViewController: BaseViewController {
         super.loadView()
 
         let tableView = UITableView()
+        tableView.backgroundColor = UIColor.Theme.lightGrayBackground
         tableView.delegate = self
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.size.equalToSuperview()
         }
         self.tableView = tableView
+        tableView.tableFooterView = UIView()
 
         let noContentLabel = UILabel()
         noContentLabel.text = L10n.Labels.noContent
@@ -38,8 +40,6 @@ class BaseTableViewController: BaseViewController {
             make.center.equalToSuperview()
         }
         self.noContentLabel = noContentLabel
-
-        loadRefreshControl()
     }
 
     override func viewWillAppear(_: Bool) {
@@ -60,6 +60,7 @@ extension BaseTableViewController: UITableViewDelegate {
         guard let headerView = view as? UITableViewHeaderFooterView else { return }
 
         headerView.backgroundColor = UIColor.Theme.lightGrayBackground
+        headerView.alpha = 1
         headerView.textLabel?.font = UIFont.Grades.body
         headerView.textLabel?.textColor = UIColor.Theme.sectionGrayText
     }

@@ -32,6 +32,9 @@
 "settings.options" = "Možnosti";
 "settings.language" = "Jazyk";
 "settings.semester" = "Semestr";
+"settings.other" = "Ostatní";
+"settings.about" = "O aplikaci";
+"settings.license" = "Licence";
 
 "teacher.tab.group" = "Detail";
 "teacher.students.group" = "Skupina";
