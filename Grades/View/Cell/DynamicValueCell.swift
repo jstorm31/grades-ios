@@ -97,21 +97,17 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
             .disposed(by: bag)
 
         // Keyboard type
-        viewModel.value.unwrap()
-            .map { type -> Bool in
-                if case .number = type {
-                    return true
-                }
-                return false
-            }
-            .subscribe(onNext: { [weak self] isNumber in
-                self?.valueTextField.keyboardType = isNumber ? .numberPad : .default
-                self?.valueTextField.attributedPlaceholder = NSAttributedString(
-                    string: isNumber ? "0" : "",
-                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.Theme.grayText]
-                )
-            })
-            .disposed(by: bag)
+        var isNumber: Bool!
+        if case .number = viewModel.valueType {
+            isNumber = true
+        } else {
+            isNumber = false
+        }
+        valueTextField.keyboardType = isNumber ? .numberPad : .default
+        valueTextField.attributedPlaceholder = NSAttributedString(
+            string: isNumber ? "0" : "",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.Theme.grayText]
+        )
     }
 
     /// Show right controls for type
