@@ -104,9 +104,10 @@ class SettingsViewModel: TablePickerViewModel {
         semesterSelectedIndex
             .flatMap { [weak self] index -> Observable<String> in
                 self?.dependencies.settingsRepository.semesterOptions.map { options in
-                    if options.count - 1 > index {
+                    if options.count > index {
                         return options[index]
                     }
+                    Log.error("Option index \(index) out of range")
                     return ""
                 } ?? Observable.just("")
             }
