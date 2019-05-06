@@ -154,7 +154,8 @@ final class GroupClassificationViewModel: TablePickerViewModel {
                         valueType: classification.valueType,
                         evaluationType: classification.evaluationType,
                         key: item.username,
-                        title: "\(item.lastName ?? "") \(item.firstName ?? "")"
+                        title: "\(item.lastName ?? "") \(item.firstName ?? "")",
+                        subtitle: item.username
                     )
                     cellViewModel.value.accept(item.value)
                     self.dynamicCellViewModels.append(cellViewModel)
@@ -185,8 +186,8 @@ final class GroupClassificationViewModel: TablePickerViewModel {
                     if options.count > index {
                         return options[index].getLocalizedText()
                     }
-                    return ""
                     Log.error("Option index \(index) out of range")
+                    return ""
                 } ?? Observable.just("")
             }
             .bind(to: classificationsCellViewModel.selectedOption)
