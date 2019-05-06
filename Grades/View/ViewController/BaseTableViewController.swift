@@ -52,14 +52,6 @@ class BaseTableViewController: BaseViewController {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .white
         tableView.refreshControl = refreshControl
-
-        // Fix for table view refresh control
-//        edgesForExtendedLayout = .all
-//        tableView.contentInsetAdjustmentBehavior = .always
-//        tableView.refreshControl!.sizeToFit()
-//        let top = tableView.adjustedContentInset.top
-//        let y = tableView.refreshControl!.frame.maxY + top + CGFloat(integerLiteral: 60)
-//        tableView.setContentOffset(CGPoint(x: 0, y: -y), animated: true)
     }
 }
 

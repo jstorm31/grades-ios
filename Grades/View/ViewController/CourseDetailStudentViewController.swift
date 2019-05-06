@@ -94,14 +94,16 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
             .drive(headerLabel.rx.isHidden)
             .disposed(by: bag)
 
-        let sharedFetching = viewModel.isFetching.share()
+        let sharedFetching = viewModel.isFetching.share(replay: 2, scope: .whileConnected)
 
         sharedFetching
+            .skip(2)
             .asDriver(onErrorJustReturn: false)
             .drive(tableView.refreshControl!.rx.isRefreshing)
             .disposed(by: bag)
 
         sharedFetching
+            .take(3)
             .asDriver(onErrorJustReturn: false)
             .drive(view.rx.refreshing)
             .disposed(by: bag)
