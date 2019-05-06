@@ -40,11 +40,15 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         parent!.navigationItem.rightBarButtonItem = saveButton
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         addKeyboardFrameChangesObserver()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillDisappear(animated)
         removeKeyboardFrameChangesObserver()
     }
 
@@ -59,15 +63,9 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
             .drive(tableView.rx.items(dataSource: self.dataSource))
             .disposed(by: bag)
 
-        let loading = viewModel.isloading.share(replay: 1, scope: .whileConnected)
-
-        loading.asDriver(onErrorJustReturn: false)
-            .drive(tableView.refreshControl!.rx.isRefreshing)
-            .disposed(by: bag)
-
-        loading.asDriver(onErrorJustReturn: false)
-            .drive(view.rx.refreshing)
-            .disposed(by: bag)
+        let isLoading = viewModel.isloading.share(replay: 2, scope: .whileConnected)
+        isLoading.skip(2).asDriver(onErrorJustReturn: false).drive(tableView.refreshControl!.rx.isRefreshing).disposed(by: bag)
+        isLoading.take(3).asDriver(onErrorJustReturn: false).drive(view.rx.refreshing).disposed(by: bag)
 
         viewModel.error.asDriver(onErrorJustReturn: ApiError.general)
             .drive(view.rx.errorMessage)
@@ -159,7 +157,7 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
 
     private func loadUI() {
         loadRefreshControl()
-        tableView.keyboardDismissMode = .onDrag
+        tableView.refreshControl?.tintColor = UIColor.Theme.grayText
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
 
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
@@ -170,10 +168,17 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
 
     private func loadTableHeader() {
         let headerView = UIView()
+        tableView.tableHeaderView = headerView
+        headerView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.height.equalTo(90)
+        }
+
         let containerView = UIView()
         headerView.addSubview(containerView)
         containerView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalToSuperview()
         }
 
         let titleLabel = UILabel()
@@ -212,13 +217,6 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
             make.centerY.equalTo(studentName.snp.centerY)
         }
         gradingOverview = gradingView
-
-        tableView.tableHeaderView = headerView
-        headerView.snp.makeConstraints { make in
-            make.width.equalToSuperview().inset(20)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(90)
-        }
     }
 
     // MARK: events

@@ -21,7 +21,7 @@ class DynamicValueCellViewModelTests: XCTestCase {
     }
 	
 	func testStringValue() {
-		cellViewModel = DynamicValueCellViewModel(valueType: .string, key: "testCell")
+		cellViewModel = DynamicValueCellViewModel(valueType: .string, evaluationType: .manual, key: "testCell")
 		cellViewModel.bindOutput()
 		
 		let stringValue = scheduler.createObserver(String?.self)
@@ -37,7 +37,7 @@ class DynamicValueCellViewModelTests: XCTestCase {
 	}
 	
 	func testNumberValue() {
-		cellViewModel = DynamicValueCellViewModel(valueType: .number, key: "testCell")
+		cellViewModel = DynamicValueCellViewModel(valueType: .number, evaluationType: .manual, key: "testCell")
 		cellViewModel.bindOutput()
 
 		let stringValue = scheduler.createObserver(String?.self)
@@ -53,7 +53,7 @@ class DynamicValueCellViewModelTests: XCTestCase {
 	}
 	
 	func testBoolValue() {
-		cellViewModel = DynamicValueCellViewModel(valueType: .bool, key: "testCell")
+		cellViewModel = DynamicValueCellViewModel(valueType: .bool, evaluationType: .manual, key: "testCell")
 		cellViewModel.bindOutput()
 
 		let boolValue = scheduler.createObserver(Bool.self)

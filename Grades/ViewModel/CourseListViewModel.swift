@@ -11,11 +11,8 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-typealias StudentCourseCellConfigurator = TableCellConfigurator<StudentCourseCell, StudentCourse>
-typealias TeacherCourseCellConfigurator = TableCellConfigurator<TeacherCourseCell, TeacherCourse>
-
-class CourseListViewModel: BaseViewModel {
-    typealias Dependencies = HasCoursesRepository & HasUserRepository
+final class CourseListViewModel: BaseViewModel {
+    typealias Dependencies = HasCoursesRepository & HasUserRepository & HasSettingsRepository
 
     private let dependencies: Dependencies
     private let sceneCoordinator: SceneCoordinatorType
@@ -28,6 +25,10 @@ class CourseListViewModel: BaseViewModel {
     let courses = BehaviorRelay<CoursesByRoles>(value: CoursesByRoles(student: [], teacher: []))
     let isFetchingCourses = BehaviorSubject<Bool>(value: false)
     let coursesError = BehaviorSubject<Error?>(value: nil)
+
+    // MARK: input
+
+    let refresh = BehaviorSubject<Void>(value: ())
 
     // MARK: initialization
 
@@ -53,7 +54,11 @@ class CourseListViewModel: BaseViewModel {
     // MARK: methods
 
     func bindOutput() {
-        dependencies.userRepository.user.asObservable()
+        Observable.combineLatest(
+            dependencies.userRepository.user.asObservable(),
+            dependencies.settingsRepository.currentSettings.asObservable(),
+            refresh
+        ) { user, _, _ -> User? in user }
             .unwrap()
             .subscribe(onNext: { [weak self] user in
                 self?.dependencies.coursesRepository.getUserCourses(username: user.username)

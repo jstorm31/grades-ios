@@ -27,7 +27,7 @@ class SettingsViewModel: TablePickerViewModel {
     lazy var selectedCellOptionIndex: Observable<Int> = {
         selectedCellIndex
             .unwrap()
-            .filter { $0.section == 0 }
+            .filter { $0.section == 1 }
             .map { $0.item }
             .flatMap { [weak self] _ -> Observable<Int> in
                 self?.semesterSelectedIndex.asObservable() ?? Observable.just(0)
@@ -104,9 +104,10 @@ class SettingsViewModel: TablePickerViewModel {
         semesterSelectedIndex
             .flatMap { [weak self] index -> Observable<String> in
                 self?.dependencies.settingsRepository.semesterOptions.map { options in
-                    if options.count - 1 > index {
+                    if options.count > index {
                         return options[index]
                     }
+                    Log.error("Option index \(index) out of range")
                     return ""
                 } ?? Observable.just("")
             }
@@ -116,7 +117,7 @@ class SettingsViewModel: TablePickerViewModel {
         // Bind options
         selectedCellIndex
             .unwrap()
-            .filter { $0.section == 0 }
+            .filter { $0.section == 1 }
             .map { $0.item }
             .flatMap { [weak self] index -> Observable<[String]> in
                 guard let `self` = self else { return Observable.just([]) }
@@ -135,7 +136,7 @@ class SettingsViewModel: TablePickerViewModel {
         guard let index = self.selectedCellIndex.value else { return }
 
         // Semester
-        if index.section == 0, index.item == 0 {
+        if index.section == 1, index.item == 0 {
             dependencies.settingsRepository.changeSemester(optionIndex: selectedOptionIndex.value)
         }
     }

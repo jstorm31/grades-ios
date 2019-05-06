@@ -54,6 +54,9 @@ final class StudentSearchViewController: BaseTableViewController, BindableType, 
 
         tableView.rx.itemSelected
             .map { $0.item }
+            .do(onNext: { [weak self] _ in
+                self?.navigationItem.searchController?.searchBar.endEditing(true)
+            })
             .bind(to: viewModel.itemSelected)
             .disposed(by: bag)
 

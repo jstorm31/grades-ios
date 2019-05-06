@@ -22,7 +22,6 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
 
     override func loadView() {
         super.loadView()
-        loadRefreshControl()
 
         navigationItem.title = L10n.Courses.title
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
@@ -39,6 +38,8 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
                 self?.viewModel.onItemSelection(indexPath)
             })
             .disposed(by: bag)
+
+        viewModel.bindOutput()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -56,11 +57,6 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
         }
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        viewModel.bindOutput()
-    }
-
     // MARK: Bidning
 
     func bindViewModel() {
@@ -68,16 +64,23 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
 
         coursesObservable
             .map { coursesByRoles in
-                [
-                    TableSection(
+                var courses = [TableSection]()
+
+                if !coursesByRoles.student.isEmpty {
+                    courses.append(TableSection(
                         header: L10n.Courses.studying,
                         items: coursesByRoles.student.map { StudentCourseCellConfigurator(item: $0) }
-                    ),
-                    TableSection(
+                    ))
+                }
+
+                if !coursesByRoles.teacher.isEmpty {
+                    courses.append(TableSection(
                         header: L10n.Courses.teaching,
                         items: coursesByRoles.teacher.map { TeacherCourseCellConfigurator(item: $0) }
-                    )
-                ]
+                    ))
+                }
+
+                return courses
             }
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: dataSource))
@@ -88,13 +91,17 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
             .bind(to: noContentLabel.rx.isHidden)
             .disposed(by: bag)
 
-        let fetchingObservable = viewModel.isFetchingCourses.share()
+        let fetchingObservable = viewModel.isFetchingCourses.share(replay: 2, scope: .whileConnected)
 
-        fetchingObservable.asDriver(onErrorJustReturn: false)
+        fetchingObservable
+            .skip(2)
+            .asDriver(onErrorJustReturn: false)
             .drive(tableView.refreshControl!.rx.isRefreshing)
             .disposed(by: bag)
 
-        fetchingObservable.asDriver(onErrorJustReturn: false)
+        fetchingObservable
+            .take(2)
+            .asDriver(onErrorJustReturn: false)
             .drive(view.rx.refreshing)
             .disposed(by: bag)
 
@@ -104,6 +111,6 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
     }
 
     @objc private func refreshControlPulled(_: UIRefreshControl) {
-        viewModel.bindOutput()
+        viewModel.refresh.onNext(())
     }
 }

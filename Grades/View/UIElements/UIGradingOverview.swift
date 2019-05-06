@@ -50,7 +50,7 @@ final class UIGradingOverview: UIView {
         points.textAlignment = .right
         addSubview(points)
         points.snp.makeConstraints { make in
-            make.width.equalTo(100)
+            make.width.equalTo(140)
             make.height.equalTo(40)
             make.centerY.equalToSuperview()
             make.trailing.equalTo(gradeLabel.snp.leading).offset(-13)
