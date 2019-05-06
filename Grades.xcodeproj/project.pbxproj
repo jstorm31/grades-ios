@@ -134,6 +134,9 @@
 		96C569AC226B623600B16A7C /* DynamicValueCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569AB226B623600B16A7C /* DynamicValueCellViewModelTests.swift */; };
 		96C7B9CA226069FA00E39F9A /* CoursesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */; };
 		96C87472224BEDA9009FB47F /* CoursesRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */; };
+		96CAC02322809ACF00F2224F /* LinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CAC02222809ACF00F2224F /* LinkCell.swift */; };
+		96CAC0252280A0C100F2224F /* TextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CAC0242280A0C100F2224F /* TextViewModel.swift */; };
+		96CAC0272280A10800F2224F /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CAC0262280A10800F2224F /* TextViewController.swift */; };
 		96E8C642224BE60C005F32F8 /* AppDependencyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */; };
 		96E8C644224BE8BA005F32F8 /* SettingsRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C643224BE8BA005F32F8 /* SettingsRepositoryMock.swift */; };
 		96F220D6227B62C10078AD2A /* HTTPDynamicStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F220D5227B62C10078AD2A /* HTTPDynamicStubs.swift */; };
@@ -329,6 +332,9 @@
 		96C569AB226B623600B16A7C /* DynamicValueCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicValueCellViewModelTests.swift; sourceTree = "<group>"; };
 		96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryTests.swift; sourceTree = "<group>"; };
 		96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryMock.swift; sourceTree = "<group>"; };
+		96CAC02222809ACF00F2224F /* LinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCell.swift; sourceTree = "<group>"; };
+		96CAC0242280A0C100F2224F /* TextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewModel.swift; sourceTree = "<group>"; };
+		96CAC0262280A10800F2224F /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencyMock.swift; sourceTree = "<group>"; };
 		96E8C643224BE8BA005F32F8 /* SettingsRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepositoryMock.swift; sourceTree = "<group>"; };
 		96F220D5227B62C10078AD2A /* HTTPDynamicStubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPDynamicStubs.swift; sourceTree = "<group>"; };
@@ -430,6 +436,7 @@
 				96F3A3722239080B00FB63EF /* BaseViewModel.swift */,
 				961A8784223F8B1200846538 /* SettingsViewModel.swift */,
 				968D05B92261E917003F7D49 /* TablePickerViewModel.swift */,
+				96CAC0242280A0C100F2224F /* TextViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -534,6 +541,7 @@
 				96C0A844226C832D00AE733A /* UserCell.swift */,
 				96C0A846226C83D400AE733A /* BasicCell.swift */,
 				96C30AC6227F4274009D3849 /* SettingCell.swift */,
+				96CAC02222809ACF00F2224F /* LinkCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -666,6 +674,7 @@
 				96A80A74222F1D0400986A90 /* CourseListViewController.swift */,
 				96F3A3842239B4B200FB63EF /* BaseTableViewController.swift */,
 				961A8786223F8B3B00846538 /* SettingsViewController.swift */,
+				96CAC0262280A10800F2224F /* TextViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1122,6 +1131,7 @@
 				96B20DAD2236DE64004794BE /* UINavigationController+.swift in Sources */,
 				9641816E22478A940019CABD /* TeacherClassificationViewController.swift in Sources */,
 				96939EEB223BDAE600A49E57 /* ActivityIndicator.swift in Sources */,
+				96CAC0252280A0C100F2224F /* TextViewModel.swift in Sources */,
 				9608B9C92224364200E1CEAF /* EnvironmentConfiguration.swift in Sources */,
 				96F3A3812239A84F00FB63EF /* DynamicValue.swift in Sources */,
 				961BCE81222C515700BD6663 /* GradesAPI.swift in Sources */,
@@ -1142,6 +1152,7 @@
 				966ABB59222DA2DF007DD046 /* User.swift in Sources */,
 				968D05C222625CC2003F7D49 /* StudentClassification.swift in Sources */,
 				963C62842233B7C000B01818 /* HttpService.swift in Sources */,
+				96CAC02322809ACF00F2224F /* LinkCell.swift in Sources */,
 				961A8789223FFC3300846538 /* UITextField+.swift in Sources */,
 				96861070222AA4550069B81B /* BaseViewController.swift in Sources */,
 				96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */,
@@ -1154,6 +1165,7 @@
 				96939EE6223BB97500A49E57 /* ClassificationType.swift in Sources */,
 				965ADAEB223569C500AA8CF4 /* CourseListCell.swift in Sources */,
 				96777FD2227F31B700520ABF /* UserRepository.swift in Sources */,
+				96CAC0272280A10800F2224F /* TextViewController.swift in Sources */,
 				9641816C22477DFE0019CABD /* GroupClassificationViewController.swift in Sources */,
 				96861085222AF2630069B81B /* BindableType.swift in Sources */,
 				961A8785223F8B1200846538 /* SettingsViewModel.swift in Sources */,

@@ -51,6 +51,14 @@ class SettingsViewModel: TablePickerViewModel {
             .asObservable().map { _ in } ?? Observable.empty()
     }
 
+    lazy var onLinkSelectedAction = Action<Int, Void> { [weak self] index in
+        guard let `self` = self else { return Observable.empty() }
+
+        let viewModel = TextViewModel(type: TextScene.text(forIndex: index), coordinator: self.coordinator)
+        return self.coordinator.transition(to: .text(viewModel), type: .push)
+            .asObservable().map { _ in }
+    }
+
     // MARK: initialization
 
     init(coordinator: SceneCoordinatorType, dependencies: Dependencies) {
@@ -80,6 +88,10 @@ class SettingsViewModel: TablePickerViewModel {
                     ]),
                     TableSection(header: L10n.Settings.options, items: [
                         PickerCellConfigurator(item: self.semesterCellViewModel)
+                    ]),
+                    TableSection(header: L10n.Settings.other, items: [
+                        LinkCellConfigurator(item: L10n.Settings.about),
+                        LinkCellConfigurator(item: L10n.Settings.license),
                     ])
                 ]
             }

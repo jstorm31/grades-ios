@@ -40,6 +40,7 @@ final class SettingsViewController: BaseTableViewController,
 
         tableView.register(SettingsCell.self, forCellReuseIdentifier: "SettingsCell")
         tableView.register(PickerCell.self, forCellReuseIdentifier: "PickerCell")
+        tableView.register(LinkCell.self, forCellReuseIdentifier: "LinkCell")
 
         navigationItem.title = L10n.Settings.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: L10n.Settings.logout,
@@ -77,11 +78,22 @@ final class SettingsViewController: BaseTableViewController,
             .bind(to: viewModel.selectedOptionIndex)
             .disposed(by: bag)
 
-        tableView.rx.itemSelected
-            .filter { $0.section == 1 }
+        let selected = tableView.rx.itemSelected
+            .do(onNext: { [weak self] indexPath in
+                self?.tableView.deselectRow(at: indexPath, animated: true)
+            })
+            .share()
+
+        selected.filter { $0.section == 1 }
             .subscribe(onNext: { [weak self] indexPath in
                 self?.viewModel.handleOptionChange(cellIndexPath: indexPath)
                 self?.showPicker()
+            })
+            .disposed(by: bag)
+
+        selected.filter { $0.section == 2 }
+            .subscribe(onNext: { [weak self] indexPath in
+                self?.viewModel.onLinkSelectedAction.execute(indexPath.item)
             })
             .disposed(by: bag)
     }
