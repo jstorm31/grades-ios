@@ -6,16 +6,28 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import RxCocoa
+import RxSwift
 import SnapKit
 import UIKit
 
 final class UIGradingOverview: UIView {
-    var gradeLabel: UILabel!
     var pointsLabel: UILabel!
+    private var gradeLabel: UILabel!
+
+    var grade = PublishSubject<String>()
+    private let bag = DisposeBag()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         layoutSubviews()
+
+        grade.asDriver(onErrorJustReturn: "")
+            .drive(onNext: { [weak self] grade in
+                self?.gradeLabel.text = grade
+                self?.gradeLabel.textColor = UIColor.Theme.getGradeColor(forGrade: grade)
+            })
+            .disposed(by: bag)
     }
 
     convenience init() {
