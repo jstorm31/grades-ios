@@ -40,11 +40,15 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         parent!.navigationItem.rightBarButtonItem = saveButton
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         addKeyboardFrameChangesObserver()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillDisappear(animated)
         removeKeyboardFrameChangesObserver()
     }
 
@@ -164,10 +168,17 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
 
     private func loadTableHeader() {
         let headerView = UIView()
+        tableView.tableHeaderView = headerView
+        headerView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.height.equalTo(90)
+        }
+
         let containerView = UIView()
         headerView.addSubview(containerView)
         containerView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalToSuperview()
         }
 
         let titleLabel = UILabel()
@@ -206,13 +217,6 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
             make.centerY.equalTo(studentName.snp.centerY)
         }
         gradingOverview = gradingView
-
-        tableView.tableHeaderView = headerView
-        headerView.snp.makeConstraints { make in
-            make.width.equalToSuperview().inset(20)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(90)
-        }
     }
 
     // MARK: events
