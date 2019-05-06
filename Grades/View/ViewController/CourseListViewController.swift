@@ -38,6 +38,8 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
                 self?.viewModel.onItemSelection(indexPath)
             })
             .disposed(by: bag)
+
+        viewModel.bindOutput()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -53,11 +55,6 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
             make.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview().inset(13)
         }
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        viewModel.bindOutput()
     }
 
     // MARK: Bidning
@@ -113,6 +110,6 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
     }
 
     @objc private func refreshControlPulled(_: UIRefreshControl) {
-        viewModel.bindOutput()
+        viewModel.refresh.onNext(())
     }
 }
