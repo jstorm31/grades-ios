@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias TeacherCourseCellConfigurator = TableCellConfigurator<TeacherCourseCell, TeacherCourse>
+
 final class TeacherCourseCell: CourseListCell, ConfigurableCell {
     var course: TeacherCourse? {
         didSet {
