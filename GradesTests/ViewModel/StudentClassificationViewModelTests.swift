@@ -70,7 +70,7 @@ class StudentClassificationViewModelTests: XCTestCase {
 			}
 			
 			XCTAssertEqual(result.count, 1)
-			XCTAssertEqual(result[0].items.count, 9, "filtered manual classifications")
+			XCTAssertEqual(result[0].items.count, 10)
 		} catch {
 			XCTFail(error.localizedDescription)
 		}
