@@ -141,14 +141,14 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
             valueTextField.isUserInteractionEnabled = true
             valueSwitch.isUserInteractionEnabled = true
             valueTextField.textColor = UIColor.Theme.text
-			valueSwitch.onTintColor = UIColor.Theme.primary
-			valueSwitch.tintColor = UIColor.Theme.primary
+            valueSwitch.onTintColor = UIColor.Theme.primary
+            valueSwitch.tintColor = UIColor.Theme.primary
         default:
             valueTextField.isUserInteractionEnabled = false
             valueSwitch.isUserInteractionEnabled = false
             valueTextField.textColor = UIColor.Theme.grayText
-			valueSwitch.onTintColor = disabledPrimary
-			valueSwitch.tintColor = disabledPrimary
+            valueSwitch.onTintColor = disabledPrimary
+            valueSwitch.tintColor = disabledPrimary
         }
     }
 

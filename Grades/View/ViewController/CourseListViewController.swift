@@ -68,16 +68,23 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
 
         coursesObservable
             .map { coursesByRoles in
-                [
-                    TableSection(
+                var courses = [TableSection]()
+
+                if !coursesByRoles.student.isEmpty {
+                    courses.append(TableSection(
                         header: L10n.Courses.studying,
                         items: coursesByRoles.student.map { StudentCourseCellConfigurator(item: $0) }
-                    ),
-                    TableSection(
+                    ))
+                }
+
+                if !coursesByRoles.teacher.isEmpty {
+                    courses.append(TableSection(
                         header: L10n.Courses.teaching,
                         items: coursesByRoles.teacher.map { TeacherCourseCellConfigurator(item: $0) }
-                    )
-                ]
+                    ))
+                }
+
+                return courses
             }
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: dataSource))
