@@ -40,7 +40,7 @@
 "teacher.tab.group" = "Detail";
 "teacher.tab.student" = "Student";
 "teacher.students.group" = "Group";
-"teacher.students.classification" = "Classification";
+"teacher.students.classification" = "Evaluation item";
 "teacher.group.students" = "Students";
 "teacher.students.title" = "Student";
 "teacher.students.changeButton" = "Change";
