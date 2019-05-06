@@ -16,7 +16,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
     // MARK: public properties
 
     let dataSource = BehaviorRelay<[TableSection]>(value: [])
-    let isloading = PublishSubject<Bool>()
+    let isloading = BehaviorSubject<Bool>(value: false)
     let error = PublishSubject<Error>()
     let refreshData = BehaviorSubject<Void>(value: ())
 
