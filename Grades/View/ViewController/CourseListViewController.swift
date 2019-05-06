@@ -91,7 +91,7 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
             .bind(to: noContentLabel.rx.isHidden)
             .disposed(by: bag)
 
-        let fetchingObservable = viewModel.isFetchingCourses.distinctUntilChanged().share()
+        let fetchingObservable = viewModel.isFetchingCourses.share(replay: 2, scope: .whileConnected)
 
         fetchingObservable
             .skip(2)
@@ -100,6 +100,7 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
             .disposed(by: bag)
 
         fetchingObservable
+            .take(2)
             .asDriver(onErrorJustReturn: false)
             .drive(view.rx.refreshing)
             .disposed(by: bag)

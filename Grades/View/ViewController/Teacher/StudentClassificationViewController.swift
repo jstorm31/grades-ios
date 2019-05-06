@@ -59,15 +59,9 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
             .drive(tableView.rx.items(dataSource: self.dataSource))
             .disposed(by: bag)
 
-        let loading = viewModel.isloading.share(replay: 1, scope: .whileConnected)
-
-        loading.asDriver(onErrorJustReturn: false)
-            .drive(tableView.refreshControl!.rx.isRefreshing)
-            .disposed(by: bag)
-
-        loading.asDriver(onErrorJustReturn: false)
-            .drive(view.rx.refreshing)
-            .disposed(by: bag)
+        let isLoading = viewModel.isloading.share(replay: 2, scope: .whileConnected)
+        isLoading.skip(2).asDriver(onErrorJustReturn: false).drive(tableView.refreshControl!.rx.isRefreshing).disposed(by: bag)
+        isLoading.take(3).asDriver(onErrorJustReturn: false).drive(view.rx.refreshing).disposed(by: bag)
 
         viewModel.error.asDriver(onErrorJustReturn: ApiError.general)
             .drive(view.rx.errorMessage)
@@ -159,7 +153,7 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
 
     private func loadUI() {
         loadRefreshControl()
-        tableView.keyboardDismissMode = .onDrag
+        tableView.refreshControl?.tintColor = UIColor.Theme.grayText
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
 
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
