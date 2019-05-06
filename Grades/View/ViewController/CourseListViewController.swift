@@ -22,7 +22,6 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
 
     override func loadView() {
         super.loadView()
-        loadRefreshControl()
 
         navigationItem.title = L10n.Courses.title
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
@@ -54,10 +53,7 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
             make.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview().inset(13)
         }
-    }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         viewModel.bindOutput()
     }
 
@@ -95,13 +91,17 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
             .bind(to: noContentLabel.rx.isHidden)
             .disposed(by: bag)
 
-        let fetchingObservable = viewModel.isFetchingCourses.share()
+        let fetchingObservable = viewModel.isFetchingCourses.distinctUntilChanged().share()
 
-        fetchingObservable.asDriver(onErrorJustReturn: false)
+        fetchingObservable
+            .skip(2)
+            .asDriver(onErrorJustReturn: false)
             .drive(tableView.refreshControl!.rx.isRefreshing)
             .disposed(by: bag)
 
-        fetchingObservable.asDriver(onErrorJustReturn: false)
+        fetchingObservable
+            .take(2)
+            .asDriver(onErrorJustReturn: false)
             .drive(view.rx.refreshing)
             .disposed(by: bag)
 

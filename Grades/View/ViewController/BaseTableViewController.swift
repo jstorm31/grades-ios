@@ -38,6 +38,8 @@ class BaseTableViewController: BaseViewController {
             make.center.equalToSuperview()
         }
         self.noContentLabel = noContentLabel
+
+        loadRefreshControl()
     }
 
     override func viewWillAppear(_: Bool) {
@@ -50,11 +52,6 @@ class BaseTableViewController: BaseViewController {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .white
         tableView.refreshControl = refreshControl
-
-        // Fix for table view refresh control
-        edgesForExtendedLayout = .all
-        tableView.contentInsetAdjustmentBehavior = .always
-        tableView.refreshControl!.sizeToFit()
     }
 }
 

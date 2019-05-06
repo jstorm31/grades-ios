@@ -109,7 +109,7 @@ internal enum L10n {
         internal static let search = L10n.tr("Localizable", "students.search")
         /// Students
         internal static let title = L10n.tr("Localizable", "students.title")
-        /// Grading was successfuly updated.
+        /// Grades have been successfully updated.
         internal static let updateSuccess = L10n.tr("Localizable", "students.updateSuccess")
     }
 

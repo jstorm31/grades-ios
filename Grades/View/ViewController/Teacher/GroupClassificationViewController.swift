@@ -83,7 +83,7 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
             .drive(pickerView.rx.itemTitles) { _, element in element }
             .disposed(by: bag)
 
-        viewModel.isloading.debug("Loading VC", trimOutput: false).asDriver(onErrorJustReturn: false)
+        viewModel.isloading.asDriver(onErrorJustReturn: false)
             .drive(view.rx.refreshing)
             .disposed(by: bag)
 

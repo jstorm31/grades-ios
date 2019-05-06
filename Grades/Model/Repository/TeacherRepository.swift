@@ -57,7 +57,7 @@ final class TeacherRepository: TeacherRepositoryProtocol {
 
     func getGroupOptions(forCourse course: String) {
         dependencies.userRepository.user.asObservable().unwrap()
-			.take(1)
+            .take(1)
             .flatMap { [weak self] user in
                 self?.dependencies.gradesApi.getStudentGroups(forCourse: course, username: user.username) ?? Observable.empty()
             }
