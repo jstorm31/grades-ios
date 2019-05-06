@@ -46,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let tokenObservable = AppDependency.shared.pushNotificationsService.deviceToken
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+        Log.debug("\(token)")
         tokenObservable.accept(token)
     }
 }
