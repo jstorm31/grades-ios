@@ -17,6 +17,7 @@ enum Scene {
     case groupClassification(GroupClassificationViewModel)
     case studentClassification(StudentClassificationViewModel)
     case studentSearch(StudentSearchViewModel)
+    case text(TextViewModel)
 }
 
 extension Scene {
@@ -62,6 +63,11 @@ extension Scene {
             var studentSearchVC = StudentSearchViewController()
             studentSearchVC.bindViewModel(to: viewModel)
             return studentSearchVC
+
+        case let .text(viewModel):
+            var textVC = TextViewController()
+            textVC.bindViewModel(to: viewModel)
+            return textVC
         }
     }
 }
