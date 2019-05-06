@@ -423,7 +423,6 @@
 			isa = PBXGroup;
 			children = (
 				9682E57E2266252300687A66 /* Cell */,
-				964181742247A7D70019CABD /* Student */,
 				964181732247A7C10019CABD /* Teacher */,
 				961A2FF02229D44A00A624DC /* LoginViewModel.swift */,
 				9682A6BD222D1F7600773E28 /* CourseListViewModel.swift */,
@@ -467,13 +466,6 @@
 				96C0A840226C784C00AE733A /* StudentSearchViewModel.swift */,
 			);
 			path = Teacher;
-			sourceTree = "<group>";
-		};
-		964181742247A7D70019CABD /* Student */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Student;
 			sourceTree = "<group>";
 		};
 		964181752247A7F10019CABD /* Teacher */ = {
@@ -1274,7 +1266,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FKAQE2Z826;
+				DEVELOPMENT_TEAM = 2PY9RKK8A7;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1287,7 +1279,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.jiri.zdvomka.GradesUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -1301,7 +1293,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FKAQE2Z826;
+				DEVELOPMENT_TEAM = 2PY9RKK8A7;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1314,7 +1306,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.jiri.zdvomka.GradesUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -1700,7 +1692,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FKAQE2Z826;
+				DEVELOPMENT_TEAM = 2PY9RKK8A7;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1713,7 +1705,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.jiri.zdvomka.GradesUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

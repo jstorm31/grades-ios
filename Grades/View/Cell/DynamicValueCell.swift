@@ -79,6 +79,8 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
     private func bindViewModel() {
         titleLabel.text = viewModel.title
         subtitleLabel.text = viewModel.subtitle
+        displayControl()
+        disableControl()
 
         // Bind values to controls
 
@@ -95,23 +97,21 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
             .disposed(by: bag)
 
         // Keyboard type
-        viewModel.value.unwrap()
-            .map { type -> Bool in
-                if case .number = type {
-                    return true
-                }
-                return false
-            }
-            .subscribe(onNext: { [weak self] isNumber in
-                self?.valueTextField.keyboardType = isNumber ? .numberPad : .default
-                self?.valueTextField.attributedPlaceholder = NSAttributedString(
-                    string: isNumber ? "0" : "",
-                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.Theme.grayText]
-                )
-            })
-            .disposed(by: bag)
+        var isNumber: Bool!
+        if case .number = viewModel.valueType {
+            isNumber = true
+        } else {
+            isNumber = false
+        }
+        valueTextField.keyboardType = isNumber ? .numberPad : .default
+        valueTextField.attributedPlaceholder = NSAttributedString(
+            string: isNumber ? "0" : "",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.Theme.grayText]
+        )
+    }
 
-        // Show right controls for type
+    /// Show right controls for type
+    private func displayControl() {
         switch viewModel.valueType {
         case .string:
             valueTextField.isHidden = false
@@ -125,6 +125,26 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
             valueSwitch.isHidden = false
             valueTextField.isHidden = true
             fieldLabel.isHidden = true
+        }
+    }
+
+    /// Disable non-manual values
+    private func disableControl() {
+        let disabledPrimary = UIColor.Theme.primary.withAlphaComponent(0.8)
+
+        switch viewModel.evaluationType {
+        case .manual:
+            valueTextField.isUserInteractionEnabled = true
+            valueSwitch.isUserInteractionEnabled = true
+            valueTextField.textColor = UIColor.Theme.text
+            valueSwitch.onTintColor = UIColor.Theme.primary
+            valueSwitch.tintColor = UIColor.Theme.primary
+        default:
+            valueTextField.isUserInteractionEnabled = false
+            valueSwitch.isUserInteractionEnabled = false
+            valueTextField.textColor = UIColor.Theme.grayText
+            valueSwitch.onTintColor = disabledPrimary
+            valueSwitch.tintColor = disabledPrimary
         }
     }
 

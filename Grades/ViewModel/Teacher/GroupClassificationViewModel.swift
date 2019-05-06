@@ -16,7 +16,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
     // MARK: public properties
 
     let dataSource = BehaviorRelay<[TableSection]>(value: [])
-    let isloading = PublishSubject<Bool>()
+    let isloading = BehaviorSubject<Bool>(value: false)
     let error = PublishSubject<Error>()
     let refreshData = BehaviorSubject<Void>(value: ())
 
@@ -95,21 +95,21 @@ final class GroupClassificationViewModel: TablePickerViewModel {
          2) Get items for chosen group and classification
          */
         Observable.zip(teacherRepository.groups, teacherRepository.classifications) { $1 }
-            .flatMap { [weak self] classifications -> Observable<(DynamicValueType, Int, Int)> in
+            .flatMap { [weak self] classifications -> Observable<(Classification, Int, Int)> in
                 guard let `self` = self else { return Observable.empty() }
 
                 return Observable.combineLatest(self.refreshData, self.groupSelectedIndex, self.classificationSelectedIndex) { ($1, $2) }
-                    .filter { classifications.count - 1 > $1 }
+                    .filter { classifications.count > $1 }
                     .map { indexes in
                         let (groupIndex, classificationIndex) = indexes
 
-                        return (classifications[classificationIndex].valueType, groupIndex, classificationIndex)
+                        return (classifications[classificationIndex], groupIndex, classificationIndex)
                     }
             }
             .flatMap { [weak self] arg -> Observable<TableSection> in
-                let (valueType, groupIndex, classificationIndex) = arg
+                let (classification, groupIndex, classificationIndex) = arg
 
-                return self?.studentClassifications(valueType, groupIndex, classificationIndex)
+                return self?.studentClassifications(classification, groupIndex, classificationIndex)
                     .map { studentClassifications in
                         TableSection(header: L10n.Teacher.Group.students, items: studentClassifications)
                     } ?? Observable.empty()
@@ -135,7 +135,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
     }
 
     /// Initialize and bind CellViewModel for each item
-    private func studentClassifications(_ valueType: DynamicValueType,
+    private func studentClassifications(_ classification: Classification,
                                         _ groupIndex: Int,
                                         _ classificationIndex: Int) -> Observable<[DynamicValueCellConfigurator]> {
         let groupCode = teacherRepository.groups.value[groupIndex]
@@ -151,9 +151,11 @@ final class GroupClassificationViewModel: TablePickerViewModel {
 
                 return classifications.map { (item: StudentClassification) -> DynamicValueCellConfigurator in
                     let cellViewModel = DynamicValueCellViewModel(
-                        valueType: valueType,
+                        valueType: classification.valueType,
+                        evaluationType: classification.evaluationType,
                         key: item.username,
-                        title: "\(item.lastName ?? "") \(item.firstName ?? "")"
+                        title: "\(item.lastName ?? "") \(item.firstName ?? "")",
+                        subtitle: item.username
                     )
                     cellViewModel.value.accept(item.value)
                     self.dynamicCellViewModels.append(cellViewModel)
@@ -168,9 +170,10 @@ final class GroupClassificationViewModel: TablePickerViewModel {
         groupSelectedIndex
             .flatMap { [weak self] index -> Observable<String> in
                 self?.teacherRepository.groups.map { options in
-                    if options.count - 1 > index {
+                    if options.count > index {
                         return options[index].id
                     }
+                    Log.error("Option index \(index) out of range")
                     return ""
                 } ?? Observable.just("")
             }
@@ -180,9 +183,10 @@ final class GroupClassificationViewModel: TablePickerViewModel {
         classificationSelectedIndex
             .flatMap { [weak self] index -> Observable<String> in
                 self?.teacherRepository.classifications.map { options in
-                    if options.count - 1 > index {
+                    if options.count > index {
                         return options[index].getLocalizedText()
                     }
+                    Log.error("Option index \(index) out of range")
                     return ""
                 } ?? Observable.just("")
             }
@@ -199,14 +203,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
                 if index == 0 {
                     return self.teacherRepository.groups.map { $0.map { $0.id } }
                 } else if index == 1 {
-                    return self.teacherRepository.classifications
-                        .map { $0.filter { classification in
-                            if case .manual = classification.evaluationType {
-                                return true
-                            }
-                            return false
-                        } }
-                        .map { $0.map { $0.getLocalizedText() } }
+                    return self.teacherRepository.classifications.map { $0.map { $0.getLocalizedText() } }
                 }
                 return Observable.just([])
             }

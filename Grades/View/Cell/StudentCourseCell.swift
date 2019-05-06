@@ -10,6 +10,8 @@ import RxCocoa
 import RxSwift
 import UIKit
 
+typealias StudentCourseCellConfigurator = TableCellConfigurator<StudentCourseCell, StudentCourse>
+
 final class StudentCourseCell: CourseListCell, ConfigurableCell {
     private let isIconHidden = BehaviorSubject<Bool>(value: true)
     private let bag = DisposeBag()
