@@ -73,6 +73,7 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
 
     // MARK: Binding
 
+    // swiftlint:disable function_body_length
     func bindViewModel() {
         let classificationsObservable = viewModel.classifications.share()
 
@@ -171,7 +172,7 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
         headerContainer.snp.makeConstraints { make in
             make.width.equalToSuperview().inset(20)
             make.centerX.equalToSuperview()
-            make.height.equalTo(42)
+            make.height.equalTo(70)
         }
     }
 
