@@ -133,10 +133,10 @@ final class StudentClassificationViewModel: BaseViewModel {
             })
             .map { [weak self] classifications in
                 classifications
-                    .filter { $0.evaluationType == .manual }
                     .map { classification in
                         let cellViewModel = DynamicValueCellViewModel(
                             valueType: classification.valueType,
+                            evaluationType: classification.evaluationType,
                             key: classification.identifier,
                             title: classification.getLocalizedText()
                         )

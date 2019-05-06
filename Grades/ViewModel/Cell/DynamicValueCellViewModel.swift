@@ -11,6 +11,7 @@ import RxSwift
 
 final class DynamicValueCellViewModel {
     let valueType: DynamicValueType
+    let evaluationType: EvaluationType
     let key: String
     let title: String?
     let subtitle: String?
@@ -25,8 +26,9 @@ final class DynamicValueCellViewModel {
 
     // MARK: Initialization
 
-    init(valueType: DynamicValueType, key: String, title: String? = nil, subtitle: String? = nil) {
+    init(valueType: DynamicValueType, evaluationType: EvaluationType, key: String, title: String? = nil, subtitle: String? = nil) {
         self.valueType = valueType
+        self.evaluationType = evaluationType
         self.key = key
         self.title = title
         self.subtitle = subtitle
