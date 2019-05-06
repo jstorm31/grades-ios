@@ -99,7 +99,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
                 guard let `self` = self else { return Observable.empty() }
 
                 return Observable.combineLatest(self.refreshData, self.groupSelectedIndex, self.classificationSelectedIndex) { ($1, $2) }
-                    .filter { classifications.count - 1 > $1 }
+                    .filter { classifications.count > $1 }
                     .map { indexes in
                         let (groupIndex, classificationIndex) = indexes
 
@@ -169,9 +169,10 @@ final class GroupClassificationViewModel: TablePickerViewModel {
         groupSelectedIndex
             .flatMap { [weak self] index -> Observable<String> in
                 self?.teacherRepository.groups.map { options in
-                    if options.count - 1 > index {
+                    if options.count > index {
                         return options[index].id
                     }
+                    Log.error("Option index \(index) out of range")
                     return ""
                 } ?? Observable.just("")
             }
@@ -181,10 +182,11 @@ final class GroupClassificationViewModel: TablePickerViewModel {
         classificationSelectedIndex
             .flatMap { [weak self] index -> Observable<String> in
                 self?.teacherRepository.classifications.map { options in
-                    if options.count - 1 > index {
+                    if options.count > index {
                         return options[index].getLocalizedText()
                     }
                     return ""
+                    Log.error("Option index \(index) out of range")
                 } ?? Observable.just("")
             }
             .bind(to: classificationsCellViewModel.selectedOption)

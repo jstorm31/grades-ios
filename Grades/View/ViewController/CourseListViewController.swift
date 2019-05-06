@@ -53,7 +53,10 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
             make.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview().inset(13)
         }
+    }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         viewModel.bindOutput()
     }
 
@@ -100,7 +103,6 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
             .disposed(by: bag)
 
         fetchingObservable
-            .take(2)
             .asDriver(onErrorJustReturn: false)
             .drive(view.rx.refreshing)
             .disposed(by: bag)
