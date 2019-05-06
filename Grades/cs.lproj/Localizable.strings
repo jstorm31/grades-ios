@@ -9,6 +9,7 @@
 "button.done" = "Hotovo";
 "button.cancel" = "Zrušit";
 "button.confirm" = "Ano";
+"button.privacy" = "Informace o zpracování osobních údajů";
 
 "courses.fetching" = "Načítání kurzů";
 "courses.title" = "Kurzy";

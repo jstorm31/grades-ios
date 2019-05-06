@@ -5,10 +5,11 @@
 
 "labels.noContent" = "Nothing to display";
 
-"button.login" = "Login";
+"button.login" = "Log in";
 "button.done" = "Done";
 "button.cancel" = "Cancel";
 "button.confirm" = "Yes";
+"button.privacy" = "Privacy policy";
 
 "courses.fetching" = "Fetching courses";
 "courses.title" = "Courses";

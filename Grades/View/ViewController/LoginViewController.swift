@@ -47,6 +47,17 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
             make.bottom.equalToSuperview().inset(view.frame.height * 0.2)
         }
         loginButton = button
+
+        let privacyLabel = UILabel()
+        privacyLabel.text = L10n.Button.privacy
+        privacyLabel.font = UIFont.Grades.body
+        privacyLabel.textColor = UIColor.Theme.secondary
+        privacyLabel.textAlignment = .center
+        view.addSubview(privacyLabel)
+        privacyLabel.snp.makeConstraints { make in
+            make.top.equalTo(button.snp.bottom).offset(30)
+            make.centerX.equalToSuperview()
+        }
     }
 
     // MARK: methods

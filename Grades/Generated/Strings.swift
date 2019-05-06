@@ -21,8 +21,10 @@ internal enum L10n {
         internal static let confirm = L10n.tr("Localizable", "button.confirm")
         /// Done
         internal static let done = L10n.tr("Localizable", "button.done")
-        /// Login
+        /// Log in
         internal static let login = L10n.tr("Localizable", "button.login")
+        /// Privacy policy
+        internal static let privacy = L10n.tr("Localizable", "button.privacy")
     }
 
     internal enum Classification {
