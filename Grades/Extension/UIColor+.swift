@@ -15,7 +15,7 @@ extension UIColor {
         static let primary = UIColor(hex: 0x9776C1)
         static let secondary = UIColor(hex: 0x6763CE)
         static let secondaryDark = UIColor(hex: 0x8463CE)
-        static let text = UIColor(hex: 0x2D2D2D)
+        static let text = UIColor(hex: 0x525252)
         static let grayText = UIColor(hex: 0x8B8B8B)
         static let borderGray = UIColor(hex: 0xD8D8D8)
         static let textFieldWhiteOpaciy = UIColor(red: 255, green: 255, blue: 255, a: 0.2)
