@@ -168,7 +168,7 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
         tableView.tableHeaderView = headerView
         headerView.snp.makeConstraints { make in
             make.width.equalToSuperview()
-            make.height.equalTo(90)
+            make.height.equalTo(75)
         }
 
         let containerView = UIView()
