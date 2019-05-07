@@ -52,7 +52,6 @@ final class HttpService: NSObject, HttpServiceProtocol {
 
     /// Make HTTP GET request and return Observable of given type that emits request reuslt
     func get<T>(url: URL, parameters: HttpParameters? = nil) -> Observable<T> where T: Decodable {
-        Log.debug("GET!")
         return request(url, method: .GET, parameters: parameters, headers: defaultHeaders)
     }
 
@@ -79,8 +78,11 @@ final class HttpService: NSObject, HttpServiceProtocol {
 
         return request.retryWhen { [weak self] events in
             // TODO: handle infinite loop
-            events.enumerated().flatMap { [weak self] (_, error) -> Observable<Void> in
-                self?.handleError(error) ?? Observable.empty()
+            events.enumerated().flatMap { [weak self] (attempt, error) -> Observable<Void> in
+                if attempt > 2 {
+                    return Observable.error(error)
+                }
+                return self?.handleError(error) ?? Observable.empty()
             }
         }
     }
@@ -138,8 +140,10 @@ final class HttpService: NSObject, HttpServiceProtocol {
 
         // If error is returned, check access token validity and if invalid refresh, otherwise propagate the error
         return request.retryWhen { [weak self] events in
-            events.enumerated().flatMap { [weak self] (_, error) -> Observable<Void> in
-                Log.debug("Retry")
+            events.enumerated().flatMap { [weak self] (attempt, error) -> Observable<Void> in
+                if attempt > 2 {
+                    return Observable.error(error)
+                }
                 return self?.handleError(error) ?? Observable.empty()
             }
         }
@@ -183,8 +187,11 @@ final class HttpService: NSObject, HttpServiceProtocol {
 
         // If error is returned, check access token validity and if invalid refresh, otherwise propagate the error
         return request.retryWhen { [weak self] events in
-            events.enumerated().flatMap { [weak self] (_, error) -> Observable<Void> in
-                self?.handleError(error) ?? Observable.empty()
+            events.enumerated().flatMap { [weak self] (attempt, error) -> Observable<Void> in
+                if attempt > 2 {
+                    return Observable.error(error)
+                }
+                return self?.handleError(error) ?? Observable.empty()
             }
         }
     }
@@ -198,10 +205,16 @@ final class HttpService: NSObject, HttpServiceProtocol {
             return Observable.create { [weak self] observer in
                 if let `self` = self {
                     self.dependencies.authService.renewAccessToken.execute()
+                        .debug("Renew", trimOutput: false)
                         .subscribe(
                             onError: { error in
-                                Log.error("HttpService.request: Error refreshing token: \(error.localizedDescription)")
-                                observer.onError(error)
+                                if case ActionError.notEnabled = error {
+                                    observer.onNext(())
+                                    observer.onCompleted()
+                                } else {
+                                    Log.error("HttpService.request: Error refreshing token: \(error.localizedDescription)")
+                                    observer.onError(error)
+                                }
                             }, onCompleted: {
                                 observer.onNext(())
                                 observer.onCompleted()
