@@ -11,15 +11,22 @@ import RxSwift
 @testable import GradesDev
 
 class HttpServiceTests: XCTestCase {
+	var scheduler: ConcurrentDispatchQueueScheduler!
 	var httpService: HttpService!
 	let client = AppDependencyMock.shared._authService.client as! AuthClientMock
 
     override func setUp() {
+		scheduler = ConcurrentDispatchQueueScheduler(qos: .default)
 		httpService = HttpService(dependencies: AppDependencyMock.shared)
     }
 
 	func testRenewAccesstoken() {
 		client.result = .expires
-		httpService.get(url: URL(string: "http://test.com")!)
+		
+		let request = httpService.get(url: URL(string: "http://test.com")!).subscribeOn(scheduler)
+		
+		let result = try! request.toBlocking(timeout: 2).first()
+		XCTAssertEqual(result, "test")
+		XCTAssertEqual(client.called, 2)
 	}
 }

@@ -52,6 +52,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
 
     /// Make HTTP GET request and return Observable of given type that emits request reuslt
     func get<T>(url: URL, parameters: HttpParameters? = nil) -> Observable<T> where T: Decodable {
+        Log.debug("GET!")
         return request(url, method: .GET, parameters: parameters, headers: defaultHeaders)
     }
 
@@ -70,7 +71,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
                     observer.onNext(decodedResponse)
                     observer.onCompleted()
                 }, failure: { error in
-                    observer.onError(ApiError.getError(forCode: error.errorCode))
+                    observer.onError(error)
                 }
             )
             return Disposables.create()
@@ -138,7 +139,8 @@ final class HttpService: NSObject, HttpServiceProtocol {
         // If error is returned, check access token validity and if invalid refresh, otherwise propagate the error
         return request.retryWhen { [weak self] events in
             events.enumerated().flatMap { [weak self] (_, error) -> Observable<Void> in
-                self?.handleError(error) ?? Observable.empty()
+                Log.debug("Retry")
+                return self?.handleError(error) ?? Observable.empty()
             }
         }
     }
