@@ -45,7 +45,7 @@
 "teacher.students.title" = "Student";
 "teacher.students.changeButton" = "Change";
 "teacher.students.finalGradeEmpty" = "Final grade not specified";
-"teacher.students.grading" = "Grades";
+"teacher.students.grading" = "Evaluation items";
 
 "students.title" = "Students";
 "students.search" = "Search student";

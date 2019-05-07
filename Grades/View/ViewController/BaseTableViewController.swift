@@ -21,7 +21,6 @@ class BaseTableViewController: BaseViewController {
         super.loadView()
 
         let tableView = UITableView()
-        tableView.backgroundColor = UIColor.Theme.lightGrayBackground
         tableView.delegate = self
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
