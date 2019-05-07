@@ -16,6 +16,7 @@ enum AuthClientResult {
 final class AuthClientMock: AuthClientProtocol {
 	var result = AuthClientResult.success
 	var called = 0;
+	var credential = OAuthSwiftCredential(consumerKey: "asdf", consumerSecret: "asdf")
 	
 	func request(_ url: URLConvertible, method: OAuthSwiftHTTPRequest.Method, parameters: OAuthSwift.Parameters = [:],
 				 headers: OAuthSwift.Headers? = nil, body: Data? = nil, success: OAuthSwiftHTTPRequest.SuccessHandler?,

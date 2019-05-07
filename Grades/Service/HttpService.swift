@@ -76,8 +76,12 @@ final class HttpService: NSObject, HttpServiceProtocol {
             return Disposables.create()
         }
 
+        if client.credential.isTokenExpired() {
+            return dependencies.authService.renewAccessToken.execute()
+                .flatMap { _ in request }
+        }
+
         return request.retryWhen { [weak self] events in
-            // TODO: handle infinite loop
             events.enumerated().flatMap { [weak self] (attempt, error) -> Observable<Void> in
                 if attempt > 2 {
                     return Observable.error(error)
@@ -138,6 +142,11 @@ final class HttpService: NSObject, HttpServiceProtocol {
             return Disposables.create()
         }
 
+        if client.credential.isTokenExpired() {
+            return dependencies.authService.renewAccessToken.execute()
+                .flatMap { _ in request }
+        }
+
         // If error is returned, check access token validity and if invalid refresh, otherwise propagate the error
         return request.retryWhen { [weak self] events in
             events.enumerated().flatMap { [weak self] (attempt, error) -> Observable<Void> in
@@ -185,6 +194,11 @@ final class HttpService: NSObject, HttpServiceProtocol {
             return Disposables.create()
         }
 
+        if client.credential.isTokenExpired() {
+            return dependencies.authService.renewAccessToken.execute()
+                .flatMap { _ in request }
+        }
+
         // If error is returned, check access token validity and if invalid refresh, otherwise propagate the error
         return request.retryWhen { [weak self] events in
             events.enumerated().flatMap { [weak self] (attempt, error) -> Observable<Void> in
@@ -205,7 +219,6 @@ final class HttpService: NSObject, HttpServiceProtocol {
             return Observable.create { [weak self] observer in
                 if let `self` = self {
                     self.dependencies.authService.renewAccessToken.execute()
-                        .debug("Renew", trimOutput: false)
                         .subscribe(
                             onError: { error in
                                 if case ActionError.notEnabled = error {
