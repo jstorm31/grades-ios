@@ -91,6 +91,7 @@
 		968D05C222625CC2003F7D49 /* StudentClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D05C122625CC2003F7D49 /* StudentClassification.swift */; };
 		968D05C422637F36003F7D49 /* DynamicValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D05C322637F36003F7D49 /* DynamicValueCell.swift */; };
 		968EC1D32282DC1100241F51 /* SwiftKeychainWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 968EC1D22282DC1100241F51 /* SwiftKeychainWrapper.framework */; };
+		968EC1D52283361D00241F51 /* user-info.json in Resources */ = {isa = PBXBuildFile; fileRef = 968EC1D42283361C00241F51 /* user-info.json */; };
 		969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 969398A92226D4A700841818 /* OAuthSwift.framework */; };
 		96939EDD223AD8A500A49E57 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EDC223AD8A500A49E57 /* Double+.swift */; };
 		96939EE1223B970600A49E57 /* CourseRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EE0223B970600A49E57 /* CourseRepositoryTests.swift */; };
@@ -280,6 +281,7 @@
 		968D05C122625CC2003F7D49 /* StudentClassification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassification.swift; sourceTree = "<group>"; };
 		968D05C322637F36003F7D49 /* DynamicValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicValueCell.swift; sourceTree = "<group>"; };
 		968EC1D22282DC1100241F51 /* SwiftKeychainWrapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftKeychainWrapper.framework; path = Carthage/Build/iOS/SwiftKeychainWrapper.framework; sourceTree = "<group>"; };
+		968EC1D42283361C00241F51 /* user-info.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "user-info.json"; sourceTree = "<group>"; };
 		969398A92226D4A700841818 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
 		96939EDC223AD8A500A49E57 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		96939EE0223B970600A49E57 /* CourseRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRepositoryTests.swift; sourceTree = "<group>"; };
@@ -768,6 +770,7 @@
 		96F220DB227B63740078AD2A /* Stubs */ = {
 			isa = PBXGroup;
 			children = (
+				968EC1D42283361C00241F51 /* user-info.json */,
 				96F220E7227B70160078AD2A /* classification-overview.json */,
 				96F220E9227B714A0078AD2A /* user-roles.json */,
 				96F220EB227B72790078AD2A /* course-name.json */,
@@ -948,6 +951,7 @@
 			files = (
 				96F220EA227B714A0078AD2A /* user-roles.json in Resources */,
 				96F220E8227B70160078AD2A /* classification-overview.json in Resources */,
+				968EC1D52283361D00241F51 /* user-info.json in Resources */,
 				96F220EC227B72790078AD2A /* course-name.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
