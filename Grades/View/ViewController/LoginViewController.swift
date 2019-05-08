@@ -65,9 +65,9 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        activityIndicator.asDriver()
-            .drive(view.rx.refreshing)
-            .disposed(by: bag)
+        let refreshing = activityIndicator.asSharedSequence()
+        refreshing.asDriver().drive(view.rx.refreshing).disposed(by: bag)
+        refreshing.map { !$0 }.asDriver().drive(loginButton.rx.isEnabled).disposed(by: bag)
     }
 
     func bindViewModel() {
