@@ -81,6 +81,7 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
                         return Observable.empty()
                     }
                     .unwrap()
+                    .take(1)
                     .flatMap { [weak self] deviceToken -> Observable<Void> in
                         if let registered = self?.isUserRegisteredForNotifications, !registered {
                             return self?.registerUserForNotifications(token: deviceToken) ?? Observable.empty()
