@@ -29,6 +29,7 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
 
     private let dependencies: Dependencies
     private let tokenUrl = URL(string: "\(EnvironmentConfiguration.shared.notificationServerUrl)/token")!
+    private let bag = DisposeBag()
 
     var deviceToken = BehaviorRelay<String?>(value: nil)
 
@@ -69,20 +70,34 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
         #else
             UNUserNotificationCenter.current().delegate = self
 
-            return requestAuthorization()
-                .flatMap { [weak self] granted -> Observable<String?> in
-                    if granted {
-                        return self?.deviceToken.asObservable() ?? Observable.empty()
+            return Observable.create { [weak self] observer in
+                guard let `self` = self else { return Disposables.create() }
+
+                self.requestAuthorization()
+                    .flatMap { [weak self] granted -> Observable<String?> in
+                        if granted {
+                            return self?.deviceToken.asObservable() ?? Observable.empty()
+                        }
+                        return Observable.empty()
                     }
-                    return Observable.empty()
-                }
-                .unwrap()
-                .flatMap { [weak self] deviceToken -> Observable<Void> in
-                    if let registered = self?.isUserRegisteredForNotifications, !registered {
-                        return self?.registerUserForNotifications(token: deviceToken) ?? Observable.empty()
+                    .unwrap()
+                    .flatMap { [weak self] deviceToken -> Observable<Void> in
+                        if let registered = self?.isUserRegisteredForNotifications, !registered {
+                            return self?.registerUserForNotifications(token: deviceToken) ?? Observable.empty()
+                        }
+                        return Observable.just(())
                     }
-                    return Observable.just(())
-                }
+                    .subscribe(onNext: {
+                        observer.onNext(())
+                        observer.onCompleted()
+                    }, onError: { error in
+                        observer.onError(error)
+                    })
+                    .disposed(by: self.bag)
+
+                return Disposables.create()
+            }
+
         #endif
     }
 
@@ -112,9 +127,11 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
                     DispatchQueue.main.async {
                         UIApplication.shared.registerForRemoteNotifications()
                         observer.onNext(true)
+                        observer.onCompleted()
                     }
                 } else {
                     observer.onNext(false)
+                    observer.onCompleted()
                 }
             }
 
