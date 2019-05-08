@@ -75,3 +75,5 @@ Grades/Configuration/*.plist
 info_preprocess_header.h
 
 grades_private_key.txt
+
+.vscode
