@@ -150,6 +150,7 @@ struct HTTPStringStubInfo {
 
 let initialJSONStubs = [
 	HTTPStubInfo(url: "api/v1/public/user-info", jsonFilename: "user-info", method: .GET),
+	HTTPStubInfo(url: "api/v1/public/courses/BI-PJS.1/student-classifications/kratond", jsonFilename: "student-classification", method: .GET)
 ]
 
 let initialJsontStubsWithParameters = [

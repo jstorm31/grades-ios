@@ -96,6 +96,7 @@
 		968EC1D92283421400241F51 /* classification-overview-B181.json in Resources */ = {isa = PBXBuildFile; fileRef = 968EC1D72283421400241F51 /* classification-overview-B181.json */; };
 		968EC1DC2283441B00241F51 /* user-roles-181.json in Resources */ = {isa = PBXBuildFile; fileRef = 968EC1DA2283441A00241F51 /* user-roles-181.json */; };
 		968EC1DD2283441B00241F51 /* user-roles-182.json in Resources */ = {isa = PBXBuildFile; fileRef = 968EC1DB2283441B00241F51 /* user-roles-182.json */; };
+		968EC1DF2283639400241F51 /* student-classification.json in Resources */ = {isa = PBXBuildFile; fileRef = 968EC1DE2283639400241F51 /* student-classification.json */; };
 		969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 969398A92226D4A700841818 /* OAuthSwift.framework */; };
 		96939EDD223AD8A500A49E57 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EDC223AD8A500A49E57 /* Double+.swift */; };
 		96939EE1223B970600A49E57 /* CourseRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EE0223B970600A49E57 /* CourseRepositoryTests.swift */; };
@@ -288,6 +289,7 @@
 		968EC1D72283421400241F51 /* classification-overview-B181.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "classification-overview-B181.json"; sourceTree = "<group>"; };
 		968EC1DA2283441A00241F51 /* user-roles-181.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "user-roles-181.json"; sourceTree = "<group>"; };
 		968EC1DB2283441B00241F51 /* user-roles-182.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "user-roles-182.json"; sourceTree = "<group>"; };
+		968EC1DE2283639400241F51 /* student-classification.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "student-classification.json"; sourceTree = "<group>"; };
 		969398A92226D4A700841818 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
 		96939EDC223AD8A500A49E57 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		96939EE0223B970600A49E57 /* CourseRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRepositoryTests.swift; sourceTree = "<group>"; };
@@ -774,6 +776,7 @@
 		96F220DB227B63740078AD2A /* Stubs */ = {
 			isa = PBXGroup;
 			children = (
+				968EC1DE2283639400241F51 /* student-classification.json */,
 				968EC1DA2283441A00241F51 /* user-roles-181.json */,
 				968EC1DB2283441B00241F51 /* user-roles-182.json */,
 				968EC1D72283421400241F51 /* classification-overview-B181.json */,
@@ -956,6 +959,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				968EC1DD2283441B00241F51 /* user-roles-182.json in Resources */,
+				968EC1DF2283639400241F51 /* student-classification.json in Resources */,
 				968EC1D82283421400241F51 /* classification-overview-B182.json in Resources */,
 				968EC1D92283421400241F51 /* classification-overview-B181.json in Resources */,
 				968EC1DC2283441B00241F51 /* user-roles-181.json in Resources */,
