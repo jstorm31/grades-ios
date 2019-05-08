@@ -31,7 +31,7 @@ class CourseDetailStudentViewModelTests: XCTestCase {
 		viewModel.bindOutput()
 		
 		do {
-			guard let groups = try classificationsObservable.debug("Test", trimOutput: true).skip(1).toBlocking(timeout: 2).first() else {
+			guard let groups = try classificationsObservable.skip(1).toBlocking(timeout: 2).first() else {
 				XCTFail("should not be nil")
 				return
 			}
@@ -48,7 +48,7 @@ class CourseDetailStudentViewModelTests: XCTestCase {
 		let pointsObservable = viewModel.totalPoints.subscribeOn(scheduler)
 		viewModel.bindOutput()
 		
-		let points = try! pointsObservable.debug("points", trimOutput: true).skip(1).toBlocking(timeout: 2).first()
+		let points = try! pointsObservable.skip(1).toBlocking(timeout: 2).first()
 		XCTAssertEqual(points, 64.0)
 	}
 	
@@ -57,7 +57,7 @@ class CourseDetailStudentViewModelTests: XCTestCase {
 		let gradeObservable = viewModel.finalGrade.subscribeOn(scheduler)
 		viewModel.bindOutput()
 		
-		let grade = try! gradeObservable.debug("grade", trimOutput: true).skip(1).toBlocking(timeout: 2).first()
+		let grade = try! gradeObservable.skip(1).toBlocking(timeout: 2).first()
 		XCTAssertEqual(grade, "D")
 	}
 }

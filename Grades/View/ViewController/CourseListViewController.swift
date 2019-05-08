@@ -24,9 +24,9 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
         super.loadView()
 
         navigationItem.title = L10n.Courses.title
-        tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
 
         loadRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
     }
 
     override func viewDidLoad() {
