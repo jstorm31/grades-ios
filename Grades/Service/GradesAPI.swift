@@ -76,8 +76,8 @@ final class GradesAPI: GradesAPIProtocol {
     /// Fetch user info and roles
     func getUser() -> Observable<User> {
         return Observable.zip(
-            httpService.get(url: createURL(from: .userInfo), parameters: nil),
-            httpService.get(url: createURL(from: .roles), parameters: nil)
+            httpService.get(url: createURL(from: .userInfo), parameters: defaultParameters),
+            httpService.get(url: createURL(from: .roles), parameters: defaultParameters)
         ) { (user: User, roles: CoursesByRolesRaw) -> User in
             var userWithRoles = User(fromUser: user)
 

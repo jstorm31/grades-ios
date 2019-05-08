@@ -31,12 +31,39 @@ class HTTPDynamicStubs {
 	
 	func setupInitialStubs() {
 		// Setting up all the initial mocks from the array
+		for stub in initialJsontStubsWithParameters {
+			setupStubWithParameters(url: stub.url, to: stub.to, method: stub.method)
+		}
+		
 		for stub in initialJSONStubs {
 			setupStub(url: stub.url, filename: stub.jsonFilename, method: stub.method)
 		}
 		
 		for stub in initialStringStubs {
 			setupStub(url: stub.url, response: stub.response, method: stub.method)
+		}
+	}
+	
+	func setupStubWithParameters(url: String, to mappedData: MappedFilenameToParameter, method: HTTPMethod = .GET) {
+		let response: ((HttpRequest) -> HttpResponse) = { [weak self] request in
+			
+			guard let filename = self?.findFile(for: request, in: mappedData) else {
+				return HttpResponse.notFound
+			}
+			
+			let testBundle = Bundle(for: type(of: self!))
+			let filePath = testBundle.path(forResource: filename, ofType: "json")
+			let fileUrl = URL(fileURLWithPath: filePath!)
+			let data = try! Data(contentsOf: fileUrl, options: .uncached)
+			let json = self?.dataToJSON(data: data)
+			return HttpResponse.ok(.json(json as AnyObject))
+		}
+		
+		switch method  {
+		case .GET: server.GET[url] = response
+		case .POST: server.POST[url] = response
+		case .PUT: server.PUT[url] = response
+		case .DELETE: server.DELETE[url] = response
 		}
 	}
 	
@@ -85,12 +112,34 @@ class HTTPDynamicStubs {
 		}
 		return nil
 	}
+	
+	private func findFile(for request: HttpRequest, in map: MappedFilenameToParameter) -> String? {
+		for param in request.queryParams {
+			if let filename = map[DynamicStubParameter(name: param.0, value: param.1)]  {
+				return filename
+			}
+		}
+		return nil
+	}
 }
+
+struct DynamicStubParameter: Hashable {
+	var name = ""
+	var value = ""
+}
+
+typealias MappedFilenameToParameter = [DynamicStubParameter:String]
 
 struct HTTPStubInfo {
 	let url: String
 	let jsonFilename: String
 	let method: HTTPMethod
+}
+
+struct HTTPStubInfoParameters {
+	let url: String
+	let method: HTTPMethod
+	let to: MappedFilenameToParameter
 }
 
 struct HTTPStringStubInfo {
@@ -101,10 +150,26 @@ struct HTTPStringStubInfo {
 
 let initialJSONStubs = [
 	HTTPStubInfo(url: "api/v1/public/user-info", jsonFilename: "user-info", method: .GET),
-	HTTPStubInfo(url: "api/v1/public/courses/classification-overview/kratond", jsonFilename: "classification-overview", method: .GET),
-	HTTPStubInfo(url: "api/v1/public/user-roles", jsonFilename: "user-roles", method: .GET),
-	HTTPStubInfo(url: "api/v1/public/courses/BI-PJS.1/information", jsonFilename: "course-name", method: .GET),
-	HTTPStubInfo(url: "api/v1/public/courses/MI-IOS/information", jsonFilename: "course-name", method: .GET),
+]
+
+let initialJsontStubsWithParameters = [
+	HTTPStubInfoParameters(url: "api/v1/public/courses/classification-overview/kratond", method: .GET, to: [
+		DynamicStubParameter(name: "semester", value: "B182"): "classification-overview-B182",
+		DynamicStubParameter(name: "semester", value: "B181"): "classification-overview-B181"
+	]),
+	HTTPStubInfoParameters(url: "api/v1/public/courses/BI-PJS.1/information", method: .GET, to: [
+		DynamicStubParameter(name: "semester", value: "B182"): "course-name",
+	]),
+	HTTPStubInfoParameters(url: "api/v1/public/courses/MI-IOS/information", method: .GET, to: [
+		DynamicStubParameter(name: "semester", value: "B182"): "course-name",
+	]),
+	HTTPStubInfoParameters(url: "api/v1/public/courses/BI-KOM/information", method: .GET, to: [
+		DynamicStubParameter(name: "semester", value: "B181"): "course-name",
+	]),
+	HTTPStubInfoParameters(url: "api/v1/public/user-roles", method: .GET, to: [
+		DynamicStubParameter(name: "semester", value: "B182"): "user-roles-182",
+		DynamicStubParameter(name: "semester", value: "B181"): "user-roles-181"
+	])
 ]
 
 let initialStringStubs = [
