@@ -90,6 +90,7 @@
 		968D05BE2261F289003F7D49 /* TableSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D05BD2261F289003F7D49 /* TableSection.swift */; };
 		968D05C222625CC2003F7D49 /* StudentClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D05C122625CC2003F7D49 /* StudentClassification.swift */; };
 		968D05C422637F36003F7D49 /* DynamicValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D05C322637F36003F7D49 /* DynamicValueCell.swift */; };
+		968EC1D32282DC1100241F51 /* SwiftKeychainWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 968EC1D22282DC1100241F51 /* SwiftKeychainWrapper.framework */; };
 		969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 969398A92226D4A700841818 /* OAuthSwift.framework */; };
 		96939EDD223AD8A500A49E57 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EDC223AD8A500A49E57 /* Double+.swift */; };
 		96939EE1223B970600A49E57 /* CourseRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EE0223B970600A49E57 /* CourseRepositoryTests.swift */; };
@@ -278,6 +279,7 @@
 		968D05BD2261F289003F7D49 /* TableSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSection.swift; sourceTree = "<group>"; };
 		968D05C122625CC2003F7D49 /* StudentClassification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassification.swift; sourceTree = "<group>"; };
 		968D05C322637F36003F7D49 /* DynamicValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicValueCell.swift; sourceTree = "<group>"; };
+		968EC1D22282DC1100241F51 /* SwiftKeychainWrapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftKeychainWrapper.framework; path = Carthage/Build/iOS/SwiftKeychainWrapper.framework; sourceTree = "<group>"; };
 		969398A92226D4A700841818 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
 		96939EDC223AD8A500A49E57 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		96939EE0223B970600A49E57 /* CourseRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRepositoryTests.swift; sourceTree = "<group>"; };
@@ -373,6 +375,7 @@
 				96A80A6F222F191F00986A90 /* RxDataSources.framework in Frameworks */,
 				96A80A71222F1B3000986A90 /* Differentiator.framework in Frameworks */,
 				9699ABA22232902A006D2F73 /* ToastSwiftFramework.framework in Frameworks */,
+				968EC1D32282DC1100241F51 /* SwiftKeychainWrapper.framework in Frameworks */,
 				96939EED223C09A100A49E57 /* CocoaAsyncSocket.framework in Frameworks */,
 				96939EEE223C09A400A49E57 /* Bagel.framework in Frameworks */,
 			);
@@ -557,6 +560,7 @@
 		967D1E3F2223DDD3007E5217 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				968EC1D22282DC1100241F51 /* SwiftKeychainWrapper.framework */,
 				96F220DE227B67670078AD2A /* Swifter.framework */,
 				96A8AEF2227466440076CCD2 /* StoreKit.framework */,
 				96A8AEE6227464990076CCD2 /* libc++.tbd */,
@@ -1051,6 +1055,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxAtomic.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaAsyncSocket.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Bagel.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftKeychainWrapper.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
@@ -1069,6 +1074,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxAtomic.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaAsyncSocket.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Bagel.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftKeychainWrapper.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

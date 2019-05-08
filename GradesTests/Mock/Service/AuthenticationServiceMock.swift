@@ -37,6 +37,18 @@ class AuthenticationServiceMock: AuthenticationServiceProtocol {
 		}
 	}
 	
+	func authenticateWitRefreshToken() -> Observable<Bool> {
+		switch result {
+		case .success:
+			return Observable.just(true)
+		case .failure:
+			return Observable.error(AuthenticationError.generic)
+		}
+	}
+	
+	func logOut() {}
+	
+	
 	var renewAccessToken = CocoaAction {
 		// TODO: implement
 		return Observable.empty()

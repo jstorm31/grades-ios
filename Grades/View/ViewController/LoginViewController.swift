@@ -70,7 +70,16 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
             .disposed(by: bag)
     }
 
-    func bindViewModel() {}
+    func bindViewModel() {
+        guard let viewModel = viewModel else { return }
+
+        viewModel.authenticateWithRefresToken()
+            .trackActivity(activityIndicator)
+            .subscribe(onError: { [weak self] error in
+                self?.view.makeCustomToast(error.localizedDescription, type: .danger)
+            })
+            .disposed(by: bag)
+    }
 
     // MARK: events
 

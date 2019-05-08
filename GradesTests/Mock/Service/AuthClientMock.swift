@@ -15,7 +15,8 @@ enum AuthClientResult {
 
 final class AuthClientMock: AuthClientProtocol {
 	var result = AuthClientResult.success
-	private var called = 0;
+	var called = 0;
+	var credential = OAuthSwiftCredential(consumerKey: "asdf", consumerSecret: "asdf")
 	
 	func request(_ url: URLConvertible, method: OAuthSwiftHTTPRequest.Method, parameters: OAuthSwift.Parameters = [:],
 				 headers: OAuthSwift.Headers? = nil, body: Data? = nil, success: OAuthSwiftHTTPRequest.SuccessHandler?,
@@ -25,9 +26,11 @@ final class AuthClientMock: AuthClientProtocol {
 		}
 		called += 1
 		
+		Log.debug("Calling request, caled: \(called), res: \(result), method: \(method), \(url)")
+		
 		switch result {
 		case .success:
-			let data = Data(base64Encoded: "a")!
+			let data = Data(base64Encoded: "dGVzdA==")!
 			let response = HTTPURLResponse(url: URL(string: "http://google.com")!, mimeType: nil, expectedContentLength: 0, textEncodingName: nil)
 			success?(OAuthSwiftResponse(data: data, response: response, request: nil))
 		case .failure:
