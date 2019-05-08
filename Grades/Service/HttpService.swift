@@ -70,16 +70,23 @@ final class HttpService: NSObject, HttpServiceProtocol {
                     observer.onNext(decodedResponse)
                     observer.onCompleted()
                 }, failure: { error in
-                    observer.onError(ApiError.getError(forCode: error.errorCode))
+                    observer.onError(error)
                 }
             )
             return Disposables.create()
         }
 
+        if client.credential.isTokenExpired() {
+            return dependencies.authService.renewAccessToken.execute()
+                .flatMap { _ in request }
+        }
+
         return request.retryWhen { [weak self] events in
-            // TODO: handle infinite loop
-            events.enumerated().flatMap { [weak self] (_, error) -> Observable<Void> in
-                self?.handleError(error) ?? Observable.empty()
+            events.enumerated().flatMap { [weak self] (attempt, error) -> Observable<Void> in
+                if attempt > 2 {
+                    return Observable.error(error)
+                }
+                return self?.handleError(error) ?? Observable.empty()
             }
         }
     }
@@ -135,10 +142,18 @@ final class HttpService: NSObject, HttpServiceProtocol {
             return Disposables.create()
         }
 
+        if client.credential.isTokenExpired() {
+            return dependencies.authService.renewAccessToken.execute()
+                .flatMap { _ in request }
+        }
+
         // If error is returned, check access token validity and if invalid refresh, otherwise propagate the error
         return request.retryWhen { [weak self] events in
-            events.enumerated().flatMap { [weak self] (_, error) -> Observable<Void> in
-                self?.handleError(error) ?? Observable.empty()
+            events.enumerated().flatMap { [weak self] (attempt, error) -> Observable<Void> in
+                if attempt > 2 {
+                    return Observable.error(error)
+                }
+                return self?.handleError(error) ?? Observable.empty()
             }
         }
     }
@@ -179,10 +194,18 @@ final class HttpService: NSObject, HttpServiceProtocol {
             return Disposables.create()
         }
 
+        if client.credential.isTokenExpired() {
+            return dependencies.authService.renewAccessToken.execute()
+                .flatMap { _ in request }
+        }
+
         // If error is returned, check access token validity and if invalid refresh, otherwise propagate the error
         return request.retryWhen { [weak self] events in
-            events.enumerated().flatMap { [weak self] (_, error) -> Observable<Void> in
-                self?.handleError(error) ?? Observable.empty()
+            events.enumerated().flatMap { [weak self] (attempt, error) -> Observable<Void> in
+                if attempt > 2 {
+                    return Observable.error(error)
+                }
+                return self?.handleError(error) ?? Observable.empty()
             }
         }
     }
@@ -198,8 +221,13 @@ final class HttpService: NSObject, HttpServiceProtocol {
                     self.dependencies.authService.renewAccessToken.execute()
                         .subscribe(
                             onError: { error in
-                                Log.error("HttpService.request: Error refreshing token: \(error.localizedDescription)")
-                                observer.onError(error)
+                                if case ActionError.notEnabled = error {
+                                    observer.onNext(())
+                                    observer.onCompleted()
+                                } else {
+                                    Log.error("HttpService.request: Error refreshing token: \(error.localizedDescription)")
+                                    observer.onError(error)
+                                }
                             }, onCompleted: {
                                 observer.onNext(())
                                 observer.onCompleted()

@@ -22,7 +22,8 @@ class LoginViewModelTests: XCTestCase {
 	override func setUp() {
 		scheduler = ConcurrentDispatchQueueScheduler(qos: .default)
 		sceneMock = SceneCoordinatorMock()
-		viewModel = LoginViewModel(dependencies: AppDependencyMock.shared, sceneCoordinator: sceneMock)
+		viewModel = LoginViewModel(dependencies: AppDependencyMock.shared)
+		viewModel.sceneCoordinator = sceneMock
 	}
 
     func testAuthenticationSuccesful() {

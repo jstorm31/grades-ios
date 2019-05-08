@@ -10,16 +10,21 @@ import OAuthSwift
 
 /// Wrapper around OAuthSwiftClient to make it testable
 protocol AuthClientProtocol {
+    var credential: OAuthSwiftCredential { get }
+
     func request(_ url: URLConvertible, method: OAuthSwiftHTTPRequest.Method, parameters: OAuthSwift.Parameters,
                  headers: OAuthSwift.Headers?, body: Data?, success: OAuthSwiftHTTPRequest.SuccessHandler?,
                  failure: OAuthSwiftHTTPRequest.FailureHandler?) -> OAuthSwiftRequestHandle?
 }
 
 final class AuthClient: AuthClientProtocol {
+    var credential: OAuthSwiftCredential
+
     private let client: OAuthSwiftClient
 
     init(client: OAuthSwiftClient) {
         self.client = client
+        credential = client.credential
     }
 
     @discardableResult

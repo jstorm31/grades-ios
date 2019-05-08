@@ -16,18 +16,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_: UIApplication,
                      didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        Bagel.start() // TODO: remove on release!
+
+        // Initialize first scene
+        let loginViewModel = LoginViewModel(dependencies: AppDependency.shared)
+        let loginScene = Scene.login(loginViewModel)
+
         // Window
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        window?.rootViewController = LoginViewController()
+        window?.rootViewController = loginScene.viewController()
 
-        Bagel.start() // TODO: remove on release!
-
-        // Initialize and transition to first screen
+        // Initialize scene coordinator
         let sceneCoordinator = SceneCoordinator(window: window!)
-        let loginViewModel = LoginViewModel(dependencies: AppDependency.shared, sceneCoordinator: sceneCoordinator)
-        let loginScreen = Scene.login(loginViewModel)
-        sceneCoordinator.transition(to: loginScreen, type: .root)
+        loginViewModel.sceneCoordinator = sceneCoordinator
 
         return true
     }

@@ -5,3 +5,5 @@ github "RxSwiftCommunity/Action" ~> 3.6.0
 github "scalessec/Toast-Swift" ~> 4.0.0
 github "yagiz/Bagel" "1.3.2"
 github "httpswift/swifter" ~> 1.4.6
+github "jrendel/SwiftKeychainWrapper" ~> 3.3
+

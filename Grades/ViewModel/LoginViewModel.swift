@@ -11,23 +11,18 @@ import RxCocoa
 import RxSwift
 import UIKit
 
-protocol LoginViewModelProtocol {
-    func authenticate(viewController: UIViewController) -> Observable<Void>
-}
-
 final class LoginViewModel: BaseViewModel {
     typealias Dependencies = HasAuthenticationService & HasGradesAPI & HasSettingsRepository
         & HasPushNotificationService& HasUserRepository
 
+    var sceneCoordinator: SceneCoordinatorType!
     private let dependencies: Dependencies
-    private let sceneCoordinator: SceneCoordinatorType
     private let config = EnvironmentConfiguration.shared
 
     // MARK: initialization
 
-    init(dependencies: Dependencies, sceneCoordinator: SceneCoordinatorType) {
+    init(dependencies: Dependencies) {
         self.dependencies = dependencies
-        self.sceneCoordinator = sceneCoordinator
     }
 
     deinit {
@@ -35,6 +30,11 @@ final class LoginViewModel: BaseViewModel {
     }
 
     // MARK: methods
+
+    func authenticateWithRefresToken() -> Observable<Void> {
+        return dependencies.authService.authenticateWitRefreshToken()
+            .flatMap(postAuthSetup)
+    }
 
     func authenticate(viewController: UIViewController) -> Observable<Void> {
         if CommandLine.arguments.contains("--stub-authentication") {
@@ -44,11 +44,16 @@ final class LoginViewModel: BaseViewModel {
         }
 
         return dependencies.authService
-            .authenticate(useBuiltInSafari: false, viewController: viewController)
-            .filter { $0 == true }
-            .flatMap { [weak self] _ in
-                self?.dependencies.pushNotificationsService.start() ?? Observable.empty()
-            }
+            .authenticate(useBuiltInSafari: true, viewController: viewController)
+            .flatMap(postAuthSetup)
+    }
+
+    private func postAuthSetup(_ success: Bool) -> Observable<Void> {
+        guard success == true else {
+            return Observable.empty()
+        }
+
+        return dependencies.pushNotificationsService.start()
             .map { _ in }
             .flatMap(dependencies.settingsRepository.fetchCurrentSemester)
             .map { _ in }

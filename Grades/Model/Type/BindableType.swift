@@ -14,6 +14,7 @@ protocol BindableType {
 
     var viewModel: ViewModelType! { get set }
 
+    /// Binds view model after ViewController of the scene is initiated
     func bindViewModel()
 }
 
