@@ -26,8 +26,6 @@ final class AuthClientMock: AuthClientProtocol {
 		}
 		called += 1
 		
-		Log.debug("Calling request, caled: \(called), res: \(result), method: \(method), \(url)")
-		
 		switch result {
 		case .success:
 			let data = Data(base64Encoded: "dGVzdA==")!
