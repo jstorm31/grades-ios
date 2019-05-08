@@ -10,6 +10,7 @@ import Action
 import Foundation
 import OAuthSwift
 import RxSwift
+import SwiftKeychainWrapper
 
 protocol HasAuthenticationService {
     var authService: AuthenticationServiceProtocol { get }
@@ -21,6 +22,8 @@ protocol AuthenticationServiceProtocol {
     var renewAccessToken: CocoaAction { get }
 
     func authenticate(useBuiltInSafari: Bool, viewController: UIViewController?) -> Observable<Bool>
+    func authenticateWitRefreshToken() -> Observable<Bool>
+    func logOut()
 }
 
 final class AuthenticationService: AuthenticationServiceProtocol {
@@ -74,7 +77,8 @@ final class AuthenticationService: AuthenticationServiceProtocol {
                            scope: self.scope,
                            state: "",
                            headers: ["Authorization": self.authorizationHeader],
-                           success: { _, _, _ in
+                           success: { [weak self] _, _, _ in
+                               self?.saveCredentialsInKeychain()
                                observer.onNext(true)
                                observer.onCompleted()
                            }, failure: { error in
@@ -89,6 +93,20 @@ final class AuthenticationService: AuthenticationServiceProtocol {
                 handle?.cancel()
             }
         }
+    }
+
+    /// Try to load refresh token from Keychain and obtain new access token
+    func authenticateWitRefreshToken() -> Observable<Bool> {
+        loadCredentialsFromKeychain()
+
+        if handler.client.credential.oauthRefreshToken.isEmpty {
+            return Observable.just(false)
+        }
+        return renewAccessToken.execute().map { _ in true }
+    }
+
+    func logOut() {
+        removeCredentialsFromKeychain()
     }
 
     /// Renew access token with refresh token
@@ -106,7 +124,7 @@ final class AuthenticationService: AuthenticationServiceProtocol {
             request.httpBody = body.data(using: .utf8)
 
             // Make request
-            let task = URLSession.shared.dataTask(with: request) { data, _, error in
+            let task = URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
                 if let error = error {
                     Log.error("AuthenticationService:renewAccessToken: \(error)")
                     observer.onError(error)
@@ -119,6 +137,7 @@ final class AuthenticationService: AuthenticationServiceProtocol {
                             credential.oauthToken = tokenResponse.accessToken.safeStringByRemovingPercentEncoding
                             credential.oauthRefreshToken = tokenResponse.refreshToken.safeStringByRemovingPercentEncoding
                             credential.oauthTokenExpiresAt = Date(timeInterval: tokenResponse.expiresIn, since: Date())
+                            self?.saveCredentialsInKeychain()
 
                             observer.onNext(())
                             observer.onCompleted()
@@ -134,5 +153,22 @@ final class AuthenticationService: AuthenticationServiceProtocol {
                 task.cancel()
             }
         }
+    }
+
+    /// Save Auth credentials in keychain
+    private func saveCredentialsInKeychain() {
+        KeychainWrapper.standard.set(handler.client.credential.oauthRefreshToken,
+                                     forKey: "refreshToken",
+                                     withAccessibility: .afterFirstUnlock)
+    }
+
+    private func loadCredentialsFromKeychain() {
+        if let refreshToken = KeychainWrapper.standard.string(forKey: "refreshToken") {
+            handler.client.credential.oauthRefreshToken = refreshToken
+        }
+    }
+
+    private func removeCredentialsFromKeychain() {
+        KeychainWrapper.standard.removeObject(forKey: "refreshToken")
     }
 }

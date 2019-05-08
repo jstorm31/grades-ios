@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 
 class SettingsViewModel: TablePickerViewModel {
-    typealias Dependencies = HasSettingsRepository & HasPushNotificationService & HasUserRepository
+    typealias Dependencies = HasSettingsRepository & HasPushNotificationService & HasUserRepository & HasAuthenticationService
 
     private var dependencies: Dependencies
     private let coordinator: SceneCoordinatorType
@@ -40,6 +40,7 @@ class SettingsViewModel: TablePickerViewModel {
     lazy var logoutAction = CocoaAction { [weak self] in
         guard let `self` = self else { return Observable.empty() }
 
+        self.dependencies.authService.logOut()
         return self.dependencies.pushNotificationsService.unregisterUserFromDevice()
             .do(onCompleted: { [weak self] in
                 self?.coordinator.pop(animated: true, presented: true)
