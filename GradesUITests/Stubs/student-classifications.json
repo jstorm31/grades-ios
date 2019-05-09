@@ -1,0 +1,50 @@
+[
+    {
+      "id" : null,
+      "lowercaseIdentifier" : "semestral_test",
+      "lastName" : "Zelenková",
+      "firstName" : "Jana",
+      "note" : null,
+      "timestamp" : null,
+      "value" : null,
+      "parallelCodes" : {
+  
+      },
+      "personalNumber" : "460536",
+      "studentUsername" : "zelenj12",
+      "classificationIdentifier" : "semestral_test",
+      "email" : "zelenj12@fel.cvut.cz"
+    },
+    {
+      "id" : 238980,
+      "lowercaseIdentifier" : "semestral_test",
+      "lastName" : "Rousek",
+      "firstName" : "Matyáš",
+      "note" : null,
+      "timestamp" : null,
+      "value" : 45,
+      "parallelCodes" : {
+  
+      },
+      "personalNumber" : "466996",
+      "studentUsername" : "rousemat",
+      "classificationIdentifier" : "semestral_test",
+      "email" : "rousemat@fit.cvut.cz"
+    },
+    {
+      "id" : 238963,
+      "lowercaseIdentifier" : "semestral_test",
+      "lastName" : "Janata",
+      "firstName" : "Pavel",
+      "note" : "",
+      "timestamp" : null,
+      "value" : 45,
+      "parallelCodes" : {
+  
+      },
+      "personalNumber" : "465810",
+      "studentUsername" : "janatpa3",
+      "classificationIdentifier" : "semestral_test",
+      "email" : "janatpa3@fel.cvut.cz"
+    }
+]

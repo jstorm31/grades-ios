@@ -150,7 +150,16 @@ struct HTTPStringStubInfo {
 
 let initialJSONStubs = [
 	HTTPStubInfo(url: "api/v1/public/user-info", jsonFilename: "user-info", method: .GET),
-	HTTPStubInfo(url: "api/v1/public/courses/BI-PJS.1/student-classifications/kratond", jsonFilename: "student-classification", method: .GET)
+	HTTPStubInfo(url: "api/v1/public/courses/BI-PJS.1/student-classifications/kratond", jsonFilename: "student-classification", method: .GET),
+	HTTPStubInfo(url: "api/v1/public/course/BI-PJS.1/student-groups", jsonFilename: "student-groups", method: .GET),
+	HTTPStubInfo(url: "api/v1/public/courses/BI-PJS.1/classifications", jsonFilename: "classifications", method: .GET),
+	HTTPStubInfo(url: "api/v1/public/courses/BI-PJS.1/group/ALL/student-classifications/semestral_test_1", jsonFilename: "student-classifications", method: .GET),
+	HTTPStubInfo(url: "api/v1/public/courses/BI-PJS.1/group/TEST/student-classifications/semestral_test_1", jsonFilename: "student-classifications", method: .GET),
+	HTTPStubInfo(url: "api/v1/public/courses/BI-PJS.1/group/ALL/student-classifications/semestral_test", jsonFilename: "student-classifications", method: .GET),
+	HTTPStubInfo(url: "api/v1/public/courses/BI-PJS.1/student-classifications", jsonFilename: "student-classifications-put", method: .PUT),
+	HTTPStubInfo(url: "api/v1/public/courses/BI-PJS.1/group/MY_PARALLELS/student-classifications", jsonFilename: "my-paralels", method: .GET),
+	HTTPStubInfo(url: "api/v1/public/courses/BI-PJS.1/student-classifications/pavjan", jsonFilename: "student-classification", method: .GET),
+	HTTPStubInfo(url: "api/v1/public/courses/BI-PJS.1/student-classifications/tichon", jsonFilename: "student-classification", method: .GET)
 ]
 
 let initialJsontStubsWithParameters = [

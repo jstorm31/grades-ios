@@ -33,6 +33,7 @@ final class StudentClassificationViewController: BaseTableViewController, TableD
 
     override func viewDidLoad() {
         tableView.register(DynamicValueCell.self, forCellReuseIdentifier: "DynamicValueCell")
+        tableView.accessibilityIdentifier = "StudentTable"
         viewModel.bindOutput()
         bindOutput()
     }

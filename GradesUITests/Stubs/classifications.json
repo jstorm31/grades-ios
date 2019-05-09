@@ -1,0 +1,89 @@
+[
+    {
+      "classificationTextDtos" : [
+        {
+          "name" : "Semestral test 1",
+          "identifier" : "cs"
+        }
+      ],
+      "evaluationType" : "MANUAL",
+      "aggregationScope" : null,
+      "hidden" : false,
+      "semesterCode" : "B182",
+      "minimumRequiredValue" : null,
+      "index" : 0,
+      "aggregationFunction" : null,
+      "skillDtos" : [
+  
+      ],
+      "valueType" : "STRING",
+      "lowercaseIdentifier" : "semestral_test_1",
+      "id" : 4230,
+      "identifier" : "semestral_test_1",
+      "courseCode" : "BVB13SPE",
+      "maximumValue" : null,
+      "parentId" : null,
+      "classificationType" : "SEMESTRAL_TEST",
+      "aggregatedIdentifier" : null,
+      "minimumValue" : null,
+      "expression" : null
+    },
+    {
+      "classificationTextDtos" : [
+        {
+          "name" : "Semestral test 2",
+          "identifier" : "cs"
+        }
+      ],
+      "evaluationType" : "MANUAL",
+      "aggregationScope" : null,
+      "hidden" : false,
+      "semesterCode" : "B182",
+      "minimumRequiredValue" : null,
+      "index" : 0,
+      "aggregationFunction" : null,
+      "skillDtos" : [
+  
+      ],
+      "valueType" : "NUMBER",
+      "lowercaseIdentifier" : "semestral_test",
+      "id" : 4231,
+      "identifier" : "semestral_test",
+      "courseCode" : "BVB13SPE",
+      "maximumValue" : null,
+      "parentId" : 4230,
+      "classificationType" : "SEMESTRAL_TEST",
+      "aggregatedIdentifier" : null,
+      "minimumValue" : null,
+      "expression" : null
+    },
+    {
+      "classificationTextDtos" : [
+        {
+          "name" : "Exam test",
+          "identifier" : "cs"
+        }
+      ],
+      "evaluationType" : "MANUAL",
+      "aggregationScope" : null,
+      "hidden" : false,
+      "semesterCode" : "B182",
+      "minimumRequiredValue" : null,
+      "index" : 1,
+      "aggregationFunction" : null,
+      "skillDtos" : [
+  
+      ],
+      "valueType" : "BOOLEAN",
+      "lowercaseIdentifier" : "exam_test",
+      "id" : 4232,
+      "identifier" : "exam_test",
+      "courseCode" : "BVB13SPE",
+      "maximumValue" : null,
+      "parentId" : null,
+      "classificationType" : "EXAM_TEST",
+      "aggregatedIdentifier" : null,
+      "minimumValue" : null,
+      "expression" : null
+    }
+]  

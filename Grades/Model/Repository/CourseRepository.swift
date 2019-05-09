@@ -171,8 +171,7 @@ final class CourseRepository: CourseRepositoryProtocol {
      - returns: id of root classification
      */
     private func findRootClassification(forChild child: Classification, inClassifications items: [Classification]) -> Int {
-        if let parentId = child.parentId {
-            let parent = items.first { $0.id == parentId }! // element must be in the array
+        if let parentId = child.parentId, let parent = items.first(where: { $0.id == parentId }) {
             return findRootClassification(forChild: parent, inClassifications: items)
         } else {
             return child.id // Found parent
