@@ -47,7 +47,7 @@ class GradesUITests: XCTestCase {
 	
 	func testSemesterChange() {
 		app.buttons["Login"].tap()
-		chooseSemester("B181", currentSemester: "B182")
+		chooseSemester("B181")
 		
 		let jsCell = app.staticTexts["BI-PJS.1"]
 		let komCell = app.staticTexts["BI-KOM"]
@@ -121,12 +121,12 @@ class GradesUITests: XCTestCase {
 		XCTAssert(app.tables.staticTexts["Ondřej Tichý"].waitForExistence(timeout: 5))
 	}
 	
-	private func chooseSemester(_ semester: String, currentSemester: String) {
+	private func chooseSemester(_ semester: String) {
 		app.buttons["Settings button"].tap()
-		let picker = app.tables.staticTexts[currentSemester]
+		let picker = app.tables.staticTexts["Semester"]
 		XCTAssert(picker.waitForExistence(timeout: 7))
 		picker.tap()
-		app.pickers.pickerWheels[currentSemester].adjust(toPickerWheelValue: semester)
+		app.pickers.pickerWheels["B182"].adjust(toPickerWheelValue: semester)
 		app.toolbars["Toolbar"].buttons["Done"].tap()
 		app.navigationBars["Settings"].buttons["Courses"].tap()
 	}
