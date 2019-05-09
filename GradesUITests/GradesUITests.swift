@@ -40,7 +40,7 @@ class GradesUITests: XCTestCase {
 		expectation(for: exists, evaluatedWith: jsCell, handler: nil)
 		expectation(for: exists, evaluatedWith: iosCell, handler: nil)
 
-		waitForExpectations(timeout: 5, handler: nil)
+		waitForExpectations(timeout: 7, handler: nil)
 		XCTAssert(jsCell.exists)
 		XCTAssert(iosCell.exists)
     }
@@ -55,7 +55,7 @@ class GradesUITests: XCTestCase {
 		expectation(for: doesNotExist, evaluatedWith: jsCell, handler: nil)
 		expectation(for: exists, evaluatedWith: komCell, handler: nil)
 
-		waitForExpectations(timeout: 5, handler: nil)
+		waitForExpectations(timeout: 7, handler: nil)
 		XCTAssertFalse(jsCell.exists)
 		XCTAssert(komCell.exists)
 	}
@@ -64,7 +64,7 @@ class GradesUITests: XCTestCase {
 		app.buttons["Login"].tap()
 		let tablesQuery = app.tables
 		let teacherCell = tablesQuery.cells.containing(.staticText, identifier:"28 p").staticTexts["BI-PJS.1"]
-		XCTAssert(teacherCell.waitForExistence(timeout: 3))
+		XCTAssert(teacherCell.waitForExistence(timeout: 7))
 		teacherCell.tap()
 		
 		XCTAssert(app.tables.staticTexts.count > 0)
@@ -73,13 +73,13 @@ class GradesUITests: XCTestCase {
 	func testTeacherDetail() {
 		app.buttons["Login"].tap()
 		let teacherCell = app.tables.children(matching: .cell).element(boundBy: 2).staticTexts["BI-PJS.1"]
-		XCTAssert(teacherCell.waitForExistence(timeout: 5))
+		XCTAssert(teacherCell.waitForExistence(timeout: 7))
 		teacherCell.tap()
 		
-		XCTAssert(app.tables.staticTexts.count > 3)
+		XCTAssert(app.tables.staticTexts.count > 0)
 
 		let textField = app.tables/*@START_MENU_TOKEN@*/.cells.containing(.staticText, identifier:"Janata Pavel")/*[[".cells.containing(.staticText, identifier:\"janatpa3\")",".cells.containing(.staticText, identifier:\"Janata Pavel\")"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.children(matching: .textField).element
-		XCTAssert(textField.waitForExistence(timeout: 3))
+		XCTAssert(textField.waitForExistence(timeout: 7))
 		textField.tap()
 		textField.clearText(andReplaceWith: "50")
 		
@@ -91,7 +91,7 @@ class GradesUITests: XCTestCase {
 	func testTeacherStudent() {
 		app.buttons["Login"].tap()
 		let teacherCell = app.tables.children(matching: .cell).element(boundBy: 2).staticTexts["BI-PJS.1"]
-		XCTAssert(teacherCell.waitForExistence(timeout: 5))
+		XCTAssert(teacherCell.waitForExistence(timeout: 7))
 		teacherCell.tap()
 		app/*@START_MENU_TOKEN@*/.buttons["Student"]/*[[".segmentedControls.buttons[\"Student\"]",".buttons[\"Student\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
 
@@ -109,7 +109,7 @@ class GradesUITests: XCTestCase {
 	func testChangeStudent() {
 		app.buttons["Login"].tap()
 		let teacherCell = app.tables.children(matching: .cell).element(boundBy: 2).staticTexts["BI-PJS.1"]
-		XCTAssert(teacherCell.waitForExistence(timeout: 5))
+		XCTAssert(teacherCell.waitForExistence(timeout: 7))
 		teacherCell.tap()
 		app/*@START_MENU_TOKEN@*/.buttons["Student"]/*[[".segmentedControls.buttons[\"Student\"]",".buttons[\"Student\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
 		
@@ -124,7 +124,7 @@ class GradesUITests: XCTestCase {
 	private func chooseSemester(_ semester: String, currentSemester: String) {
 		app.buttons["Settings button"].tap()
 		let picker = app.tables.staticTexts[currentSemester]
-		XCTAssert(picker.waitForExistence(timeout: 3))
+		XCTAssert(picker.waitForExistence(timeout: 7))
 		picker.tap()
 		app.pickers.pickerWheels[currentSemester].adjust(toPickerWheelValue: semester)
 		app.toolbars["Toolbar"].buttons["Done"].tap()
