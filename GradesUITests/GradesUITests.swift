@@ -73,7 +73,7 @@ class GradesUITests: XCTestCase {
 	func testTeacherDetail() {
 		app.buttons["Login"].tap()
 		let teacherCell = app.tables.children(matching: .cell).element(boundBy: 2).staticTexts["BI-PJS.1"]
-		XCTAssert(teacherCell.waitForExistence(timeout: 3))
+		XCTAssert(teacherCell.waitForExistence(timeout: 5))
 		teacherCell.tap()
 		
 		XCTAssert(app.tables.staticTexts.count > 3)
@@ -91,7 +91,7 @@ class GradesUITests: XCTestCase {
 	func testTeacherStudent() {
 		app.buttons["Login"].tap()
 		let teacherCell = app.tables.children(matching: .cell).element(boundBy: 2).staticTexts["BI-PJS.1"]
-		XCTAssert(teacherCell.waitForExistence(timeout: 3))
+		XCTAssert(teacherCell.waitForExistence(timeout: 5))
 		teacherCell.tap()
 		app/*@START_MENU_TOKEN@*/.buttons["Student"]/*[[".segmentedControls.buttons[\"Student\"]",".buttons[\"Student\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
 

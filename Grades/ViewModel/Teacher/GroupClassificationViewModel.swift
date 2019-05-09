@@ -76,7 +76,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
 
     // MARK: initialization
 
-    init(dependencies: AppDependency, course: Course) {
+    init(dependencies: Dependencies, course: Course) {
         self.dependencies = dependencies
         teacherRepository = dependencies.teacherRepository
         self.course = course
