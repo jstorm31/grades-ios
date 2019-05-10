@@ -59,6 +59,7 @@ final class SettingsRepository: SettingsRepositoryProtocol {
 
     // MARK: methods
 
+    @discardableResult
     func fetchCurrentSemester() -> Observable<Void> {
         return dependencies.gradesApi.getCurrentSemestrCode()
             .do(onNext: { [weak self] semesterCode in

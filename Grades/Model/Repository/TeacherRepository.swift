@@ -43,7 +43,7 @@ final class TeacherRepository: TeacherRepositoryProtocol {
 
     // MARK: initializaton
 
-    init(dependencies: AppDependency) {
+    init(dependencies: Dependencies) {
         self.dependencies = dependencies
 
         activityIndicator

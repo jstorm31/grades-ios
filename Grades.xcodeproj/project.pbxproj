@@ -70,6 +70,8 @@
 		96758423228549F9006C401E /* GroupClassificationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96758422228549F9006C401E /* GroupClassificationViewModelTests.swift */; };
 		9675842522854A8B006C401E /* TeacherRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9675842422854A8B006C401E /* TeacherRepositoryMock.swift */; };
 		9675842722855289006C401E /* SettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9675842622855289006C401E /* SettingsViewModelTests.swift */; };
+		9675842922855470006C401E /* SettingsRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9675842822855470006C401E /* SettingsRepositoryTests.swift */; };
+		9675842B22855D57006C401E /* TeacherRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9675842A22855D57006C401E /* TeacherRepositoryTests.swift */; };
 		96777FD2227F31B700520ABF /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96777FD1227F31B700520ABF /* UserRepository.swift */; };
 		96777FD4227F39E200520ABF /* UserRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96777FD3227F39E200520ABF /* UserRepositoryMock.swift */; };
 		967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967D1E402223DDD3007E5217 /* SnapKit.framework */; };
@@ -271,6 +273,8 @@
 		96758422228549F9006C401E /* GroupClassificationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupClassificationViewModelTests.swift; sourceTree = "<group>"; };
 		9675842422854A8B006C401E /* TeacherRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherRepositoryMock.swift; sourceTree = "<group>"; };
 		9675842622855289006C401E /* SettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModelTests.swift; sourceTree = "<group>"; };
+		9675842822855470006C401E /* SettingsRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepositoryTests.swift; sourceTree = "<group>"; };
+		9675842A22855D57006C401E /* TeacherRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherRepositoryTests.swift; sourceTree = "<group>"; };
 		96777FD1227F31B700520ABF /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		96777FD3227F39E200520ABF /* UserRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryMock.swift; sourceTree = "<group>"; };
 		967D1E402223DDD3007E5217 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
@@ -753,6 +757,8 @@
 			children = (
 				96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */,
 				96939EE0223B970600A49E57 /* CourseRepositoryTests.swift */,
+				9675842822855470006C401E /* SettingsRepositoryTests.swift */,
+				9675842A22855D57006C401E /* TeacherRepositoryTests.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1278,6 +1284,7 @@
 				96939EF4223C274C00A49E57 /* CourseStudentRepositoryMock.swift in Sources */,
 				96C0A84B226CDA7C00AE733A /* StudentSearchViewModelTests.swift in Sources */,
 				96C87472224BEDA9009FB47F /* CoursesRepositoryMock.swift in Sources */,
+				9675842B22855D57006C401E /* TeacherRepositoryTests.swift in Sources */,
 				96C569A22268D99A00B16A7C /* StudentClassificationViewModelTests.swift in Sources */,
 				963C62902234307300B01818 /* EnvironmentConfigurationMock.swift in Sources */,
 				9675842522854A8B006C401E /* TeacherRepositoryMock.swift in Sources */,
@@ -1289,6 +1296,7 @@
 				96580714222FFA810065E23D /* CourseListViewModelTests.swift in Sources */,
 				963C62922234314200B01818 /* SceneCoordinatorMock.swift in Sources */,
 				9639AE6F2270FF89009C35A9 /* AuthClientMock.swift in Sources */,
+				9675842922855470006C401E /* SettingsRepositoryTests.swift in Sources */,
 				96C7B9CA226069FA00E39F9A /* CoursesRepositoryTests.swift in Sources */,
 				9639AE6D2270CA62009C35A9 /* HttpServiceTests.swift in Sources */,
 				963C6296223432FD00B01818 /* AuthenticationServiceMock.swift in Sources */,
