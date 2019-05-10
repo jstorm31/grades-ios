@@ -67,6 +67,8 @@
 		965ADAF32235976300AA8CF4 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965ADAF22235976300AA8CF4 /* Result.swift */; };
 		966ABB57222D986A007DD046 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB56222D986A007DD046 /* Course.swift */; };
 		966ABB59222DA2DF007DD046 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB58222DA2DF007DD046 /* User.swift */; };
+		96758423228549F9006C401E /* GroupClassificationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96758422228549F9006C401E /* GroupClassificationViewModelTests.swift */; };
+		9675842522854A8B006C401E /* TeacherRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9675842422854A8B006C401E /* TeacherRepositoryMock.swift */; };
 		96777FD2227F31B700520ABF /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96777FD1227F31B700520ABF /* UserRepository.swift */; };
 		96777FD4227F39E200520ABF /* UserRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96777FD3227F39E200520ABF /* UserRepositoryMock.swift */; };
 		967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967D1E402223DDD3007E5217 /* SnapKit.framework */; };
@@ -265,6 +267,8 @@
 		965ADAF22235976300AA8CF4 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		966ABB56222D986A007DD046 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		966ABB58222DA2DF007DD046 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		96758422228549F9006C401E /* GroupClassificationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupClassificationViewModelTests.swift; sourceTree = "<group>"; };
+		9675842422854A8B006C401E /* TeacherRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherRepositoryMock.swift; sourceTree = "<group>"; };
 		96777FD1227F31B700520ABF /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		96777FD3227F39E200520ABF /* UserRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryMock.swift; sourceTree = "<group>"; };
 		967D1E402223DDD3007E5217 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
@@ -760,6 +764,7 @@
 				96C569AB226B623600B16A7C /* DynamicValueCellViewModelTests.swift */,
 				96C0A84A226CDA7C00AE733A /* StudentSearchViewModelTests.swift */,
 				96456455227D84EB00E48FC1 /* CourseDetailStudentViewModelTests.swift */,
+				96758422228549F9006C401E /* GroupClassificationViewModelTests.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -771,6 +776,7 @@
 				96E8C643224BE8BA005F32F8 /* SettingsRepositoryMock.swift */,
 				96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */,
 				96777FD3227F39E200520ABF /* UserRepositoryMock.swift */,
+				9675842422854A8B006C401E /* TeacherRepositoryMock.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1259,6 +1265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96939EE1223B970600A49E57 /* CourseRepositoryTests.swift in Sources */,
+				96758423228549F9006C401E /* GroupClassificationViewModelTests.swift in Sources */,
 				96939EE4223B98BA00A49E57 /* CourseStudent.swift in Sources */,
 				96C569AC226B623600B16A7C /* DynamicValueCellViewModelTests.swift in Sources */,
 				96456456227D84EC00E48FC1 /* CourseDetailStudentViewModelTests.swift in Sources */,
@@ -1269,6 +1276,7 @@
 				96C87472224BEDA9009FB47F /* CoursesRepositoryMock.swift in Sources */,
 				96C569A22268D99A00B16A7C /* StudentClassificationViewModelTests.swift in Sources */,
 				963C62902234307300B01818 /* EnvironmentConfigurationMock.swift in Sources */,
+				9675842522854A8B006C401E /* TeacherRepositoryMock.swift in Sources */,
 				963C628D22342ED300B01818 /* LoginViewModelTests.swift in Sources */,
 				96777FD4227F39E200520ABF /* UserRepositoryMock.swift in Sources */,
 				963C628B22341FDC00B01818 /* GradesAPIMock.swift in Sources */,

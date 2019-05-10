@@ -98,12 +98,10 @@ class GradesAPIMock: GradesAPIProtocol {
 	
 	func getClassifications(forCourse: String) -> Observable<[Classification]> {
 		fatalError("getClassifications in GradesApiMock not implemented")
-		return Observable.empty()
 	}
 	
 	func getGroupClassifications(courseCode: String, groupCode: String, classificationId: String) -> Observable<[StudentClassification]> {
 		fatalError("getClassifications in GradesApiMock not implemented")
-		return Observable.empty()
 	}
 	
 	func getTeacherStudents(courseCode: String) -> Observable<[User]> {
@@ -120,7 +118,11 @@ class GradesAPIMock: GradesAPIProtocol {
 	}
 	
 	func putStudentsClassifications(courseCode: String, data: [StudentClassification]) -> Observable<Void> {
-		fatalError("putStudentsClassifications in GradesApiMock not implemented")
-		return Observable.empty()
+		switch result {
+		case .success:
+			return Observable.empty().delaySubscription(0.5, scheduler: MainScheduler.instance)
+		case .failure:
+			return Observable.error(ApiError.general).delaySubscription(0.5, scheduler: MainScheduler.instance)
+		}
 	}
 }

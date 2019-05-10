@@ -28,6 +28,8 @@ final class AppDependencyMock: HasNoDependency {
 	
 	let _courseRepository = CourseRepositoryMock()
 	lazy var courseRepository: CourseRepositoryProtocol = CourseRepositoryMock()
+	
+	lazy var teacherRepository: TeacherRepositoryProtocol = TeacherRepositoryMock()
 }
 
 extension AppDependencyMock: HasAuthenticationService {}
@@ -39,3 +41,4 @@ extension AppDependencyMock: HasUserRepository {}
 extension AppDependencyMock: HasSettingsRepository {}
 extension AppDependencyMock: HasCoursesRepository {}
 extension AppDependencyMock: HasCourseRepository {}
+extension AppDependencyMock: HasTeacherRepository {}

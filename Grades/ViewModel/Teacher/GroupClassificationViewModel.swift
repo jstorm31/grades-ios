@@ -173,7 +173,6 @@ final class GroupClassificationViewModel: TablePickerViewModel {
                     if options.count > index {
                         return options[index].id
                     }
-                    Log.error("Option index \(index) out of range")
                     return ""
                 } ?? Observable.just("")
             }
@@ -186,7 +185,6 @@ final class GroupClassificationViewModel: TablePickerViewModel {
                     if options.count > index {
                         return options[index].getLocalizedText()
                     }
-                    Log.error("Option index \(index) out of range")
                     return ""
                 } ?? Observable.just("")
             }
