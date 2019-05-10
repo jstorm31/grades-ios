@@ -76,7 +76,7 @@ class GradesUITests: XCTestCase {
 		XCTAssert(teacherCell.waitForExistence(timeout: 7))
 		teacherCell.tap()
 		
-		XCTAssert(app.tables.staticTexts.count > 0)
+//		XCTAssert(app.tables.staticTexts.count > 0)
 
 		let textField = app.tables/*@START_MENU_TOKEN@*/.cells.containing(.staticText, identifier:"Janata Pavel")/*[[".cells.containing(.staticText, identifier:\"janatpa3\")",".cells.containing(.staticText, identifier:\"Janata Pavel\")"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.children(matching: .textField).element
 		XCTAssert(textField.waitForExistence(timeout: 7))
@@ -123,7 +123,7 @@ class GradesUITests: XCTestCase {
 	
 	private func chooseSemester(_ semester: String) {
 		app.buttons["Settings button"].tap()
-		let picker = app.tables.staticTexts["Semester"]
+		let picker = app.tables.children(matching: .cell).element(boundBy: 2).staticTexts["Semester"]
 		XCTAssert(picker.waitForExistence(timeout: 7))
 		picker.tap()
 		app.pickers.pickerWheels["B182"].adjust(toPickerWheelValue: semester)
