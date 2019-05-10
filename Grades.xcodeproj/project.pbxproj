@@ -69,6 +69,7 @@
 		966ABB59222DA2DF007DD046 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB58222DA2DF007DD046 /* User.swift */; };
 		96758423228549F9006C401E /* GroupClassificationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96758422228549F9006C401E /* GroupClassificationViewModelTests.swift */; };
 		9675842522854A8B006C401E /* TeacherRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9675842422854A8B006C401E /* TeacherRepositoryMock.swift */; };
+		9675842722855289006C401E /* SettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9675842622855289006C401E /* SettingsViewModelTests.swift */; };
 		96777FD2227F31B700520ABF /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96777FD1227F31B700520ABF /* UserRepository.swift */; };
 		96777FD4227F39E200520ABF /* UserRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96777FD3227F39E200520ABF /* UserRepositoryMock.swift */; };
 		967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967D1E402223DDD3007E5217 /* SnapKit.framework */; };
@@ -269,6 +270,7 @@
 		966ABB58222DA2DF007DD046 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		96758422228549F9006C401E /* GroupClassificationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupClassificationViewModelTests.swift; sourceTree = "<group>"; };
 		9675842422854A8B006C401E /* TeacherRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherRepositoryMock.swift; sourceTree = "<group>"; };
+		9675842622855289006C401E /* SettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModelTests.swift; sourceTree = "<group>"; };
 		96777FD1227F31B700520ABF /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		96777FD3227F39E200520ABF /* UserRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryMock.swift; sourceTree = "<group>"; };
 		967D1E402223DDD3007E5217 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
@@ -765,6 +767,7 @@
 				96C0A84A226CDA7C00AE733A /* StudentSearchViewModelTests.swift */,
 				96456455227D84EB00E48FC1 /* CourseDetailStudentViewModelTests.swift */,
 				96758422228549F9006C401E /* GroupClassificationViewModelTests.swift */,
+				9675842622855289006C401E /* SettingsViewModelTests.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1266,6 +1269,7 @@
 			files = (
 				96939EE1223B970600A49E57 /* CourseRepositoryTests.swift in Sources */,
 				96758423228549F9006C401E /* GroupClassificationViewModelTests.swift in Sources */,
+				9675842722855289006C401E /* SettingsViewModelTests.swift in Sources */,
 				96939EE4223B98BA00A49E57 /* CourseStudent.swift in Sources */,
 				96C569AC226B623600B16A7C /* DynamicValueCellViewModelTests.swift in Sources */,
 				96456456227D84EC00E48FC1 /* CourseDetailStudentViewModelTests.swift in Sources */,
