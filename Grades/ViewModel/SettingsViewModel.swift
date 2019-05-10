@@ -92,7 +92,7 @@ class SettingsViewModel: TablePickerViewModel {
                     ]),
                     TableSection(header: L10n.Settings.other, items: [
                         LinkCellConfigurator(item: L10n.Settings.about),
-                        LinkCellConfigurator(item: L10n.Settings.license),
+                        LinkCellConfigurator(item: L10n.Settings.license)
                     ])
                 ]
             }

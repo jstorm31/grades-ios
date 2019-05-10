@@ -1,0 +1,17 @@
+[
+    {
+      "name" : "{ALL_STUDENTS}",
+      "studentGroupId" : "ALL",
+      "description" : "{ALL_STUDENTS}"
+    },
+    {
+      "name" : "{TEST_STUDENTS}",
+      "studentGroupId" : "TEST",
+      "description" : "{TEST_STUDENTS}"
+    },
+    {
+      "name" : "{PARALLEL_LABORATORY}101",
+      "studentGroupId" : "PARALLEL_1006440854905",
+      "description" : "1006440854905"
+    }
+  ]

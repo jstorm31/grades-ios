@@ -1,0 +1,79 @@
+{
+  "userId" : null,
+  "firstName" : "Milan",
+  "parallelCodes" : {
+    "TUTORIAL" : "1014256573705"
+  },
+  "grade" : 3,
+  "fullName" : "Milan Pahýl",
+  "username" : "pahmil",
+  "email" : "pahmil@fit.cvut.cz",
+  "studentClassificationFullDtos" : [
+    {
+      "classificationTextDtos" : [
+        {
+          "name" : "Test 1",
+          "identifier" : "cs"
+        }
+      ],
+      "evaluationType" : "MANUAL",
+      "aggregationScope" : null,
+      "hidden" : false,
+      "semesterCode" : "B182",
+      "minimumRequiredValue" : null,
+      "index" : 0,
+      "aggregationFunction" : null,
+      "skillDtos" : [
+
+      ],
+      "valueType" : "NUMBER",
+      "lowercaseIdentifier" : "final_questions",
+      "id" : 3794,
+      "identifier" : "final_questions",
+      "courseCode" : "BI-PJS.1",
+      "maximumValue" : null,
+      "parentId" : null,
+      "classificationType" : "OTHER_SEMESTER",
+      "aggregatedIdentifier" : null,
+      "minimumValue" : null,
+      "value" : null,
+      "note" : null,
+      "lastUpdated" : null,
+      "expression" : null
+    },
+    {
+      "classificationTextDtos" : [
+        {
+          "name" : "Homework",
+          "identifier" : "cs"
+        }
+      ],
+      "evaluationType" : "MANUAL",
+      "aggregationScope" : null,
+      "hidden" : false,
+      "semesterCode" : "B182",
+      "minimumRequiredValue" : null,
+      "index" : 0,
+      "aggregationFunction" : null,
+      "skillDtos" : [
+
+      ],
+      "valueType" : "NUMBER",
+      "lowercaseIdentifier" : "task1",
+      "id" : 3829,
+      "identifier" : "task1",
+      "courseCode" : "BI-PJS.1",
+      "maximumValue" : null,
+      "parentId" : null,
+      "classificationType" : "ACTIVITY",
+      "aggregatedIdentifier" : null,
+      "minimumValue" : null,
+      "value" : null,
+      "note" : null,
+      "lastUpdated" : null,
+      "expression" : null
+    },
+  ],
+  "personalNumber" : "14534",
+  "lastName" : "Pahýl"
+}

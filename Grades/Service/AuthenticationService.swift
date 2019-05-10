@@ -95,7 +95,12 @@ final class AuthenticationService: AuthenticationServiceProtocol {
         }
     }
 
-    /// Try to load refresh token from Keychain and obtain new access token
+    /**
+     Authenticate with refresh token
+
+     Checks if refresh token is stored in the keychain. If yes, obtain a new access token with it.
+     - Returns Observable sequence that emits **true** if refresh token is stored and *false** if not
+     */
     func authenticateWitRefreshToken() -> Observable<Bool> {
         loadCredentialsFromKeychain()
 

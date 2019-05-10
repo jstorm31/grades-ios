@@ -28,8 +28,8 @@
             buildForTesting = "YES"
             buildForRunning = "YES"
             buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "96520E902223D65F00AB6499"
@@ -48,22 +48,12 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
-            skipped = "YES">
+            skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "961BCE75222C3D8E00BD6663"
                BuildableName = "GradesUITests.xctest"
                BlueprintName = "GradesUITests"
-               ReferencedContainer = "container:Grades.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9682A6AC222D1ABC00773E28"
-               BuildableName = "GradesTests.xctest"
-               BlueprintName = "GradesTests"
                ReferencedContainer = "container:Grades.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -81,7 +71,7 @@
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Test"
       selectedDebuggerIdentifier = ""
       selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       launchStyle = "0"

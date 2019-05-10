@@ -49,6 +49,7 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
 
         let icon = UIImage(named: "icon_settings")
         var settingsButton = UIButton()
+        settingsButton.accessibilityIdentifier = "Settings button"
         settingsButton.setImage(icon, for: .normal)
         settingsButton.rx.action = viewModel.openSettings
         navigationController?.navigationBar.addSubview(settingsButton)

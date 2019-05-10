@@ -21,6 +21,7 @@ class BaseTableViewController: BaseViewController {
         super.loadView()
 
         let tableView = UITableView()
+        tableView.accessibilityIdentifier = "Table"
         tableView.delegate = self
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in

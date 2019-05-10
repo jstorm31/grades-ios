@@ -1,0 +1,20 @@
+[
+    {
+        "firstName": "Jan",
+        "lastName": "Pavel",
+        "username": "pavjan",
+        "userId": 1
+    },
+    {
+        "firstName": "Ondřej",
+        "lastName": "Tichý",
+        "username": "tichon",
+        "userId": 2
+    },
+    {
+        "firstName": "John",
+        "lastName": "Doe",
+        "username": "doejo",
+        "userId": 3
+    }
+]

@@ -32,15 +32,17 @@ final class LoginViewModel: BaseViewModel {
     // MARK: methods
 
     func authenticateWithRefresToken() -> Observable<Void> {
+        if CommandLine.arguments.contains("--stub-authentication") {
+            return Observable.empty()
+        }
+
         return dependencies.authService.authenticateWitRefreshToken()
             .flatMap(postAuthSetup)
     }
 
     func authenticate(viewController: UIViewController) -> Observable<Void> {
         if CommandLine.arguments.contains("--stub-authentication") {
-            return Observable.just(()).do(onNext: { _ in
-                self.transitionToCourseList()
-            })
+            return postAuthSetup(true)
         }
 
         return dependencies.authService

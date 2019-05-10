@@ -45,6 +45,7 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
 
         tableView.register(PickerCell.self, forCellReuseIdentifier: "PickerCell")
         tableView.register(DynamicValueCell.self, forCellReuseIdentifier: "DynamicValueCell")
+        tableView.accessibilityIdentifier = "GroupTable"
 
         viewModel.bindOutput()
         setupBindings()

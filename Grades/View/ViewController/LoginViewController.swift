@@ -37,6 +37,7 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
 
         // Login button
         let button = UIPrimaryButton()
+        button.accessibilityIdentifier = "Login"
         button.setTitle(L10n.Button.login, for: .normal)
         button.addTarget(self, action: #selector(authButtonTapped(_:)), for: .primaryActionTriggered)
         view.addSubview(button)

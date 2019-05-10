@@ -90,20 +90,35 @@ class GradesAPIMock: GradesAPIProtocol {
 			return Observable.just([
 				StudentGroup(id: "A145", name: "Cvičení 1"),
 				StudentGroup(id: "A146", name: "Cvičení 2")
-			])
+			]).delaySubscription(0.5, scheduler: MainScheduler.instance)
 		case .failure:
 			return Observable.error(ApiError.general)
 		}
 	}
 	
 	func getClassifications(forCourse: String) -> Observable<[Classification]> {
-		fatalError("getClassifications in GradesApiMock not implemented")
-		return Observable.empty()
+		switch result {
+		case .success:
+			return Observable.just([
+				Classification(id: 1, identifier: "test_1", text: [ClassificationText(identifier: "cs", name: "Test 1")], evaluationType: .manual, type: "TEST", valueType: .number, value: .number(3.5), parentId: nil, isHidden: false),
+				Classification(id: 2, identifier: "homework", text: [ClassificationText(identifier: "cs", name: "Homework")], evaluationType: .manual, type: "HOMEWORK", valueType: .string, value: .string("Good"), parentId: nil, isHidden: false)
+				]).delaySubscription(0.5, scheduler: MainScheduler.instance)
+		case .failure:
+			return Observable.error(ApiError.general)
+		}
 	}
 	
 	func getGroupClassifications(courseCode: String, groupCode: String, classificationId: String) -> Observable<[StudentClassification]> {
-		fatalError("getClassifications in GradesApiMock not implemented")
-		return Observable.empty()
+		switch result {
+		case .success:
+			return Observable.just([
+				StudentClassification(identifier: "item1", username: "novtom", value: .number(4.5)),
+				StudentClassification(identifier: "item2", username: "kobljan", value: .number(1)),
+				StudentClassification(identifier: "item3", username: "ivtjir", value: nil)
+			]).delaySubscription(0.5, scheduler: MainScheduler.instance)
+		case .failure:
+			return Observable.error(ApiError.general)
+		}
 	}
 	
 	func getTeacherStudents(courseCode: String) -> Observable<[User]> {
@@ -120,7 +135,11 @@ class GradesAPIMock: GradesAPIProtocol {
 	}
 	
 	func putStudentsClassifications(courseCode: String, data: [StudentClassification]) -> Observable<Void> {
-		fatalError("putStudentsClassifications in GradesApiMock not implemented")
-		return Observable.empty()
+		switch result {
+		case .success:
+			return Observable.empty().delaySubscription(0.5, scheduler: MainScheduler.instance)
+		case .failure:
+			return Observable.error(ApiError.general).delaySubscription(0.5, scheduler: MainScheduler.instance)
+		}
 	}
 }

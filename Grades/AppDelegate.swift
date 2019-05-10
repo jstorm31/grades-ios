@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_: UIApplication,
                      didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        resetStateIfUITesting()
         Bagel.start() // TODO: remove on release!
 
         // Initialize first scene
@@ -49,5 +50,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tokenObservable = AppDependency.shared.pushNotificationsService.deviceToken
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         tokenObservable.accept(token)
+    }
+
+    private func resetStateIfUITesting() {
+        if ProcessInfo.processInfo.arguments.contains("--ui-testing") {
+            // Reset semester
+            if let encoded = try? JSONEncoder().encode(Settings(language: .english, semester: "B182")) {
+                UserDefaults.standard.set(encoded, forKey: "Settings")
+            }
+        }
     }
 }

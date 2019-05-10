@@ -1,0 +1,17 @@
+[
+	{
+		"overviewItems": [{
+			"classificationType": "FINAL_SCORE",
+			"value": "C",
+			"error": null
+		},
+		{
+			"classificationType": "POINTS_TOTAL",
+			"value": 75,
+			"error": null
+		}
+		],
+		"courseCode": "BI-KOM",
+		"semesterCode": "B181"
+    }
+]
