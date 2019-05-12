@@ -27,6 +27,7 @@ class NotificationService: UNNotificationServiceExtension {
 		guard let bestAttemptContent = bestAttemptContent else { return }
 		
 		loadCredentialsFromKeychain()
+		// TODO: get nofication ID and filter fetched notifications by ID
 		authenticate { content, text in
 			if let content = content {
 				bestAttemptContent.title = content.title
@@ -60,7 +61,7 @@ private extension NotificationService {
 				completion(content, text)
 			}
 		} else {
-			// Get new access token
+			// TODO: Get new access token
 			completion(nil, "expired, \(credentials.expiresAt)\n\(Date())")
 		}
 	}

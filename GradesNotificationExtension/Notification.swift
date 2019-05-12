@@ -7,12 +7,13 @@
 //
 
 struct Notification: Decodable {
+	var id: Int
 	var courseCode: String = ""
 	var texts: [NotificationText] = []
 	var url: String?
 	
 	enum CodingKeys: String, CodingKey {
-		case courseCode, url
+		case id, courseCode, url
 		case texts = "notificationTextDtos"
 	}
 }
