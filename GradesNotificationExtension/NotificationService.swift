@@ -10,6 +10,8 @@ import SwiftKeychainWrapper
 import UserNotifications
 
 class NotificationService: UNNotificationServiceExtension {
+	
+	// MARK: Properties
 
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
@@ -18,6 +20,8 @@ class NotificationService: UNNotificationServiceExtension {
 	private lazy var keychainWrapper = KeychainWrapper(serviceName: config.keychain.serviceName,
 													   accessGroup: config.keychain.accessGroup)
 	private var credentials: Credentials?
+	
+	// MARK: Methods
 
     override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
         self.contentHandler = contentHandler
@@ -53,11 +57,15 @@ class NotificationService: UNNotificationServiceExtension {
 }
 
 private extension NotificationService {
+	
+	/**
+		Checks accessToken, obtains a new one if expired and fetches notifications content
+		- Returns content of the notification as a parametr in the completion closure or nil if the fetch has been unsucessful
+	*/
 	func fetchNotification(withId id: Int, completion: @escaping (Notification?, String) -> Void) {
 		guard let credentials = credentials else { return completion(nil, "cred") }
 		
 		if let expiresAt = credentials.expiresAt, expiresAt.timeIntervalSinceNow.sign == FloatingPointSign.plus {
-			// Valid access token -> fetch notification content
 			fetchNotificationContent(id) { notification, text in
 				completion(notification, text)
 			}
@@ -67,8 +75,9 @@ private extension NotificationService {
 		}
 	}
 	
+	/// Makes notification HTTP content request
 	func fetchNotificationContent(_ notificationId: Int, completion: @escaping (Notification?, String) -> Void) {
-		guard let credentials = credentials, let accessToken = credentials.accessToken else {
+		guard let credentials = credentials else {
 			completion(nil, "token nil")
 			return
 		}
@@ -76,9 +85,9 @@ private extension NotificationService {
 		// Build request
 		let base = config.gradesAPI["BaseURL"]! as String
 //		let endpoint = (config.gradesAPI["UserNewNotifications"]! as String).replacingOccurrences(of: ":username", with: "zdvomjir")
-		var request = URLRequest(url: URL(string: "\(base)/public/notifications/zdvomjir/new")!)
+		var request = URLRequest(url: URL(string: "\(base)/public/notifications/\(credentials.username ?? "")/new")!)
 		request.httpMethod = "GET"
-		request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+		request.setValue("Bearer \(credentials.accessToken ?? "")", forHTTPHeaderField: "Authorization")
 		request.setValue("application/json;charset=UTF-8", forHTTPHeaderField: "Content-Type")
 		
 		// Make request
@@ -110,10 +119,12 @@ private extension NotificationService {
 	
 	func loadCredentialsFromKeychain() {
 		if credentials == nil {
-			credentials = Credentials(refreshToken: keychainWrapper.string(forKey: "refreshToken"),
-									  accessToken: keychainWrapper.string(forKey: "accessToken"),
+			credentials = Credentials(refreshToken: keychainWrapper.string(forKey: "refreshToken") ?? "",
+									  accessToken: keychainWrapper.string(forKey: "accessToken") ?? "",
+									  username: keychainWrapper.string(forKey: "username"),
 									  expiresAt: keychainWrapper.string(forKey: "expiresAt")?.toDate())
 		}
 	}
+	
 }
 

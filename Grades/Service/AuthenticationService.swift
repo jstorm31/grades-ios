@@ -27,8 +27,11 @@ protocol AuthenticationServiceProtocol {
 }
 
 final class AuthenticationService: AuthenticationServiceProtocol {
+    typealias Dependencies = HasNoDependency
+
     let handler: OAuth2Swift
     let client: AuthClientProtocol
+
     private let callbackUrl: URL
     private let authorizationHeader: String
     private let scope: String
@@ -38,7 +41,7 @@ final class AuthenticationService: AuthenticationServiceProtocol {
 
     // MARK: initializers
 
-    init() {
+    init(dependencies _: Dependencies) {
         config = EnvironmentConfiguration.shared
         keychainWrapper = KeychainWrapper(serviceName: config.keychain.serviceName, accessGroup: config.keychain.accessGroup)
 

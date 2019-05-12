@@ -12,7 +12,7 @@ final class AppDependency: HasNoDependency {
     private init() {}
     static let shared = AppDependency()
 
-    lazy var authService: AuthenticationServiceProtocol = AuthenticationService()
+    lazy var authService: AuthenticationServiceProtocol = AuthenticationService(dependencies: self)
     lazy var httpService: HttpServiceProtocol = HttpService(dependencies: self)
     lazy var gradesApi: GradesAPIProtocol = GradesAPI(dependencies: self)
     lazy var pushNotificationsService: PushNotificationServiceProtocol = PushNotificationService(dependencies: self)

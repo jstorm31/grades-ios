@@ -9,7 +9,8 @@
 import Foundation
 
 struct Credentials {
-	let refreshToken: String?
-	let accessToken: String?
+	let refreshToken: String
+	let accessToken: String
+	let username: String?
 	let expiresAt: Date?
 }
