@@ -65,6 +65,8 @@
 		964CDE2D22882C400093CB3C /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE6A2270ADDF009C35A9 /* String+.swift */; };
 		964CDE2F228832C60093CB3C /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964CDE2E228832C60093CB3C /* Credentials.swift */; };
 		964CDE312288486A0093CB3C /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964CDE302288486A0093CB3C /* Notification.swift */; };
+		964CDE342288C5CE0093CB3C /* AuthTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE682270AAA1009C35A9 /* AuthTokenResponse.swift */; };
+		964CDE352288C6F90093CB3C /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966BCCBA22881F6C00171B71 /* Date+.swift */; };
 		96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E942223D65F00AB6499 /* AppDelegate.swift */; };
 		96520E972223D65F00AB6499 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E962223D65F00AB6499 /* LoginViewController.swift */; };
 		96520E9C2223D66000AB6499 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96520E9B2223D66000AB6499 /* Assets.xcassets */; };
@@ -1282,7 +1284,9 @@
 				964CDE312288486A0093CB3C /* Notification.swift in Sources */,
 				964CDE2F228832C60093CB3C /* Credentials.swift in Sources */,
 				964CDE2D22882C400093CB3C /* String+.swift in Sources */,
+				964CDE342288C5CE0093CB3C /* AuthTokenResponse.swift in Sources */,
 				964CDE222288289B0093CB3C /* NotificationService.swift in Sources */,
+				964CDE352288C6F90093CB3C /* Date+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

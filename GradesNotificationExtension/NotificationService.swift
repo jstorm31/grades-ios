@@ -69,9 +69,18 @@ private extension NotificationService {
 			fetchNotificationContent(id) { notification, text in
 				completion(notification, text)
 			}
+		} else if credentials.refreshToken != "" {
+			obtainAccessToken() { [weak self] success, debugText in
+				if success == true {
+					self?.fetchNotificationContent(id) { notification, text in
+						completion(notification, text)
+					}
+				} else {
+					completion(nil, debugText)
+				}
+			}
 		} else {
-			// TODO: Get new access token
-			completion(nil, "expired, \(credentials.expiresAt)\n\(Date())")
+			completion(nil, "no refresh token and expired")
 		}
 	}
 	
@@ -84,11 +93,11 @@ private extension NotificationService {
 		
 		// Build request
 		let base = config.gradesAPI["BaseURL"]! as String
-//		let endpoint = (config.gradesAPI["UserNewNotifications"]! as String).replacingOccurrences(of: ":username", with: "zdvomjir")
 		var request = URLRequest(url: URL(string: "\(base)/public/notifications/\(credentials.username ?? "")/new")!)
 		request.httpMethod = "GET"
-		request.setValue("Bearer \(credentials.accessToken ?? "")", forHTTPHeaderField: "Authorization")
+		request.setValue("Bearer \(credentials.accessToken)", forHTTPHeaderField: "Authorization")
 		request.setValue("application/json;charset=UTF-8", forHTTPHeaderField: "Content-Type")
+		
 		
 		// Make request
 		let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
@@ -108,12 +117,57 @@ private extension NotificationService {
 					completion(notification, "found")
 				}
 				
-				completion(nil, "\(wrapper.notifications[0].id), \(notificationId)")
+				completion(nil, "notificationnot found")
 
 			} catch {
 				completion(nil, "Decoding failed")
 			}
 		}
+		task.resume()
+	}
+	
+	/// Request new access token from OAuth server
+	func obtainAccessToken(completion: @escaping (Bool, String) -> Void) {
+		guard let credentials = credentials else {
+			completion(false, "crednil")
+			return
+		}
+		
+		// Build request
+		
+		var request = URLRequest(url: URL(string: config.auth.tokenUrl)!)
+		request.httpMethod = "POST"
+		request.setValue("Basic \(config.auth.clientHash)", forHTTPHeaderField: "Authorization")
+		request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+		let body = "grant_type=refresh_token&refresh_token=\(credentials.refreshToken)"
+		request.httpBody = body.data(using: .utf8)
+		
+		let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+			if let error = error {
+				completion(false, error.localizedDescription)
+				return
+			}
+			
+			guard let data = data, let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+				completion(false, "Request failed")
+				return
+			}
+			
+			do {
+				let tokenResponse = try JSONDecoder().decode(AuthTokenResponse.self, from: data)
+
+				// Set new tokens
+				self?.credentials?.accessToken = tokenResponse.accessToken.safeStringByRemovingPercentEncoding
+				self?.credentials?.refreshToken = tokenResponse.refreshToken.safeStringByRemovingPercentEncoding
+				self?.credentials?.expiresAt = Date(timeInterval: tokenResponse.expiresIn, since: Date())
+				self?.saveCredentialsToKeychain()
+				completion(true, "success")
+			} catch {
+				completion(false, "decode error")
+			}
+		}
+
+		// Make request
 		task.resume()
 	}
 	
@@ -124,6 +178,16 @@ private extension NotificationService {
 									  username: keychainWrapper.string(forKey: "username"),
 									  expiresAt: keychainWrapper.string(forKey: "expiresAt")?.toDate())
 		}
+	}
+	
+	func saveCredentialsToKeychain() {
+		guard let credentials = credentials else { return }
+		
+		keychainWrapper.set(credentials.refreshToken, forKey: "refreshToken", withAccessibility: .afterFirstUnlock)
+		keychainWrapper.set(credentials.accessToken, forKey: "accessToken", withAccessibility: .afterFirstUnlock)
+		
+		guard let expiresAt = credentials.expiresAt else { return }
+		keychainWrapper.set(expiresAt.toString(), forKey: "expiresAt", withAccessibility: .afterFirstUnlock)
 	}
 	
 }

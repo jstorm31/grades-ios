@@ -83,7 +83,7 @@ final class AuthenticationService: AuthenticationServiceProtocol {
                            state: "",
                            headers: ["Authorization": self.authorizationHeader],
                            success: { [weak self] _, _, _ in
-                               self?.saveCredentialsInKeychain()
+                               self?.saveCredentialsToKeychain()
                                observer.onNext(true)
                                observer.onCompleted()
                            }, failure: { error in
@@ -147,7 +147,7 @@ final class AuthenticationService: AuthenticationServiceProtocol {
                             credential.oauthToken = tokenResponse.accessToken.safeStringByRemovingPercentEncoding
                             credential.oauthRefreshToken = tokenResponse.refreshToken.safeStringByRemovingPercentEncoding
                             credential.oauthTokenExpiresAt = Date(timeInterval: tokenResponse.expiresIn, since: Date())
-                            self?.saveCredentialsInKeychain()
+                            self?.saveCredentialsToKeychain()
 
                             observer.onNext(())
                             observer.onCompleted()
@@ -166,7 +166,7 @@ final class AuthenticationService: AuthenticationServiceProtocol {
     }
 
     /// Save Auth credentials in keychain
-    private func saveCredentialsInKeychain() {
+    private func saveCredentialsToKeychain() {
         keychainWrapper.set(handler.client.credential.oauthRefreshToken,
                             forKey: "refreshToken",
                             withAccessibility: .afterFirstUnlock)
