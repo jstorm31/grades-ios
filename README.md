@@ -4,10 +4,18 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Build Status](https://travis-ci.com/jstorm31/grades-ios.svg?branch=master)](https://travis-ci.com/jstorm31/grades-ios)
 
+<p align="center">
+  <img height="150" src="grades_logo.png">
+</p>
 
-Client mobile application for [grades management server](https://grades.fit.cvut.cz/) on FIT CTU running on iOS platform.
+Client iOS application for [student evaluation management server](https://grades.fit.cvut.cz/) at Faculty of Information Technologies, Czech Technical University in Prague.
 
-## Dependency management
+## 🛠 Setup
+1. Clone the repository.
+2. Run `carthage bootstrap`
+3. Request access to encrypted configuration files from the repository owner.
+
+## 🔗 Dependency management
 The app uses [Carthage](https://github.com/Carthage/Carthage) package manager for dependency management. After cloning the repo, run `carthage bootstrap` to correctly install required frameworks.
 
 Additionally, you should have following frameworks installed system-wide:
@@ -16,7 +24,7 @@ Additionally, you should have following frameworks installed system-wide:
  * [SwiftGen](https://github.com/SwiftGen/SwiftGen)
  * [SwiftFormat](https://github.com/nicklockwood/SwiftFormat)
 
-## Configuration
+## ⚙️ Configuration
 All configuration related files are located in `Configuration` folder. There are several files:
  * `.plist` files - all configuration for different environments (one file for each) and common configuration
  * `EnvironmentConfiguration` - class for extracting configuration from `.plist` files and providing strongly typed interface
