@@ -9,8 +9,6 @@
 import SwiftKeychainWrapper
 import UserNotifications
 
-typealias NotificationContent = (title: String, text: String)
-
 class NotificationService: UNNotificationServiceExtension {
 
     var contentHandler: ((UNNotificationContent) -> Void)?
@@ -30,12 +28,14 @@ class NotificationService: UNNotificationServiceExtension {
 			let notificationId = Int(idString) else { return }
 		
 		loadCredentialsFromKeychain()
-		fetchNotification(withId: notificationId) { content, text in
-			if let content = content {
-				bestAttemptContent.title = content.title
-				bestAttemptContent.body = content.text
-			} else {
+		fetchNotification(withId: notificationId) { notification, debugText in
+			if let notification = notification {
+				let (title, text) = notification.getContent()
+				bestAttemptContent.title = title
 				bestAttemptContent.body = text
+				bestAttemptContent.userInfo["courseCode"] = notification.courseCode
+			} else {
+				bestAttemptContent.body = debugText
 			}
 			contentHandler(bestAttemptContent)
 		}
@@ -53,13 +53,13 @@ class NotificationService: UNNotificationServiceExtension {
 }
 
 private extension NotificationService {
-	func fetchNotification(withId id: Int, completion: @escaping (NotificationContent?, String) -> Void) {
+	func fetchNotification(withId id: Int, completion: @escaping (Notification?, String) -> Void) {
 		guard let credentials = credentials else { return completion(nil, "cred") }
 		
 		if let expiresAt = credentials.expiresAt, expiresAt.timeIntervalSinceNow.sign == FloatingPointSign.plus {
 			// Valid access token -> fetch notification content
-			fetchNotificationContent(id) { content, text in
-				completion(content, text)
+			fetchNotificationContent(id) { notification, text in
+				completion(notification, text)
 			}
 		} else {
 			// TODO: Get new access token
@@ -67,7 +67,7 @@ private extension NotificationService {
 		}
 	}
 	
-	func fetchNotificationContent(_ notificationId: Int, completion: @escaping (NotificationContent?, String) -> Void) {
+	func fetchNotificationContent(_ notificationId: Int, completion: @escaping (Notification?, String) -> Void) {
 		guard let credentials = credentials, let accessToken = credentials.accessToken else {
 			completion(nil, "token nil")
 			return
@@ -96,12 +96,8 @@ private extension NotificationService {
 			do {
 				let wrapper = try JSONDecoder().decode(Notifications.self, from: data)
 				if let notification = wrapper.notifications.first(where: { $0.id == notificationId }) {
-					if let content = self?.getNotificationContent(notification) {
-						completion(content, "found")
-					}
-					completion(nil, "Found, but no content: \(notification.id)")
+					completion(notification, "found")
 				}
-
 				
 				completion(nil, "\(wrapper.notifications[0].id), \(notificationId)")
 
@@ -110,18 +106,6 @@ private extension NotificationService {
 			}
 		}
 		task.resume()
-	}
-	
-	/// Extract content from notification
-	func getNotificationContent(_ notification: Notification) -> NotificationContent {
-		if let locale = Locale.current.languageCode, let item = notification.texts.first(where: { $0.identifier == locale }) {
-			return (title: item.title, text: item.text)
-		} else if let item = notification.texts.first(where: { $0.identifier == "en" }) {
-			return (title: item.title, text: item.text)
-		}
-		return !notification.texts.isEmpty
-			? (title: notification.texts[0].title, text: notification.texts[0].text)
-			: (title: "", text: "")
 	}
 	
 	func loadCredentialsFromKeychain() {
