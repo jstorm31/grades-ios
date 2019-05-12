@@ -15,7 +15,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9613645022871D84009373FA"
+               BlueprintIdentifier = "964CDE14228828330093CB3C"
                BuildableName = "GradesNotificationExtension.appex"
                BlueprintName = "GradesNotificationExtension"
                ReferencedContainer = "container:Grades.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9613645022871D84009373FA"
+            BlueprintIdentifier = "964CDE14228828330093CB3C"
             BuildableName = "GradesNotificationExtension.appex"
             BlueprintName = "GradesNotificationExtension"
             ReferencedContainer = "container:Grades.xcodeproj">
