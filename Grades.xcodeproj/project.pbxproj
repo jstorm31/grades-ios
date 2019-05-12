@@ -63,6 +63,8 @@
 		964CDE2A228829AB0093CB3C /* PlistDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A2FDD22294F4500A624DC /* PlistDocument.swift */; };
 		964CDE2B228829AE0093CB3C /* Test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96F220F1227B785F0078AD2A /* Test.plist */; };
 		964CDE2D22882C400093CB3C /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE6A2270ADDF009C35A9 /* String+.swift */; };
+		964CDE2F228832C60093CB3C /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964CDE2E228832C60093CB3C /* Credentials.swift */; };
+		964CDE312288486A0093CB3C /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964CDE302288486A0093CB3C /* Notification.swift */; };
 		96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E942223D65F00AB6499 /* AppDelegate.swift */; };
 		96520E972223D65F00AB6499 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E962223D65F00AB6499 /* LoginViewController.swift */; };
 		96520E9C2223D66000AB6499 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96520E9B2223D66000AB6499 /* Assets.xcassets */; };
@@ -286,6 +288,8 @@
 		964CDE19228828330093CB3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		964CDE212288289B0093CB3C /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		964CDE23228828EE0093CB3C /* GradesNotificationExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GradesNotificationExtension.entitlements; sourceTree = "<group>"; };
+		964CDE2E228832C60093CB3C /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
+		964CDE302288486A0093CB3C /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		96520E912223D65F00AB6499 /* GradesDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GradesDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96520E942223D65F00AB6499 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96520E962223D65F00AB6499 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -568,6 +572,8 @@
 				964CDE23228828EE0093CB3C /* GradesNotificationExtension.entitlements */,
 				964CDE212288289B0093CB3C /* NotificationService.swift */,
 				964CDE19228828330093CB3C /* Info.plist */,
+				964CDE2E228832C60093CB3C /* Credentials.swift */,
+				964CDE302288486A0093CB3C /* Notification.swift */,
 			);
 			path = GradesNotificationExtension;
 			sourceTree = "<group>";
@@ -1273,6 +1279,8 @@
 			files = (
 				964CDE2A228829AB0093CB3C /* PlistDocument.swift in Sources */,
 				964CDE252288299F0093CB3C /* EnvironmentConfiguration.swift in Sources */,
+				964CDE312288486A0093CB3C /* Notification.swift in Sources */,
+				964CDE2F228832C60093CB3C /* Credentials.swift in Sources */,
 				964CDE2D22882C400093CB3C /* String+.swift in Sources */,
 				964CDE222288289B0093CB3C /* NotificationService.swift in Sources */,
 			);
@@ -1516,6 +1524,7 @@
 				CODE_SIGN_ENTITLEMENTS = GradesNotificationExtension/GradesNotificationExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CONFIG_ENVIRONMENT = Debug;
 				DEVELOPMENT_TEAM = 2PY9RKK8A7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1542,6 +1551,7 @@
 				CODE_SIGN_ENTITLEMENTS = GradesNotificationExtension/GradesNotificationExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CONFIG_ENVIRONMENT = Test;
 				DEVELOPMENT_TEAM = 2PY9RKK8A7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1568,6 +1578,7 @@
 				CODE_SIGN_ENTITLEMENTS = GradesNotificationExtension/GradesNotificationExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CONFIG_ENVIRONMENT = Release;
 				DEVELOPMENT_TEAM = 2PY9RKK8A7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
