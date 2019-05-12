@@ -24,27 +24,28 @@ class NotificationService: UNNotificationServiceExtension {
     override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
+		
 		guard let bestAttemptContent = bestAttemptContent else { return }
+		guard let idString = bestAttemptContent.userInfo["notificationId"] as? String,
+			let notificationId = Int(idString) else { return }
 		
 		loadCredentialsFromKeychain()
-		// TODO: get nofication ID and filter fetched notifications by ID
-		authenticate { content, text in
+		fetchNotification(withId: notificationId) { content, text in
 			if let content = content {
 				bestAttemptContent.title = content.title
 				bestAttemptContent.body = content.text
+			} else {
+				bestAttemptContent.body = text
 			}
 			contentHandler(bestAttemptContent)
 		}
-		
-//		bestAttemptContent.title = "\(bestAttemptContent.title) [modified]"
-//		contentHandler(bestAttemptContent)
     }
     
     override func serviceExtensionTimeWillExpire() {
         // Called just before the extension will be terminated by the system.
         // Use this as an opportunity to deliver your "best attempt" at modified content, otherwise the original push payload will be used.
         if let contentHandler = contentHandler, let bestAttemptContent =  bestAttemptContent {
-			bestAttemptContent.title = "\(bestAttemptContent.title) [expired]"
+			bestAttemptContent.title = "\(bestAttemptContent.title) [expired]" // TODO: remove
             contentHandler(bestAttemptContent)
         }
     }
@@ -52,12 +53,12 @@ class NotificationService: UNNotificationServiceExtension {
 }
 
 private extension NotificationService {
-	func authenticate(completion: @escaping (NotificationContent?, String) -> Void) {
+	func fetchNotification(withId id: Int, completion: @escaping (NotificationContent?, String) -> Void) {
 		guard let credentials = credentials else { return completion(nil, "cred") }
 		
 		if let expiresAt = credentials.expiresAt, expiresAt.timeIntervalSinceNow.sign == FloatingPointSign.plus {
 			// Valid access token -> fetch notification content
-			fetchNotificationContent { content, text in
+			fetchNotificationContent(id) { content, text in
 				completion(content, text)
 			}
 		} else {
@@ -66,7 +67,7 @@ private extension NotificationService {
 		}
 	}
 	
-	func fetchNotificationContent(completion: @escaping (NotificationContent?, String) -> Void) {
+	func fetchNotificationContent(_ notificationId: Int, completion: @escaping (NotificationContent?, String) -> Void) {
 		guard let credentials = credentials, let accessToken = credentials.accessToken else {
 			completion(nil, "token nil")
 			return
@@ -94,12 +95,15 @@ private extension NotificationService {
 
 			do {
 				let wrapper = try JSONDecoder().decode(Notifications.self, from: data)
-				if !wrapper.notifications.isEmpty {
-					if let content = self?.getNotificationContent(wrapper.notifications[0]) {
-						completion(content, "OK")
+				if let notification = wrapper.notifications.first(where: { $0.id == notificationId }) {
+					if let content = self?.getNotificationContent(notification) {
+						completion(content, "found")
 					}
+					completion(nil, "Found, but no content: \(notification.id)")
 				}
-				completion(nil, "Empty")
+
+				
+				completion(nil, "\(wrapper.notifications[0].id), \(notificationId)")
 
 			} catch {
 				completion(nil, "Decoding failed")
