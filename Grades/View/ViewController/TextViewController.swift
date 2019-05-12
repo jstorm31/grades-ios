@@ -14,7 +14,6 @@ final class TextViewController: BaseViewController, BindableType {
 
     override func loadView() {
         super.loadView()
-        navigationItem.title = "Text"
         loadUI()
     }
 
@@ -27,6 +26,7 @@ final class TextViewController: BaseViewController, BindableType {
     }
 
     func bindViewModel() {
+        navigationItem.title = viewModel.title
         textLabel.text = viewModel.text
     }
 

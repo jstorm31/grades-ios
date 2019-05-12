@@ -14,6 +14,13 @@ internal enum L10n {
     /// App version
     internal static let appVersion = L10n.tr("Localizable", "appVersion")
 
+    internal enum About {
+        /// This app has been developed by Jiří Zdvomka at Faculty of Information Technology, Czech Technical University in Prague as his Bachelor's Thesis.
+        internal static let text = L10n.tr("Localizable", "about.text")
+        /// Credits
+        internal static let title = L10n.tr("Localizable", "about.title")
+    }
+
     internal enum Button {
         /// Cancel
         internal static let cancel = L10n.tr("Localizable", "button.cancel")
@@ -64,6 +71,13 @@ internal enum L10n {
     internal enum Labels {
         /// Nothing to display
         internal static let noContent = L10n.tr("Localizable", "labels.noContent")
+    }
+
+    internal enum License {
+        /// Copyright [2019] [FIT CTU in Prague]\n\nLicensed under the Apache License, Version 2.0 (the 'License');\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an 'AS IS' BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.
+        internal static let text = L10n.tr("Localizable", "license.text")
+        /// License
+        internal static let title = L10n.tr("Localizable", "license.title")
     }
 
     internal enum Notification {

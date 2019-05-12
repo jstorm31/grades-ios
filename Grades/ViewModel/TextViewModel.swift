@@ -27,6 +27,7 @@ enum TextScene: Int {
 
 final class TextViewModel {
     let type: TextScene
+    let title: String
     let text: String
     let coordinator: SceneCoordinatorType
 
@@ -38,6 +39,14 @@ final class TextViewModel {
     init(type: TextScene, coordinator: SceneCoordinatorType) {
         self.type = type
         self.coordinator = coordinator
-        text = "Even though using lorem ipsum often arouses curiosity due to its.\n resemblance to classical Latin, it is not intended to have meaning. Where text is visible in a document, people tend to focus on the textual content rather than upon overall presentation,\n\n so publishers use lorem ipsum when displaying a typeface or design in order to direct the focus to presentation. Lorem ipsum also approximates a typical distribution of letters in English."
+
+        switch type {
+        case .about:
+            title = L10n.About.title
+            text = L10n.About.text
+        default:
+            title = L10n.License.title
+            text = L10n.License.text
+        }
     }
 }
