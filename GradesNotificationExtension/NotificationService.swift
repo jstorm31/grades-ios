@@ -9,10 +9,7 @@
 import SwiftKeychainWrapper
 import UserNotifications
 
-class NotificationService: UNNotificationServiceExtension {
-	
-	// MARK: Properties
-
+final class NotificationService: UNNotificationServiceExtension {
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
 	
@@ -32,28 +29,16 @@ class NotificationService: UNNotificationServiceExtension {
 			let notificationId = Int(idString) else { return }
 		
 		loadCredentialsFromKeychain()
-		fetchNotification(withId: notificationId) { notification, debugText in
+		fetchNotification(withId: notificationId) { notification in
 			if let notification = notification {
 				let (title, text) = notification.getContent()
 				bestAttemptContent.title = title
 				bestAttemptContent.body = text
 				bestAttemptContent.userInfo["courseCode"] = notification.courseCode
-			} else {
-				bestAttemptContent.body = debugText
 			}
 			contentHandler(bestAttemptContent)
 		}
     }
-    
-    override func serviceExtensionTimeWillExpire() {
-        // Called just before the extension will be terminated by the system.
-        // Use this as an opportunity to deliver your "best attempt" at modified content, otherwise the original push payload will be used.
-        if let contentHandler = contentHandler, let bestAttemptContent =  bestAttemptContent {
-			bestAttemptContent.title = "\(bestAttemptContent.title) [expired]" // TODO: remove
-            contentHandler(bestAttemptContent)
-        }
-    }
-
 }
 
 private extension NotificationService {
@@ -62,32 +47,32 @@ private extension NotificationService {
 		Checks accessToken, obtains a new one if expired and fetches notifications content
 		- Returns content of the notification as a parametr in the completion closure or nil if the fetch has been unsucessful
 	*/
-	func fetchNotification(withId id: Int, completion: @escaping (Notification?, String) -> Void) {
-		guard let credentials = credentials else { return completion(nil, "cred") }
+	func fetchNotification(withId id: Int, completion: @escaping (Notification?) -> Void) {
+		guard let credentials = credentials else { return completion(nil) }
 		
 		if let expiresAt = credentials.expiresAt, expiresAt.timeIntervalSinceNow.sign == FloatingPointSign.plus {
-			fetchNotificationContent(id) { notification, text in
-				completion(notification, text)
+			fetchNotificationContent(id) { notification in
+				completion(notification)
 			}
 		} else if credentials.refreshToken != "" {
-			obtainAccessToken() { [weak self] success, debugText in
+			obtainAccessToken() { [weak self] success in
 				if success == true {
-					self?.fetchNotificationContent(id) { notification, text in
-						completion(notification, text)
+					self?.fetchNotificationContent(id) { notification in
+						completion(notification)
 					}
 				} else {
-					completion(nil, debugText)
+					completion(nil)
 				}
 			}
 		} else {
-			completion(nil, "no refresh token and expired")
+			completion(nil)
 		}
 	}
 	
 	/// Makes notification HTTP content request
-	func fetchNotificationContent(_ notificationId: Int, completion: @escaping (Notification?, String) -> Void) {
+	func fetchNotificationContent(_ notificationId: Int, completion: @escaping (Notification?) -> Void) {
 		guard let credentials = credentials else {
-			completion(nil, "token nil")
+			completion(nil)
 			return
 		}
 		
@@ -100,36 +85,30 @@ private extension NotificationService {
 		
 		
 		// Make request
-		let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
-			if let error = error {
-				completion(nil, error.localizedDescription)
-				return
-			}
-
-			guard let data = data, let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-				completion(nil, "Request failed")
+		let task = URLSession.shared.dataTask(with: request) { data, response, error in
+			guard error == nil, let data = data, let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+				completion(nil)
 				return
 			}
 
 			do {
 				let wrapper = try JSONDecoder().decode(Notifications.self, from: data)
 				if let notification = wrapper.notifications.first(where: { $0.id == notificationId }) {
-					completion(notification, "found")
+					completion(notification)
+				} else {
+					completion(nil)
 				}
-				
-				completion(nil, "notificationnot found")
-
 			} catch {
-				completion(nil, "Decoding failed")
+				completion(nil)
 			}
 		}
 		task.resume()
 	}
 	
 	/// Request new access token from OAuth server
-	func obtainAccessToken(completion: @escaping (Bool, String) -> Void) {
+	func obtainAccessToken(completion: @escaping (Bool) -> Void) {
 		guard let credentials = credentials else {
-			completion(false, "crednil")
+			completion(false)
 			return
 		}
 		
@@ -143,13 +122,8 @@ private extension NotificationService {
 		request.httpBody = body.data(using: .utf8)
 		
 		let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
-			if let error = error {
-				completion(false, error.localizedDescription)
-				return
-			}
-			
-			guard let data = data, let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-				completion(false, "Request failed")
+			guard error == nil, let data = data, let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+				completion(false)
 				return
 			}
 			
@@ -161,9 +135,9 @@ private extension NotificationService {
 				self?.credentials?.refreshToken = tokenResponse.refreshToken.safeStringByRemovingPercentEncoding
 				self?.credentials?.expiresAt = Date(timeInterval: tokenResponse.expiresIn, since: Date())
 				self?.saveCredentialsToKeychain()
-				completion(true, "success")
+				completion(true)
 			} catch {
-				completion(false, "decode error")
+				completion(false)
 			}
 		}
 
