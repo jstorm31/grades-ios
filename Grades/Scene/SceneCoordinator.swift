@@ -10,13 +10,13 @@ import RxCocoa
 import RxSwift
 import UIKit
 
-class SceneCoordinator: SceneCoordinatorType {
-    fileprivate var window: UIWindow
-    fileprivate var currentViewController: UIViewController
+final class SceneCoordinator: SceneCoordinatorType {
+    private var currentViewController: UIViewController!
 
-    required init(window: UIWindow) {
-        self.window = window
-        currentViewController = window.rootViewController!
+    required init() {}
+
+    func setRoot(viewController: UIViewController) {
+        currentViewController = viewController
     }
 
     static func actualViewController(for viewController: UIViewController) -> UIViewController {
@@ -33,11 +33,6 @@ class SceneCoordinator: SceneCoordinatorType {
         let viewController = scene.viewController()
 
         switch type {
-        case .root:
-            currentViewController = SceneCoordinator.actualViewController(for: viewController)
-            window.rootViewController = viewController
-            subject.onCompleted()
-
         case .push:
             guard let navigationController = currentViewController.navigationController else {
                 fatalError("Can't push a view controller without a current navigation controller")

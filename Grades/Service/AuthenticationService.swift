@@ -27,18 +27,23 @@ protocol AuthenticationServiceProtocol {
 }
 
 final class AuthenticationService: AuthenticationServiceProtocol {
+    typealias Dependencies = HasNoDependency
+
     let handler: OAuth2Swift
     let client: AuthClientProtocol
+
     private let callbackUrl: URL
     private let authorizationHeader: String
     private let scope: String
     private let bag = DisposeBag()
     private let config: EnvironmentConfiguration
+    private let keychainWrapper: KeychainWrapper
 
     // MARK: initializers
 
-    init() {
+    init(dependencies _: Dependencies) {
         config = EnvironmentConfiguration.shared
+        keychainWrapper = KeychainWrapper(serviceName: config.keychain.serviceName, accessGroup: config.keychain.accessGroup)
 
         callbackUrl = URL(string: config.auth.redirectUri)!
         authorizationHeader = "Basic \(config.auth.clientHash)"
@@ -78,7 +83,7 @@ final class AuthenticationService: AuthenticationServiceProtocol {
                            state: "",
                            headers: ["Authorization": self.authorizationHeader],
                            success: { [weak self] _, _, _ in
-                               self?.saveCredentialsInKeychain()
+                               self?.saveCredentialsToKeychain()
                                observer.onNext(true)
                                observer.onCompleted()
                            }, failure: { error in
@@ -142,7 +147,7 @@ final class AuthenticationService: AuthenticationServiceProtocol {
                             credential.oauthToken = tokenResponse.accessToken.safeStringByRemovingPercentEncoding
                             credential.oauthRefreshToken = tokenResponse.refreshToken.safeStringByRemovingPercentEncoding
                             credential.oauthTokenExpiresAt = Date(timeInterval: tokenResponse.expiresIn, since: Date())
-                            self?.saveCredentialsInKeychain()
+                            self?.saveCredentialsToKeychain()
 
                             observer.onNext(())
                             observer.onCompleted()
@@ -161,19 +166,29 @@ final class AuthenticationService: AuthenticationServiceProtocol {
     }
 
     /// Save Auth credentials in keychain
-    private func saveCredentialsInKeychain() {
-        KeychainWrapper.standard.set(handler.client.credential.oauthRefreshToken,
-                                     forKey: "refreshToken",
-                                     withAccessibility: .afterFirstUnlock)
+    private func saveCredentialsToKeychain() {
+        keychainWrapper.set(handler.client.credential.oauthRefreshToken,
+                            forKey: "refreshToken",
+                            withAccessibility: .afterFirstUnlock)
+        keychainWrapper.set(handler.client.credential.oauthToken,
+                            forKey: "accessToken",
+                            withAccessibility: .afterFirstUnlock)
+
+        guard let expiresAt = handler.client.credential.oauthTokenExpiresAt else { return }
+        keychainWrapper.set(expiresAt.toString(),
+                            forKey: "expiresAt",
+                            withAccessibility: .afterFirstUnlock)
     }
 
     private func loadCredentialsFromKeychain() {
-        if let refreshToken = KeychainWrapper.standard.string(forKey: "refreshToken") {
+        if let refreshToken = keychainWrapper.string(forKey: "refreshToken") {
             handler.client.credential.oauthRefreshToken = refreshToken
         }
     }
 
     private func removeCredentialsFromKeychain() {
-        KeychainWrapper.standard.removeObject(forKey: "refreshToken")
+        keychainWrapper.removeObject(forKey: "refreshToken")
+        keychainWrapper.removeObject(forKey: "accessToken")
+        keychainWrapper.removeObject(forKey: "expiresAt")
     }
 }

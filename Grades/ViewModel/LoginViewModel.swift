@@ -12,10 +12,9 @@ import RxSwift
 import UIKit
 
 final class LoginViewModel: BaseViewModel {
-    typealias Dependencies = HasAuthenticationService & HasGradesAPI & HasSettingsRepository
-        & HasPushNotificationService& HasUserRepository
+    typealias Dependencies = HasSceneCoordinator & HasAuthenticationService & HasGradesAPI & HasSettingsRepository
+        & HasPushNotificationService & HasUserRepository
 
-    var sceneCoordinator: SceneCoordinatorType!
     private let dependencies: Dependencies
     private let config = EnvironmentConfiguration.shared
 
@@ -68,7 +67,7 @@ final class LoginViewModel: BaseViewModel {
     }
 
     private func transitionToCourseList() {
-        let courseListViewModel = CourseListViewModel(dependencies: AppDependency.shared, sceneCoordinator: sceneCoordinator)
-        sceneCoordinator.transition(to: .courseList(courseListViewModel), type: .modal)
+        let courseListViewModel = CourseListViewModel(dependencies: AppDependency.shared)
+        dependencies.coordinator.transition(to: .courseList(courseListViewModel), type: .modal)
     }
 }

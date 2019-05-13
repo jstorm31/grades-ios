@@ -26,19 +26,21 @@ enum TextScene: Int {
 }
 
 final class TextViewModel {
+    typealias Dependencies = HasSceneCoordinator
+
     let type: TextScene
     let title: String
     let text: String
-    let coordinator: SceneCoordinatorType
+    private let dependencies: Dependencies
 
     lazy var onBackAction = CocoaAction { [weak self] in
-        self?.coordinator.didPop()
+        self?.dependencies.coordinator.didPop()
             .asObservable().map { _ in } ?? Observable.empty()
     }
 
-    init(type: TextScene, coordinator: SceneCoordinatorType) {
+    init(dependencies: Dependencies, type: TextScene) {
         self.type = type
-        self.coordinator = coordinator
+        self.dependencies = dependencies
 
         switch type {
         case .about:

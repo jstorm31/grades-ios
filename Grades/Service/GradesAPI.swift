@@ -14,6 +14,8 @@ protocol HasGradesAPI {
 }
 
 protocol GradesAPIProtocol {
+    // MARK: GET
+
     func getUser() -> Observable<User>
     func getTeacherCourses(username: String) -> Observable<[TeacherCourse]>
     func getStudentCourses(username: String) -> Observable<[StudentCourse]>
@@ -25,7 +27,10 @@ protocol GradesAPIProtocol {
     func getGroupClassifications(courseCode: String, groupCode: String, classificationId: String) -> Observable<[StudentClassification]>
     func getTeacherStudents(courseCode: String) -> Observable<[User]>
 
+    // MARK: PUT
+
     func putStudentsClassifications(courseCode: String, data: [StudentClassification]) -> Observable<Void>
+    func markNotificationRead(username: String, notificationId: Int) -> Observable<Void>
 }
 
 final class GradesAPI: GradesAPIProtocol {
@@ -69,6 +74,7 @@ final class GradesAPI: GradesAPIProtocol {
         case groupClassifications(String, String, String)
         case courseStudents(String, String)
         case studentsClassifications(String)
+        case markNotificationRead(String, Int)
     }
 
     // MARK: GET requests
@@ -175,6 +181,11 @@ final class GradesAPI: GradesAPIProtocol {
         return httpService.put(url: url, parameters: [:], body: data)
     }
 
+    func markNotificationRead(username: String, notificationId: Int) -> Observable<Void> {
+        let url = createURL(from: .markNotificationRead(username, notificationId))
+        return httpService.put(url: url)
+    }
+
     // MARK: helpers
 
     private func createURL(from endpoint: Endpoint) -> URL {
@@ -213,6 +224,10 @@ final class GradesAPI: GradesAPIProtocol {
         case let .studentsClassifications(courseCode):
             endpointValue = config["StudentsClassifications"]!
                 .replacingOccurrences(of: ":courseCode", with: courseCode)
+        case let .markNotificationRead(username, notificationId):
+            endpointValue = config["MarkNotificationRead"]!
+                .replacingOccurrences(of: ":username", with: username)
+                .replacingOccurrences(of: ":id", with: String(notificationId))
         }
 
         return URL(string: "\(baseUrl)\(endpointValue)")!

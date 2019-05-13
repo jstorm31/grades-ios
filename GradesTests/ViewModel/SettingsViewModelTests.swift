@@ -17,7 +17,7 @@ class SettingsViewModelTests: XCTestCase {
 	
 	override func setUp() {
 		scheduler = ConcurrentDispatchQueueScheduler(qos: .default)
-		viewModel = SettingsViewModel(coordinator: SceneCoordinatorMock(), dependencies: AppDependencyMock.shared)
+		viewModel = SettingsViewModel(dependencies: AppDependencyMock.shared)
 	}
 	
 	func testDataSource() {

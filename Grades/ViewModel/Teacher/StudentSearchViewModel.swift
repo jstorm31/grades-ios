@@ -12,20 +12,24 @@ import RxDataSources
 import RxSwift
 
 final class StudentSearchViewModel: BaseViewModel {
+    typealias Dependencies = HasSceneCoordinator
+
     let dataSource = BehaviorSubject<[TableSection]>(value: [])
     let itemSelected = PublishSubject<Int>()
     let searchText = BehaviorSubject<String>(value: "")
     var onBackAction: CocoaAction!
-    private let coordinator: SceneCoordinatorType
+    private let dependencies: Dependencies
     private let bag = DisposeBag()
 
     // MARK: Initialization
 
-    init(coordinator: SceneCoordinatorType, students: BehaviorRelay<[User]>, selectedStudent: BehaviorRelay<User?>) {
-        self.coordinator = coordinator
+    init(dependencies: Dependencies, students: BehaviorRelay<[User]>, selectedStudent: BehaviorRelay<User?>) {
+        self.dependencies = dependencies
         super.init()
 
-        onBackAction = CocoaAction { coordinator.didPop().asObservable().map { _ in } }
+        onBackAction = CocoaAction { [weak self] in
+            self?.dependencies.coordinator.didPop().asObservable().map { _ in } ?? Observable.empty()
+        }
 
         // Filter students and bind it to dataSource
         let filteredStudents = Observable.combineLatest(students, searchText) { ($0, $1) }
@@ -51,7 +55,7 @@ final class StudentSearchViewModel: BaseViewModel {
         selected.bind(to: selectedStudent).disposed(by: bag)
 
         selected.take(1).subscribe(onNext: { [weak self] _ in
-            self?.coordinator.pop()
+            self?.dependencies.coordinator.pop()
         }).disposed(by: bag)
     }
 }

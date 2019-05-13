@@ -12,10 +12,9 @@ import RxCocoa
 import RxSwift
 
 final class CourseListViewModel: BaseViewModel {
-    typealias Dependencies = HasCoursesRepository & HasUserRepository & HasSettingsRepository
+    typealias Dependencies = HasSceneCoordinator & HasCoursesRepository & HasUserRepository & HasSettingsRepository
 
     private let dependencies: Dependencies
-    private let sceneCoordinator: SceneCoordinatorType
     private let bag = DisposeBag()
 
     var openSettings: CocoaAction
@@ -32,15 +31,13 @@ final class CourseListViewModel: BaseViewModel {
 
     // MARK: initialization
 
-    init(dependencies: Dependencies, sceneCoordinator: SceneCoordinatorType) {
+    init(dependencies: Dependencies) {
         self.dependencies = dependencies
-        self.sceneCoordinator = sceneCoordinator
 
         openSettings = CocoaAction {
-            let settingsViewModel = SettingsViewModel(coordinator: sceneCoordinator, dependencies: AppDependency.shared)
-
-            sceneCoordinator.transition(to: .settings(settingsViewModel), type: .push)
-            return Observable.empty()
+            let settingsViewModel = SettingsViewModel(dependencies: AppDependency.shared)
+            return dependencies.coordinator.transition(to: .settings(settingsViewModel), type: .push)
+                .asObservable().map { _ in }
         }
 
         dependencies.coursesRepository.userCourses
@@ -70,18 +67,13 @@ final class CourseListViewModel: BaseViewModel {
         if indexPath.section == 0 {
             guard !courses.value.student.isEmpty else { return }
 
-            let courseDetailVM = CourseDetailStudentViewModel(
-                dependencies: AppDependency.shared,
-                coordinator: sceneCoordinator,
-                course: courses.value.student[indexPath.item]
-            )
-
-            sceneCoordinator.transition(to: .courseDetailStudent(courseDetailVM), type: .push)
+            let courseDetailVM = CourseDetailStudentViewModel(dependencies: AppDependency.shared,
+                                                              course: courses.value.student[indexPath.item])
+            dependencies.coordinator.transition(to: .courseDetailStudent(courseDetailVM), type: .push)
         } else if indexPath.section == 1 {
             let course = courses.value.teacher[indexPath.item]
-            let teacherClassificationVM = TeacherClassificationViewModel(coordinator: sceneCoordinator, course: course)
-
-            sceneCoordinator.transition(to: .teacherClassification(teacherClassificationVM), type: .push)
+            let teacherClassificationVM = TeacherClassificationViewModel(dependencies: AppDependency.shared, course: course)
+            dependencies.coordinator.transition(to: .teacherClassification(teacherClassificationVM), type: .push)
         }
     }
 }

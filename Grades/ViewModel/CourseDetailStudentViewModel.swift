@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 
 final class CourseDetailStudentViewModel: BaseViewModel {
-    typealias Dependencies = HasCourseRepository & HasUserRepository
+    typealias Dependencies = HasCourseRepository & HasUserRepository & HasSceneCoordinator
 
     // MARK: Properties
 
@@ -20,7 +20,11 @@ final class CourseDetailStudentViewModel: BaseViewModel {
     let finalGrade = BehaviorSubject<String?>(value: nil)
     let isFetching = BehaviorSubject<Bool>(value: false)
     let error = BehaviorSubject<Error?>(value: nil)
-    var onBack: CocoaAction
+
+    lazy var onBackAction = CocoaAction { [weak self] in
+        self?.dependencies.coordinator.didPop()
+            .asObservable().map { _ in } ?? Observable.empty()
+    }
 
     var courseCode: String {
         return dependencies.courseRepository.course?.code ?? ""
@@ -31,20 +35,13 @@ final class CourseDetailStudentViewModel: BaseViewModel {
     }
 
     private let dependencies: Dependencies
-    private let coordinator: SceneCoordinatorType
     private let bag = DisposeBag()
 
     // MARK: Initialization
 
-    init(dependencies: Dependencies, coordinator: SceneCoordinatorType, course: Course) {
-        self.coordinator = coordinator
+    init(dependencies: Dependencies, course: Course) {
         self.dependencies = dependencies
         dependencies.courseRepository.set(course: course)
-
-        onBack = CocoaAction {
-            coordinator.didPop().asObservable().map { _ in }
-        }
-
         super.init()
     }
 

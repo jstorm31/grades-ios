@@ -15,13 +15,12 @@ import RxBlocking
 class StudentClassificationViewModelTests: XCTestCase {
 	var scheduler: ConcurrentDispatchQueueScheduler!
 	var viewModel: StudentClassificationViewModel!
-	var coordinator: SceneCoordinatorMock!
+	var coordinator = AppDependencyMock.shared._coordinator
 	var gradesApi = AppDependencyMock.shared._gradesApi
 	
     override func setUp() {
 		scheduler = ConcurrentDispatchQueueScheduler(qos: .default)
-		coordinator = SceneCoordinatorMock()
-		viewModel = StudentClassificationViewModel(dependencies: AppDependencyMock.shared, coordinator: coordinator, course: Course(code: "MI-IOS"))
+		viewModel = StudentClassificationViewModel(dependencies: AppDependencyMock.shared, course: Course(code: "MI-IOS"))
     }
 
 	func testBindStudents() {

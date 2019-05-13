@@ -16,9 +16,11 @@ enum TeacherSceneIndex: Int {
 }
 
 final class TeacherClassificationViewModel: BaseViewModel {
+    typealias Dependencies = HasSceneCoordinator
+
     // MARK: private properties
 
-    private let coordinator: SceneCoordinatorType
+    private let dependencies: Dependencies
 
     private lazy var groupClassificationScene: Scene = {
         let viewModel = GroupClassificationViewModel(dependencies: AppDependency.shared, course: course)
@@ -26,11 +28,7 @@ final class TeacherClassificationViewModel: BaseViewModel {
     }()
 
     private lazy var studentClassificationScene: Scene = {
-        let viewModel = StudentClassificationViewModel(
-            dependencies: AppDependency.shared,
-            coordinator: coordinator,
-            course: course
-        )
+        let viewModel = StudentClassificationViewModel(dependencies: AppDependency.shared, course: course)
         return .studentClassification(viewModel)
     }()
 
@@ -40,14 +38,14 @@ final class TeacherClassificationViewModel: BaseViewModel {
     let course: TeacherCourse
 
     lazy var onBackAction = CocoaAction { [weak self] in
-        self?.coordinator.didPop()
+        self?.dependencies.coordinator.didPop()
             .asObservable().map { _ in } ?? Observable.empty()
     }
 
     // MARK: initialization
 
-    init(coordinator: SceneCoordinatorType, course: TeacherCourse) {
-        self.coordinator = coordinator
+    init(dependencies: Dependencies, course: TeacherCourse) {
+        self.dependencies = dependencies
         self.course = course
     }
 

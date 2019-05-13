@@ -55,6 +55,7 @@ protocol NSClassificationConfiguration {
     var auth: Auth { get }
     var gradesAPI: [String: String] { get }
     var notificationServerUrl: String { get }
+    var keychain: KeychainCredentials { get }
 }
 
 // swiftlint:disable force_cast
@@ -86,4 +87,14 @@ extension EnvironmentConfiguration: NSClassificationConfiguration {
     var notificationServerUrl: String {
         return config["NotificationServerUrl"] as! String
     }
+
+    var keychain: KeychainCredentials {
+        return KeychainCredentials(serviceName: config["KeychainServiceName"] as! String,
+                                   accessGroup: config["KeychainAccessGroup"] as! String)
+    }
+}
+
+struct KeychainCredentials {
+    let serviceName: String
+    let accessGroup: String
 }

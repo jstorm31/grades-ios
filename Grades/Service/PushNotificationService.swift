@@ -25,7 +25,7 @@ protocol HasPushNotificationService {
 }
 
 final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
-    typealias Dependencies = HasHttpService
+    typealias Dependencies = HasHttpService & HasGradesAPI & HasUserRepository & HasSceneCoordinator
 
     private let dependencies: Dependencies
     private let tokenUrl = URL(string: "\(EnvironmentConfiguration.shared.notificationServerUrl)/token")!
@@ -155,27 +155,33 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
 }
 
 extension PushNotificationService: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(_: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        print("[NOTIFICATION_RECEIVE]", notification)
+    func userNotificationCenter(_: UNUserNotificationCenter, willPresent _: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.badge, .alert, .sound])
     }
 
-    func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        print("[NOTIFICATION_OPEN]", response)
-
+    func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-        print("[NOTIFICATION_USER_INFO]", userInfo)
 
-//        let jsonData = try! JSONSerialization.data(withJSONObject: userInfo, options: [])
-//
-//        do {
-//            let alertNotification = try JSONDecoder().decode(AlertNotification.self, from: jsonData)
-//            notificationObserver.send(value: alertNotification)
-//            print("[ALERT_NOTIFICATION]", alertNotification)
-//        } catch {
-//            print("[ALERT_NOTIFICATION]", error)
-//        }
+        // Get username and mark the notification as read
+        if let id = userInfo["notificationId"] as? String, let notificationId = Int(id) {
+            dependencies.userRepository.user.asObservable().unwrap()
+                .map { $0.username }
+                .flatMap { [weak self] username -> Observable<Void> in
+                    self?.dependencies.gradesApi.markNotificationRead(username: username, notificationId: notificationId)
+                        ?? Observable.empty()
+                }
+                .subscribe(onNext: { _ in }).disposed(by: bag)
+        }
 
+        // Present course detail screne
+        if let courseCode = userInfo["courseCode"] as? String {
+            let courseDetailVM = CourseDetailStudentViewModel(dependencies: AppDependency.shared, course: Course(code: courseCode))
+            dependencies.coordinator.transition(to: .courseDetailStudent(courseDetailVM), type: .push)
+        }
+
+        UIApplication.shared.applicationIconBadgeNumber = 0
         completionHandler()
     }
 }

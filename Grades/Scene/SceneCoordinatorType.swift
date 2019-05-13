@@ -9,7 +9,13 @@
 import RxSwift
 import UIKit
 
+protocol HasSceneCoordinator {
+    var coordinator: SceneCoordinatorType { get }
+}
+
 protocol SceneCoordinatorType {
+    func setRoot(viewController: UIViewController)
+
     /// transition to another scene
     @discardableResult
     func transition(to scene: Scene, type: SceneTransitionType) -> Completable

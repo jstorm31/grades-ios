@@ -31,12 +31,17 @@ protocol HttpServiceProtocol {
     func put<T: Encodable>(url: URL, parameters: HttpParameters?, body: T) -> Observable<Void>
 
     @discardableResult
+    func put(url: URL) -> Observable<Void>
+
+    @discardableResult
     func delete<T: Encodable>(url: URL, parameters: HttpParameters?, body: T) -> Observable<Void>
 }
 
 /// RxSwift wrapper around OAuthSwift http client to make requests signed with access token
 final class HttpService: NSObject, HttpServiceProtocol {
     typealias Dependencies = HasAuthenticationService
+
+    struct Empty: Encodable {}
 
     private let dependencies: Dependencies
     private let client: AuthClientProtocol
@@ -97,8 +102,12 @@ final class HttpService: NSObject, HttpServiceProtocol {
     }
 
     /// Make HTTP PUT request
-    func put<T>(url: URL, parameters: HttpParameters?, body: T) -> Observable<Void> where T: Encodable {
+    func put<T>(url: URL, parameters: HttpParameters? = nil, body: T) -> Observable<Void> where T: Encodable {
         return request(url, method: .PUT, parameters: parameters, headers: defaultHeaders, body: body)
+    }
+
+    func put(url: URL) -> Observable<Void> {
+        return request(url, method: .PUT, body: Empty())
     }
 
     /// Make HTTP DELETE request
@@ -167,7 +176,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
         body: T
     ) -> Observable<Void> where T: Encodable {
         let request = Observable<Void>.create { [weak self] observer in
-            var data: Data!
+            var data: Data?
 
             do {
                 data = try JSONEncoder().encode(body)

@@ -53,6 +53,20 @@
 		96447793224249CD00E960F4 /* UIPickerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96447792224249CD00E960F4 /* UIPickerLabel.swift */; };
 		9644779522427B3100E960F4 /* UIViewController+ConfirmationModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9644779422427B3100E960F4 /* UIViewController+ConfirmationModal.swift */; };
 		96456456227D84EC00E48FC1 /* CourseDetailStudentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96456455227D84EB00E48FC1 /* CourseDetailStudentViewModelTests.swift */; };
+		964CDE1C228828330093CB3C /* GradesNotificationExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 964CDE15228828330093CB3C /* GradesNotificationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		964CDE222288289B0093CB3C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964CDE212288289B0093CB3C /* NotificationService.swift */; };
+		964CDE24228829270093CB3C /* SwiftKeychainWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 968EC1D22282DC1100241F51 /* SwiftKeychainWrapper.framework */; };
+		964CDE252288299F0093CB3C /* EnvironmentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9608B9C82224364200E1CEAF /* EnvironmentConfiguration.swift */; };
+		964CDE26228829A10093CB3C /* Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD322293AD000A624DC /* Debug.plist */; };
+		964CDE28228829A40093CB3C /* Release.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD522293AE000A624DC /* Release.plist */; };
+		964CDE29228829A90093CB3C /* Common.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD722293AEA00A624DC /* Common.plist */; };
+		964CDE2A228829AB0093CB3C /* PlistDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A2FDD22294F4500A624DC /* PlistDocument.swift */; };
+		964CDE2B228829AE0093CB3C /* Test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96F220F1227B785F0078AD2A /* Test.plist */; };
+		964CDE2D22882C400093CB3C /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE6A2270ADDF009C35A9 /* String+.swift */; };
+		964CDE2F228832C60093CB3C /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964CDE2E228832C60093CB3C /* Credentials.swift */; };
+		964CDE312288486A0093CB3C /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964CDE302288486A0093CB3C /* Notification.swift */; };
+		964CDE342288C5CE0093CB3C /* AuthTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE682270AAA1009C35A9 /* AuthTokenResponse.swift */; };
+		964CDE352288C6F90093CB3C /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966BCCBA22881F6C00171B71 /* Date+.swift */; };
 		96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E942223D65F00AB6499 /* AppDelegate.swift */; };
 		96520E972223D65F00AB6499 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E962223D65F00AB6499 /* LoginViewController.swift */; };
 		96520E9C2223D66000AB6499 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96520E9B2223D66000AB6499 /* Assets.xcassets */; };
@@ -67,6 +81,7 @@
 		965ADAF32235976300AA8CF4 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965ADAF22235976300AA8CF4 /* Result.swift */; };
 		966ABB57222D986A007DD046 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB56222D986A007DD046 /* Course.swift */; };
 		966ABB59222DA2DF007DD046 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB58222DA2DF007DD046 /* User.swift */; };
+		966BCCBB22881F6C00171B71 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966BCCBA22881F6C00171B71 /* Date+.swift */; };
 		96758423228549F9006C401E /* GroupClassificationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96758422228549F9006C401E /* GroupClassificationViewModelTests.swift */; };
 		9675842522854A8B006C401E /* TeacherRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9675842422854A8B006C401E /* TeacherRepositoryMock.swift */; };
 		9675842722855289006C401E /* SettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9675842622855289006C401E /* SettingsViewModelTests.swift */; };
@@ -178,6 +193,13 @@
 			remoteGlobalIDString = 96520E902223D65F00AB6499;
 			remoteInfo = Grades;
 		};
+		964CDE1A228828330093CB3C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96520E892223D65F00AB6499 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 964CDE14228828330093CB3C;
+			remoteInfo = GradesNotificationExtension;
+		};
 		9682A6B2222D1ABC00773E28 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 96520E892223D65F00AB6499 /* Project object */;
@@ -188,6 +210,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		9613645D22871D84009373FA /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				964CDE1C228828330093CB3C /* GradesNotificationExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		96F220E1227B68960078AD2A /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -253,6 +286,12 @@
 		96447792224249CD00E960F4 /* UIPickerLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerLabel.swift; sourceTree = "<group>"; };
 		9644779422427B3100E960F4 /* UIViewController+ConfirmationModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ConfirmationModal.swift"; sourceTree = "<group>"; };
 		96456455227D84EB00E48FC1 /* CourseDetailStudentViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewModelTests.swift; sourceTree = "<group>"; };
+		964CDE15228828330093CB3C /* GradesNotificationExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GradesNotificationExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		964CDE19228828330093CB3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		964CDE212288289B0093CB3C /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		964CDE23228828EE0093CB3C /* GradesNotificationExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GradesNotificationExtension.entitlements; sourceTree = "<group>"; };
+		964CDE2E228832C60093CB3C /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
+		964CDE302288486A0093CB3C /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		96520E912223D65F00AB6499 /* GradesDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GradesDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96520E942223D65F00AB6499 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96520E962223D65F00AB6499 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -270,6 +309,7 @@
 		965ADAF22235976300AA8CF4 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		966ABB56222D986A007DD046 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		966ABB58222DA2DF007DD046 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		966BCCBA22881F6C00171B71 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		96758422228549F9006C401E /* GroupClassificationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupClassificationViewModelTests.swift; sourceTree = "<group>"; };
 		9675842422854A8B006C401E /* TeacherRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherRepositoryMock.swift; sourceTree = "<group>"; };
 		9675842622855289006C401E /* SettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModelTests.swift; sourceTree = "<group>"; };
@@ -389,6 +429,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				96F220DF227B67670078AD2A /* Swifter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		964CDE12228828330093CB3C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				964CDE24228829270093CB3C /* SwiftKeychainWrapper.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,12 +568,25 @@
 			path = Teacher;
 			sourceTree = "<group>";
 		};
+		964CDE16228828330093CB3C /* GradesNotificationExtension */ = {
+			isa = PBXGroup;
+			children = (
+				964CDE23228828EE0093CB3C /* GradesNotificationExtension.entitlements */,
+				964CDE212288289B0093CB3C /* NotificationService.swift */,
+				964CDE19228828330093CB3C /* Info.plist */,
+				964CDE2E228832C60093CB3C /* Credentials.swift */,
+				964CDE302288486A0093CB3C /* Notification.swift */,
+			);
+			path = GradesNotificationExtension;
+			sourceTree = "<group>";
+		};
 		96520E882223D65E00AB6499 = {
 			isa = PBXGroup;
 			children = (
 				96520E932223D65F00AB6499 /* Grades */,
 				961BCE77222C3D8E00BD6663 /* GradesUITests */,
 				9682A6AE222D1ABC00773E28 /* GradesTests */,
+				964CDE16228828330093CB3C /* GradesNotificationExtension */,
 				96520E922223D65F00AB6499 /* Products */,
 				967D1E3F2223DDD3007E5217 /* Frameworks */,
 			);
@@ -537,6 +598,7 @@
 				96520E912223D65F00AB6499 /* GradesDev.app */,
 				961BCE76222C3D8E00BD6663 /* GradesUITests.xctest */,
 				9682A6AD222D1ABC00773E28 /* GradesTests.xctest */,
+				964CDE15228828330093CB3C /* GradesNotificationExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -684,6 +746,7 @@
 				9644779422427B3100E960F4 /* UIViewController+ConfirmationModal.swift */,
 				964181812247E8B20019CABD /* UIViewController+PickerPresentable.swift */,
 				9639AE6A2270ADDF009C35A9 /* String+.swift */,
+				966BCCBA22881F6C00171B71 /* Date+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -895,6 +958,23 @@
 			productReference = 961BCE76222C3D8E00BD6663 /* GradesUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		964CDE14228828330093CB3C /* GradesNotificationExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 964CDE20228828330093CB3C /* Build configuration list for PBXNativeTarget "GradesNotificationExtension" */;
+			buildPhases = (
+				964CDE11228828330093CB3C /* Sources */,
+				964CDE12228828330093CB3C /* Frameworks */,
+				964CDE13228828330093CB3C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GradesNotificationExtension;
+			productName = GradesNotificationExtension;
+			productReference = 964CDE15228828330093CB3C /* GradesNotificationExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		96520E902223D65F00AB6499 /* Grades */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 96520EA32223D66000AB6499 /* Build configuration list for PBXNativeTarget "Grades" */;
@@ -907,10 +987,12 @@
 				96520E8D2223D65F00AB6499 /* Sources */,
 				96520E8E2223D65F00AB6499 /* Frameworks */,
 				96520E8F2223D65F00AB6499 /* Resources */,
+				9613645D22871D84009373FA /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				964CDE1B228828330093CB3C /* PBXTargetDependency */,
 			);
 			name = Grades;
 			productName = Classification;
@@ -941,7 +1023,7 @@
 		96520E892223D65F00AB6499 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = jiri.zdovmka;
 				TargetAttributes = {
@@ -950,10 +1032,24 @@
 						LastSwiftMigration = 1020;
 						TestTargetID = 96520E902223D65F00AB6499;
 					};
+					964CDE14228828330093CB3C = {
+						CreatedOnToolsVersion = 10.2;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
+					};
 					96520E902223D65F00AB6499 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -982,6 +1078,7 @@
 				96520E902223D65F00AB6499 /* Grades */,
 				9682A6AC222D1ABC00773E28 /* GradesTests */,
 				961BCE75222C3D8E00BD6663 /* GradesUITests */,
+				964CDE14228828330093CB3C /* GradesNotificationExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1003,6 +1100,17 @@
 				968EC1E2228366F700241F51 /* student-groups.json in Resources */,
 				968EC1E92283712500241F51 /* student-classifications-put.json in Resources */,
 				968EC1EB22837E4A00241F51 /* my-paralels.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		964CDE13228828330093CB3C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				964CDE2B228829AE0093CB3C /* Test.plist in Resources */,
+				964CDE29228829A90093CB3C /* Common.plist in Resources */,
+				964CDE28228829A40093CB3C /* Release.plist in Resources */,
+				964CDE26228829A10093CB3C /* Debug.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1167,6 +1275,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		964CDE11228828330093CB3C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				964CDE2A228829AB0093CB3C /* PlistDocument.swift in Sources */,
+				964CDE252288299F0093CB3C /* EnvironmentConfiguration.swift in Sources */,
+				964CDE312288486A0093CB3C /* Notification.swift in Sources */,
+				964CDE2F228832C60093CB3C /* Credentials.swift in Sources */,
+				964CDE2D22882C400093CB3C /* String+.swift in Sources */,
+				964CDE342288C5CE0093CB3C /* AuthTokenResponse.swift in Sources */,
+				964CDE222288289B0093CB3C /* NotificationService.swift in Sources */,
+				964CDE352288C6F90093CB3C /* Date+.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		96520E8D2223D65F00AB6499 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1186,6 +1309,7 @@
 				96B20DA5223669CC004794BE /* CourseDetailStudentViewController.swift in Sources */,
 				96861089222B1A8C0069B81B /* SceneCoordinatorType.swift in Sources */,
 				96B20DA72236C838004794BE /* UINavigationBar+.swift in Sources */,
+				966BCCBB22881F6C00171B71 /* Date+.swift in Sources */,
 				9654A4F922469AFE00778ED1 /* ConfigurableCell.swift in Sources */,
 				9699ABA82232C091006D2F73 /* UIView+Rx.swift in Sources */,
 				9686107C222AAED50069B81B /* UIPrimaryButton.swift in Sources */,
@@ -1311,6 +1435,11 @@
 			target = 96520E902223D65F00AB6499 /* Grades */;
 			targetProxy = 961BCE7B222C3D8E00BD6663 /* PBXContainerItemProxy */;
 		};
+		964CDE1B228828330093CB3C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 964CDE14228828330093CB3C /* GradesNotificationExtension */;
+			targetProxy = 964CDE1A228828330093CB3C /* PBXContainerItemProxy */;
+		};
 		9682A6B3222D1ABC00773E28 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 96520E902223D65F00AB6499 /* Grades */;
@@ -1390,6 +1519,87 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Grades;
+			};
+			name = Release;
+		};
+		964CDE1D228828330093CB3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = GradesNotificationExtension/GradesNotificationExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CONFIG_ENVIRONMENT = Debug;
+				DEVELOPMENT_TEAM = 2PY9RKK8A7;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = GradesNotificationExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades.NotificationExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "FIT Grades Notification Extension -ad hoc";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		964CDE1E228828330093CB3C /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = GradesNotificationExtension/GradesNotificationExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CONFIG_ENVIRONMENT = Test;
+				DEVELOPMENT_TEAM = 2PY9RKK8A7;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = GradesNotificationExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades.NotificationExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "FIT Grades Notification Extension -ad hoc";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Test;
+		};
+		964CDE1F228828330093CB3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = GradesNotificationExtension/GradesNotificationExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CONFIG_ENVIRONMENT = Release;
+				DEVELOPMENT_TEAM = 2PY9RKK8A7;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = GradesNotificationExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades.NotificationExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "FIT Grades Notification Extension -ad hoc";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1516,6 +1726,7 @@
 		96520EA42223D66000AB6499 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APP_VERSION = 1.0.0;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Grades/GradesDev.entitlements;
@@ -1551,6 +1762,7 @@
 		96520EA52223D66000AB6499 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APP_VERSION = 1.0.0;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Grades/GradesDev.entitlements;
@@ -1705,6 +1917,7 @@
 		96F220EE227B78480078AD2A /* Test */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APP_VERSION = 1.0.0;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Grades/GradesDev.entitlements;
@@ -1801,6 +2014,16 @@
 				961BCE7E222C3D8E00BD6663 /* Debug */,
 				96F220F0227B78480078AD2A /* Test */,
 				961BCE7F222C3D8E00BD6663 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		964CDE20228828330093CB3C /* Build configuration list for PBXNativeTarget "GradesNotificationExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				964CDE1D228828330093CB3C /* Debug */,
+				964CDE1E228828330093CB3C /* Test */,
+				964CDE1F228828330093CB3C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

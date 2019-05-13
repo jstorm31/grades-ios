@@ -12,7 +12,9 @@ final class AppDependency: HasNoDependency {
     private init() {}
     static let shared = AppDependency()
 
-    lazy var authService: AuthenticationServiceProtocol = AuthenticationService()
+    lazy var coordinator: SceneCoordinatorType = SceneCoordinator() // Do not forget to set root view controller in AppDelegate
+
+    lazy var authService: AuthenticationServiceProtocol = AuthenticationService(dependencies: self)
     lazy var httpService: HttpServiceProtocol = HttpService(dependencies: self)
     lazy var gradesApi: GradesAPIProtocol = GradesAPI(dependencies: self)
     lazy var pushNotificationsService: PushNotificationServiceProtocol = PushNotificationService(dependencies: self)
@@ -23,6 +25,8 @@ final class AppDependency: HasNoDependency {
     lazy var courseRepository: CourseRepositoryProtocol = CourseRepository(dependencies: self)
     lazy var teacherRepository: TeacherRepositoryProtocol = TeacherRepository(dependencies: self)
 }
+
+extension AppDependency: HasSceneCoordinator {}
 
 extension AppDependency: HasAuthenticationService {}
 extension AppDependency: HasHttpService {}

@@ -7,9 +7,11 @@
 //
 
 import RxSwift
+import UIKit
 @testable import GradesDev
 
-class SceneCoordinatorMock: SceneCoordinatorType {
+final class SceneCoordinatorMock: SceneCoordinatorType {
+	func setRoot(viewController: UIViewController) {}
 
 	var targetScene: Scene?
 	var popped = false

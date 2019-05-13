@@ -15,13 +15,12 @@ import RxTest
 class StudentSearchViewModelTests: XCTestCase {
 	var scheduler: ConcurrentDispatchQueueScheduler!
 	var viewModel: StudentSearchViewModel!
-	var coordinator: SceneCoordinatorMock!
+	var coordinator = AppDependencyMock.shared._coordinator
 	var selectedUser: BehaviorRelay<User?>!
 	private let bag = DisposeBag()
 	
 	override func setUp() {
 		scheduler = ConcurrentDispatchQueueScheduler(qos: .default)
-		coordinator = SceneCoordinatorMock()
 		
 		let students = BehaviorRelay<[User]>(value: [
 			User(id: 1, username: "jindra5", firstName: "Jindřich", lastName: "Novák"),
@@ -30,7 +29,7 @@ class StudentSearchViewModelTests: XCTestCase {
 		
 		selectedUser = BehaviorRelay<User?>(value: nil)
 		
-		viewModel = StudentSearchViewModel(coordinator: coordinator, students: students, selectedStudent: selectedUser)
+		viewModel = StudentSearchViewModel(dependencies: AppDependencyMock.shared, students: students, selectedStudent: selectedUser)
 	}
 	
 	func testDataSource() {
