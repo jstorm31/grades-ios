@@ -142,4 +142,8 @@ class GradesAPIMock: GradesAPIProtocol {
 			return Observable.error(ApiError.general).delaySubscription(0.5, scheduler: MainScheduler.instance)
 		}
 	}
+	
+	func markNotificationRead(username: String, notificationId: Int) -> Observable<Void> {
+		fatalError("markNotificationRead not implemented")
+	}
 }
