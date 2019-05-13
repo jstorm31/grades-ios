@@ -177,6 +177,7 @@ extension PushNotificationService: UNUserNotificationCenterDelegate {
                 .subscribe(onNext: { _ in }).disposed(by: bag)
         }
 
+        UIApplication.shared.applicationIconBadgeNumber = 0
         completionHandler()
     }
 }
