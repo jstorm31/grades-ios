@@ -15,15 +15,14 @@ import RxBlocking
 class LoginViewModelTests: XCTestCase {
 	var scheduler: ConcurrentDispatchQueueScheduler!
 	var viewModel: LoginViewModel!
-	var sceneMock: SceneCoordinatorMock!
+	var sceneMock = AppDependencyMock.shared._coordinator
 	var gradesApi = AppDependencyMock.shared._gradesApi
 	var authService = AppDependencyMock.shared._authService
 	
 	override func setUp() {
 		scheduler = ConcurrentDispatchQueueScheduler(qos: .default)
-		sceneMock = SceneCoordinatorMock()
 		viewModel = LoginViewModel(dependencies: AppDependencyMock.shared)
-		viewModel.sceneCoordinator = sceneMock
+		sceneMock.targetScene = nil
 	}
 
     func testAuthenticationSuccesful() {

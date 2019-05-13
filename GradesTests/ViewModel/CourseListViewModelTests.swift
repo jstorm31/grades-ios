@@ -15,12 +15,11 @@ import RxBlocking
 class CourseListViewModelTests: XCTestCase {
 	var scheduler: ConcurrentDispatchQueueScheduler!
 	var viewModel: CourseListViewModel!
-	var coordinator: SceneCoordinatorMock!
-	
+	var coordinator = AppDependencyMock.shared._coordinator
+
 	override func setUp() {
 		scheduler = ConcurrentDispatchQueueScheduler(qos: .default)
-		coordinator = SceneCoordinatorMock()
-		viewModel = CourseListViewModel(dependencies: AppDependencyMock.shared, sceneCoordinator: coordinator)
+		viewModel = CourseListViewModel(dependencies: AppDependencyMock.shared)
 	}
 	
 	func testOnItemSelectionStudentCourse() {
