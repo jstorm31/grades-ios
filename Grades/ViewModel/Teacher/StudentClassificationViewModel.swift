@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 
 final class StudentClassificationViewModel: BaseViewModel {
-    typealias Dependencies = HasGradesAPI & HasCourseRepository
+    typealias Dependencies = HasGradesAPI & HasCourseRepository & HasSceneCoordinator
 
     // MARK: Public properties
 
@@ -31,12 +31,10 @@ final class StudentClassificationViewModel: BaseViewModel {
     lazy var changeStudentAction = CocoaAction { [weak self] in
         guard let `self` = self else { return Observable.empty() }
 
-        let studentSearchViewModel = StudentSearchViewModel(
-            coordinator: self.coordinator,
-            students: self.students,
-            selectedStudent: self.selectedStudent
-        )
-        return self.coordinator.transition(to: .studentSearch(studentSearchViewModel), type: .push)
+        let studentSearchViewModel = StudentSearchViewModel(dependencies: AppDependency.shared,
+                                                            students: self.students,
+                                                            selectedStudent: self.selectedStudent)
+        return self.dependencies.coordinator.transition(to: .studentSearch(studentSearchViewModel), type: .push)
             .asObservable().map { _ in }
     }
 
@@ -66,15 +64,13 @@ final class StudentClassificationViewModel: BaseViewModel {
     private let course: Course
 
     private let dependencies: Dependencies
-    private let coordinator: SceneCoordinatorType
     private let activityIndicator = ActivityIndicator()
     private let bag = DisposeBag()
 
     // MARK: Initialization
 
-    init(dependencies: Dependencies, coordinator: SceneCoordinatorType, course: Course) {
+    init(dependencies: Dependencies, course: Course) {
         self.dependencies = dependencies
-        self.coordinator = coordinator
         self.course = course
 
         dependencies.courseRepository.set(course: course)

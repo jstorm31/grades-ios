@@ -11,10 +11,10 @@ import RxCocoa
 import RxSwift
 
 class SettingsViewModel: TablePickerViewModel {
-    typealias Dependencies = HasSettingsRepository & HasPushNotificationService & HasUserRepository & HasAuthenticationService
+    typealias Dependencies = HasSettingsRepository & HasPushNotificationService & HasUserRepository
+        & HasAuthenticationService & HasSceneCoordinator
 
     private var dependencies: Dependencies
-    private let coordinator: SceneCoordinatorType
     private let bag = DisposeBag()
 
     private let semesterSelectedIndex = BehaviorRelay<Int>(value: 0)
@@ -43,28 +43,27 @@ class SettingsViewModel: TablePickerViewModel {
         self.dependencies.authService.logOut()
         return self.dependencies.pushNotificationsService.unregisterUserFromDevice()
             .do(onCompleted: { [weak self] in
-                self?.coordinator.pop(animated: true, presented: true)
+                self?.dependencies.coordinator.pop(animated: true, presented: true)
             })
     }
 
     lazy var onBackAction = CocoaAction { [weak self] in
-        self?.coordinator.didPop()
+        self?.dependencies.coordinator.didPop()
             .asObservable().map { _ in } ?? Observable.empty()
     }
 
     lazy var onLinkSelectedAction = Action<Int, Void> { [weak self] index in
         guard let `self` = self else { return Observable.empty() }
 
-        let viewModel = TextViewModel(type: TextScene.text(forIndex: index), coordinator: self.coordinator)
-        return self.coordinator.transition(to: .text(viewModel), type: .push)
+        let viewModel = TextViewModel(dependencies: AppDependency.shared, type: TextScene.text(forIndex: index))
+        return self.dependencies.coordinator.transition(to: .text(viewModel), type: .push)
             .asObservable().map { _ in }
     }
 
     // MARK: initialization
 
-    init(coordinator: SceneCoordinatorType, dependencies: Dependencies) {
+    init(dependencies: Dependencies) {
         self.dependencies = dependencies
-        self.coordinator = coordinator
         super.init()
     }
 

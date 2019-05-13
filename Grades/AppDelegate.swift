@@ -27,10 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.rootViewController = loginScene.viewController()
-
-        // Initialize scene coordinator
-        let sceneCoordinator = SceneCoordinator(window: window!)
-        loginViewModel.sceneCoordinator = sceneCoordinator
+        AppDependency.shared.coordinator.setRoot(viewController: window!.rootViewController!)
 
         return true
     }

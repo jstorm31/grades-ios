@@ -20,4 +20,6 @@ struct EnvironmentConfigurationMock: NSClassificationConfiguration {
 	}
 	
 	var gradesAPI: [String: String] = [:]
+	
+	var keychain = KeychainCredentials(serviceName: "test", accessGroup: "test")
 }

@@ -23,6 +23,10 @@ class HttpServiceMock: HttpServiceProtocol {
 		return Observable.empty()
 	}
 	
+	func put(url: URL) -> Observable<Void> {
+		return Observable.empty()
+	}
+	
 	func get<T>(url: URL, parameters: HttpServiceProtocol.HttpParameters?) -> Observable<T> where T : Decodable {
 		return Observable.empty()
 	}

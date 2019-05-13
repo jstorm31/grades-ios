@@ -67,7 +67,7 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
         super.viewWillDisappear(animated)
 
         if isMovingFromParent {
-            viewModel.onBack.execute()
+            viewModel.onBackAction.execute()
         }
     }
 
