@@ -21,18 +21,3 @@ extension TableSection: SectionModelType {
         self.items = items
     }
 }
-
-// TODO: refactor to TableSection
-struct TableSectionPolymorphic {
-    var header: String
-    var items: [CellItemType]
-}
-
-extension TableSectionPolymorphic: SectionModelType {
-    typealias Item = CellItemType
-
-    init(original: TableSectionPolymorphic, items: [Item]) {
-        self = original
-        self.items = items
-    }
-}

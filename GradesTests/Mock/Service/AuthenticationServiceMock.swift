@@ -50,7 +50,6 @@ class AuthenticationServiceMock: AuthenticationServiceProtocol {
 	
 	
 	var renewAccessToken = CocoaAction {
-		// TODO: implement
 		return Observable.empty()
 	}
 }

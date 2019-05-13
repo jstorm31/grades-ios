@@ -6,8 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
-import Bagel
-import OAuthSwift // TODO: remove on release!
+import OAuthSwift
 import UIKit
 
 @UIApplicationMain
@@ -17,7 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_: UIApplication,
                      didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         resetStateIfUITesting()
-        Bagel.start() // TODO: remove on release!
 
         // Initialize first scene
         let loginViewModel = LoginViewModel(dependencies: AppDependency.shared)
