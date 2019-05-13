@@ -25,7 +25,7 @@ protocol HasPushNotificationService {
 }
 
 final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
-    typealias Dependencies = HasHttpService & HasGradesAPI & HasUserRepository
+    typealias Dependencies = HasHttpService & HasGradesAPI & HasUserRepository & HasSceneCoordinator
 
     private let dependencies: Dependencies
     private let tokenUrl = URL(string: "\(EnvironmentConfiguration.shared.notificationServerUrl)/token")!
@@ -163,11 +163,9 @@ extension PushNotificationService: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-        let idString = userInfo["notificationId"] as? String
-        let courseCode = userInfo["courseCode"] as? String
 
-        if let id = idString, let notificationId = Int(id) {
-            // Get username and mark the notification as read
+        // Get username and mark the notification as read
+        if let id = userInfo["notificationId"] as? String, let notificationId = Int(id) {
             dependencies.userRepository.user.asObservable().unwrap()
                 .map { $0.username }
                 .flatMap { [weak self] username -> Observable<Void> in
@@ -175,6 +173,12 @@ extension PushNotificationService: UNUserNotificationCenterDelegate {
                         ?? Observable.empty()
                 }
                 .subscribe(onNext: { _ in }).disposed(by: bag)
+        }
+
+        // Present course detail screne
+        if let courseCode = userInfo["courseCode"] as? String {
+            let courseDetailVM = CourseDetailStudentViewModel(dependencies: AppDependency.shared, course: Course(code: courseCode))
+            dependencies.coordinator.transition(to: .courseDetailStudent(courseDetailVM), type: .push)
         }
 
         UIApplication.shared.applicationIconBadgeNumber = 0
