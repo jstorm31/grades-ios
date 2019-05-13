@@ -188,5 +188,7 @@ final class AuthenticationService: AuthenticationServiceProtocol {
 
     private func removeCredentialsFromKeychain() {
         keychainWrapper.removeObject(forKey: "refreshToken")
+		keychainWrapper.removeObject(forKey: "accessToken")
+		keychainWrapper.removeObject(forKey: "expiresAt")
     }
 }
