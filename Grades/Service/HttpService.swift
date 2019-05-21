@@ -60,6 +60,8 @@ final class HttpService: NSObject, HttpServiceProtocol {
         return request(url, method: .GET, parameters: parameters, headers: defaultHeaders)
     }
 
+    var i = 0
+
     /// Make HTTP GET request and return Observable string
     func get(url: URL, parameters: HttpParameters? = nil) -> Observable<String> {
         let request = Observable<String>.create { [weak self] observer in
@@ -79,11 +81,6 @@ final class HttpService: NSObject, HttpServiceProtocol {
                 }
             )
             return Disposables.create()
-        }
-
-        if client.credential.isTokenExpired() {
-            return dependencies.authService.renewAccessToken.execute()
-                .flatMap { _ in request }
         }
 
         return request.retryWhen { [weak self] events in
@@ -151,11 +148,6 @@ final class HttpService: NSObject, HttpServiceProtocol {
             return Disposables.create()
         }
 
-        if client.credential.isTokenExpired() {
-            return dependencies.authService.renewAccessToken.execute()
-                .flatMap { _ in request }
-        }
-
         // If error is returned, check access token validity and if invalid refresh, otherwise propagate the error
         return request.retryWhen { [weak self] events in
             events.enumerated().flatMap { [weak self] (attempt, error) -> Observable<Void> in
@@ -201,11 +193,6 @@ final class HttpService: NSObject, HttpServiceProtocol {
             )
 
             return Disposables.create()
-        }
-
-        if client.credential.isTokenExpired() {
-            return dependencies.authService.renewAccessToken.execute()
-                .flatMap { _ in request }
         }
 
         // If error is returned, check access token validity and if invalid refresh, otherwise propagate the error
