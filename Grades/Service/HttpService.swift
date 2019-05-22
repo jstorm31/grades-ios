@@ -140,8 +140,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
                         observer.onError(ApiError.unprocessableData)
                     }
                 }, failure: { error in
-                    Log.error("\(error.localizedDescription)")
-                    observer.onError(ApiError.getError(forCode: error.errorCode))
+                    observer.onError(error)
                 }
             )
 
@@ -187,8 +186,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
                     observer.onNext(())
                     observer.onCompleted()
                 }, failure: { error in
-                    Log.error("\(error.localizedDescription)")
-                    observer.onError(ApiError.getError(forCode: error.errorCode))
+                    observer.onError(error)
                 }
             )
 
@@ -218,8 +216,10 @@ final class HttpService: NSObject, HttpServiceProtocol {
                         .subscribe(
                             onError: { error in
                                 if case ActionError.notEnabled = error {
-                                    observer.onNext(())
-                                    observer.onCompleted()
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        observer.onNext(())
+                                        observer.onCompleted()
+                                    }
                                 } else {
                                     Log.error("HttpService.request: Error refreshing token: \(error.localizedDescription)")
                                     observer.onError(error)
@@ -234,8 +234,12 @@ final class HttpService: NSObject, HttpServiceProtocol {
 
                 return Disposables.create()
             }
+        } else if case is OAuthSwiftError = error {
+            Log.error("HttpService.request: OAuthSwiftError: \(error.localizedDescription)")
+            // swiftlint:disable force_cast
+            return Observable.error(ApiError.getError(forCode: (error as! OAuthSwiftError).errorCode))
         } else {
-            Log.error("HttpService.request: External API error: \(error.localizedDescription)")
+            Log.error("HttpService.request: General API error: \(error.localizedDescription)")
             return Observable.error(error)
         }
     }
