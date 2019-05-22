@@ -5,4 +5,5 @@ github "RxSwiftCommunity/Action" ~> 3.6.0
 github "scalessec/Toast-Swift" ~> 4.0.0
 github "httpswift/swifter" ~> 1.4.6
 github "jrendel/SwiftKeychainWrapper" ~> 3.3
+github "getsentry/sentry-cocoa" "4.3.1"
 
