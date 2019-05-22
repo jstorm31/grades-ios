@@ -1614,7 +1614,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades.NotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "FIT Grades Notification Extension -ad hoc";
+				PROVISIONING_PROFILE_SPECIFIER = "FIT Grades Notification Extension - App Store";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1808,7 +1808,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "FIT Grades - ad hoc";
+				PROVISIONING_PROFILE_SPECIFIER = "Grades AppStore";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
