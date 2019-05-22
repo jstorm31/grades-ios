@@ -92,6 +92,10 @@ extension EnvironmentConfiguration: NSClassificationConfiguration {
         return KeychainCredentials(serviceName: config["KeychainServiceName"] as! String,
                                    accessGroup: config["KeychainAccessGroup"] as! String)
     }
+
+    var sentryUrl: String {
+        return config["SentryUrl"] as! String
+    }
 }
 
 struct KeychainCredentials {

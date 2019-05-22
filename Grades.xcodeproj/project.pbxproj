@@ -25,6 +25,7 @@
 		961BCE79222C3D8E00BD6663 /* GradesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BCE78222C3D8E00BD6663 /* GradesUITests.swift */; };
 		961BCE81222C515700BD6663 /* GradesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BCE80222C515700BD6663 /* GradesAPI.swift */; };
 		961FC4F82244118B000A4CDA /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961FC4F72244118B000A4CDA /* AppDependency.swift */; };
+		962A67A4229521B9008CF643 /* Sentry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962A67A3229521B9008CF643 /* Sentry.framework */; };
 		9636E8AC22775FE200727AE5 /* EvaluationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9636E8AB22775FE200727AE5 /* EvaluationType.swift */; };
 		9639AE662270989B009C35A9 /* ModifableInsetsOnKeyboardFrameChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE642270989B009C35A9 /* ModifableInsetsOnKeyboardFrameChanges.swift */; };
 		9639AE672270989C009C35A9 /* KeyboardChangeFrameObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE652270989B009C35A9 /* KeyboardChangeFrameObserver.swift */; };
@@ -257,6 +258,7 @@
 		961BCE7A222C3D8E00BD6663 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		961BCE80222C515700BD6663 /* GradesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesAPI.swift; sourceTree = "<group>"; };
 		961FC4F72244118B000A4CDA /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
+		962A67A3229521B9008CF643 /* Sentry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sentry.framework; path = Carthage/Build/iOS/Sentry.framework; sourceTree = "<group>"; };
 		9636E8AB22775FE200727AE5 /* EvaluationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluationType.swift; sourceTree = "<group>"; };
 		9639AE642270989B009C35A9 /* ModifableInsetsOnKeyboardFrameChanges.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifableInsetsOnKeyboardFrameChanges.swift; sourceTree = "<group>"; };
 		9639AE652270989B009C35A9 /* KeyboardChangeFrameObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardChangeFrameObserver.swift; sourceTree = "<group>"; };
@@ -452,6 +454,7 @@
 				96A80A71222F1B3000986A90 /* Differentiator.framework in Frameworks */,
 				9699ABA22232902A006D2F73 /* ToastSwiftFramework.framework in Frameworks */,
 				968EC1D32282DC1100241F51 /* SwiftKeychainWrapper.framework in Frameworks */,
+				962A67A4229521B9008CF643 /* Sentry.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -649,6 +652,7 @@
 		967D1E3F2223DDD3007E5217 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				962A67A3229521B9008CF643 /* Sentry.framework */,
 				968EC1D22282DC1100241F51 /* SwiftKeychainWrapper.framework */,
 				96F220DE227B67670078AD2A /* Swifter.framework */,
 				96A8AEF2227466440076CCD2 /* StoreKit.framework */,
@@ -984,6 +988,7 @@
 				96520E8E2223D65F00AB6499 /* Frameworks */,
 				96520E8F2223D65F00AB6499 /* Resources */,
 				9613645D22871D84009373FA /* Embed App Extensions */,
+				962A67A522952674008CF643 /* Sentry Upload Symbols */,
 			);
 			buildRules = (
 			);
@@ -1191,6 +1196,25 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftformat >/dev/null; then\n    swiftformat --disable trailingCommas --swiftversion 4.2 Grades\nelse\n    echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
 		};
+		962A67A522952674008CF643 /* Sentry Upload Symbols */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.env",
+			);
+			name = "Sentry Upload Symbols";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\necho \"$CONFIGURATION\"\nif [ \"$CONFIGURATION\" == \"Release\" ]; then\nif which sentry-cli >/dev/null; then\n\nif test -f .env; then\n    source .env\nfi\n\n\nERROR=$(sentry-cli upload-dif \"$DWARF_DSYM_FOLDER_PATH\" 2>&1 >/dev/null)\nif [ ! $? -eq 0 ]; then\necho \"warning: sentry-cli - $ERROR\"\nfi\nelse\necho \"warning: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"\nfi\nfi\n\n";
+		};
 		967D1E3E2223DCEE007E5217 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -1211,6 +1235,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxAtomic.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftKeychainWrapper.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Sentry.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
@@ -1228,6 +1253,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxBlocking.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxAtomic.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftKeychainWrapper.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Sentry.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1520,6 +1546,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CONFIG_ENVIRONMENT = Debug;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 2PY9RKK8A7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1724,6 +1751,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CONFIG_ENVIRONMENT = Debug;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 2PY9RKK8A7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

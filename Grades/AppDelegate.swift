@@ -7,6 +7,7 @@
 //
 
 import OAuthSwift
+import Sentry
 import UIKit
 
 @UIApplicationMain
@@ -27,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = loginScene.viewController()
         AppDependency.shared.coordinator.setRoot(viewController: window!.rootViewController!)
 
+        setupSentry()
         return true
     }
 
@@ -46,13 +48,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         tokenObservable.accept(token)
     }
+}
 
-    private func resetStateIfUITesting() {
+private extension AppDelegate {
+    func resetStateIfUITesting() {
         if ProcessInfo.processInfo.arguments.contains("--ui-testing") {
             // Reset semester
             if let encoded = try? JSONEncoder().encode(Settings(language: .english, semester: "B182")) {
                 UserDefaults.standard.set(encoded, forKey: "Settings")
             }
+        }
+    }
+
+    func setupSentry() {
+        do {
+            Client.shared = try Client(dsn: EnvironmentConfiguration.shared.sentryUrl)
+            try Client.shared?.startCrashHandler()
+        } catch {
+            Log.error("Sentry initialization: \(error.localizedDescription)")
         }
     }
 }
