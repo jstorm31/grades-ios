@@ -29,6 +29,8 @@ class BaseViewController: UIViewController {
 
     override func loadView() {
         super.loadView()
+		
+		view.backgroundColor = .white
 
         // Style navigation bar
         navigationController?.navigationBar.isTranslucent = false
