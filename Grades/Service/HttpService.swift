@@ -235,11 +235,11 @@ final class HttpService: NSObject, HttpServiceProtocol {
                 return Disposables.create()
             }
         } else if case is OAuthSwiftError = error {
-            Log.error("HttpService.request: OAuthSwiftError: \(error.localizedDescription)")
+            Log.error("HttpService.request: OAuthSwiftError: \(error)")
             // swiftlint:disable force_cast
             return Observable.error(ApiError.getError(forCode: (error as! OAuthSwiftError).errorCode))
         } else {
-            Log.error("HttpService.request: General API error: \(error.localizedDescription)")
+            Log.error("HttpService.request: General API error: \(error)")
             return Observable.error(error)
         }
     }
