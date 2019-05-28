@@ -12,7 +12,7 @@ import UIKit
 import UserNotifications
 
 protocol PushNotificationServiceProtocol {
-    var deviceToken: BehaviorRelay<String?> { get set }
+    var deviceToken: BehaviorSubject<String?> { get set }
     var isUserRegisteredForNotifications: Bool { get set }
 
     func start() -> Observable<Void>
@@ -31,7 +31,7 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
     private let tokenUrl = URL(string: "\(EnvironmentConfiguration.shared.notificationServerUrl)/token")!
     private let bag = DisposeBag()
 
-    var deviceToken = BehaviorRelay<String?>(value: nil)
+    var deviceToken = BehaviorSubject<String?>(value: nil)
 
     var isUserRegisteredForNotifications: Bool {
         get {
@@ -110,12 +110,15 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
     func unregisterUserFromDevice() -> Observable<Void> {
         isUserRegisteredForNotifications = false
 
-        guard let token = deviceToken.value else {
-            return Observable.empty()
-        }
+        return deviceToken
+            .flatMap { [weak self] token -> Observable<Void> in
+                guard let token = token, let `self` = self else {
+                    return Observable.error(NotificationError.tokenIsNil)
+                }
 
-        let body = NotificationRegistration(token: token, type: "IOS")
-        return dependencies.httpService.delete(url: tokenUrl, parameters: nil, body: body)
+                let body = NotificationRegistration(token: token, type: "IOS")
+                return self.dependencies.httpService.delete(url: self.tokenUrl, parameters: nil, body: body)
+            }
     }
 
     // MARK: Private methods
@@ -142,12 +145,14 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
 
     /// Register user with app's notification token
     private func registerUserForNotifications(token: String) -> Observable<Void> {
-        guard let token = deviceToken.value else {
-            return Observable.error(NotificationError.tokenIsNil)
-        }
-
-        let body = NotificationRegistration(token: token, type: "IOS")
-        return dependencies.httpService.post(url: tokenUrl, parameters: nil, body: body)
+        return deviceToken
+            .flatMap { [weak self] token -> Observable<Void> in
+                guard let token = token, let `self` = self else {
+                    return Observable.error(NotificationError.tokenIsNil)
+                }
+                let body = NotificationRegistration(token: token, type: "IOS")
+                return self.dependencies.httpService.post(url: self.tokenUrl, parameters: nil, body: body)
+            }
             .do(onCompleted: { [weak self] in
                 self?.isUserRegisteredForNotifications = true
             })

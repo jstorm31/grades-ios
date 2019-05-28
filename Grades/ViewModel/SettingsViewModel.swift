@@ -42,7 +42,7 @@ class SettingsViewModel: TablePickerViewModel {
 
         self.dependencies.authService.logOut()
         return self.dependencies.pushNotificationsService.unregisterUserFromDevice()
-            .do(onCompleted: { [weak self] in
+            .do(onNext: { [weak self] in
                 self?.dependencies.coordinator.pop(animated: true, presented: true)
             })
     }
