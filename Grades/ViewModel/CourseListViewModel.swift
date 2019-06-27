@@ -64,16 +64,33 @@ final class CourseListViewModel: BaseViewModel {
     }
 
     func onItemSelection(_ indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            guard !courses.value.student.isEmpty else { return }
+        let courses = self.courses.value
 
-            let courseDetailVM = CourseDetailStudentViewModel(dependencies: AppDependency.shared,
-                                                              course: courses.value.student[indexPath.item])
-            dependencies.coordinator.transition(to: .courseDetailStudent(courseDetailVM), type: .push)
-        } else if indexPath.section == 1 {
-            let course = courses.value.teacher[indexPath.item]
-            let teacherClassificationVM = TeacherClassificationViewModel(dependencies: AppDependency.shared, course: course)
-            dependencies.coordinator.transition(to: .teacherClassification(teacherClassificationVM), type: .push)
+        if courses.student.isEmpty, !courses.teacher.isEmpty {
+            // Only student courses
+            transitionToTeacherCourse(courses.teacher[indexPath.item])
+        } else if !courses.student.isEmpty, courses.teacher.isEmpty {
+            // Only teacher courses
+            transitionToStudentCourse(courses.student[indexPath.item])
+        } else if !courses.student.isEmpty, !courses.teacher.isEmpty {
+            // Both student and teacher courses
+            if indexPath.section == 0 {
+                let course = courses.student[indexPath.item]
+                transitionToStudentCourse(course)
+            } else if indexPath.section == 1 {
+                let course = courses.teacher[indexPath.item]
+                transitionToTeacherCourse(course)
+            }
         }
+    }
+
+    private func transitionToStudentCourse(_ course: StudentCourse) {
+        let courseDetailVM = CourseDetailStudentViewModel(dependencies: AppDependency.shared, course: course)
+        dependencies.coordinator.transition(to: .courseDetailStudent(courseDetailVM), type: .push)
+    }
+
+    private func transitionToTeacherCourse(_ course: TeacherCourse) {
+        let teacherClassificationVM = TeacherClassificationViewModel(dependencies: AppDependency.shared, course: course)
+        dependencies.coordinator.transition(to: .teacherClassification(teacherClassificationVM), type: .push)
     }
 }

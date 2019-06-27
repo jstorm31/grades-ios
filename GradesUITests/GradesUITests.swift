@@ -60,7 +60,7 @@ class GradesUITests: XCTestCase {
 		XCTAssert(komCell.exists)
 	}
 	
-	func testCourseDetail() {
+		func testCourseDetail() {
 		app.buttons["Login"].tap()
 		let tablesQuery = app.tables
 		let teacherCell = tablesQuery.cells.containing(.staticText, identifier:"28 p").staticTexts["BI-PJS.1"]

@@ -1542,7 +1542,7 @@
 		964CDE1D228828330093CB3C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APP_VERSION = 0.1.1;
+				APP_VERSION = 0.1.3;
 				CODE_SIGN_ENTITLEMENTS = GradesNotificationExtension/GradesNotificationExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -1573,7 +1573,7 @@
 		964CDE1E228828330093CB3C /* Test */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APP_VERSION = 0.1.1;
+				APP_VERSION = 0.1.3;
 				CODE_SIGN_ENTITLEMENTS = GradesNotificationExtension/GradesNotificationExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -1603,7 +1603,7 @@
 		964CDE1F228828330093CB3C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APP_VERSION = 0.1.1;
+				APP_VERSION = 0.1.3;
 				CODE_SIGN_ENTITLEMENTS = GradesNotificationExtension/GradesNotificationExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -1754,7 +1754,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				APP_VERSION = 0.1.1;
+				APP_VERSION = 0.1.3;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Grades/GradesDev.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -1791,7 +1791,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				APP_VERSION = 0.1.1;
+				APP_VERSION = 0.1.3;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Grades/GradesDev.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -1946,7 +1946,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				APP_VERSION = 0.1.1;
+				APP_VERSION = 0.1.3;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Grades/GradesDev.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
