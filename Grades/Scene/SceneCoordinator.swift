@@ -76,13 +76,13 @@ final class SceneCoordinator: SceneCoordinatorType {
                 .map { _ in }
                 .bind(to: subject)
             if navigationController.popViewController(animated: animated) == nil {
-				Log.error("can't navigate back from \(String(describing: currentViewController))")
+                Log.error("can't navigate back from \(String(describing: currentViewController))")
                 return Observable.just(()).ignoreElements()
             }
             currentViewController = SceneCoordinator
                 .actualViewController(for: navigationController.viewControllers.last!)
         } else {
-			fatalError("Not a modal, no navigation controller: can't navigate back from \(String(describing: currentViewController))")
+            fatalError("Not a modal, no navigation controller: can't navigate back from \(String(describing: currentViewController))")
         }
         return subject.asObservable()
             .take(1)

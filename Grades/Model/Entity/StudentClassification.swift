@@ -8,8 +8,8 @@
 
 struct StudentClassification {
     var ident: String
-    var firstName: String?
-    var lastName: String?
+    var firstName: String = ""
+    var lastName: String = ""
     var username: String
     var value: DynamicValue?
 
@@ -34,6 +34,6 @@ extension StudentClassification: Comparable {
     }
 
     static func < (lhs: StudentClassification, rhs: StudentClassification) -> Bool {
-        return lhs.username < rhs.username
+        return (lhs.lastName, lhs.firstName, lhs.username) < (rhs.lastName, rhs.firstName, rhs.username)
     }
 }
