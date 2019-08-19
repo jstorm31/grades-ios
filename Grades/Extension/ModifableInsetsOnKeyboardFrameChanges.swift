@@ -8,7 +8,9 @@ protocol ModifableInsetsOnKeyboardFrameChanges: KeyboardChangeFrameObserver {
 
 /// Default implementation for `UIViewController`
 extension ModifableInsetsOnKeyboardFrameChanges where Self: UIViewController {
-    func willChangeKeyboardFrame(height: CGFloat, offset: CGFloat, animationDuration: TimeInterval, animationOptions _: UIView.AnimationOptions) {
+    func willChangeKeyboardFrame(height: CGFloat, offset: CGFloat,
+								 animationDuration: TimeInterval,
+								 animationOptions _: UIView.AnimationOptions) {
         var adjustedHeight = height
 
         if let tabBarHeight = self.tabBarController?.tabBar.frame.height {
