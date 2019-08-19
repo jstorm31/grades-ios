@@ -154,7 +154,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
                         valueType: classification.valueType,
                         evaluationType: classification.evaluationType,
                         key: item.username,
-                        title: "\(item.lastName ?? "") \(item.firstName ?? "")",
+                        title: "\(item.lastName) \(item.firstName)",
                         subtitle: item.username
                     )
                     cellViewModel.value.accept(item.value)
@@ -171,7 +171,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
             .flatMap { [weak self] index -> Observable<String> in
                 self?.teacherRepository.groups.map { options in
                     if options.count > index {
-                        return options[index].id
+                        return options[index].title()
                     }
                     return ""
                 } ?? Observable.just("")
@@ -199,7 +199,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
                 guard let `self` = self else { return Observable.just([]) }
 
                 if index == 0 {
-                    return self.teacherRepository.groups.map { $0.map { $0.id } }
+                    return self.teacherRepository.groups.map { $0.map { $0.title() } }
                 } else if index == 1 {
                     return self.teacherRepository.classifications.map { $0.map { $0.getLocalizedText() } }
                 }
