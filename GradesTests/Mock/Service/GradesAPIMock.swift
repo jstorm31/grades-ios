@@ -88,8 +88,8 @@ class GradesAPIMock: GradesAPIProtocol {
 		switch result {
 		case .success:
 			return Observable.just([
-				StudentGroup(id: "A145", name: "Cvičení 1", description: nil),
-				StudentGroup(id: "A146", name: "Cvičení 2", description: nil)
+				StudentGroup(id: "A145", name: "Cvičení 1", description: "Cvič 1"),
+				StudentGroup(id: "A146", name: "Cvičení 2", description: "Cvič 2")
 			]).delaySubscription(0.5, scheduler: MainScheduler.instance)
 		case .failure:
 			return Observable.error(ApiError.general)

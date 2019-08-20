@@ -20,8 +20,8 @@ final class TeacherRepositoryMock: TeacherRepositoryProtocol {
 	
 	func getGroupOptions(forCourse: String) {
 		groups.accept([
-			StudentGroup(id: "ALL", name: "All students", description: nil),
-			StudentGroup(id: "PARALLEL_1", name: "Parallel monday", description: nil),
+			StudentGroup(id: "ALL", name: "ALL_STUDENTS", description: "All students"),
+			StudentGroup(id: "PARALLEL_1", name: "PARALLEL_MONDAY", description: "Parallel monday"),
 		])
 	}
 	

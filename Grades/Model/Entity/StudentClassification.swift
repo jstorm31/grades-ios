@@ -12,7 +12,9 @@ struct StudentClassification {
     var lastName: String = ""
     var username: String
     var value: DynamicValue?
+}
 
+extension StudentClassification {
     init(identifier: String, username: String, value: DynamicValue?) {
         ident = identifier
         self.username = username
