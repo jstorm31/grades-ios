@@ -88,6 +88,5 @@ final class TeacherRepository: TeacherRepositoryProtocol {
                 self?.error.onNext(error)
                 return Observable.just([])
             }
-            .map { $0.sorted() }
     }
 }
