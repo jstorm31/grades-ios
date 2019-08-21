@@ -67,4 +67,21 @@ class StudentEvaluationSorterTest: XCTestCase {
 		
 		XCTAssertEqual(sorted, ["krehjana", "dlouhiv4", "zhorzden", "kvitond"])
 	}
+	
+	func testSortByNameDescending() {
+		let sorter = StudentClassificationNameSorter()
+		let sorted = sorter.sort(classifications: items, ascending: false).map { $0.username }
+		
+		XCTAssertEqual(sorted, ["zhorzden", "kvitond", "krehjana", "dlouhiv4"])
+		
+	}
+	
+	func testSortByPointsDescending() {
+		func testSortByPoints() {
+			let sorter = StudentClassificationValueSorter()
+			let sorted = sorter.sort(classifications: items, ascending: false).map { $0.username }
+			
+			XCTAssertEqual(sorted, ["kvitond", "dlouhiv4", "krehjana", "zhorzden"])
+		}
+	}
 }
