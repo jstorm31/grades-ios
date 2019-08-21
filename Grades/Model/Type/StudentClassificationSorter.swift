@@ -20,8 +20,15 @@ final class StudentClassificationNameSorter: StudentClassificationSorter {
 final class StudentClassificationValueSorter: StudentClassificationSorter {
     /// Sorts items by value
     func sort(classifications: [StudentClassification]) -> [StudentClassification] {
-        return classifications.sorted(by: { _, _ in
-            true
+        return classifications.sorted(by: { lhs, rhs in
+            guard let lhsValue = lhs.value, let rhsValue = rhs.value else {
+                return false
+            }
+
+            if lhsValue == rhsValue {
+                return lhs < rhs // sort by default order
+            }
+            return lhsValue < rhsValue
         })
     }
 }

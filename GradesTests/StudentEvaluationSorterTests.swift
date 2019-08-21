@@ -32,7 +32,7 @@ class StudentEvaluationSorterTest: XCTestCase {
 		let sorter = StudentClassificationValueSorter()
 		let sorted = sorter.sort(classifications: items).map { $0.username }
 		
-		XCTAssertEqual(sorted, ["kvitond", "dlouhiv4", "krehjana", "zhorzden"])
+		XCTAssertEqual(sorted, ["zhorzden", "krehjana", "dlouhiv4", "kvitond"])
 	}
 	
 	func testSortByGrade() {
@@ -56,7 +56,7 @@ class StudentEvaluationSorterTest: XCTestCase {
 		let sorter = StudentClassificationValueSorter()
 		let sorted = sorter.sort(classifications: items).map { $0.username }
 		
-		XCTAssertEqual(sorted, ["zhorzden", "krehjana", "kvitond", "dlouhiv4"])
+		XCTAssertEqual(sorted, ["dlouhiv4", "krehjana", "kvitond", "zhorzden"])
 	}
 	
 	func testSortByPointsWithNil() {
@@ -65,6 +65,6 @@ class StudentEvaluationSorterTest: XCTestCase {
 		let sorter = StudentClassificationValueSorter()
 		let sorted = sorter.sort(classifications: items).map { $0.username }
 		
-		XCTAssertEqual(sorted, ["kvitond", "krehjana", "zhorzden", "dlouhiv4"])
+		XCTAssertEqual(sorted, ["krehjana", "dlouhiv4", "zhorzden", "kvitond"])
 	}
 }
