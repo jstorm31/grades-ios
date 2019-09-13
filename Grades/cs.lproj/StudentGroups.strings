@@ -1,0 +1,27 @@
+/* 
+  StudentGroups.strings
+  Grades
+
+  Created by Jiří Zdvomka on 13/09/2019.
+  Copyright © 2019 jiri.zdovmka. All rights reserved.
+*/
+
+"ALL_STUDENTS" = "Všichni studenti";
+"ALL_MY_PARALLELS" = "Všechny moje paralelky";
+"ALL_MY_LECTURES" = "Všechny moje přednáškové paralelky";
+"ALL_MY_TUTORIALS" = "Všechny moje cvičební paralelky";
+"ALL_MY_LABORATORIES" = "Všechny moje laboratorní paralelky";
+"TEST_STUDENTS" = "Umělí studenti pro testování";
+"PARALLEL_LABORATORY" = "Laboratoř č. ";
+"PARALLEL_LECTURE" = "Přednáška č. ";
+"PARALLEL_TUTORIAL" = "Cvičení č. ";
+"PARALLEL_UNDEFINED" = "Paralelka č. ";
+"EXAM_FINAL_EXAM" = "Zkouška: ";
+"EXAM_ASSESSMENT" = "Zápočet: ";
+"DAY_1" = "pondělí";
+"DAY_2" = "úterý";
+"DAY_3" = "středa";
+"DAY_4" = "čtvrtek";
+"DAY_5" = "pátek";
+"DAY_6" = "sobota";
+"DAY_7" = "neděle";
