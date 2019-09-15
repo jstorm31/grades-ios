@@ -1,0 +1,27 @@
+/*
+  StudentGroups.strings
+  Grades
+
+  Created by Jiří Zdvomka on 13/09/2019.
+  Copyright © 2019 jiri.zdovmka. All rights reserved.
+*/
+
+"ALL_STUDENTS" = "All students";
+"ALL_MY_PARALLELS" = "All my parallels";
+"ALL_MY_LECTURES" = "All my lecture parallels";
+"ALL_MY_TUTORIALS" = "All my tutorial parallels";
+"ALL_MY_LABORATORIES" = "All my laboratory parallels";
+"TEST_STUDENTS" = "Artificial students for testing";
+"PARALLEL_LABORATORY" = "Laboratory n. ";
+"PARALLEL_LECTURE" = "Lecture n. ";
+"PARALLEL_TUTORIAL" = "Tutorial n. ";
+"PARALLEL_UNDEFINED" = "Parallel n. ";
+"EXAM_FINAL_EXAM" = "Exam: ";
+"EXAM_ASSESSMENT" = "Exam assessment: ";
+"DAY_1" = "monday";
+"DAY_2" = "tuesday";
+"DAY_3" = "wednesday";
+"DAY_4" = "thursday";
+"DAY_5" = "friday";
+"DAY_6" = "saturday";
+"DAY_7" = "sunday";

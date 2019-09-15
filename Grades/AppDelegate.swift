@@ -6,6 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import Bagel
 import OAuthSwift
 import Sentry
 import UIKit
@@ -29,6 +30,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppDependency.shared.coordinator.setRoot(viewController: window!.rootViewController!)
 
         setupSentry()
+
+        #if DEBUG
+            Bagel.start()
+        #endif
+
         return true
     }
 

@@ -44,9 +44,13 @@ class UIPickerLabel: UIView {
         let textLabel = UILabel()
         textLabel.font = UIFont.Grades.body
         textLabel.textColor = UIColor.Theme.text
+        textLabel.textAlignment = .right
+        textLabel.adjustsFontSizeToFitWidth = false
+        textLabel.lineBreakMode = .byTruncatingTail
         addSubview(textLabel)
         textLabel.snp.makeConstraints { make in
             make.trailing.equalTo(imageView.snp.leading).offset(-4)
+            make.width.equalTo(170)
             make.centerY.equalToSuperview()
         }
         self.textLabel = textLabel

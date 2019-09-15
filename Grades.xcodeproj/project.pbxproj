@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		96030419232BCDC5005074C9 /* StudentGroupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96030418232BCDC5005074C9 /* StudentGroupTests.swift */; };
+		9603041F232C14AF005074C9 /* StudentGroups.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9603041D232C14AF005074C9 /* StudentGroups.strings */; };
+		96030420232C14AF005074C9 /* StudentGroups.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9603041D232C14AF005074C9 /* StudentGroups.strings */; };
+		96030426232C1C26005074C9 /* Bagel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0D2228669F00FB4A05 /* Bagel.framework */; };
+		96030427232C1C63005074C9 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0F2228687400FB4A05 /* CocoaAsyncSocket.framework */; };
 		96068D39227A12BA00890EF6 /* StudentClassifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96068D38227A12BA00890EF6 /* StudentClassifications.swift */; };
 		9608B9AD2223F10F00E1CEAF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9608B9AB2223F10F00E1CEAF /* Localizable.strings */; };
 		9608B9B12224149700E1CEAF /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9608B9B02224149700E1CEAF /* Strings.swift */; };
@@ -233,6 +238,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		96030418232BCDC5005074C9 /* StudentGroupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentGroupTests.swift; sourceTree = "<group>"; };
+		9603041E232C14AF005074C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/StudentGroups.strings; sourceTree = "<group>"; };
+		96030425232C14E7005074C9 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/StudentGroups.strings; sourceTree = "<group>"; };
 		96068D38227A12BA00890EF6 /* StudentClassifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassifications.swift; sourceTree = "<group>"; };
 		9608B9B02224149700E1CEAF /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		9608B9BD22241B9100E1CEAF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -444,6 +452,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96030427232C1C63005074C9 /* CocoaAsyncSocket.framework in Frameworks */,
+				96030426232C1C26005074C9 /* Bagel.framework in Frameworks */,
 				96939EEC223BDCCC00A49E57 /* RxAtomic.framework in Frameworks */,
 				9658071922304B420065E23D /* Action.framework in Frameworks */,
 				967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */,
@@ -605,6 +615,7 @@
 		96520E932223D65F00AB6499 /* Grades */ = {
 			isa = PBXGroup;
 			children = (
+				9603041D232C14AF005074C9 /* StudentGroups.strings */,
 				96A8AEF6227479860076CCD2 /* GradesDev.entitlements */,
 				96861087222B1A670069B81B /* Scene */,
 				9699AB9A22326506006D2F73 /* Utilities */,
@@ -704,6 +715,7 @@
 				965ADAF4223597CB00AA8CF4 /* Types */,
 				963C628E22342FF800B01818 /* Mock */,
 				9682A6B1222D1ABC00773E28 /* Info.plist */,
+				96030418232BCDC5005074C9 /* StudentGroupTests.swift */,
 			);
 			path = GradesTests;
 			sourceTree = "<group>";
@@ -1123,6 +1135,7 @@
 				96C9D80E228ADB4D00BFA119 /* Test.plist in Resources */,
 				9608B9AD2223F10F00E1CEAF /* Localizable.strings in Resources */,
 				96520E9C2223D66000AB6499 /* Assets.xcassets in Resources */,
+				9603041F232C14AF005074C9 /* StudentGroups.strings in Resources */,
 				961A2FD422293AD000A624DC /* Debug.plist in Resources */,
 				961A2FD622293AE000A624DC /* Release.plist in Resources */,
 				961A2FD822293AEA00A624DC /* Common.plist in Resources */,
@@ -1133,6 +1146,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96030420232C14AF005074C9 /* StudentGroups.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1236,6 +1250,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxAtomic.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftKeychainWrapper.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Sentry.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Bagel.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/CocoaAsyncSocket.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
@@ -1254,6 +1270,8 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxAtomic.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftKeychainWrapper.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Sentry.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Bagel.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaAsyncSocket.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1439,6 +1457,7 @@
 				9639AE6F2270FF89009C35A9 /* AuthClientMock.swift in Sources */,
 				9675842922855470006C401E /* SettingsRepositoryTests.swift in Sources */,
 				96C7B9CA226069FA00E39F9A /* CoursesRepositoryTests.swift in Sources */,
+				96030419232BCDC5005074C9 /* StudentGroupTests.swift in Sources */,
 				9639AE6D2270CA62009C35A9 /* HttpServiceTests.swift in Sources */,
 				963C6296223432FD00B01818 /* AuthenticationServiceMock.swift in Sources */,
 			);
@@ -1465,6 +1484,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		9603041D232C14AF005074C9 /* StudentGroups.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9603041E232C14AF005074C9 /* en */,
+				96030425232C14E7005074C9 /* cs */,
+			);
+			name = StudentGroups.strings;
+			sourceTree = "<group>";
+		};
 		9608B9AB2223F10F00E1CEAF /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
