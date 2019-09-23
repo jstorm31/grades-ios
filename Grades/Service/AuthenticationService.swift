@@ -71,7 +71,7 @@ final class AuthenticationService: AuthenticationServiceProtocol {
         }
 
         return Observable.create { [weak self] observer in
-            guard let `self` = self else {
+            guard let self = self else {
                 observer.onCompleted()
                 return Disposables.create()
             }
@@ -122,7 +122,7 @@ final class AuthenticationService: AuthenticationServiceProtocol {
     /// Renew access token with refresh token
     lazy var renewAccessToken = CocoaAction { [weak self] in
         Observable.create { [weak self] observer in
-            guard let `self` = self else { return Disposables.create() }
+            guard let self = self else { return Disposables.create() }
             let credential = self.handler.client.credential
 
             // Build request

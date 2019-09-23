@@ -211,7 +211,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
     private func handleError(_ error: Error) -> Observable<Void> {
         if case OAuthSwiftError.tokenExpired = error {
             return Observable.create { [weak self] observer in
-                if let `self` = self {
+                if let self = self {
                     self.dependencies.authService.renewAccessToken.execute()
                         .subscribe(
                             onError: { error in
