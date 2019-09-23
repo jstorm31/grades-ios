@@ -16,7 +16,7 @@ final class SceneCoordinator: SceneCoordinatorType {
     required init() {}
 
     func setRoot(viewController: UIViewController) {
-        currentViewController = SceneCoordinator.actualViewController(for: viewController)
+        currentViewController = viewController
     }
 
     static func actualViewController(for viewController: UIViewController) -> UIViewController {

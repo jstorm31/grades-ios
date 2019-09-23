@@ -71,16 +71,6 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
         refreshing.map { !$0 }.asDriver().drive(loginButton.rx.isEnabled).disposed(by: bag)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController!.isNavigationBarHidden = true
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController!.isNavigationBarHidden = false
-    }
-
     func bindViewModel() {
         guard let viewModel = viewModel else { return }
 

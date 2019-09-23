@@ -23,12 +23,12 @@ class BaseTableViewController: BaseViewController {
         let tableView = UITableView()
         tableView.accessibilityIdentifier = "Table"
         tableView.delegate = self
-        tableView.tableFooterView = UIView()
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.size.equalToSuperview()
         }
         self.tableView = tableView
+        tableView.tableFooterView = UIView()
 
         let noContentLabel = UILabel()
         noContentLabel.text = L10n.Labels.noContent

@@ -68,6 +68,6 @@ final class LoginViewModel: BaseViewModel {
 
     private func transitionToCourseList() {
         let courseListViewModel = CourseListViewModel(dependencies: AppDependency.shared)
-        dependencies.coordinator.transition(to: .courseList(courseListViewModel), type: .push)
+        dependencies.coordinator.transition(to: .courseList(courseListViewModel), type: .modal)
     }
 }
