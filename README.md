@@ -12,8 +12,8 @@ Client iOS application for [student evaluation management server](https://grades
 
 ## 🛠 Setup
 1. Clone the repository.
-2. Run `carthage bootstrap`
-3. Request access to encrypted configuration files from the repository owner.
+2. Run `carthage bootstrap && carthage update`
+3. Request access to configuration files encrypted with [git-secret](https://git-scm.com) from the repository owner.
 
 ## 🔗 Dependency management
 The app uses [Carthage](https://github.com/Carthage/Carthage) package manager for dependency management. After cloning the repo, run `carthage bootstrap` to correctly install required frameworks.
