@@ -24,6 +24,7 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
         super.loadView()
 
         navigationItem.title = L10n.Courses.title
+        navigationItem.setHidesBackButton(true, animated: false)©
 
         loadRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)

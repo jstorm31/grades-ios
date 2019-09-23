@@ -777,12 +777,11 @@
 		96861083222AEFED0069B81B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				96D8CF462338F286007CFF26 /* Base */,
 				964181752247A7F10019CABD /* Teacher */,
 				96520E962223D65F00AB6499 /* LoginViewController.swift */,
 				96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */,
-				9686106F222AA4550069B81B /* BaseViewController.swift */,
 				96A80A74222F1D0400986A90 /* CourseListViewController.swift */,
-				96F3A3842239B4B200FB63EF /* BaseTableViewController.swift */,
 				961A8786223F8B3B00846538 /* SettingsViewController.swift */,
 				96CAC0262280A10800F2224F /* TextViewController.swift */,
 			);
@@ -874,6 +873,15 @@
 				9639AE6E2270FF89009C35A9 /* AuthClientMock.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		96D8CF462338F286007CFF26 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				96F3A3842239B4B200FB63EF /* BaseTableViewController.swift */,
+				9686106F222AA4550069B81B /* BaseViewController.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		96F220DB227B63740078AD2A /* Stubs */ = {
