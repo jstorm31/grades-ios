@@ -38,7 +38,7 @@ class SettingsViewModel: TablePickerViewModel {
     // MARK: actions
 
     lazy var logoutAction = CocoaAction { [weak self] in
-        guard let self = self else { return Observable.empty() }
+        guard let `self` = self else { return Observable.empty() }
 
         self.dependencies.authService.logOut()
         return self.dependencies.pushNotificationsService.unregisterUserFromDevice()
@@ -53,7 +53,7 @@ class SettingsViewModel: TablePickerViewModel {
     }
 
     lazy var onLinkSelectedAction = Action<Int, Void> { [weak self] index in
-        guard let self = self else { return Observable.empty() }
+        guard let `self` = self else { return Observable.empty() }
 
         let viewModel = TextViewModel(dependencies: AppDependency.shared, type: TextScene.text(forIndex: index))
         return self.dependencies.coordinator.transition(to: .text(viewModel), type: .push)
@@ -76,7 +76,7 @@ class SettingsViewModel: TablePickerViewModel {
                 self?.dependencies.userRepository.user.unwrap() ?? Observable.empty()
             }
             .map { [weak self] user in
-                guard let self = self else { return [] }
+                guard let `self` = self else { return [] }
 
                 return [
                     TableSection(header: L10n.Settings.user, items: [
@@ -132,7 +132,7 @@ class SettingsViewModel: TablePickerViewModel {
             .filter { $0.section == 1 }
             .map { $0.item }
             .flatMap { [weak self] index -> Observable<[String]> in
-                guard let self = self else { return Observable.just([]) }
+                guard let `self` = self else { return Observable.just([]) }
 
                 if index == 0 {
                     return self.dependencies.settingsRepository.semesterOptions.asObservable()

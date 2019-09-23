@@ -71,7 +71,7 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
             UNUserNotificationCenter.current().delegate = self
 
             return Observable.create { [weak self] observer in
-                guard let self = self else { return Disposables.create() }
+                guard let `self` = self else { return Disposables.create() }
 
                 self.requestAuthorization()
                     .flatMap { [weak self] granted -> Observable<String?> in
@@ -112,7 +112,7 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
 
         return deviceToken
             .flatMap { [weak self] token -> Observable<Void> in
-                guard let token = token, let self = self else {
+                guard let token = token, let `self` = self else {
                     return Observable.error(NotificationError.tokenIsNil)
                 }
 
@@ -147,7 +147,7 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
     private func registerUserForNotifications(token: String) -> Observable<Void> {
         return deviceToken
             .flatMap { [weak self] token -> Observable<Void> in
-                guard let token = token, let self = self else {
+                guard let token = token, let `self` = self else {
                     return Observable.error(NotificationError.tokenIsNil)
                 }
                 let body = NotificationRegistration(token: token, type: "IOS")

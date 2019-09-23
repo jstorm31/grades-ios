@@ -75,7 +75,7 @@ final class CourseDetailStudentViewModel: BaseViewModel {
             }
             .share()
 
-        overview.map { $0.totalPoints }.bind(to: totalPoints).disposed(by: bag)
-        overview.map { $0.finalGrade }.bind(to: finalGrade).disposed(by: bag)
+        overview.map({ $0.totalPoints }).bind(to: totalPoints).disposed(by: bag)
+        overview.map({ $0.finalGrade }).bind(to: finalGrade).disposed(by: bag)
     }
 }

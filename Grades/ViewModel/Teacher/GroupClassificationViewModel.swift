@@ -28,7 +28,7 @@ final class GroupClassificationViewModel: TablePickerViewModel, SortableDataView
             .filter { $0.section == 0 }
             .map { $0.item }
             .flatMap { [weak self] cellIndex -> Observable<Int> in
-                guard let self = self else { return Observable.just(0) }
+                guard let `self` = self else { return Observable.just(0) }
 
                 return Observable.combineLatest(self.groupSelectedIndex,
                                                 self.classificationSelectedIndex) { groupIndex, classificationIndex in
@@ -47,13 +47,13 @@ final class GroupClassificationViewModel: TablePickerViewModel, SortableDataView
             .unwrap()
             .map { $0.filter { $0.value.value != nil } }
             .map { [weak self] values -> [StudentClassification] in
-                guard let self = self else { return [] }
+                guard let `self` = self else { return [] }
 
                 let identifier = self.teacherRepository.classifications.value[self.classificationSelectedIndex.value].identifier
                 return values.map { StudentClassification(identifier: identifier, username: $0.key, value: $0.value.value) }
             }
             .flatMap { [weak self] classifications -> Observable<Void> in
-                guard let self = self else { return Observable.empty() }
+                guard let `self` = self else { return Observable.empty() }
                 return self.dependencies.gradesApi.putStudentsClassifications(courseCode: self.course.code, data: classifications)
             }
             .do(onCompleted: { [weak self] in
@@ -98,7 +98,7 @@ final class GroupClassificationViewModel: TablePickerViewModel, SortableDataView
          */
         Observable.zip(teacherRepository.groups, teacherRepository.classifications) { $1 }
             .flatMap { [weak self] classifications -> Observable<(Classification, Int, Int)> in
-                guard let self = self else { return Observable.empty() }
+                guard let `self` = self else { return Observable.empty() }
 
                 return Observable.combineLatest(self.refreshData, self.groupSelectedIndex, self.classificationSelectedIndex) { ($1, $2) }
                     .filter { classifications.count > $1 }
@@ -118,7 +118,7 @@ final class GroupClassificationViewModel: TablePickerViewModel, SortableDataView
                     }
             }
             .map { [weak self] itemsSection in
-                guard let self = self else { return [] }
+                guard let `self` = self else { return [] }
 
                 return [
                     TableSection(header: "", items: [
@@ -144,31 +144,27 @@ final class GroupClassificationViewModel: TablePickerViewModel, SortableDataView
         let groupCode = teacherRepository.groups.value[groupIndex]
         let classificationId = teacherRepository.classifications.value[classificationIndex]
 
-        return Observable.combineLatest(
-            teacherRepository.studentClassifications(course: course.code, groupCode: groupCode.id,
-                                                     classificationId: classificationId.identifier),
-            activeSorter
-        ) { classifications, sorter in
-            sorter.sort(classifications, ascending: true)
-        }
-        .do(onNext: { [weak self] _ in
-            self?.dynamicCellViewModels = [] // Reset view models array to clean memory
-        })
-        .map { [weak self] (classifications: [StudentClassification]) -> [DynamicValueCellConfigurator] in
-            guard let `self` = self else { return [] }
+        return teacherRepository.studentClassifications(course: course.code, groupCode: groupCode.id,
+                                                        classificationId: classificationId.identifier)
+            .do(onNext: { [weak self] _ in
+                self?.dynamicCellViewModels = [] // Reset view models array to clean memory
+            })
+            .map { [weak self] (classifications: [StudentClassification]) -> [DynamicValueCellConfigurator] in
+                guard let `self` = self else { return [] }
 
-            return classifications.map { (item: StudentClassification) -> DynamicValueCellConfigurator in
-                let cellViewModel = DynamicValueCellViewModel(
-                    valueType: classification.valueType,
-                    evaluationType: classification.evaluationType,
-                    key: item.username,
-                    title: "\(item.lastName) \(item.firstName)",
-                    subtitle: item.username
-                )
-                cellViewModel.value.accept(item.value)
-                self.dynamicCellViewModels.append(cellViewModel)
+                return classifications.map { (item: StudentClassification) -> DynamicValueCellConfigurator in
+                    let cellViewModel = DynamicValueCellViewModel(
+                        valueType: classification.valueType,
+                        evaluationType: classification.evaluationType,
+                        key: item.username,
+                        title: "\(item.lastName) \(item.firstName)",
+                        subtitle: item.username
+                    )
+                    cellViewModel.value.accept(item.value)
+                    self.dynamicCellViewModels.append(cellViewModel)
 
-                return DynamicValueCellConfigurator(item: cellViewModel)
+                    return DynamicValueCellConfigurator(item: cellViewModel)
+                }
             }
         }
     }
@@ -204,7 +200,7 @@ final class GroupClassificationViewModel: TablePickerViewModel, SortableDataView
             .filter { $0.section == 0 }
             .map { $0.item }
             .flatMap { [weak self] index -> Observable<[String]> in
-                guard let self = self else { return Observable.just([]) }
+                guard let `self` = self else { return Observable.just([]) }
 
                 if index == 0 {
                     return self.teacherRepository.groups.map { $0.map { $0.title() } }

@@ -3,7 +3,7 @@ import UIKit
 /// Observer that will fire events when keyboard frame will be changed (shown, hidden or resized)
 /// - Note: Call `addKeyboardFrameChangesObserver()` on init, e.g. on `viewWillAppear`
 /// 			and `removeKeyboardFrameChangesObserver()` on deinit, e.g. on `viewDidDisappear`
-public protocol KeyboardChangeFrameObserver: AnyObject {
+public protocol KeyboardChangeFrameObserver: class {
     func willChangeKeyboardFrame(height: CGFloat, offset: CGFloat, animationDuration: TimeInterval, animationOptions: UIView.AnimationOptions)
 }
 
