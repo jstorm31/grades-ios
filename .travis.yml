@@ -1,4 +1,4 @@
-osx_image: xcode10.2
+osx_image: xcode11.0
 language: objective-c
 cache:
   directories:
@@ -15,4 +15,4 @@ before_script:
 - git secret reveal -p "$GIT_SECRET_PASSPHRASE"
 script:
 - set -o pipefail
-- xcodebuild clean test -project Grades.xcodeproj -scheme Debug -destination 'platform=iOS Simulator,name=iPhone Xs,OS=12.2' | xcpretty --test -f `xcpretty-travis-formatter`
+- xcodebuild clean test -project Grades.xcodeproj -scheme Debug -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.0' | xcpretty --test -f `xcpretty-travis-formatter`
