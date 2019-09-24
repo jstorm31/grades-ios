@@ -26,9 +26,7 @@ class GroupClassificationViewModelTests: XCTestCase {
 		viewModel.bindOutput()
 		
 		let result = try! dataSource.skip(1).toBlocking(timeout: 2).first()!
-		XCTAssertEqual(result.count, 2)
-		XCTAssertEqual(result[0].items.count, 2)
-		XCTAssertEqual(result[1].items.count, 3)
+		XCTAssertEqual(result.count, 3)
 	}
 	
 	func testSaveAction() {
@@ -39,4 +37,32 @@ class GroupClassificationViewModelTests: XCTestCase {
 		let result = try! action.toBlocking(timeout: 2.0).toArray()
 		XCTAssert(result.isEmpty)
 	}
+    
+    func testSortingByName() {
+        let dataSource = viewModel.dataSource.subscribeOn(scheduler)
+        viewModel.bindOutput()
+        viewModel.activeSorter.onNext(StudentClassificationNameSorter())
+        
+        let result = try! dataSource.skip(1).toBlocking(timeout: 2).first()!
+        XCTAssertEqual(result[0].key, "ivtjir")
+    }
+    
+    func testSortingValue() {
+        let dataSource = viewModel.dataSource.subscribeOn(scheduler)
+        viewModel.bindOutput()
+        viewModel.activeSorter.onNext(StudentClassificationValueSorter())
+        
+        let result = try! dataSource.skip(1).toBlocking(timeout: 2).first()!
+        XCTAssertEqual(result[0].key, "kobljan")
+    }
+    
+    func testSortingDescending() {
+        let dataSource = viewModel.dataSource.subscribeOn(scheduler)
+        viewModel.bindOutput()
+        viewModel.activeSorter.onNext(StudentClassificationNameSorter())
+        viewModel.isAscending.onNext(false)
+        
+        let result = try! dataSource.skip(1).toBlocking(timeout: 2).first()!
+        XCTAssertEqual(result[0].key, "novtom")
+    }
 }
