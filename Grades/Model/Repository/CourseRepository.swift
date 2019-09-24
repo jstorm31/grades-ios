@@ -68,7 +68,7 @@ final class CourseRepository: CourseRepositoryProtocol {
         return dependencies.gradesApi.getCourseStudentClassification(username: username, code: course.code)
             .trackActivity(activityIndicator)
             .catchError { [weak self] error in
-                if let `self` = self {
+                if let self = self {
                     self.error.onNext(error)
                 }
                 return Observable.just([])
