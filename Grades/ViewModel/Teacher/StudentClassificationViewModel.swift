@@ -29,7 +29,7 @@ final class StudentClassificationViewModel: BaseViewModel {
     // MARK: Actions
 
     lazy var changeStudentAction = CocoaAction { [weak self] in
-        guard let `self` = self else { return Observable.empty() }
+        guard let self = self else { return Observable.empty() }
 
         let studentSearchViewModel = StudentSearchViewModel(dependencies: AppDependency.shared,
                                                             students: self.students,
@@ -43,13 +43,13 @@ final class StudentClassificationViewModel: BaseViewModel {
             .unwrap()
             .map { $0.filter { $0.value.value != nil } }
             .map { [weak self] values -> [StudentClassification] in
-                guard let `self` = self else { return [] }
+                guard let self = self else { return [] }
 
                 let username = self.selectedStudent.value?.username ?? ""
                 return values.map { StudentClassification(identifier: $0.key, username: username, value: $0.value.value) }
             }
             .flatMap { [weak self] classifications -> Observable<Void> in
-                guard let `self` = self else { return Observable.empty() }
+                guard let self = self else { return Observable.empty() }
                 return self.dependencies.gradesApi.putStudentsClassifications(courseCode: self.course.code, data: classifications)
             }
             .do(onCompleted: { [weak self] in
@@ -103,7 +103,7 @@ final class StudentClassificationViewModel: BaseViewModel {
         selectedStudent
             .filter { $0 == nil }
             .flatMap { _ in
-                students.filter({ !$0.isEmpty }).map({ $0[0] })
+                students.filter { !$0.isEmpty }.map { $0[0] }
             }
             .bind(to: selectedStudent)
             .disposed(by: bag)
@@ -115,8 +115,8 @@ final class StudentClassificationViewModel: BaseViewModel {
             .trackActivity(activityIndicator)
             .share()
 
-        overview.map({ $0.totalPoints }).bind(to: totalPoints).disposed(by: bag)
-        overview.map({ $0.finalGrade }).bind(to: finalGrade).disposed(by: bag)
+        overview.map { $0.totalPoints }.bind(to: totalPoints).disposed(by: bag)
+        overview.map { $0.finalGrade }.bind(to: finalGrade).disposed(by: bag)
     }
 
     private func bindDataSource() {

@@ -32,7 +32,7 @@ class ClassificationCell: UITableViewCell {
                                               attributes: [
                                                   NSAttributedString.Key.font: UIFont.Grades.smallText,
                                                   NSAttributedString.Key.foregroundColor: UIColor.Theme.grayText
-                ])
+                                              ])
                 value.attributedText = text
                 return
             }
