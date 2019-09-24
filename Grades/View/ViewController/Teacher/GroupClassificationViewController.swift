@@ -17,6 +17,8 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
     var pickerView: UIPickerView!
     var pickerTextField: UITextField!
     private var saveButton: UIBarButtonItem!
+    private var sortButtons = [UIButton]()
+    private var filtersStack: UIStackView!
 
     // MARK: properties
 
@@ -82,6 +84,8 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
             }
             .share()
 
+        // Datasource
+
         dataSource
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: self.dataSource))
@@ -99,6 +103,8 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
             .drive(pickerView.rx.itemTitles) { _, element in element }
             .disposed(by: bag)
 
+        // Loading and error
+
         let isLoading = viewModel.isloading.share(replay: 2, scope: .whileConnected)
         isLoading.skip(2).asDriver(onErrorJustReturn: false).drive(tableView.refreshControl!.rx.isRefreshing).disposed(by: bag)
         isLoading.take(2).asDriver(onErrorJustReturn: false).drive(view.rx.refreshing).disposed(by: bag)
@@ -110,6 +116,27 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
         viewModel.selectedCellOptionIndex.asDriver(onErrorJustReturn: 0)
             .drive(onNext: { [weak self] index in
                 self?.pickerView.selectRow(index, inComponent: 0, animated: true)
+            })
+            .disposed(by: bag)
+
+        // Sorting
+
+        viewModel.sorters
+            .map { $0.map { $0.title } }
+            .asDriver(onErrorJustReturn: [])
+            .drive(onNext: { [weak self] sorters in
+                for title in sorters {
+                    let sorterButton = UIButton()
+                    sorterButton.setTitleColor(UIColor.Theme.secondary, for: .normal)
+                    sorterButton.titleLabel?.font = UIFont.Grades.body
+                    sorterButton.setTitle(title, for: .normal)
+                    self?.filtersStack.addArrangedSubview(sorterButton)
+                }
+
+                // Fill rest of space -> results in aligning items to left
+                let spacer = UIView()
+                spacer.setContentHuggingPriority(.defaultLow, for: .horizontal)
+                self?.filtersStack.addArrangedSubview(spacer)
             })
             .disposed(by: bag)
     }
@@ -168,6 +195,31 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
 
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
         self.saveButton = saveButton
+
+        // Sorters
+        let filtersStack = UIStackView()
+        filtersStack.axis = .horizontal
+        filtersStack.distribution = .fill
+        filtersStack.alignment = .center
+        filtersStack.spacing = 10
+        view.addSubview(filtersStack)
+        filtersStack.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(20)
+        }
+        self.filtersStack = filtersStack
+
+        let filtersTitle = UILabel()
+        filtersTitle.font = UIFont.Grades.body
+        filtersTitle.textColor = UIColor.Theme.text
+        filtersTitle.text = L10n.Sorter.title
+        filtersStack.addArrangedSubview(filtersTitle)
+
+        // Remake constraints of table view
+        tableView.snp.remakeConstraints { make in
+            make.top.equalTo(filtersStack.snp.bottom).offset(10)
+            make.leading.trailing.bottom.equalToSuperview()
+        }
     }
 
     private func configurePickerCell(_ cell: inout UITableViewCell, _ title: String, _ options: [String], _ valueIndex: Int) {

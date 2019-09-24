@@ -47,6 +47,10 @@
 "teacher.students.finalGradeEmpty" = "Chybí celkové hodnocení";
 "teacher.students.grading" = "Klasifikace";
 
+"sorter.title" = "Řadit podle:";
+"sorter.name" = "Jména";
+"sorter.value" = "Hodnoty";
+
 "students.title" = "Studenti";
 "students.search" = "Hledat studenta";
 "students.updateSuccess" = "Klasifikace byla úspěšně změněna.";

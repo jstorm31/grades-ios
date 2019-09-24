@@ -7,10 +7,14 @@
 //
 
 protocol StudentClassificationSorter {
+    var title: String { get }
+
     func sort(_ classifications: [StudentClassification], ascending: Bool) -> [StudentClassification]
 }
 
 final class StudentClassificationNameSorter: StudentClassificationSorter {
+    var title = L10n.Sorter.name
+
     /// Sorts items by name
     func sort(_ classifications: [StudentClassification], ascending: Bool = true) -> [StudentClassification] {
         return ascending ? classifications.sorted() : classifications.sorted().reversed()
@@ -18,6 +22,8 @@ final class StudentClassificationNameSorter: StudentClassificationSorter {
 }
 
 final class StudentClassificationValueSorter: StudentClassificationSorter {
+    var title = L10n.Sorter.value
+
     /// Sorts items by value
     func sort(_ classifications: [StudentClassification], ascending: Bool = true) -> [StudentClassification] {
         return classifications.sorted(by: { lhs, rhs in

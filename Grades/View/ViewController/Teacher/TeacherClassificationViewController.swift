@@ -21,6 +21,9 @@ final class TeacherClassificationViewController: BaseViewController, BindableTyp
 
     override func loadView() {
         super.loadView()
+
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.largeTitleDisplayMode = .never
         navigationItem.title = viewModel.course.code
         loadUI()
     }

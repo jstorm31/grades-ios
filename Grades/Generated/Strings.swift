@@ -126,6 +126,15 @@ internal enum L10n {
         }
     }
 
+    internal enum Sorter {
+        /// Name
+        internal static let name = L10n.tr("Localizable", "sorter.name")
+        /// Sort by:
+        internal static let title = L10n.tr("Localizable", "sorter.title")
+        /// Value
+        internal static let value = L10n.tr("Localizable", "sorter.value")
+    }
+
     internal enum Students {
         /// Search student
         internal static let search = L10n.tr("Localizable", "students.search")
