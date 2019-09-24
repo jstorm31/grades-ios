@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		96030419232BCDC5005074C9 /* StudentGroupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96030418232BCDC5005074C9 /* StudentGroupTests.swift */; };
 		9603041F232C14AF005074C9 /* StudentGroups.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9603041D232C14AF005074C9 /* StudentGroups.strings */; };
 		96030420232C14AF005074C9 /* StudentGroups.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9603041D232C14AF005074C9 /* StudentGroups.strings */; };
 		96030426232C1C26005074C9 /* Bagel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0D2228669F00FB4A05 /* Bagel.framework */; };
@@ -241,7 +240,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		96030418232BCDC5005074C9 /* StudentGroupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentGroupTests.swift; sourceTree = "<group>"; };
 		9603041E232C14AF005074C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/StudentGroups.strings; sourceTree = "<group>"; };
 		96030425232C14E7005074C9 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/StudentGroups.strings; sourceTree = "<group>"; };
 		96068D38227A12BA00890EF6 /* StudentClassifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassifications.swift; sourceTree = "<group>"; };
@@ -1468,7 +1466,6 @@
 				9639AE6F2270FF89009C35A9 /* AuthClientMock.swift in Sources */,
 				9675842922855470006C401E /* SettingsRepositoryTests.swift in Sources */,
 				96C7B9CA226069FA00E39F9A /* CoursesRepositoryTests.swift in Sources */,
-				96030419232BCDC5005074C9 /* StudentGroupTests.swift in Sources */,
 				9639AE6D2270CA62009C35A9 /* HttpServiceTests.swift in Sources */,
 				963C6296223432FD00B01818 /* AuthenticationServiceMock.swift in Sources */,
 			);

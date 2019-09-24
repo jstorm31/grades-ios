@@ -18,9 +18,14 @@ final class GroupClassificationViewModel: TablePickerViewModel, SortableDataView
     let dataSource = BehaviorRelay<[TableSection]>(value: [])
     let isloading = BehaviorSubject<Bool>(value: false)
     let error = PublishSubject<Error>()
+    let sorters = BehaviorSubject<[StudentClassificationSorter]>(value: [StudentClassificationNameSorter(),
+                                                                         StudentClassificationValueSorter()])
+
+    // MARK: input
+
     let refreshData = BehaviorSubject<Void>(value: ())
-    var sorters = BehaviorSubject<[StudentClassificationSorter]>(value: [StudentClassificationNameSorter(), StudentClassificationValueSorter()])
-    var activeSorter = BehaviorSubject<StudentClassificationSorter>(value: StudentClassificationNameSorter())
+    let activeSorter = BehaviorSubject<StudentClassificationSorter>(value: StudentClassificationNameSorter())
+    let isAscending = BehaviorSubject<Bool>(value: true)
 
     lazy var selectedCellOptionIndex: Observable<Int> = {
         selectedCellIndex
@@ -149,6 +154,14 @@ final class GroupClassificationViewModel: TablePickerViewModel, SortableDataView
             .do(onNext: { [weak self] _ in
                 self?.dynamicCellViewModels = [] // Reset view models array to clean memory
             })
+            // Sort by current sorter selected
+            .flatMap { [weak self] classifications -> Observable<[StudentClassification]> in
+                guard let self = self else { return Observable.empty() }
+
+                return Observable.combineLatest(self.activeSorter, self.isAscending) { sorter, isAscending in
+                    sorter.sort(classifications, ascending: isAscending)
+                }
+            }
             .map { [weak self] (classifications: [StudentClassification]) -> [DynamicValueCellConfigurator] in
                 guard let self = self else { return [] }
 
