@@ -65,7 +65,22 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
     // MARK: bindings
 
     func bindViewModel() {
-        let dataSource = viewModel.dataSource.share()
+        let dataSource = viewModel.dataSource
+            .map { classifications in
+                TableSection(header: L10n.Teacher.Group.students, items: classifications.map { DynamicValueCellConfigurator(item: $0) })
+            }
+            .map { [weak self] itemsSection -> [TableSection] in
+                guard let self = self else { return [] }
+
+                return [
+                    TableSection(header: "", items: [
+                        PickerCellConfigurator(item: self.viewModel.groupsCellViewModel),
+                        PickerCellConfigurator(item: self.viewModel.classificationsCellViewModel)
+                    ]),
+                    itemsSection
+                ]
+            }
+            .share()
 
         dataSource
             .asDriver(onErrorJustReturn: [])
