@@ -42,7 +42,7 @@ extension StudentClassification: Comparable {
         }
 
         let firstName = lhs.firstName.localizedCompare(rhs.firstName)
-        if firstName == .orderedSame {
+        if firstName != .orderedSame {
             return firstName == .orderedAscending
         }
 

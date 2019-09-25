@@ -82,16 +82,16 @@ extension DynamicValue: Equatable {
 
 extension DynamicValue: Comparable {
     static func < (lhs: DynamicValue, rhs: DynamicValue) -> Bool {
-        if case let .string(lhsVal) = lhs, case let .string(rhsVal) = rhs, let lhsString = lhsVal, let rhsString = rhsVal {
-            return lhsString < rhsString
+        if case let .string(lhsVal) = lhs, case let .string(rhsVal) = rhs, lhsVal != rhsVal {
+            return lhsVal < rhsVal
         }
 
-        if case let .number(lhsVal) = lhs, case let .number(rhsVal) = rhs, let lhsNumber = lhsVal, let rhsNumber = rhsVal {
-            return lhsNumber < rhsNumber
+        if case let .number(lhsVal) = lhs, case let .number(rhsVal) = rhs, lhsVal != rhsVal {
+            return lhsVal < rhsVal
         }
 
-        if case let .bool(lhsVal) = lhs, case let .bool(rhsVal) = rhs, let lhsBool = lhsVal, let rhsBool = rhsVal {
-            return lhsBool || (!lhsBool && !rhsBool)
+        if case let .bool(lhsVal) = lhs, case let .bool(rhsVal) = rhs, lhsVal != rhsVal {
+            return lhsVal < rhsVal
         }
 
         return false

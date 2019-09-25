@@ -37,6 +37,7 @@ class StudentClassificationTests: XCTestCase {
         let a = StudentClassification(ident: "a", firstName: "Ivan", lastName: "Bříza", username: "briziv3", value: nil)
         let b = StudentClassification(ident: "b", firstName: "Ivan", lastName: "Bříza", username: "briziv4", value: nil)
         
+        XCTAssertNotEqual(a, b)
         XCTAssertLessThan(a, b)
     }
     

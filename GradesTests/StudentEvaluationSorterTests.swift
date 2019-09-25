@@ -30,7 +30,7 @@ class StudentEvaluationSorterTest: XCTestCase {
 	
 	func testSortByPoints() {
 		let sorter = StudentClassificationValueSorter()
-		let sorted = sorter.sort(items).map { $0.username }
+		let sorted = sorter.sort(items, ascending: true).map { $0.username }
 		
 		XCTAssertEqual(sorted, ["zhorzden", "krehjana", "dlouhiv4", "kvitond"])
 	}
@@ -42,7 +42,7 @@ class StudentEvaluationSorterTest: XCTestCase {
 		items[3].value = DynamicValue.string("A")
 		
 		let sorter = StudentClassificationValueSorter()
-		let sorted = sorter.sort(items).map { $0.username }
+		let sorted = sorter.sort(items, ascending: true).map { $0.username }
 		
 		XCTAssertEqual(sorted, ["zhorzden", "krehjana", "kvitond", "dlouhiv4"])
 	}
@@ -54,7 +54,7 @@ class StudentEvaluationSorterTest: XCTestCase {
 		items[3].value = DynamicValue.bool(false)
 
 		let sorter = StudentClassificationValueSorter()
-		let sorted = sorter.sort(items).map { $0.username }
+		let sorted = sorter.sort(items, ascending: true).map { $0.username }
 		
 		XCTAssertEqual(sorted, ["dlouhiv4", "krehjana", "kvitond", "zhorzden"])
 	}
@@ -63,9 +63,9 @@ class StudentEvaluationSorterTest: XCTestCase {
 		items[1].value = nil // should be at the end
 		
 		let sorter = StudentClassificationValueSorter()
-		let sorted = sorter.sort(items).map { $0.username }
+		let sorted = sorter.sort(items, ascending: false).map { $0.username }
 		
-		XCTAssertEqual(sorted, ["krehjana", "dlouhiv4", "zhorzden", "kvitond"])
+		XCTAssertEqual(sorted, ["kvitond", "krehjana", "zhorzden", "dlouhiv4"])
 	}
 	
 	func testSortByNameDescending() {

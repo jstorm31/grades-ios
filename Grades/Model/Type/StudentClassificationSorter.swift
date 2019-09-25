@@ -25,16 +25,14 @@ final class StudentClassificationValueSorter: StudentClassificationSorter {
     var title = L10n.Sorter.value
 
     /// Sorts items by value
-    func sort(_ classifications: [StudentClassification], ascending: Bool = true) -> [StudentClassification] {
+    func sort(_ classifications: [StudentClassification], ascending: Bool = false) -> [StudentClassification] {
         return classifications.sorted(by: { lhs, rhs in
-            guard let lhsValue = lhs.value, let rhsValue = rhs.value else {
-                return false
+            if lhs.value != rhs.value {
+                return ascending ? lhs.value < rhs.value : lhs.value > rhs.value
             }
 
-            if lhsValue == rhsValue {
-                return ascending ? lhs < rhs : lhs > rhs // sort by default order
-            }
-            return ascending ? lhsValue < rhsValue : lhsValue > rhsValue
+            // sort by default order
+            return ascending ? lhs < rhs : lhs > rhs
         })
     }
 }

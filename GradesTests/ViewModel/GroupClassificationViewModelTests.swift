@@ -47,16 +47,26 @@ class GroupClassificationViewModelTests: XCTestCase {
         XCTAssertEqual(result[0].key, "ivtjir")
     }
     
+    func testSortingByNameDescending() {
+        let dataSource = viewModel.dataSource.subscribeOn(scheduler)
+        viewModel.bindOutput()
+        viewModel.activeSorterIndex.onNext(0)
+        viewModel.isAscending.onNext(false)
+        
+        let result = try! dataSource.skip(1).toBlocking(timeout: 2).first()!
+        XCTAssertEqual(result[0].key, "novtom")
+    }
+    
     func testSortingValue() {
         let dataSource = viewModel.dataSource.subscribeOn(scheduler)
         viewModel.bindOutput()
         viewModel.activeSorterIndex.onNext(1)
         
         let result = try! dataSource.skip(1).toBlocking(timeout: 2).first()!
-        XCTAssertEqual(result[0].key, "kobljan")
+        XCTAssertEqual(result[0].key, "ivtjir")
     }
     
-    func testSortingDescending() {
+    func testSortingValueDescending() {
         let dataSource = viewModel.dataSource.subscribeOn(scheduler)
         viewModel.bindOutput()
         viewModel.activeSorterIndex.onNext(1)
