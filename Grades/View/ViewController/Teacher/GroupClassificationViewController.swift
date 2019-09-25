@@ -17,6 +17,7 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
     var pickerView: UIPickerView!
     var pickerTextField: UITextField!
     private var saveButton: UIBarButtonItem!
+    private var sortOrderButton: UIButton!
     private var sortButtonsStack: UIStackView!
 
     // MARK: properties
@@ -164,6 +165,17 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
                 }
             })
             .disposed(by: bag)
+
+        // Sort order icon
+        viewModel.isAscending
+            .skip(1)
+            .asDriver(onErrorJustReturn: true)
+            .drive(onNext: { [weak self] isAscending in
+                UIView.animate(withDuration: 0.25, animations: { [weak self] in
+                    self?.sortOrderButton.transform = isAscending ? .identity : CGAffineTransform(rotationAngle: .pi)
+                })
+            })
+            .disposed(by: bag)
     }
 
     func setupBindings() {
@@ -257,6 +269,7 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
         orderButton.setImage(UIImage(named: "SortOrder"), for: .normal)
         orderButton.addTarget(self, action: #selector(sortOrderButtonTapped(sender:)), for: .touchUpInside)
         filtersStack.addArrangedSubview(orderButton)
+        sortOrderButton = orderButton
 
         // Remake constraints of table view
         tableView.snp.remakeConstraints { make in
