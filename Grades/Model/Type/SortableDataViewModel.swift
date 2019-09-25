@@ -10,5 +10,5 @@ import RxSwift
 
 protocol SortableDataViewModel {
     var sorters: BehaviorSubject<[StudentClassificationSorter]> { get }
-    var activeSorter: BehaviorSubject<StudentClassificationSorter> { get }
+    var activeSorterIndex: BehaviorSubject<Int> { get }
 }

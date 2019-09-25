@@ -41,7 +41,7 @@ class GroupClassificationViewModelTests: XCTestCase {
     func testSortingByName() {
         let dataSource = viewModel.dataSource.subscribeOn(scheduler)
         viewModel.bindOutput()
-        viewModel.activeSorter.onNext(StudentClassificationNameSorter())
+        viewModel.activeSorterIndex.onNext(0)
         
         let result = try! dataSource.skip(1).toBlocking(timeout: 2).first()!
         XCTAssertEqual(result[0].key, "ivtjir")
@@ -50,7 +50,7 @@ class GroupClassificationViewModelTests: XCTestCase {
     func testSortingValue() {
         let dataSource = viewModel.dataSource.subscribeOn(scheduler)
         viewModel.bindOutput()
-        viewModel.activeSorter.onNext(StudentClassificationValueSorter())
+        viewModel.activeSorterIndex.onNext(1)
         
         let result = try! dataSource.skip(1).toBlocking(timeout: 2).first()!
         XCTAssertEqual(result[0].key, "kobljan")
@@ -59,7 +59,7 @@ class GroupClassificationViewModelTests: XCTestCase {
     func testSortingDescending() {
         let dataSource = viewModel.dataSource.subscribeOn(scheduler)
         viewModel.bindOutput()
-        viewModel.activeSorter.onNext(StudentClassificationNameSorter())
+        viewModel.activeSorterIndex.onNext(1)
         viewModel.isAscending.onNext(false)
         
         let result = try! dataSource.skip(1).toBlocking(timeout: 2).first()!
