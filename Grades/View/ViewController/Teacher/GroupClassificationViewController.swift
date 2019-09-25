@@ -17,7 +17,7 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
     var pickerView: UIPickerView!
     var pickerTextField: UITextField!
     private var saveButton: UIBarButtonItem!
-    private var filtersStack: UIStackView!
+    private var sortButtonsStack: UIStackView!
 
     // MARK: properties
 
@@ -127,11 +127,11 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
     func bindSorters() {
         viewModel.sorters
             .do(onNext: { [weak self] _ in
-                guard let self = self, let stack = self.filtersStack?.subviews else { return }
+                guard let self = self, let stack = self.sortButtonsStack?.subviews else { return }
 
                 // Clean filter buttons from StackView (position 1 and more, because there is also a label)
-                for (index, view) in stack.enumerated() where index > 0 {
-                    self.filtersStack.removeArrangedSubview(view)
+                for view in stack {
+                    self.sortButtonsStack.removeArrangedSubview(view)
                     view.removeFromSuperview()
                 }
             })
@@ -146,13 +146,8 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
                     sorterButton.setTitle(title, for: .normal)
                     sorterButton.tag = index
                     sorterButton.addTarget(self, action: #selector(self?.sorterButtonTapped(sender:)), for: .touchUpInside)
-                    self?.filtersStack.addArrangedSubview(sorterButton)
+                    self?.sortButtonsStack.addArrangedSubview(sorterButton)
                 }
-
-                // Fill rest of space -> results in aligning items to left
-                let spacer = UIView()
-                spacer.setContentHuggingPriority(.defaultLow, for: .horizontal)
-                self?.filtersStack.addArrangedSubview(spacer)
             })
             .disposed(by: bag)
 
@@ -160,11 +155,11 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
         viewModel.activeSorterIndex
             .asDriver(onErrorJustReturn: 0)
             .drive(onNext: { [weak self] activeIndex in
-                guard let self = self, self.filtersStack.subviews.indices.contains(activeIndex + 1) else { return }
+                guard let self = self, self.sortButtonsStack.subviews.indices.contains(activeIndex) else { return }
 
-                for (index, view) in self.filtersStack.subviews.enumerated() where index > 0 {
+                for (index, view) in self.sortButtonsStack.subviews.enumerated() {
                     if let activeButton = view as? UIButton {
-                        activeButton.titleLabel?.font = activeIndex + 1 == index ? UIFont.Grades.boldBody : UIFont.Grades.body
+                        activeButton.titleLabel?.font = activeIndex == index ? UIFont.Grades.boldBody : UIFont.Grades.body
                     }
                 }
             })
@@ -237,13 +232,31 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview().inset(20)
         }
-        self.filtersStack = filtersStack
 
+        // Sort title
         let filtersTitle = UILabel()
         filtersTitle.font = UIFont.Grades.body
         filtersTitle.textColor = UIColor.Theme.text
         filtersTitle.text = L10n.Sorter.title
         filtersStack.addArrangedSubview(filtersTitle)
+
+        // Sort buttons stack
+        let sortButtonsStack = UIStackView()
+        sortButtonsStack.axis = .horizontal
+        sortButtonsStack.spacing = 20
+        filtersStack.addArrangedSubview(sortButtonsStack)
+        self.sortButtonsStack = sortButtonsStack
+
+        // Fill rest of space -> results in aligning items to left
+        let spacer = UIView()
+        spacer.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        filtersStack.addArrangedSubview(spacer)
+
+        // Asc/desc button
+        let orderButton = UIButton()
+        orderButton.setImage(UIImage(named: "SortOrder"), for: .normal)
+        orderButton.addTarget(self, action: #selector(sortOrderButtonTapped(sender:)), for: .touchUpInside)
+        filtersStack.addArrangedSubview(orderButton)
 
         // Remake constraints of table view
         tableView.snp.remakeConstraints { make in
@@ -281,6 +294,14 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
 
     @objc private func sorterButtonTapped(sender: UIButton) {
         viewModel.activeSorterIndex.onNext(sender.tag)
+    }
+
+    @objc private func sortOrderButtonTapped(sender _: UIButton) {
+        do {
+            viewModel.isAscending.onNext(try !viewModel.isAscending.value())
+        } catch {
+            Log.error("Problem setting asscending")
+        }
     }
 }
 
