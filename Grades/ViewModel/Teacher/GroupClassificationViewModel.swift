@@ -137,7 +137,8 @@ final class GroupClassificationViewModel: TablePickerViewModel, SortableDataView
 
         return teacherRepository.studentClassifications(course: course.code, groupCode: groupCode.id,
                                                         classificationId: classificationId.identifier)
-            .do(onNext: { [weak self] _ in
+            .do(onNext: { [weak self] items in
+                Log.debug("\(items.map { $0.lastName })")
                 self?.dynamicCellViewModels = [] // Reset view models array to clean memory
             })
             // Sort by current sorter selected
@@ -148,7 +149,10 @@ final class GroupClassificationViewModel: TablePickerViewModel, SortableDataView
                     guard let sorters = try self?.sorters.value(),
                         sorters.indices.contains(sorterIndex) else { return [] }
 
-                    return sorters[sorterIndex].sort(classifications, ascending: isAscending)
+                    let sorted = sorters[sorterIndex].sort(classifications, ascending: isAscending)
+                    Log.debug("Sorted:\n")
+                    Log.debug("\(sorted.map { $0.lastName })")
+                    return sorted
                 }
             }
             .map { [weak self] (classifications: [StudentClassification]) -> [DynamicValueCellViewModel] in

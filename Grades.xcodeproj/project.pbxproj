@@ -175,6 +175,7 @@
 		96CAC02322809ACF00F2224F /* LinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CAC02222809ACF00F2224F /* LinkCell.swift */; };
 		96CAC0252280A0C100F2224F /* TextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CAC0242280A0C100F2224F /* TextViewModel.swift */; };
 		96CAC0272280A10800F2224F /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CAC0262280A10800F2224F /* TextViewController.swift */; };
+		96D3CB02233BA3A900A5A469 /* StudentClassificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D3CB01233BA3A900A5A469 /* StudentClassificationTests.swift */; };
 		96DE85B3230C7F2100586193 /* StudentClassificationSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE85B2230C7F2100586193 /* StudentClassificationSorter.swift */; };
 		96DE85B6230C829D00586193 /* StudentEvaluationSorterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE85B5230C829D00586193 /* StudentEvaluationSorterTests.swift */; };
 		96E8C642224BE60C005F32F8 /* AppDependencyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */; };
@@ -419,6 +420,7 @@
 		96CAC02222809ACF00F2224F /* LinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCell.swift; sourceTree = "<group>"; };
 		96CAC0242280A0C100F2224F /* TextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewModel.swift; sourceTree = "<group>"; };
 		96CAC0262280A10800F2224F /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
+		96D3CB01233BA3A900A5A469 /* StudentClassificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassificationTests.swift; sourceTree = "<group>"; };
 		96DE85B2230C7F2100586193 /* StudentClassificationSorter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassificationSorter.swift; sourceTree = "<group>"; };
 		96DE85B5230C829D00586193 /* StudentEvaluationSorterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentEvaluationSorterTests.swift; sourceTree = "<group>"; };
 		96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencyMock.swift; sourceTree = "<group>"; };
@@ -720,6 +722,7 @@
 				963C628E22342FF800B01818 /* Mock */,
 				9682A6B1222D1ABC00773E28 /* Info.plist */,
 				96DE85B5230C829D00586193 /* StudentEvaluationSorterTests.swift */,
+				96D3CB01233BA3A900A5A469 /* StudentClassificationTests.swift */,
 			);
 			path = GradesTests;
 			sourceTree = "<group>";
@@ -1461,6 +1464,7 @@
 				963C628B22341FDC00B01818 /* GradesAPIMock.swift in Sources */,
 				963C62982234542E00B01818 /* HttpServiceMock.swift in Sources */,
 				96E8C644224BE8BA005F32F8 /* SettingsRepositoryMock.swift in Sources */,
+				96D3CB02233BA3A900A5A469 /* StudentClassificationTests.swift in Sources */,
 				96580714222FFA810065E23D /* CourseListViewModelTests.swift in Sources */,
 				963C62922234314200B01818 /* SceneCoordinatorMock.swift in Sources */,
 				9639AE6F2270FF89009C35A9 /* AuthClientMock.swift in Sources */,
