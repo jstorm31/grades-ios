@@ -1220,7 +1220,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Generate strings\nswiftgen strings -t structured-swift4 ${SCRIPT_INPUT_FILE_0} -o \"$SRCROOT/Grades/Generated/Strings.swift\"\n";
+			shellScript = "# Generate strings\nmkdir -p \"$SRCROOT/Grades/Generated\"\nswiftgen strings -t structured-swift4 ${SCRIPT_INPUT_FILE_0} -o \"$SRCROOT/Grades/Generated/Strings.swift\"\n";
 			showEnvVarsInLog = 0;
 		};
 		961A2FEE2229C59400A624DC /* SwiftFormat */ = {

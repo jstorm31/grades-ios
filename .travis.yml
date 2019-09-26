@@ -15,4 +15,4 @@ before_script:
 - git secret reveal -p "$GIT_SECRET_PASSPHRASE"
 script:
 - set -o pipefail
-- xcodebuild clean test -project Grades.xcodeproj -scheme Debug -destination 'platform=iOS Simulator,name=iPhone Xs,OS=12.4' | xcpretty --test -f `xcpretty-travis-formatter`
+- xcodebuild clean test -project Grades.xcodeproj -scheme Debug -destination 'platform=iOS Simulator,name=iPhone Xs,OS=12.3' | xcpretty --test -f `xcpretty-travis-formatter`
