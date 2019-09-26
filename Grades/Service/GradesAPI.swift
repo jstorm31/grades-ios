@@ -29,7 +29,7 @@ protocol GradesAPIProtocol {
 
     // MARK: PUT
 
-    func putStudentsClassifications(courseCode: String, data: [StudentClassification]) -> Observable<Void>
+    func putStudentsClassifications(courseCode: String, data: [StudentClassification], notify: Bool) -> Observable<Void>
     func markNotificationRead(username: String, notificationId: Int) -> Observable<Void>
 }
 
@@ -176,9 +176,17 @@ final class GradesAPI: GradesAPIProtocol {
 
     // MARK: PUT requests
 
-    func putStudentsClassifications(courseCode: String, data: [StudentClassification]) -> Observable<Void> {
+    func putStudentsClassifications(courseCode: String, data: [StudentClassification], notify: Bool = true) -> Observable<Void> {
         let url = createURL(from: .studentsClassifications(courseCode))
-        return httpService.put(url: url, parameters: [:], body: data)
+        var parameters: [String: Any] = [
+            "notify": notify
+        ]
+
+        if let semester = dependencies.settingsRepository.currentSettings.value.semester {
+            parameters["semester"] = semester
+        }
+
+        return httpService.put(url: url, parameters: parameters, body: data)
     }
 
     func markNotificationRead(username: String, notificationId: Int) -> Observable<Void> {

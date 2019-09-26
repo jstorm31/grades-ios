@@ -54,7 +54,7 @@
 
 "students.title" = "Students";
 "students.search" = "Search student";
-"students.updateSuccess" = "Grades have been successfully updated.";
+"students.updateSuccess" = "Evaluation has been updated.";
 
 "notification.request.title" = "";
 "notification.request.body" = "";

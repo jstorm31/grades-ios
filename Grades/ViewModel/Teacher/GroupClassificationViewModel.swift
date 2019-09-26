@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 
 final class GroupClassificationViewModel: TablePickerViewModel, SortableDataViewModel {
-    typealias Dependencies = HasTeacherRepository & HasGradesAPI
+    typealias Dependencies = HasTeacherRepository & HasGradesAPI & HasSettingsRepository
 
     // MARK: public properties
 
@@ -62,7 +62,11 @@ final class GroupClassificationViewModel: TablePickerViewModel, SortableDataView
             }
             .flatMap { [weak self] classifications -> Observable<Void> in
                 guard let self = self else { return Observable.empty() }
-                return self.dependencies.gradesApi.putStudentsClassifications(courseCode: self.course.code, data: classifications)
+                let settings = self.dependencies.settingsRepository.currentSettings.value
+
+                return self.dependencies.gradesApi.putStudentsClassifications(courseCode: self.course.code,
+                                                                              data: classifications,
+                                                                              notify: settings.sendingNotificationsEnabled)
             }
             .do(onCompleted: { [weak self] in
                 self?.refreshData.onNext(())
