@@ -36,6 +36,7 @@
 "settings.other" = "Ostatní";
 "settings.about" = "O aplikaci";
 "settings.license" = "Licence";
+"settings.teacher.sendNotifications" = "Odesílat notifikace studentům";
 
 "teacher.tab.group" = "Detail";
 "teacher.students.group" = "Skupina";

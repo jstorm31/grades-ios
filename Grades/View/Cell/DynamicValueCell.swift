@@ -183,9 +183,7 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
         }
         valueTextField = textField
 
-        let valueSwitch = UISwitch()
-        valueSwitch.onTintColor = UIColor.Theme.primary
-        valueSwitch.tintColor = UIColor.Theme.primary
+        let valueSwitch = UIPrimarySwitch()
         valueSwitch.isHidden = true
         contentView.addSubview(valueSwitch)
         valueSwitch.snp.makeConstraints { make in

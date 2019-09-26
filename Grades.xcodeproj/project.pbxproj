@@ -150,7 +150,6 @@
 		96A8AEF5227469E90076CCD2 /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8AEF4227469E90076CCD2 /* PushNotificationService.swift */; };
 		96A8AEF82274AE400076CCD2 /* NotificationRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8AEF72274AE400076CCD2 /* NotificationRegistration.swift */; };
 		96B101FB2276004F00E7FA98 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B101FA2276004F00E7FA98 /* PickerCell.swift */; };
-		96B101FD227600F500E7FA98 /* PickerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B101FC227600F500E7FA98 /* PickerCellViewModel.swift */; };
 		96B20DA32236692E004794BE /* CourseDetailStudentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA22236692E004794BE /* CourseDetailStudentViewModel.swift */; };
 		96B20DA5223669CC004794BE /* CourseDetailStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */; };
 		96B20DA72236C838004794BE /* UINavigationBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B20DA62236C838004794BE /* UINavigationBar+.swift */; };
@@ -169,6 +168,9 @@
 		96C569A62268E4AF00B16A7C /* UIGradingOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A52268E4AF00B16A7C /* UIGradingOverview.swift */; };
 		96C569A8226B0A9300B16A7C /* TableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569A7226B0A9300B16A7C /* TableDataSource.swift */; };
 		96C569AC226B623600B16A7C /* DynamicValueCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C569AB226B623600B16A7C /* DynamicValueCellViewModelTests.swift */; };
+		96C61EE4233CB9E200EA0FB2 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C61EE3233CB9E200EA0FB2 /* SwitchCell.swift */; };
+		96C61EE6233CBB7E00EA0FB2 /* UIPrimarySwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C61EE5233CBB7E00EA0FB2 /* UIPrimarySwitch.swift */; };
+		96C61EE8233CBD8E00EA0FB2 /* PickerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C61EE7233CBD8E00EA0FB2 /* PickerCellViewModel.swift */; };
 		96C7B9CA226069FA00E39F9A /* CoursesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */; };
 		96C87472224BEDA9009FB47F /* CoursesRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */; };
 		96C9D80E228ADB4D00BFA119 /* Test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96F220F1227B785F0078AD2A /* Test.plist */; };
@@ -397,7 +399,6 @@
 		96A8AEF6227479860076CCD2 /* GradesDev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GradesDev.entitlements; sourceTree = "<group>"; };
 		96A8AEF72274AE400076CCD2 /* NotificationRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRegistration.swift; sourceTree = "<group>"; };
 		96B101FA2276004F00E7FA98 /* PickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
-		96B101FC227600F500E7FA98 /* PickerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerCellViewModel.swift; sourceTree = "<group>"; };
 		96B20DA22236692E004794BE /* CourseDetailStudentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewModel.swift; sourceTree = "<group>"; };
 		96B20DA4223669CC004794BE /* CourseDetailStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewController.swift; sourceTree = "<group>"; };
 		96B20DA62236C838004794BE /* UINavigationBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+.swift"; sourceTree = "<group>"; };
@@ -416,6 +417,9 @@
 		96C569A52268E4AF00B16A7C /* UIGradingOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGradingOverview.swift; sourceTree = "<group>"; };
 		96C569A7226B0A9300B16A7C /* TableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableDataSource.swift; sourceTree = "<group>"; };
 		96C569AB226B623600B16A7C /* DynamicValueCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicValueCellViewModelTests.swift; sourceTree = "<group>"; };
+		96C61EE3233CB9E200EA0FB2 /* SwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
+		96C61EE5233CBB7E00EA0FB2 /* UIPrimarySwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPrimarySwitch.swift; sourceTree = "<group>"; };
+		96C61EE7233CBD8E00EA0FB2 /* PickerCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCellViewModel.swift; sourceTree = "<group>"; };
 		96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryTests.swift; sourceTree = "<group>"; };
 		96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryMock.swift; sourceTree = "<group>"; };
 		96CAC02222809ACF00F2224F /* LinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCell.swift; sourceTree = "<group>"; };
@@ -656,6 +660,7 @@
 				96C0A846226C83D400AE733A /* BasicCell.swift */,
 				96C30AC6227F4274009D3849 /* SettingCell.swift */,
 				96CAC02222809ACF00F2224F /* LinkCell.swift */,
+				96C61EE3233CB9E200EA0FB2 /* SwitchCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -732,8 +737,8 @@
 		9682E57E2266252300687A66 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				96C61EE7233CBD8E00EA0FB2 /* PickerCellViewModel.swift */,
 				9682E57F2266253100687A66 /* DynamicValueCellViewModel.swift */,
-				96B101FC227600F500E7FA98 /* PickerCellViewModel.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -780,6 +785,7 @@
 				96447792224249CD00E960F4 /* UIPickerLabel.swift */,
 				96C569A32268E2E900B16A7C /* UISecondaryButton.swift */,
 				96C569A52268E4AF00B16A7C /* UIGradingOverview.swift */,
+				96C61EE5233CBB7E00EA0FB2 /* UIPrimarySwitch.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -1390,6 +1396,7 @@
 				96861070222AA4550069B81B /* BaseViewController.swift in Sources */,
 				96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */,
 				961A8787223F8B3B00846538 /* SettingsViewController.swift in Sources */,
+				96C61EE4233CB9E200EA0FB2 /* SwitchCell.swift in Sources */,
 				96A80A75222F1D0400986A90 /* CourseListViewController.swift in Sources */,
 				9686107E222AB4D40069B81B /* UIView+.swift in Sources */,
 				96C569A42268E2E900B16A7C /* UISecondaryButton.swift in Sources */,
@@ -1405,14 +1412,15 @@
 				9644779522427B3100E960F4 /* UIViewController+ConfirmationModal.swift in Sources */,
 				961A2FF12229D44A00A624DC /* LoginViewModel.swift in Sources */,
 				9682A6BE222D1F7600773E28 /* CourseListViewModel.swift in Sources */,
-				96B101FD227600F500E7FA98 /* PickerCellViewModel.swift in Sources */,
 				96447793224249CD00E960F4 /* UIPickerLabel.swift in Sources */,
 				9654A4F7224641A000778ED1 /* CoursesRepository.swift in Sources */,
+				96C61EE6233CBB7E00EA0FB2 /* UIPrimarySwitch.swift in Sources */,
 				966ABB57222D986A007DD046 /* Course.swift in Sources */,
 				96861082222AEFE60069B81B /* Scene.swift in Sources */,
 				96DE85B3230C7F2100586193 /* StudentClassificationSorter.swift in Sources */,
 				9641817022478C900019CABD /* TeacherClassificationViewModel.swift in Sources */,
 				96C0A845226C832D00AE733A /* UserCell.swift in Sources */,
+				96C61EE8233CBD8E00EA0FB2 /* PickerCellViewModel.swift in Sources */,
 				9639AE672270989C009C35A9 /* KeyboardChangeFrameObserver.swift in Sources */,
 				964181802247C5570019CABD /* TeacherRepository.swift in Sources */,
 				961A878F2240484200846538 /* Language.swift in Sources */,

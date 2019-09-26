@@ -41,6 +41,7 @@ final class SettingsViewController: BaseTableViewController,
         tableView.register(SettingsCell.self, forCellReuseIdentifier: "SettingsCell")
         tableView.register(PickerCell.self, forCellReuseIdentifier: "PickerCell")
         tableView.register(LinkCell.self, forCellReuseIdentifier: "LinkCell")
+        tableView.register(SwitchCell.self, forCellReuseIdentifier: "SwitchCell")
 
         navigationItem.title = L10n.Settings.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: L10n.Settings.logout,
@@ -125,7 +126,8 @@ final class SettingsViewController: BaseTableViewController,
                     ]),
                     TableSection(header: L10n.Settings.options, items: [
                         PickerCellConfigurator(item: settings.options),
-                        SettingsCellConfigurator(item: (title: "Not enabled", content: "\(settings.sendingNotificationsEnabled)"))
+                        SwitchCellConfigurator(item: (title: L10n.Settings.Teacher.sendNotifications,
+                                                      isEnabled: settings.sendingNotificationsEnabled))
                     ]),
                     TableSection(header: L10n.Settings.other, items: [
                         LinkCellConfigurator(item: L10n.Settings.about),

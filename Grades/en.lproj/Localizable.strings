@@ -36,6 +36,7 @@
 "settings.other" = "Other";
 "settings.about" = "Credits";
 "settings.license" = "License";
+"settings.teacher.sendNotifications" = "Send notifications to students";
 
 "teacher.tab.group" = "Detail";
 "teacher.tab.student" = "Student";
