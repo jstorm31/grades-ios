@@ -22,7 +22,7 @@ class SettingsViewModel: TablePickerViewModel {
 
     // MARK: output
 
-    let settings = BehaviorRelay<[TableSection]>(value: [])
+    let settings = BehaviorRelay<SettingsView?>(value: nil)
 
     lazy var selectedCellOptionIndex: Observable<Int> = {
         selectedCellIndex
@@ -76,25 +76,14 @@ class SettingsViewModel: TablePickerViewModel {
                 self?.dependencies.userRepository.user.unwrap() ?? Observable.empty()
             }
             .map { [weak self] user in
-                guard let self = self else { return [] }
+                guard let self = self else { return nil }
 
-                return [
-                    TableSection(header: L10n.Settings.user, items: [
-                        SettingsCellConfigurator(item: (title: L10n.Settings.User.name, content: user.toString)),
-                        SettingsCellConfigurator(item: (
-                            title: L10n.Settings.User.roles,
-                            content: user.roles.map { $0.toString() }.joined(separator: ", ")
-                        ))
-                    ]),
-                    TableSection(header: L10n.Settings.options, items: [
-                        PickerCellConfigurator(item: self.semesterCellViewModel)
-                    ]),
-                    TableSection(header: L10n.Settings.other, items: [
-                        LinkCellConfigurator(item: L10n.Settings.about),
-                        LinkCellConfigurator(item: L10n.Settings.license)
-                    ])
-                ]
+                return SettingsView(name: user.toString,
+                                    roles: user.roles.map { $0.toString() }.joined(separator: ", "),
+                                    options: self.semesterCellViewModel,
+                                    sendingNotificationsEnabled: false) // TODO:
             }
+            .unwrap()
             .bind(to: settings)
             .disposed(by: bag)
 

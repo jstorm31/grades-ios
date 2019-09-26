@@ -47,7 +47,7 @@ final class SettingsRepository: SettingsRepositoryProtocol {
         let language = Locale.current.languageCode ?? EnvironmentConfiguration.shared.defaultLanguage
         let defaultLanguage = Language.language(forString: language)
 
-        let defaultSettings = Settings(language: defaultLanguage, semester: currentSemesterCode)
+        let defaultSettings = Settings(language: defaultLanguage, semester: currentSemesterCode, sendingNotificationsEnabled: true)
         currentSettings = BehaviorRelay<Settings>(value: defaultSettings)
 
         if let loadedSettings = loadSettings() {
