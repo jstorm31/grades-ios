@@ -18,5 +18,5 @@ struct SettingsView {
     let name: String
     let roles: String
     let options: PickerCellViewModel
-    let sendingNotificationsEnabled: Bool
+    let sendingNotificationsEnabled: SwitchCellViewModel
 }

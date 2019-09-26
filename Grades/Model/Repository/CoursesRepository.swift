@@ -71,7 +71,8 @@ final class CoursesRepository: CoursesRepositoryProtocol {
             }
             .map { $0.sorted(by: { $0.code < $1.code }) }
 
-        Observable.zip(studentCourses, teacherCourses) { (studentCourses: [StudentCourse], teacherCourses: [TeacherCourse]) -> CoursesByRoles in
+        Observable.zip(studentCourses, teacherCourses) { (studentCourses: [StudentCourse],
+                                                          teacherCourses: [TeacherCourse]) -> CoursesByRoles in
             CoursesByRoles(student: studentCourses, teacher: teacherCourses)
         }
         .trackActivity(activityIndicator)

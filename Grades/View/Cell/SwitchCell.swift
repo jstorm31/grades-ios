@@ -6,20 +6,17 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import RxBiBinding
+import RxSwift
 import UIKit
 
-typealias SwitchCellContent = (title: String, isEnabled: Bool)
-typealias SwitchCellConfigurator = TableCellConfigurator<SwitchCell, SwitchCellContent>
+typealias SwitchCellConfigurator = TableCellConfigurator<SwitchCell, SwitchCellViewModel>
 
 final class SwitchCell: BasicCell, ConfigurableCell {
     private var enabledSwitch: UIPrimarySwitch!
+    private(set) var bag = DisposeBag()
 
-    var content: SwitchCellContent! {
-        didSet {
-            titleLabel.text = content.title
-            enabledSwitch.isEnabled = content.isEnabled
-        }
-    }
+    var viewModel: SwitchCellViewModel!
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -32,11 +29,17 @@ final class SwitchCell: BasicCell, ConfigurableCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(data content: SwitchCellContent) {
-        self.content = content
+    func configure(data switchViewModel: SwitchCellViewModel) {
+        viewModel = switchViewModel
+        bindViewModel()
     }
 
-    func loadUI() {
+    private func bindViewModel() {
+        titleLabel.text = viewModel.title
+        (enabledSwitch.rx.value <-> viewModel.isEnabled).disposed(by: bag)
+    }
+
+    private func loadUI() {
         titleLabel.textColor = UIColor.Theme.text
 
         let enabledSwitch = UIPrimarySwitch()

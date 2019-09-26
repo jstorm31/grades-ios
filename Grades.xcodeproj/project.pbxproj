@@ -171,6 +171,9 @@
 		96C61EE4233CB9E200EA0FB2 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C61EE3233CB9E200EA0FB2 /* SwitchCell.swift */; };
 		96C61EE6233CBB7E00EA0FB2 /* UIPrimarySwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C61EE5233CBB7E00EA0FB2 /* UIPrimarySwitch.swift */; };
 		96C61EE8233CBD8E00EA0FB2 /* PickerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C61EE7233CBD8E00EA0FB2 /* PickerCellViewModel.swift */; };
+		96C61EF2233CE9F800EA0FB2 /* RxBiBinding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96C61EF1233CE9F800EA0FB2 /* RxBiBinding.framework */; };
+		96C61EF4233CEA9E00EA0FB2 /* SwitchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C61EF3233CEA9E00EA0FB2 /* SwitchCellViewModel.swift */; };
+		96C61EF6233CF3C800EA0FB2 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96C61EF5233CF3C800EA0FB2 /* RxRelay.framework */; };
 		96C7B9CA226069FA00E39F9A /* CoursesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */; };
 		96C87472224BEDA9009FB47F /* CoursesRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */; };
 		96C9D80E228ADB4D00BFA119 /* Test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96F220F1227B785F0078AD2A /* Test.plist */; };
@@ -420,6 +423,10 @@
 		96C61EE3233CB9E200EA0FB2 /* SwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
 		96C61EE5233CBB7E00EA0FB2 /* UIPrimarySwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPrimarySwitch.swift; sourceTree = "<group>"; };
 		96C61EE7233CBD8E00EA0FB2 /* PickerCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCellViewModel.swift; sourceTree = "<group>"; };
+		96C61EEF233CE9E600EA0FB2 /* RxBiBinding.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = RxBiBinding.framework.dSYM; path = Carthage/Build/iOS/RxBiBinding.framework.dSYM; sourceTree = "<group>"; };
+		96C61EF1233CE9F800EA0FB2 /* RxBiBinding.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBiBinding.framework; path = Carthage/Build/iOS/RxBiBinding.framework; sourceTree = "<group>"; };
+		96C61EF3233CEA9E00EA0FB2 /* SwitchCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCellViewModel.swift; sourceTree = "<group>"; };
+		96C61EF5233CF3C800EA0FB2 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/iOS/RxRelay.framework; sourceTree = "<group>"; };
 		96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryTests.swift; sourceTree = "<group>"; };
 		96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryMock.swift; sourceTree = "<group>"; };
 		96CAC02222809ACF00F2224F /* LinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCell.swift; sourceTree = "<group>"; };
@@ -470,6 +477,8 @@
 				9658071922304B420065E23D /* Action.framework in Frameworks */,
 				967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */,
 				969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */,
+				96C61EF2233CE9F800EA0FB2 /* RxBiBinding.framework in Frameworks */,
+				96C61EF6233CF3C800EA0FB2 /* RxRelay.framework in Frameworks */,
 				96861077222AAE6C0069B81B /* RxSwift.framework in Frameworks */,
 				96861079222AAE6F0069B81B /* RxCocoa.framework in Frameworks */,
 				96A80A6F222F191F00986A90 /* RxDataSources.framework in Frameworks */,
@@ -676,6 +685,9 @@
 		967D1E3F2223DDD3007E5217 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				96C61EF5233CF3C800EA0FB2 /* RxRelay.framework */,
+				96C61EF1233CE9F800EA0FB2 /* RxBiBinding.framework */,
+				96C61EEF233CE9E600EA0FB2 /* RxBiBinding.framework.dSYM */,
 				962A67A3229521B9008CF643 /* Sentry.framework */,
 				968EC1D22282DC1100241F51 /* SwiftKeychainWrapper.framework */,
 				96F220DE227B67670078AD2A /* Swifter.framework */,
@@ -737,6 +749,7 @@
 		9682E57E2266252300687A66 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				96C61EF3233CEA9E00EA0FB2 /* SwitchCellViewModel.swift */,
 				96C61EE7233CBD8E00EA0FB2 /* PickerCellViewModel.swift */,
 				9682E57F2266253100687A66 /* DynamicValueCellViewModel.swift */,
 			);
@@ -1270,6 +1283,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Sentry.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Bagel.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaAsyncSocket.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxBiBinding.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxRelay.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
@@ -1290,6 +1305,8 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Sentry.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Bagel.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaAsyncSocket.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxBiBinding.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxRelay.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1365,6 +1382,7 @@
 				96B20DA72236C838004794BE /* UINavigationBar+.swift in Sources */,
 				966BCCBB22881F6C00171B71 /* Date+.swift in Sources */,
 				9654A4F922469AFE00778ED1 /* ConfigurableCell.swift in Sources */,
+				96C61EF4233CEA9E00EA0FB2 /* SwitchCellViewModel.swift in Sources */,
 				9699ABA82232C091006D2F73 /* UIView+Rx.swift in Sources */,
 				9686107C222AAED50069B81B /* UIPrimaryButton.swift in Sources */,
 				96B20DAD2236DE64004794BE /* UINavigationController+.swift in Sources */,

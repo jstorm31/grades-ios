@@ -233,7 +233,10 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
         self.saveButton = saveButton
 
-        // Sorters
+        loadSorters()
+    }
+
+    func loadSorters() {
         let filtersStack = UIStackView()
         filtersStack.axis = .horizontal
         filtersStack.distribution = .fill

@@ -61,7 +61,7 @@ final class StudentSearchViewController: BaseTableViewController, BindableType, 
             .disposed(by: bag)
 
         navigationItem.searchController!.searchBar.rx.text
-            .debounce(0.25, scheduler: MainScheduler.instance)
+            .debounce(.milliseconds(250), scheduler: MainScheduler.instance)
             .unwrap()
             .bind(to: viewModel.searchText)
             .disposed(by: bag)

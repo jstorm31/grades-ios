@@ -25,7 +25,7 @@ class SettingsRepositoryTests: XCTestCase {
 			.flatMap { _ -> Observable<[String]> in
 				self.repository.semesterOptions.asObservable()
 			}
-			.subscribeOn(scheduler).debug("options", trimOutput: false)
+			.subscribeOn(scheduler)
 		
 		let result = try! options.toBlocking(timeout: 2).first()!
 		XCTAssertEqual(result.count, 8)

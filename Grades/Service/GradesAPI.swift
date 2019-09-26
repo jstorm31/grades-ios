@@ -166,7 +166,7 @@ final class GradesAPI: GradesAPIProtocol {
                 User(id: 2, username: "janatpa3", firstName: "Pavel", lastName: "Janata"),
                 User(id: 1, username: "rousemat", firstName: "Matyáš", lastName: "Rousek"),
                 User(id: 3, username: "ottastep", firstName: "Štěpán", lastName: "Otta")
-            ]).delaySubscription(1, scheduler: MainScheduler.instance)
+            ]).delaySubscription(.seconds(1), scheduler: MainScheduler.instance)
         } else {
             // Get from API in Release
             let url = createURL(from: .courseStudents(courseCode, "MY_PARALLELS"))
@@ -188,6 +188,7 @@ final class GradesAPI: GradesAPIProtocol {
 
     // MARK: helpers
 
+    // swiftlint:disable cyclomatic_complexity
     private func createURL(from endpoint: Endpoint) -> URL {
         var endpointValue = ""
 

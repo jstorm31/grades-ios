@@ -126,8 +126,7 @@ final class SettingsViewController: BaseTableViewController,
                     ]),
                     TableSection(header: L10n.Settings.options, items: [
                         PickerCellConfigurator(item: settings.options),
-                        SwitchCellConfigurator(item: (title: L10n.Settings.Teacher.sendNotifications,
-                                                      isEnabled: settings.sendingNotificationsEnabled))
+                        SwitchCellConfigurator(item: settings.sendingNotificationsEnabled)
                     ]),
                     TableSection(header: L10n.Settings.other, items: [
                         LinkCellConfigurator(item: L10n.Settings.about),

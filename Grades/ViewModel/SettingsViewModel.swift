@@ -10,7 +10,7 @@ import Action
 import RxCocoa
 import RxSwift
 
-class SettingsViewModel: TablePickerViewModel {
+final class SettingsViewModel: TablePickerViewModel {
     typealias Dependencies = HasSettingsRepository & HasPushNotificationService & HasUserRepository
         & HasAuthenticationService & HasSceneCoordinator
 
@@ -19,6 +19,8 @@ class SettingsViewModel: TablePickerViewModel {
 
     private let semesterSelectedIndex = BehaviorRelay<Int>(value: 0)
     private let semesterCellViewModel = PickerCellViewModel(title: L10n.Settings.semester)
+    private let enableNotificationsViewModel = SwitchCellViewModel(title: L10n.Settings.Teacher.sendNotifications,
+                                                                   isEnabled: BehaviorRelay<Bool>(value: false))
 
     // MARK: output
 
@@ -79,26 +81,46 @@ class SettingsViewModel: TablePickerViewModel {
                 self?.dependencies.settingsRepository.currentSettings
                     .map { (user, $0) } ?? Observable.empty()
             }
-            .map { [weak self] user, settings in
+            .map { [weak self] user, _ in
                 guard let self = self else { return nil }
 
                 return SettingsView(name: user.toString,
                                     roles: user.roles.map { $0.toString() }.joined(separator: ", "),
                                     options: self.semesterCellViewModel,
-                                    sendingNotificationsEnabled: settings.sendingNotificationsEnabled)
+                                    sendingNotificationsEnabled: self.enableNotificationsViewModel)
             }
             .unwrap()
             .bind(to: settings)
             .disposed(by: bag)
 
         // Initial value of semester
-        dependencies.settingsRepository.currentSettings
+        let currentSettings = dependencies.settingsRepository.currentSettings.share(replay: 2, scope: .whileConnected)
+
+        currentSettings
             .map { $0.semester }
             .unwrap()
             .flatMap { [weak self] semester -> Observable<Int> in
                 self?.dependencies.settingsRepository.semesterOptions.map { $0.firstIndex(of: semester) ?? 0 } ?? Observable.just(0)
             }
             .bind(to: semesterSelectedIndex)
+            .disposed(by: bag)
+
+        // Bind enableNotificationsViewModel both ways
+
+        currentSettings
+            .map { $0.sendingNotificationsEnabled }
+            .bind(to: enableNotificationsViewModel.isEnabled)
+            .disposed(by: bag)
+
+        enableNotificationsViewModel.isEnabled
+            .distinctUntilChanged()
+            .map { [weak self] isEnabled in
+                var settings = self?.dependencies.settingsRepository.currentSettings.value
+                settings?.sendingNotificationsEnabled = isEnabled
+                return settings
+            }
+            .unwrap()
+            .bind(to: dependencies.settingsRepository.currentSettings)
             .disposed(by: bag)
 
         bindOptions()
