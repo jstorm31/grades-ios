@@ -75,13 +75,17 @@ class SettingsViewModel: TablePickerViewModel {
             .flatMap { [weak self] _ in
                 self?.dependencies.userRepository.user.unwrap() ?? Observable.empty()
             }
-            .map { [weak self] user in
+            .flatMap { [weak self] user in
+                self?.dependencies.settingsRepository.currentSettings
+                    .map { (user, $0) } ?? Observable.empty()
+            }
+            .map { [weak self] user, settings in
                 guard let self = self else { return nil }
 
                 return SettingsView(name: user.toString,
                                     roles: user.roles.map { $0.toString() }.joined(separator: ", "),
                                     options: self.semesterCellViewModel,
-                                    sendingNotificationsEnabled: false) // TODO:
+                                    sendingNotificationsEnabled: settings.sendingNotificationsEnabled)
             }
             .unwrap()
             .bind(to: settings)
