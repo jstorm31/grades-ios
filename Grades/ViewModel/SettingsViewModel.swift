@@ -84,10 +84,12 @@ final class SettingsViewModel: TablePickerViewModel {
             .map { [weak self] user, _ in
                 guard let self = self else { return nil }
 
+                let isTeacher = user.roles.contains(.teacher)
+
                 return SettingsView(name: user.toString,
                                     roles: user.roles.map { $0.toString() }.joined(separator: ", "),
                                     options: self.semesterCellViewModel,
-                                    sendingNotificationsEnabled: self.enableNotificationsViewModel)
+                                    sendingNotificationsEnabled: isTeacher ? self.enableNotificationsViewModel : nil)
             }
             .unwrap()
             .bind(to: settings)

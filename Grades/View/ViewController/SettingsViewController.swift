@@ -119,15 +119,18 @@ final class SettingsViewController: BaseTableViewController,
         viewModel.settings
             .unwrap()
             .map { settings in
-                [
+                var optionItems: [CellConfigurator] = [PickerCellConfigurator(item: settings.options)]
+
+                if let notificationsEnabled = settings.sendingNotificationsEnabled {
+                    optionItems.append(SwitchCellConfigurator(item: notificationsEnabled))
+                }
+
+                return [
                     TableSection(header: L10n.Settings.user, items: [
                         SettingsCellConfigurator(item: (title: L10n.Settings.User.name, content: settings.name)),
                         SettingsCellConfigurator(item: (title: L10n.Settings.User.roles, content: settings.roles))
                     ]),
-                    TableSection(header: L10n.Settings.options, items: [
-                        PickerCellConfigurator(item: settings.options),
-                        SwitchCellConfigurator(item: settings.sendingNotificationsEnabled)
-                    ]),
+                    TableSection(header: L10n.Settings.options, items: optionItems),
                     TableSection(header: L10n.Settings.other, items: [
                         LinkCellConfigurator(item: L10n.Settings.about),
                         LinkCellConfigurator(item: L10n.Settings.license)
