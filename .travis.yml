@@ -9,7 +9,7 @@ before_install:
 - brew install git-secret carthage swiftlint swiftgen swiftformat || true
 - gem install xcpretty-travis-formatter
 install:
-- carthage bootstrap --new-resolver --platform iOS --no-use-binaries --cache-builds
+- carthage bootstrap --new-resolver --platform iOS --no-use-binaries --cache-builds --verbose
 before_script:
 - gpg --batch --import grades_private_key.txt
 - git secret reveal -p "$GIT_SECRET_PASSPHRASE"
