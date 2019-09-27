@@ -68,7 +68,7 @@ final class LoginViewModel: BaseViewModel {
             .do(onNext: { isCompliant in
                 if case .unset = gdprState {
                     UserDefaults.standard.set(isCompliant ? GdprState.accepted.rawValue : GdprState.declined.rawValue,
-                                              forKey: "GdprCompliant")
+                                              forKey: Constants.gdprCompliant)
                 }
             })
             .flatMap { [weak self] isCompliant -> Observable<Void> in
@@ -90,7 +90,7 @@ final class LoginViewModel: BaseViewModel {
 
     @discardableResult
     private func gdprSetup() -> GdprState {
-        let gdprState = GdprState(rawValue: UserDefaults.standard.integer(forKey: "GdprCompliant")) ?? .unset
+        let gdprState = GdprState(rawValue: UserDefaults.standard.integer(forKey: Constants.gdprCompliant)) ?? .unset
 
         switch gdprState {
         case .unset:

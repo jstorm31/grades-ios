@@ -60,7 +60,7 @@ class GradesUITests: XCTestCase {
 		XCTAssert(komCell.exists)
 	}
 	
-		func testCourseDetail() {
+    func testCourseDetail() {
 		app.buttons["Login"].tap()
 		let tablesQuery = app.tables
 		let teacherCell = tablesQuery.cells.containing(.staticText, identifier:"28 p").staticTexts["BI-PJS.1"]
@@ -120,6 +120,15 @@ class GradesUITests: XCTestCase {
 		
 		XCTAssert(app.tables.staticTexts["Ondřej Tichý"].waitForExistence(timeout: 5))
 	}
+    
+    func testLogout() {
+        app.buttons["Login"].tap()
+        app.buttons["Settings button"].tap()
+        app.buttons["Log out"].tap()
+        app.buttons["Yes"].tap()
+        
+        XCTAssert(app.buttons["Login"].waitForExistence(timeout: 5))
+    }
 	
 	private func chooseSemester(_ semester: String) {
 		app.buttons["Settings button"].tap()

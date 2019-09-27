@@ -25,6 +25,7 @@ final class SettingsViewModel: TablePickerViewModel {
     // MARK: output
 
     let settings = BehaviorRelay<SettingsView?>(value: nil)
+    let error = PublishSubject<Void>()
 
     lazy var selectedCellOptionIndex: Observable<Int> = {
         selectedCellIndex
@@ -42,10 +43,19 @@ final class SettingsViewModel: TablePickerViewModel {
     lazy var logoutAction = CocoaAction { [weak self] in
         guard let self = self else { return Observable.empty() }
 
+        UserDefaults.standard.removeObject(forKey: Constants.gdprCompliant)
         self.dependencies.authService.logOut()
+
         return self.dependencies.pushNotificationsService.unregisterUserFromDevice()
+            .debug()
             .do(onNext: { [weak self] in
                 self?.dependencies.coordinator.pop(animated: true, presented: true)
+            }, onError: { [weak self] error in
+                if case PushNotificationService.NotificationError.tokenIsNil = error {
+                    self?.dependencies.coordinator.pop(animated: true, presented: true)
+                } else {
+                    self?.error.onError(error)
+                }
             })
     }
 

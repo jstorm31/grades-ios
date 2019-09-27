@@ -174,6 +174,7 @@
 		96C61EF4233CEA9E00EA0FB2 /* SwitchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C61EF3233CEA9E00EA0FB2 /* SwitchCellViewModel.swift */; };
 		96C61EF6233CF3C800EA0FB2 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96C61EF5233CF3C800EA0FB2 /* RxRelay.framework */; };
 		96C61EFE233E39FA00EA0FB2 /* GdprState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C61EFD233E39FA00EA0FB2 /* GdprState.swift */; };
+		96C61F00233E3D7100EA0FB2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C61EFF233E3D7100EA0FB2 /* Constants.swift */; };
 		96C7B9CA226069FA00E39F9A /* CoursesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */; };
 		96C87472224BEDA9009FB47F /* CoursesRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */; };
 		96C9D80E228ADB4D00BFA119 /* Test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96F220F1227B785F0078AD2A /* Test.plist */; };
@@ -428,6 +429,7 @@
 		96C61EF3233CEA9E00EA0FB2 /* SwitchCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCellViewModel.swift; sourceTree = "<group>"; };
 		96C61EF5233CF3C800EA0FB2 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/iOS/RxRelay.framework; sourceTree = "<group>"; };
 		96C61EFD233E39FA00EA0FB2 /* GdprState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GdprState.swift; sourceTree = "<group>"; };
+		96C61EFF233E3D7100EA0FB2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryTests.swift; sourceTree = "<group>"; };
 		96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryMock.swift; sourceTree = "<group>"; };
 		96CAC02222809ACF00F2224F /* LinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCell.swift; sourceTree = "<group>"; };
@@ -964,6 +966,7 @@
 				96DE85B2230C7F2100586193 /* StudentClassificationSorter.swift */,
 				96672002230DE3D300B1EF85 /* SortableDataViewModel.swift */,
 				96C61EFD233E39FA00EA0FB2 /* GdprState.swift */,
+				96C61EFF233E3D7100EA0FB2 /* Constants.swift */,
 			);
 			path = Type;
 			sourceTree = "<group>";
@@ -1370,6 +1373,7 @@
 				96520E972223D65F00AB6499 /* LoginViewController.swift in Sources */,
 				9608B9B12224149700E1CEAF /* Strings.swift in Sources */,
 				9641816A22477DB50019CABD /* GroupClassificationViewModel.swift in Sources */,
+				96C61F00233E3D7100EA0FB2 /* Constants.swift in Sources */,
 				96D3CB04233BAFB500A5A469 /* Optional+.swift in Sources */,
 				9699AB9C22326512006D2F73 /* Log.swift in Sources */,
 				961BCE71222C32DD00BD6663 /* SceneCoordinator.swift in Sources */,
