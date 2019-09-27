@@ -47,7 +47,7 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        let icon = UIImage(named: "icon_settings")
+        let icon = UIImage(named: "Settings")
         var settingsButton = UIButton()
         settingsButton.accessibilityIdentifier = "Settings button"
         settingsButton.setImage(icon, for: .normal)
