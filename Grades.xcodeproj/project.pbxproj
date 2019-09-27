@@ -173,6 +173,7 @@
 		96C61EF2233CE9F800EA0FB2 /* RxBiBinding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96C61EF1233CE9F800EA0FB2 /* RxBiBinding.framework */; };
 		96C61EF4233CEA9E00EA0FB2 /* SwitchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C61EF3233CEA9E00EA0FB2 /* SwitchCellViewModel.swift */; };
 		96C61EF6233CF3C800EA0FB2 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96C61EF5233CF3C800EA0FB2 /* RxRelay.framework */; };
+		96C61EFE233E39FA00EA0FB2 /* GdprState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C61EFD233E39FA00EA0FB2 /* GdprState.swift */; };
 		96C7B9CA226069FA00E39F9A /* CoursesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */; };
 		96C87472224BEDA9009FB47F /* CoursesRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */; };
 		96C9D80E228ADB4D00BFA119 /* Test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96F220F1227B785F0078AD2A /* Test.plist */; };
@@ -426,6 +427,7 @@
 		96C61EF1233CE9F800EA0FB2 /* RxBiBinding.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBiBinding.framework; path = Carthage/Build/iOS/RxBiBinding.framework; sourceTree = "<group>"; };
 		96C61EF3233CEA9E00EA0FB2 /* SwitchCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCellViewModel.swift; sourceTree = "<group>"; };
 		96C61EF5233CF3C800EA0FB2 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/iOS/RxRelay.framework; sourceTree = "<group>"; };
+		96C61EFD233E39FA00EA0FB2 /* GdprState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GdprState.swift; sourceTree = "<group>"; };
 		96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryTests.swift; sourceTree = "<group>"; };
 		96C87471224BEDA9009FB47F /* CoursesRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesRepositoryMock.swift; sourceTree = "<group>"; };
 		96CAC02222809ACF00F2224F /* LinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCell.swift; sourceTree = "<group>"; };
@@ -961,6 +963,7 @@
 				9636E8AB22775FE200727AE5 /* EvaluationType.swift */,
 				96DE85B2230C7F2100586193 /* StudentClassificationSorter.swift */,
 				96672002230DE3D300B1EF85 /* SortableDataViewModel.swift */,
+				96C61EFD233E39FA00EA0FB2 /* GdprState.swift */,
 			);
 			path = Type;
 			sourceTree = "<group>";
@@ -1420,6 +1423,7 @@
 				965ADAEB223569C500AA8CF4 /* CourseListCell.swift in Sources */,
 				96777FD2227F31B700520ABF /* UserRepository.swift in Sources */,
 				96CAC0272280A10800F2224F /* TextViewController.swift in Sources */,
+				96C61EFE233E39FA00EA0FB2 /* GdprState.swift in Sources */,
 				9641816C22477DFE0019CABD /* GroupClassificationViewController.swift in Sources */,
 				96861085222AF2630069B81B /* BindableType.swift in Sources */,
 				961A8785223F8B1200846538 /* SettingsViewModel.swift in Sources */,

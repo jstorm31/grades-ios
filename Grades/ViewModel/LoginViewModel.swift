@@ -18,6 +18,14 @@ final class LoginViewModel: BaseViewModel {
     private let dependencies: Dependencies
     private let config = EnvironmentConfiguration.shared
 
+    // MARK: output
+
+    let displayGdprAlert = BehaviorSubject<Bool>(value: false)
+
+    // MARK: input
+
+    let gdprCompliant = BehaviorSubject<Bool>(value: false)
+
     // MARK: initialization
 
     init(dependencies: Dependencies) {
@@ -54,7 +62,21 @@ final class LoginViewModel: BaseViewModel {
             return Observable.empty()
         }
 
-        return dependencies.pushNotificationsService.start()
+        let gdprState = gdprSetup()
+
+        return gdprCompliant
+            .do(onNext: { isCompliant in
+                if case .unset = gdprState {
+                    UserDefaults.standard.set(isCompliant ? GdprState.accepted.rawValue : GdprState.declined.rawValue,
+                                              forKey: "GdprCompliant")
+                }
+            })
+            .flatMap { [weak self] isCompliant -> Observable<Void> in
+                if isCompliant {
+                    return self?.dependencies.pushNotificationsService.start() ?? Observable.empty()
+                }
+                return Observable.just(())
+            }
             .map { _ in }
             .flatMap(dependencies.settingsRepository.fetchCurrentSemester)
             .map { _ in }
@@ -64,6 +86,22 @@ final class LoginViewModel: BaseViewModel {
                 self?.transitionToCourseList()
             })
             .map { _ in }
+    }
+
+    @discardableResult
+    private func gdprSetup() -> GdprState {
+        let gdprState = GdprState(rawValue: UserDefaults.standard.integer(forKey: "GdprCompliant")) ?? .unset
+
+        switch gdprState {
+        case .unset:
+            displayGdprAlert.onNext(true)
+        case .accepted:
+            gdprCompliant.onNext(true)
+        case .declined:
+            gdprCompliant.onNext(false)
+        }
+
+        return gdprState
     }
 
     private func transitionToCourseList() {

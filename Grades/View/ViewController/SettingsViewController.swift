@@ -157,7 +157,7 @@ final class SettingsViewController: BaseTableViewController,
     // MARK: events
 
     @objc func logOutButtonTapped(_: UIBarButtonItem) {
-        displayConfirmation(title: L10n.Settings.logoutConfirmTitle) { [weak self] in
+        displayConfirmation(title: L10n.Settings.logoutConfirmTitle, confirmIsPreffered: false) { [weak self] in
             self?.viewModel.logoutAction.execute()
         }
     }

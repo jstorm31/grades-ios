@@ -21,24 +21,28 @@ extension ConfirmationModalPresentable {
 extension ConfirmationModalPresentable {
     func displayConfirmation(title: String,
                              message: String? = nil,
+                             cancelTitle: String? = nil,
+                             confirmTitle: String? = nil,
+                             confirmIsPreffered: Bool = true,
                              cancelHandler: (() -> Void)? = nil,
                              confirmedHandler: @escaping () -> Void) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
         let cancelAction: UIAlertAction
         if let cancelHandler = cancelHandler {
-            cancelAction = UIAlertAction(title: L10n.Button.cancel, style: .cancel) { _ in
+            cancelAction = UIAlertAction(title: cancelTitle ?? L10n.Button.cancel, style: .cancel) { _ in
                 cancelHandler()
             }
         } else {
-            cancelAction = UIAlertAction(title: L10n.Button.cancel, style: .default)
+            cancelAction = UIAlertAction(title: cancelTitle ?? L10n.Button.cancel, style: .cancel)
         }
         alertController.addAction(cancelAction)
 
-        let okAction = UIAlertAction(title: L10n.Button.confirm, style: .default) { _ in
+        let okAction = UIAlertAction(title: confirmTitle ?? L10n.Button.confirm, style: .default) { _ in
             confirmedHandler()
         }
         alertController.addAction(okAction)
+        alertController.preferredAction = confirmIsPreffered ? okAction : cancelAction
 
         present(alertController, animated: true)
     }

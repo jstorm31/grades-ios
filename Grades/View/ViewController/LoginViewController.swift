@@ -76,8 +76,27 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
 
         viewModel.authenticateWithRefresToken()
             .trackActivity(activityIndicator)
+            .subscribeOn(MainScheduler.instance)
             .subscribe(onError: { [weak self] error in
                 self?.view.makeCustomToast(error.localizedDescription, type: .danger)
+            })
+            .disposed(by: bag)
+
+        // GDPR compliance
+        viewModel.displayGdprAlert
+            .filter { $0 == true }
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { [weak self] _ in
+                self?.displayConfirmation(title: L10n.Gdpr.title,
+                                          message: L10n.Gdpr.message,
+                                          cancelTitle: L10n.Gdpr.disagree,
+                                          confirmTitle: L10n.Gdpr.agree,
+                                          confirmIsPreffered: true,
+                                          cancelHandler: { [weak self] in
+                                              self?.viewModel.gdprCompliant.onNext(false)
+                                          }, confirmedHandler: { [weak self] in
+                                              self?.viewModel.gdprCompliant.onNext(true)
+                })
             })
             .disposed(by: bag)
     }
@@ -87,6 +106,7 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
     @objc private func authButtonTapped(_: UIButton) {
         viewModel.authenticate(viewController: self)
             .trackActivity(activityIndicator)
+            .subscribeOn(MainScheduler.instance)
             .subscribe(onError: { [weak self] error in
                 self?.view.makeCustomToast(error.localizedDescription, type: .danger)
             })
