@@ -24,7 +24,7 @@ final class LoginViewModel: BaseViewModel {
 
     // MARK: input
 
-    let gdprCompliant = BehaviorSubject<Bool>(value: false)
+    let gdprCompliant = BehaviorSubject<Bool?>(value: nil)
 
     // MARK: initialization
 
@@ -65,6 +65,7 @@ final class LoginViewModel: BaseViewModel {
         let gdprState = gdprSetup()
 
         return gdprCompliant
+            .unwrap()
             .do(onNext: { isCompliant in
                 if case .unset = gdprState {
                     UserDefaults.standard.set(isCompliant ? GdprState.accepted.rawValue : GdprState.declined.rawValue,
@@ -77,11 +78,14 @@ final class LoginViewModel: BaseViewModel {
                 }
                 return Observable.just(())
             }
+            .take(1)
             .map { _ in }
             .flatMap(dependencies.settingsRepository.fetchCurrentSemester)
             .map { _ in }
             .flatMap(dependencies.gradesApi.getUser)
+            .debug()
             .do(onNext: { [weak self] user in
+                self?.gdprCompliant.onNext(nil) // Clear state to prevent auto log in on next time
                 self?.dependencies.userRepository.user.accept(user)
                 self?.transitionToCourseList()
             })
