@@ -90,7 +90,7 @@ class GradesAPIMock: GradesAPIProtocol {
 			return Observable.just([
 				StudentGroup(id: "A145", name: "Cvičení 1", description: "Cvič 1"),
 				StudentGroup(id: "A146", name: "Cvičení 2", description: "Cvič 2")
-			]).delaySubscription(0.5, scheduler: MainScheduler.instance)
+			]).delaySubscription(.milliseconds(500), scheduler: MainScheduler.instance)
 		case .failure:
 			return Observable.error(ApiError.general)
 		}
@@ -102,7 +102,7 @@ class GradesAPIMock: GradesAPIProtocol {
 			return Observable.just([
 				Classification(id: 1, identifier: "test_1", text: [ClassificationText(identifier: "cs", name: "Test 1")], evaluationType: .manual, type: "TEST", valueType: .number, value: .number(3.5), parentId: nil, isHidden: false),
 				Classification(id: 2, identifier: "homework", text: [ClassificationText(identifier: "cs", name: "Homework")], evaluationType: .manual, type: "HOMEWORK", valueType: .string, value: .string("Good"), parentId: nil, isHidden: false)
-				]).delaySubscription(0.5, scheduler: MainScheduler.instance)
+                ]).delaySubscription(.milliseconds(500), scheduler: MainScheduler.instance)
 		case .failure:
 			return Observable.error(ApiError.general)
 		}
@@ -115,7 +115,7 @@ class GradesAPIMock: GradesAPIProtocol {
 				StudentClassification(identifier: "item1", username: "novtom", value: .number(4.5)),
 				StudentClassification(identifier: "item2", username: "kobljan", value: .number(1)),
 				StudentClassification(identifier: "item3", username: "ivtjir", value: nil)
-			]).delaySubscription(0.5, scheduler: MainScheduler.instance)
+                ]).delaySubscription(.milliseconds(500), scheduler: MainScheduler.instance)
 		case .failure:
 			return Observable.error(ApiError.general)
 		}
@@ -128,18 +128,18 @@ class GradesAPIMock: GradesAPIProtocol {
 				User(id: 1, username: "kucerj48", firstName: "Jan", lastName: "Kučera"),
 				User(id: 2, username: "janatpa3", firstName: "Pavel", lastName: "Janata"),
 				User(id: 3, username: "ottastep", firstName: "Štěpán", lastName: "Otta")
-			]).delaySubscription(0.5, scheduler: MainScheduler.instance)
+                ]).delaySubscription(.milliseconds(500), scheduler: MainScheduler.instance)
 		case .failure:
-			return Observable.error(ApiError.general).delaySubscription(0.5, scheduler: MainScheduler.instance)
+			return Observable.error(ApiError.general).delaySubscription(.milliseconds(500), scheduler: MainScheduler.instance)
 		}
 	}
 	
-	func putStudentsClassifications(courseCode: String, data: [StudentClassification]) -> Observable<Void> {
+    func putStudentsClassifications(courseCode: String, data: [StudentClassification], notify: Bool) -> Observable<Void> {
 		switch result {
 		case .success:
-			return Observable.empty().delaySubscription(0.5, scheduler: MainScheduler.instance)
+			return Observable.empty().delaySubscription(.milliseconds(500), scheduler: MainScheduler.instance)
 		case .failure:
-			return Observable.error(ApiError.general).delaySubscription(0.5, scheduler: MainScheduler.instance)
+			return Observable.error(ApiError.general).delaySubscription(.milliseconds(500), scheduler: MainScheduler.instance)
 		}
 	}
 	

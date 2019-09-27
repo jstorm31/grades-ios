@@ -25,8 +25,7 @@ class SettingsViewModelTests: XCTestCase {
 		viewModel.bindOutput()
 		
 		let result = try! settings.toBlocking(timeout: 2).first()!
-		XCTAssertEqual(result.count, 3)
-		XCTAssertEqual(result[0].items.count, 2)
-		XCTAssertEqual(result[1].items.count, 1)
+		XCTAssertEqual(result?.name, "Ondřej Krátký (mockuser)")
+        XCTAssertNil(result?.sendingNotificationsEnabled)
 	}
 }
