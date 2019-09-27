@@ -136,7 +136,6 @@
 		96939EE6223BB97500A49E57 /* ClassificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EE5223BB97500A49E57 /* ClassificationType.swift */; };
 		96939EE7223BC61900A49E57 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961789302232F65D007006E8 /* RxBlocking.framework */; };
 		96939EEB223BDAE600A49E57 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EEA223BDAE600A49E57 /* ActivityIndicator.swift */; };
-		96939EEC223BDCCC00A49E57 /* RxAtomic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658071A22304D5B0065E23D /* RxAtomic.framework */; };
 		96939EF0223C1FEE00A49E57 /* Unwrap+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EEF223C1FEE00A49E57 /* Unwrap+.swift */; };
 		96939EF4223C274C00A49E57 /* CourseStudentRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EF3223C274C00A49E57 /* CourseStudentRepositoryMock.swift */; };
 		9699AB99223256D2006D2F73 /* OverviewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699AB98223256D2006D2F73 /* OverviewItem.swift */; };
@@ -473,7 +472,6 @@
 			files = (
 				96030427232C1C63005074C9 /* CocoaAsyncSocket.framework in Frameworks */,
 				96030426232C1C26005074C9 /* Bagel.framework in Frameworks */,
-				96939EEC223BDCCC00A49E57 /* RxAtomic.framework in Frameworks */,
 				9658071922304B420065E23D /* Action.framework in Frameworks */,
 				967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */,
 				969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */,
@@ -1278,7 +1276,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Action.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/ToastSwiftFramework.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxAtomic.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftKeychainWrapper.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Sentry.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Bagel.framework",
@@ -1300,7 +1297,6 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Action.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/ToastSwiftFramework.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxBlocking.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxAtomic.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftKeychainWrapper.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Sentry.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Bagel.framework",
