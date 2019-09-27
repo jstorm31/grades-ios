@@ -36,6 +36,7 @@
 "settings.other" = "Other";
 "settings.about" = "Credits";
 "settings.license" = "License";
+"settings.teacher.sendNotifications" = "Send notifications to students";
 
 "teacher.tab.group" = "Detail";
 "teacher.tab.student" = "Student";
@@ -47,9 +48,13 @@
 "teacher.students.finalGradeEmpty" = "Final grade not specified";
 "teacher.students.grading" = "Evaluation items";
 
+"sorter.title" = "Sort by:";
+"sorter.name" = "Name";
+"sorter.value" = "Value";
+
 "students.title" = "Students";
 "students.search" = "Search student";
-"students.updateSuccess" = "Grades have been successfully updated.";
+"students.updateSuccess" = "Evaluation has been updated.";
 
 "notification.request.title" = "";
 "notification.request.body" = "";

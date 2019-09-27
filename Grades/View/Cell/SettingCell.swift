@@ -37,7 +37,8 @@ final class SettingsCell: BasicCell, ConfigurableCell {
     }
 
     func loadUI() {
-        titleLabel.font = UIFont.Grades.boldBody
+        titleLabel.font = UIFont.Grades.body
+        titleLabel.textColor = UIColor.Theme.text
 
         let text = UILabel()
         text.font = UIFont.Grades.body

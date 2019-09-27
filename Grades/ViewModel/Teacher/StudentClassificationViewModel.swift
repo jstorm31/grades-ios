@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 
 final class StudentClassificationViewModel: BaseViewModel {
-    typealias Dependencies = HasGradesAPI & HasCourseRepository & HasSceneCoordinator
+    typealias Dependencies = HasGradesAPI & HasCourseRepository & HasSceneCoordinator & HasSettingsRepository
 
     // MARK: Public properties
 
@@ -50,7 +50,11 @@ final class StudentClassificationViewModel: BaseViewModel {
             }
             .flatMap { [weak self] classifications -> Observable<Void> in
                 guard let self = self else { return Observable.empty() }
-                return self.dependencies.gradesApi.putStudentsClassifications(courseCode: self.course.code, data: classifications)
+                let settings = self.dependencies.settingsRepository.currentSettings.value
+
+                return self.dependencies.gradesApi.putStudentsClassifications(courseCode: self.course.code,
+                                                                              data: classifications,
+                                                                              notify: settings.sendingNotificationsEnabled)
             }
             .do(onCompleted: { [weak self] in
                 self?.bindDataSource()

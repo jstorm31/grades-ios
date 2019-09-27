@@ -29,7 +29,7 @@ protocol GradesAPIProtocol {
 
     // MARK: PUT
 
-    func putStudentsClassifications(courseCode: String, data: [StudentClassification]) -> Observable<Void>
+    func putStudentsClassifications(courseCode: String, data: [StudentClassification], notify: Bool) -> Observable<Void>
     func markNotificationRead(username: String, notificationId: Int) -> Observable<Void>
 }
 
@@ -166,7 +166,7 @@ final class GradesAPI: GradesAPIProtocol {
                 User(id: 2, username: "janatpa3", firstName: "Pavel", lastName: "Janata"),
                 User(id: 1, username: "rousemat", firstName: "Matyáš", lastName: "Rousek"),
                 User(id: 3, username: "ottastep", firstName: "Štěpán", lastName: "Otta")
-            ]).delaySubscription(1, scheduler: MainScheduler.instance)
+            ]).delaySubscription(.seconds(1), scheduler: MainScheduler.instance)
         } else {
             // Get from API in Release
             let url = createURL(from: .courseStudents(courseCode, "MY_PARALLELS"))
@@ -176,9 +176,17 @@ final class GradesAPI: GradesAPIProtocol {
 
     // MARK: PUT requests
 
-    func putStudentsClassifications(courseCode: String, data: [StudentClassification]) -> Observable<Void> {
+    func putStudentsClassifications(courseCode: String, data: [StudentClassification], notify: Bool = true) -> Observable<Void> {
         let url = createURL(from: .studentsClassifications(courseCode))
-        return httpService.put(url: url, parameters: [:], body: data)
+        var parameters: [String: Any] = [
+            "notify": notify
+        ]
+
+        if let semester = dependencies.settingsRepository.currentSettings.value.semester {
+            parameters["semester"] = semester
+        }
+
+        return httpService.put(url: url, parameters: parameters, body: data)
     }
 
     func markNotificationRead(username: String, notificationId: Int) -> Observable<Void> {
@@ -188,6 +196,7 @@ final class GradesAPI: GradesAPIProtocol {
 
     // MARK: helpers
 
+    // swiftlint:disable cyclomatic_complexity
     private func createURL(from endpoint: Endpoint) -> URL {
         var endpointValue = ""
 

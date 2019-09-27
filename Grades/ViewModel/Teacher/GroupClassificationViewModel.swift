@@ -10,15 +10,25 @@ import Action
 import RxCocoa
 import RxSwift
 
-final class GroupClassificationViewModel: TablePickerViewModel {
-    typealias Dependencies = HasTeacherRepository & HasGradesAPI
+final class GroupClassificationViewModel: TablePickerViewModel, SortableDataViewModel {
+    typealias Dependencies = HasTeacherRepository & HasGradesAPI & HasSettingsRepository
 
     // MARK: public properties
 
-    let dataSource = BehaviorRelay<[TableSection]>(value: [])
+    let dataSource = BehaviorRelay<[DynamicValueCellViewModel]>(value: [])
     let isloading = BehaviorSubject<Bool>(value: false)
     let error = PublishSubject<Error>()
+    let sorters = BehaviorSubject<[StudentClassificationSorter]>(value: [StudentClassificationNameSorter(),
+                                                                         StudentClassificationValueSorter()])
+
+    let groupsCellViewModel = PickerCellViewModel(title: L10n.Teacher.Students.group)
+    let classificationsCellViewModel = PickerCellViewModel(title: L10n.Teacher.Students.classification)
+
+    // MARK: input
+
     let refreshData = BehaviorSubject<Void>(value: ())
+    let activeSorterIndex = BehaviorSubject<Int>(value: 0)
+    let isAscending = BehaviorSubject<Bool>(value: true)
 
     lazy var selectedCellOptionIndex: Observable<Int> = {
         selectedCellIndex
@@ -52,7 +62,11 @@ final class GroupClassificationViewModel: TablePickerViewModel {
             }
             .flatMap { [weak self] classifications -> Observable<Void> in
                 guard let self = self else { return Observable.empty() }
-                return self.dependencies.gradesApi.putStudentsClassifications(courseCode: self.course.code, data: classifications)
+                let settings = self.dependencies.settingsRepository.currentSettings.value
+
+                return self.dependencies.gradesApi.putStudentsClassifications(courseCode: self.course.code,
+                                                                              data: classifications,
+                                                                              notify: settings.sendingNotificationsEnabled)
             }
             .do(onCompleted: { [weak self] in
                 self?.refreshData.onNext(())
@@ -68,9 +82,6 @@ final class GroupClassificationViewModel: TablePickerViewModel {
 
     private let groupSelectedIndex = BehaviorRelay<Int>(value: 0)
     private let classificationSelectedIndex = BehaviorRelay<Int>(value: 0)
-
-    private let groupsCellViewModel = PickerCellViewModel(title: L10n.Teacher.Students.group)
-    private let classificationsCellViewModel = PickerCellViewModel(title: L10n.Teacher.Students.classification)
 
     private var dynamicCellViewModels = [DynamicValueCellViewModel]()
 
@@ -106,24 +117,11 @@ final class GroupClassificationViewModel: TablePickerViewModel {
                         return (classifications[classificationIndex], groupIndex, classificationIndex)
                     }
             }
-            .flatMap { [weak self] arg -> Observable<TableSection> in
+            .flatMap { [weak self] arg -> Observable<[DynamicValueCellViewModel]> in
+                guard let self = self else { return Observable.empty() }
                 let (classification, groupIndex, classificationIndex) = arg
 
-                return self?.studentClassifications(classification, groupIndex, classificationIndex)
-                    .map { studentClassifications in
-                        TableSection(header: L10n.Teacher.Group.students, items: studentClassifications)
-                    } ?? Observable.empty()
-            }
-            .map { [weak self] itemsSection in
-                guard let self = self else { return [] }
-
-                return [
-                    TableSection(header: "", items: [
-                        PickerCellConfigurator(item: self.groupsCellViewModel),
-                        PickerCellConfigurator(item: self.classificationsCellViewModel)
-                    ]),
-                    itemsSection
-                ]
+                return self.studentClassifications(classification, groupIndex, classificationIndex)
             }
             .bind(to: dataSource)
             .disposed(by: bag)
@@ -137,7 +135,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
     /// Initialize and bind CellViewModel for each item
     private func studentClassifications(_ classification: Classification,
                                         _ groupIndex: Int,
-                                        _ classificationIndex: Int) -> Observable<[DynamicValueCellConfigurator]> {
+                                        _ classificationIndex: Int) -> Observable<[DynamicValueCellViewModel]> {
         let groupCode = teacherRepository.groups.value[groupIndex]
         let classificationId = teacherRepository.classifications.value[classificationIndex]
 
@@ -146,10 +144,22 @@ final class GroupClassificationViewModel: TablePickerViewModel {
             .do(onNext: { [weak self] _ in
                 self?.dynamicCellViewModels = [] // Reset view models array to clean memory
             })
-            .map { [weak self] (classifications: [StudentClassification]) -> [DynamicValueCellConfigurator] in
+            // Sort by current sorter selected
+            .flatMap { [weak self] classifications -> Observable<[StudentClassification]> in
+                guard let self = self else { return Observable.empty() }
+
+                return Observable.combineLatest(self.activeSorterIndex, self.isAscending) { [weak self] sorterIndex, isAscending in
+                    guard let sorters = try self?.sorters.value(),
+                        sorters.indices.contains(sorterIndex) else { return [] }
+
+                    let sorted = sorters[sorterIndex].sort(classifications, ascending: isAscending)
+                    return sorted
+                }
+            }
+            .map { [weak self] (classifications: [StudentClassification]) -> [DynamicValueCellViewModel] in
                 guard let self = self else { return [] }
 
-                return classifications.map { (item: StudentClassification) -> DynamicValueCellConfigurator in
+                return classifications.map { (item: StudentClassification) -> DynamicValueCellViewModel in
                     let cellViewModel = DynamicValueCellViewModel(
                         valueType: classification.valueType,
                         evaluationType: classification.evaluationType,
@@ -160,7 +170,7 @@ final class GroupClassificationViewModel: TablePickerViewModel {
                     cellViewModel.value.accept(item.value)
                     self.dynamicCellViewModels.append(cellViewModel)
 
-                    return DynamicValueCellConfigurator(item: cellViewModel)
+                    return cellViewModel
                 }
             }
     }

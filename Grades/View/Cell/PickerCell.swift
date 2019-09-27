@@ -14,9 +14,9 @@ typealias PickerCellConfigurator = TableCellConfigurator<PickerCell, PickerCellV
 
 final class PickerCell: BasicCell, ConfigurableCell {
     private var pickerLabel: UIPickerLabel!
+    private(set) var bag = DisposeBag()
 
     var viewModel: PickerCellViewModel!
-    private(set) var bag = DisposeBag()
 
     // MARK: initialization
 

@@ -6,7 +6,17 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+/// Model for settings
 struct Settings: Codable {
     var language: Language
     var semester: String?
+    var sendingNotificationsEnabled: Bool
+}
+
+/// Struct for settings view
+struct SettingsView {
+    let name: String
+    let roles: String
+    let options: PickerCellViewModel
+    let sendingNotificationsEnabled: SwitchCellViewModel?
 }

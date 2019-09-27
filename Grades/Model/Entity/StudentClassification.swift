@@ -12,7 +12,9 @@ struct StudentClassification {
     var lastName: String = ""
     var username: String
     var value: DynamicValue?
+}
 
+extension StudentClassification {
     init(identifier: String, username: String, value: DynamicValue?) {
         ident = identifier
         self.username = username
@@ -30,16 +32,18 @@ extension StudentClassification: Codable {
 
 extension StudentClassification: Comparable {
     static func == (lhs: StudentClassification, rhs: StudentClassification) -> Bool {
-        return lhs.username == rhs.username
+        return lhs.lastName == rhs.lastName && lhs.firstName == rhs.firstName && lhs.username == rhs.username
     }
 
     static func < (lhs: StudentClassification, rhs: StudentClassification) -> Bool {
-        if lhs.lastName.localizedCompare(rhs.lastName).rawValue < 0 {
-            return true
+        let lastName = lhs.lastName.localizedCompare(rhs.lastName)
+        if lastName != .orderedSame {
+            return lastName == .orderedAscending
         }
 
-        if lhs.firstName.localizedCompare(rhs.firstName).rawValue < 0 {
-            return true
+        let firstName = lhs.firstName.localizedCompare(rhs.firstName)
+        if firstName != .orderedSame {
+            return firstName == .orderedAscending
         }
 
         return lhs.username < rhs.username

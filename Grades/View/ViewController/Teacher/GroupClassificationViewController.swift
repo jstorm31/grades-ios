@@ -17,6 +17,8 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
     var pickerView: UIPickerView!
     var pickerTextField: UITextField!
     private var saveButton: UIBarButtonItem!
+    private var sortOrderButton: UIButton!
+    private var sortButtonsStack: UIStackView!
 
     // MARK: properties
 
@@ -65,24 +67,16 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
     // MARK: bindings
 
     func bindViewModel() {
-        let dataSource = viewModel.dataSource.share()
-
-        dataSource
-            .asDriver(onErrorJustReturn: [])
-            .drive(tableView.rx.items(dataSource: self.dataSource))
-            .disposed(by: bag)
-
-        dataSource
-            .map { $0.count > 1 ? !$0[1].items.isEmpty : false }
-            .asDriver(onErrorJustReturn: true)
-            .drive(noContentLabel.rx.isHidden)
-            .disposed(by: bag)
+        bindDataSource()
+        bindSorters()
 
         viewModel.options
             .map { options in options.map { $0 } }
             .asDriver(onErrorJustReturn: [])
             .drive(pickerView.rx.itemTitles) { _, element in element }
             .disposed(by: bag)
+
+        // Loading and error
 
         let isLoading = viewModel.isloading.share(replay: 2, scope: .whileConnected)
         isLoading.skip(2).asDriver(onErrorJustReturn: false).drive(tableView.refreshControl!.rx.isRefreshing).disposed(by: bag)
@@ -95,6 +89,91 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
         viewModel.selectedCellOptionIndex.asDriver(onErrorJustReturn: 0)
             .drive(onNext: { [weak self] index in
                 self?.pickerView.selectRow(index, inComponent: 0, animated: true)
+            })
+            .disposed(by: bag)
+    }
+
+    func bindDataSource() {
+        let dataSource = viewModel.dataSource
+            .map { classifications in
+                TableSection(header: L10n.Teacher.Group.students, items: classifications.map { DynamicValueCellConfigurator(item: $0) })
+            }
+            .map { [weak self] itemsSection -> [TableSection] in
+                guard let self = self else { return [] }
+
+                return [
+                    TableSection(header: "", items: [
+                        PickerCellConfigurator(item: self.viewModel.groupsCellViewModel),
+                        PickerCellConfigurator(item: self.viewModel.classificationsCellViewModel)
+                    ]),
+                    itemsSection
+                ]
+            }
+            .share()
+
+        // Datasource
+
+        dataSource
+            .asDriver(onErrorJustReturn: [])
+            .drive(tableView.rx.items(dataSource: self.dataSource))
+            .disposed(by: bag)
+
+        dataSource
+            .map { $0.count > 1 ? !$0[1].items.isEmpty : false }
+            .asDriver(onErrorJustReturn: true)
+            .drive(noContentLabel.rx.isHidden)
+            .disposed(by: bag)
+    }
+
+    func bindSorters() {
+        viewModel.sorters
+            .do(onNext: { [weak self] _ in
+                guard let self = self, let stack = self.sortButtonsStack?.subviews else { return }
+
+                // Clean filter buttons from StackView (position 1 and more, because there is also a label)
+                for view in stack {
+                    self.sortButtonsStack.removeArrangedSubview(view)
+                    view.removeFromSuperview()
+                }
+            })
+            .map { $0.map { $0.title } }
+            .asDriver(onErrorJustReturn: [])
+            .drive(onNext: { [weak self] sorters in
+                // Add a button for each sorter
+                for (index, title) in sorters.enumerated() {
+                    let sorterButton = UIButton()
+                    sorterButton.setTitleColor(UIColor.Theme.secondary, for: .normal)
+                    sorterButton.titleLabel?.font = UIFont.Grades.body
+                    sorterButton.setTitle(title, for: .normal)
+                    sorterButton.tag = index
+                    sorterButton.addTarget(self, action: #selector(self?.sorterButtonTapped(sender:)), for: .touchUpInside)
+                    self?.sortButtonsStack.addArrangedSubview(sorterButton)
+                }
+            })
+            .disposed(by: bag)
+
+        // Make the active sorter button bold
+        viewModel.activeSorterIndex
+            .asDriver(onErrorJustReturn: 0)
+            .drive(onNext: { [weak self] activeIndex in
+                guard let self = self, self.sortButtonsStack.subviews.indices.contains(activeIndex) else { return }
+
+                for (index, view) in self.sortButtonsStack.subviews.enumerated() {
+                    if let activeButton = view as? UIButton {
+                        activeButton.titleLabel?.font = activeIndex == index ? UIFont.Grades.boldBody : UIFont.Grades.body
+                    }
+                }
+            })
+            .disposed(by: bag)
+
+        // Sort order icon
+        viewModel.isAscending
+            .skip(1)
+            .asDriver(onErrorJustReturn: true)
+            .drive(onNext: { [weak self] isAscending in
+                UIView.animate(withDuration: 0.25, animations: { [weak self] in
+                    self?.sortOrderButton.transform = isAscending ? .identity : CGAffineTransform(rotationAngle: .pi)
+                })
             })
             .disposed(by: bag)
     }
@@ -153,6 +232,53 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
 
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: nil, action: nil)
         self.saveButton = saveButton
+
+        loadSorters()
+    }
+
+    func loadSorters() {
+        let filtersStack = UIStackView()
+        filtersStack.axis = .horizontal
+        filtersStack.distribution = .fill
+        filtersStack.alignment = .center
+        filtersStack.spacing = 10
+        view.addSubview(filtersStack)
+        filtersStack.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(20)
+        }
+
+        // Sort title
+        let filtersTitle = UILabel()
+        filtersTitle.font = UIFont.Grades.body
+        filtersTitle.textColor = UIColor.Theme.text
+        filtersTitle.text = L10n.Sorter.title
+        filtersStack.addArrangedSubview(filtersTitle)
+
+        // Sort buttons stack
+        let sortButtonsStack = UIStackView()
+        sortButtonsStack.axis = .horizontal
+        sortButtonsStack.spacing = 20
+        filtersStack.addArrangedSubview(sortButtonsStack)
+        self.sortButtonsStack = sortButtonsStack
+
+        // Fill rest of space -> results in aligning items to left
+        let spacer = UIView()
+        spacer.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        filtersStack.addArrangedSubview(spacer)
+
+        // Asc/desc button
+        let orderButton = UIButton()
+        orderButton.setImage(UIImage(named: "SortOrder"), for: .normal)
+        orderButton.addTarget(self, action: #selector(sortOrderButtonTapped(sender:)), for: .touchUpInside)
+        filtersStack.addArrangedSubview(orderButton)
+        sortOrderButton = orderButton
+
+        // Remake constraints of table view
+        tableView.snp.remakeConstraints { make in
+            make.top.equalTo(filtersStack.snp.bottom).offset(10)
+            make.leading.trailing.bottom.equalToSuperview()
+        }
     }
 
     private func configurePickerCell(_ cell: inout UITableViewCell, _ title: String, _ options: [String], _ valueIndex: Int) {
@@ -180,6 +306,18 @@ final class GroupClassificationViewController: BaseTableViewController, Bindable
 
     @objc private func refreshControlPulled(_: UIRefreshControl) {
         viewModel.refreshData.onNext(())
+    }
+
+    @objc private func sorterButtonTapped(sender: UIButton) {
+        viewModel.activeSorterIndex.onNext(sender.tag)
+    }
+
+    @objc private func sortOrderButtonTapped(sender _: UIButton) {
+        do {
+            viewModel.isAscending.onNext(try !viewModel.isAscending.value())
+        } catch {
+            Log.error("Problem setting asscending")
+        }
     }
 }
 

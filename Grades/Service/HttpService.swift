@@ -100,7 +100,15 @@ final class HttpService: NSObject, HttpServiceProtocol {
 
     /// Make HTTP PUT request
     func put<T>(url: URL, parameters: HttpParameters? = nil, body: T) -> Observable<Void> where T: Encodable {
-        return request(url, method: .PUT, parameters: parameters, headers: defaultHeaders, body: body)
+        var headers = defaultHeaders
+
+        if let parameters = parameters {
+            for (key, value) in parameters {
+                headers[key] = "\(value)"
+            }
+        }
+
+        return request(url, method: .PUT, parameters: nil, headers: headers, body: body)
     }
 
     func put(url: URL) -> Observable<Void> {

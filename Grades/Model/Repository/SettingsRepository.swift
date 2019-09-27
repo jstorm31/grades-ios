@@ -47,7 +47,7 @@ final class SettingsRepository: SettingsRepositoryProtocol {
         let language = Locale.current.languageCode ?? EnvironmentConfiguration.shared.defaultLanguage
         let defaultLanguage = Language.language(forString: language)
 
-        let defaultSettings = Settings(language: defaultLanguage, semester: currentSemesterCode)
+        let defaultSettings = Settings(language: defaultLanguage, semester: currentSemesterCode, sendingNotificationsEnabled: true)
         currentSettings = BehaviorRelay<Settings>(value: defaultSettings)
 
         if let loadedSettings = loadSettings() {
@@ -55,6 +55,14 @@ final class SettingsRepository: SettingsRepositoryProtocol {
         }
 
         updateLocale()
+
+        // Observe changing settings
+        currentSettings
+            .skip(2)
+            .subscribe(onNext: { [weak self] _ in
+                self?.saveSettings()
+            })
+            .disposed(by: bag)
     }
 
     // MARK: methods
@@ -72,7 +80,6 @@ final class SettingsRepository: SettingsRepositoryProtocol {
         var newSettings = currentSettings.value
         newSettings.semester = semesterOptions.value[index]
         currentSettings.accept(newSettings)
-        saveSettings()
     }
 
     func logout() {

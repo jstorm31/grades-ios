@@ -4,7 +4,8 @@ import UIKit
 /// - Note: Call `addKeyboardFrameChangesObserver()` on init, e.g. on `viewWillAppear`
 /// 			and `removeKeyboardFrameChangesObserver()` on deinit, e.g. on `viewDidDisappear`
 public protocol KeyboardChangeFrameObserver: AnyObject {
-    func willChangeKeyboardFrame(height: CGFloat, offset: CGFloat, animationDuration: TimeInterval, animationOptions: UIView.AnimationOptions)
+    func willChangeKeyboardFrame(height: CGFloat, offset: CGFloat, animationDuration: TimeInterval,
+                                 animationOptions: UIView.AnimationOptions)
 }
 
 public extension KeyboardChangeFrameObserver {

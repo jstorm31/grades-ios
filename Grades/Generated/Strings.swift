@@ -118,6 +118,11 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "settings.title")
         /// User
         internal static let user = L10n.tr("Localizable", "settings.user")
+        internal enum Teacher {
+            /// Send notifications to students
+            internal static let sendNotifications = L10n.tr("Localizable", "settings.teacher.sendNotifications")
+        }
+
         internal enum User {
             /// Name
             internal static let name = L10n.tr("Localizable", "settings.user.name")
@@ -126,12 +131,21 @@ internal enum L10n {
         }
     }
 
+    internal enum Sorter {
+        /// Name
+        internal static let name = L10n.tr("Localizable", "sorter.name")
+        /// Sort by:
+        internal static let title = L10n.tr("Localizable", "sorter.title")
+        /// Value
+        internal static let value = L10n.tr("Localizable", "sorter.value")
+    }
+
     internal enum Students {
         /// Search student
         internal static let search = L10n.tr("Localizable", "students.search")
         /// Students
         internal static let title = L10n.tr("Localizable", "students.title")
-        /// Grades have been successfully updated.
+        /// Evaluation has been updated.
         internal static let updateSuccess = L10n.tr("Localizable", "students.updateSuccess")
     }
 

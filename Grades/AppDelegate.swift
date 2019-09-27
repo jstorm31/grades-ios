@@ -65,7 +65,7 @@ private extension AppDelegate {
     func resetStateIfUITesting() {
         if ProcessInfo.processInfo.arguments.contains("--ui-testing") {
             // Reset semester
-            if let encoded = try? JSONEncoder().encode(Settings(language: .english, semester: "B182")) {
+            if let encoded = try? JSONEncoder().encode(Settings(language: .english, semester: "B182", sendingNotificationsEnabled: false)) {
                 UserDefaults.standard.set(encoded, forKey: "Settings")
             }
         }

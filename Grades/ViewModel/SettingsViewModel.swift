@@ -10,7 +10,7 @@ import Action
 import RxCocoa
 import RxSwift
 
-class SettingsViewModel: TablePickerViewModel {
+final class SettingsViewModel: TablePickerViewModel {
     typealias Dependencies = HasSettingsRepository & HasPushNotificationService & HasUserRepository
         & HasAuthenticationService & HasSceneCoordinator
 
@@ -19,10 +19,12 @@ class SettingsViewModel: TablePickerViewModel {
 
     private let semesterSelectedIndex = BehaviorRelay<Int>(value: 0)
     private let semesterCellViewModel = PickerCellViewModel(title: L10n.Settings.semester)
+    private let enableNotificationsViewModel = SwitchCellViewModel(title: L10n.Settings.Teacher.sendNotifications,
+                                                                   isEnabled: BehaviorRelay<Bool>(value: false))
 
     // MARK: output
 
-    let settings = BehaviorRelay<[TableSection]>(value: [])
+    let settings = BehaviorRelay<SettingsView?>(value: nil)
 
     lazy var selectedCellOptionIndex: Observable<Int> = {
         selectedCellIndex
@@ -75,37 +77,52 @@ class SettingsViewModel: TablePickerViewModel {
             .flatMap { [weak self] _ in
                 self?.dependencies.userRepository.user.unwrap() ?? Observable.empty()
             }
-            .map { [weak self] user in
-                guard let self = self else { return [] }
-
-                return [
-                    TableSection(header: L10n.Settings.user, items: [
-                        SettingsCellConfigurator(item: (title: L10n.Settings.User.name, content: user.toString)),
-                        SettingsCellConfigurator(item: (
-                            title: L10n.Settings.User.roles,
-                            content: user.roles.map { $0.toString() }.joined(separator: ", ")
-                        ))
-                    ]),
-                    TableSection(header: L10n.Settings.options, items: [
-                        PickerCellConfigurator(item: self.semesterCellViewModel)
-                    ]),
-                    TableSection(header: L10n.Settings.other, items: [
-                        LinkCellConfigurator(item: L10n.Settings.about),
-                        LinkCellConfigurator(item: L10n.Settings.license)
-                    ])
-                ]
+            .flatMap { [weak self] user in
+                self?.dependencies.settingsRepository.currentSettings
+                    .map { (user, $0) } ?? Observable.empty()
             }
+            .map { [weak self] user, _ in
+                guard let self = self else { return nil }
+
+                let isTeacher = user.roles.contains(.teacher)
+
+                return SettingsView(name: user.toString,
+                                    roles: user.roles.map { $0.toString() }.joined(separator: ", "),
+                                    options: self.semesterCellViewModel,
+                                    sendingNotificationsEnabled: isTeacher ? self.enableNotificationsViewModel : nil)
+            }
+            .unwrap()
             .bind(to: settings)
             .disposed(by: bag)
 
         // Initial value of semester
-        dependencies.settingsRepository.currentSettings
+        let currentSettings = dependencies.settingsRepository.currentSettings.share(replay: 2, scope: .whileConnected)
+
+        currentSettings
             .map { $0.semester }
             .unwrap()
             .flatMap { [weak self] semester -> Observable<Int> in
                 self?.dependencies.settingsRepository.semesterOptions.map { $0.firstIndex(of: semester) ?? 0 } ?? Observable.just(0)
             }
             .bind(to: semesterSelectedIndex)
+            .disposed(by: bag)
+
+        // Bind enableNotificationsViewModel both ways
+
+        currentSettings
+            .map { $0.sendingNotificationsEnabled }
+            .bind(to: enableNotificationsViewModel.isEnabled)
+            .disposed(by: bag)
+
+        enableNotificationsViewModel.isEnabled
+            .distinctUntilChanged()
+            .map { [weak self] isEnabled in
+                var settings = self?.dependencies.settingsRepository.currentSettings.value
+                settings?.sendingNotificationsEnabled = isEnabled
+                return settings
+            }
+            .unwrap()
+            .bind(to: dependencies.settingsRepository.currentSettings)
             .disposed(by: bag)
 
         bindOptions()

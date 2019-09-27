@@ -1,7 +1,9 @@
 github "SnapKit/SnapKit" ~> 4.0.0
 github "OAuthSwift/OAuthSwift" ~> 1.2.0
-github "RxSwiftCommunity/RxDataSources" ~> 3.0
-github "RxSwiftCommunity/Action" ~> 3.6.0
+github "ReactiveX/RxSwift" ~> 5.0.0
+github "RxSwiftCommunity/RxDataSources" ~> 4.0.1
+github "RxSwiftCommunity/Action" ~> 4.0.1
+github "RxSwiftCommunity/RxBiBinding"
 github "scalessec/Toast-Swift" ~> 4.0.0
 github "httpswift/swifter" ~> 1.4.6
 github "jrendel/SwiftKeychainWrapper" ~> 3.3

@@ -36,6 +36,7 @@
 "settings.other" = "Ostatní";
 "settings.about" = "O aplikaci";
 "settings.license" = "Licence";
+"settings.teacher.sendNotifications" = "Odesílat notifikace studentům";
 
 "teacher.tab.group" = "Detail";
 "teacher.students.group" = "Skupina";
@@ -46,6 +47,10 @@
 "teacher.students.changeButton" = "Změnit";
 "teacher.students.finalGradeEmpty" = "Chybí celkové hodnocení";
 "teacher.students.grading" = "Klasifikace";
+
+"sorter.title" = "Řadit podle:";
+"sorter.name" = "Jména";
+"sorter.value" = "Hodnoty";
 
 "students.title" = "Studenti";
 "students.search" = "Hledat studenta";

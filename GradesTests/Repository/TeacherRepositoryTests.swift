@@ -23,7 +23,7 @@ class TeacherRepositoryTests: XCTestCase {
 	
 	func testGroupOptions() {
 		gradesApi.result = .success
-		let groups = repository.groups.observeOn(scheduler).debug("group", trimOutput: false)
+		let groups = repository.groups.observeOn(scheduler)
 		repository.getGroupOptions(forCourse: "")
 		let result = try! groups.skip(1).toBlocking(timeout: 2).first()!
 
@@ -32,7 +32,7 @@ class TeacherRepositoryTests: XCTestCase {
 	
 	func testClassificationOptions() {
 		gradesApi.result = .success
-		let classifications = repository.classifications.observeOn(scheduler).debug("class", trimOutput: true)
+		let classifications = repository.classifications.observeOn(scheduler)
 		repository.getClassificationOptions(forCourse: "")
 		let result = try! classifications.skip(1).toBlocking(timeout: 3).first()!
 		

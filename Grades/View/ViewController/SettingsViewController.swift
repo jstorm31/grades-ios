@@ -41,6 +41,7 @@ final class SettingsViewController: BaseTableViewController,
         tableView.register(SettingsCell.self, forCellReuseIdentifier: "SettingsCell")
         tableView.register(PickerCell.self, forCellReuseIdentifier: "PickerCell")
         tableView.register(LinkCell.self, forCellReuseIdentifier: "LinkCell")
+        tableView.register(SwitchCell.self, forCellReuseIdentifier: "SwitchCell")
 
         navigationItem.title = L10n.Settings.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: L10n.Settings.logout,
@@ -99,10 +100,7 @@ final class SettingsViewController: BaseTableViewController,
     }
 
     func bindViewModel() {
-        viewModel.settings
-            .asDriver(onErrorJustReturn: [])
-            .drive(tableView.rx.items(dataSource: dataSource))
-            .disposed(by: bag)
+        bindSettings()
 
         viewModel.options
             .map { options in options.map { $0 } }
@@ -114,6 +112,33 @@ final class SettingsViewController: BaseTableViewController,
             .drive(onNext: { [weak self] index in
                 self?.pickerView.selectRow(index, inComponent: 0, animated: true)
             })
+            .disposed(by: bag)
+    }
+
+    func bindSettings() {
+        viewModel.settings
+            .unwrap()
+            .map { settings in
+                var optionItems: [CellConfigurator] = [PickerCellConfigurator(item: settings.options)]
+
+                if let notificationsEnabled = settings.sendingNotificationsEnabled {
+                    optionItems.append(SwitchCellConfigurator(item: notificationsEnabled))
+                }
+
+                return [
+                    TableSection(header: L10n.Settings.user, items: [
+                        SettingsCellConfigurator(item: (title: L10n.Settings.User.name, content: settings.name)),
+                        SettingsCellConfigurator(item: (title: L10n.Settings.User.roles, content: settings.roles))
+                    ]),
+                    TableSection(header: L10n.Settings.options, items: optionItems),
+                    TableSection(header: L10n.Settings.other, items: [
+                        LinkCellConfigurator(item: L10n.Settings.about),
+                        LinkCellConfigurator(item: L10n.Settings.license)
+                    ])
+                ]
+            }
+            .asDriver(onErrorJustReturn: [])
+            .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
     }
 
