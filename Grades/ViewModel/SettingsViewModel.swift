@@ -43,7 +43,6 @@ final class SettingsViewModel: TablePickerViewModel {
     lazy var logoutAction = CocoaAction { [weak self] in
         guard let self = self else { return Observable.empty() }
 
-        UserDefaults.standard.removeObject(forKey: Constants.gdprCompliant)
         self.dependencies.authService.logOut()
 
         return self.dependencies.pushNotificationsService.unregisterUserFromDevice()

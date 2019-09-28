@@ -7,5 +7,7 @@
 //
 
 enum Constants {
-    static let gdprCompliant = "GdprCompliant"
+    static func gdprCompliantKey(for user: String) -> String {
+        return "GdprCompliant.\(user)"
+    }
 }

@@ -62,39 +62,56 @@ final class LoginViewModel: BaseViewModel {
             return Observable.empty()
         }
 
-        let gdprState = gdprSetup()
+        return dependencies.gradesApi.getUser()
+            .do(onNext: { [weak self] user in
+                // Save fetched user data
+                self?.dependencies.userRepository.user.accept(user)
+            })
+            .map { [weak self] user in
+                // Get GDPR state (if user is a student) and forward user data
+                var gdprState: GdprState?
+
+                if user.isStudent {
+                    gdprState = self?.gdprSetup(for: user)
+                }
+                return (user, gdprState)
+            }
+            .flatMap(handleGdpr)
+            .flatMap(dependencies.settingsRepository.fetchCurrentSemester)
+            .map { _ in }
+            .do(onNext: { [weak self] _ in
+                self?.transitionToCourseList()
+            })
+    }
+
+    /// Show GDPR and notification alerts if user is a student
+    private func handleGdpr(user: User, gdprState: GdprState?) -> Observable<Void> {
+        guard let gdprState = gdprState, user.isStudent else {
+            return Observable.just(())
+        }
 
         return gdprCompliant
             .unwrap()
+            .take(1)
             .do(onNext: { isCompliant in
                 if case .unset = gdprState {
+                    // Save new state
                     UserDefaults.standard.set(isCompliant ? GdprState.accepted.rawValue : GdprState.declined.rawValue,
-                                              forKey: Constants.gdprCompliant)
+                                              forKey: Constants.gdprCompliantKey(for: user.username))
                 }
             })
             .flatMap { [weak self] isCompliant -> Observable<Void> in
+                // Start the notification service
                 if isCompliant {
                     return self?.dependencies.pushNotificationsService.start() ?? Observable.empty()
                 }
                 return Observable.just(())
             }
-            .take(1)
-            .map { _ in }
-            .flatMap(dependencies.settingsRepository.fetchCurrentSemester)
-            .map { _ in }
-            .flatMap(dependencies.gradesApi.getUser)
-            .debug()
-            .do(onNext: { [weak self] user in
-                self?.gdprCompliant.onNext(nil) // Clear state to prevent auto log in on next time
-                self?.dependencies.userRepository.user.accept(user)
-                self?.transitionToCourseList()
-            })
-            .map { _ in }
     }
 
-    @discardableResult
-    private func gdprSetup() -> GdprState {
-        let gdprState = GdprState(rawValue: UserDefaults.standard.integer(forKey: Constants.gdprCompliant)) ?? .unset
+    private func gdprSetup(for user: User) -> GdprState {
+        let gdprValue = UserDefaults.standard.integer(forKey: Constants.gdprCompliantKey(for: user.username))
+        let gdprState = GdprState(rawValue: gdprValue) ?? .unset
 
         switch gdprState {
         case .unset:
