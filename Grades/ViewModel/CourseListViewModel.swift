@@ -126,13 +126,11 @@ final class CourseListViewModel: BaseViewModel {
 
     private func loadFilters() {
         if let filters = UserDefaults.standard.stringArray(forKey: Constants.courseFilters) {
-            Log.debug("Filters loaded: \(filters)")
             hiddenCourses.accept(filters)
         }
     }
 
     func saveFilters() {
         UserDefaults.standard.set(hiddenCourses.value, forKey: Constants.courseFilters)
-        Log.debug("Filters saved: \(hiddenCourses.value)")
     }
 }
