@@ -75,8 +75,9 @@ final class CourseListViewController: BaseTableViewController, TableDataSource, 
 
     func bindViewModel() {
         let coursesObservable = viewModel.dataSource.share(replay: 1, scope: .whileConnected)
+        let isEditingShared = isEditingSubject.share(replay: 1, scope: .whileConnected)
 
-        isEditingSubject
+        isEditingShared
             .flatMap { [weak self] isEditing -> Observable<CoursesByRoles> in
                 if let self = self, isEditing {
                     return self.viewModel.courses.asObservable()
@@ -105,6 +106,27 @@ final class CourseListViewController: BaseTableViewController, TableDataSource, 
             }
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: dataSource))
+            .disposed(by: bag)
+        
+        // Select unhidden cells
+        isEditingShared
+            .filter { $0 == true }
+            .flatMap { [weak self] _ in
+                self?.viewModel.hiddenCourses ?? Observable.empty()
+            }
+            .subscribe(onNext: { [weak self] hiddenCourses in
+                guard let self = self else { return }
+
+                for hiddenIndexPath in hiddenCourses {
+                    for cell in self.tableView.visibleCells {
+                        let indexPath = self.tableView.indexPath(for: cell)!
+
+                        if indexPath != hiddenIndexPath {
+                            self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                        }
+                    }
+                }
+            })
             .disposed(by: bag)
 
         coursesObservable
