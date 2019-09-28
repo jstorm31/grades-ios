@@ -129,6 +129,11 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "settings.title")
         /// User
         internal static let user = L10n.tr("Localizable", "settings.user")
+        internal enum Student {
+            /// Hide courses with no data
+            internal static let hideEmptyCourses = L10n.tr("Localizable", "settings.student.hideEmptyCourses")
+        }
+
         internal enum Teacher {
             /// Send notifications to students
             internal static let sendNotifications = L10n.tr("Localizable", "settings.teacher.sendNotifications")

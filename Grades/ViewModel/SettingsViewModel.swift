@@ -18,9 +18,12 @@ final class SettingsViewModel: TablePickerViewModel {
     private let bag = DisposeBag()
 
     private let semesterSelectedIndex = BehaviorRelay<Int>(value: 0)
+
+    // MARK: cell view models
+
     private let semesterCellViewModel = PickerCellViewModel(title: L10n.Settings.semester)
-    private let enableNotificationsViewModel = SwitchCellViewModel(title: L10n.Settings.Teacher.sendNotifications,
-                                                                   isEnabled: BehaviorRelay<Bool>(value: false))
+    private let enableNotificationsViewModel = SwitchCellViewModel(title: L10n.Settings.Teacher.sendNotifications, isEnabled: false)
+    private let emptyCoursesHiddenViewModel = SwitchCellViewModel(title: L10n.Settings.Student.hideEmptyCourses, isEnabled: false)
 
     // MARK: output
 
@@ -92,12 +95,11 @@ final class SettingsViewModel: TablePickerViewModel {
             .map { [weak self] user, _ in
                 guard let self = self else { return nil }
 
-                let isTeacher = user.roles.contains(.teacher)
-
                 return SettingsView(name: user.toString,
                                     roles: user.roles.map { $0.toString() }.joined(separator: ", "),
                                     options: self.semesterCellViewModel,
-                                    sendingNotificationsEnabled: isTeacher ? self.enableNotificationsViewModel : nil)
+                                    sendingNotificationsEnabled: user.isTeacher ? self.enableNotificationsViewModel : nil,
+                                    emptyCoursesHidden: user.isStudent ? self.emptyCoursesHiddenViewModel : nil)
             }
             .unwrap()
             .bind(to: settings)

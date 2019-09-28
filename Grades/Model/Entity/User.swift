@@ -29,6 +29,10 @@ struct User {
         return roles.contains(.student)
     }
 
+    var isTeacher: Bool {
+        return roles.contains(.teacher)
+    }
+
     enum Role {
         case student, teacher
 
