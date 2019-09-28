@@ -50,6 +50,8 @@ final class CourseListViewModel: BaseViewModel {
     // MARK: methods
 
     func bindOutput() {
+        loadFilters()
+
         hiddenCourses
             .flatMap { [weak self] hiddenCourses -> Observable<CoursesByRoles> in
                 // Return filtered user courses
@@ -120,5 +122,17 @@ final class CourseListViewModel: BaseViewModel {
     private func transitionToTeacherCourse(_ course: TeacherCourse) {
         let teacherClassificationVM = TeacherClassificationViewModel(dependencies: AppDependency.shared, course: course)
         dependencies.coordinator.transition(to: .teacherClassification(teacherClassificationVM), type: .push)
+    }
+
+    private func loadFilters() {
+        if let filters = UserDefaults.standard.stringArray(forKey: Constants.courseFilters) {
+            Log.debug("Filters loaded: \(filters)")
+            hiddenCourses.accept(filters)
+        }
+    }
+
+    func saveFilters() {
+        UserDefaults.standard.set(hiddenCourses.value, forKey: Constants.courseFilters)
+        Log.debug("Filters saved: \(hiddenCourses.value)")
     }
 }

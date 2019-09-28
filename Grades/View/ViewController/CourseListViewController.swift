@@ -175,6 +175,11 @@ final class CourseListViewController: BaseTableViewController, TableDataSource, 
         // Toggle table view editing.
         tableView.setEditing(!tableView.isEditing, animated: true)
         isEditingSubject.onNext(tableView.isEditing)
+
+        // Save course filters
+        if !tableView.isEditing {
+            viewModel.saveFilters()
+        }
     }
 
     // MARK: actions
