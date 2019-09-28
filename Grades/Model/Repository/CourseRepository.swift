@@ -27,7 +27,7 @@ protocol CourseRepositoryProtocol {
 }
 
 final class CourseRepository: CourseRepositoryProtocol {
-    typealias Dependencies = HasGradesAPI
+    typealias Dependencies = HasGradesAPI & HasSettingsRepository
 
     // MARK: Properties
 
@@ -66,6 +66,12 @@ final class CourseRepository: CourseRepositoryProtocol {
         }
 
         return dependencies.gradesApi.getCourseStudentClassification(username: username, code: course.code)
+            .map { [weak self] classifications in
+                if let hidden = self?.dependencies.settingsRepository.currentSettings.value.undefinedEvaluationHidden, hidden == true {
+                    return classifications.filter { $0.isDefined }
+                }
+                return classifications
+            }
             .trackActivity(activityIndicator)
             .catchError { [weak self] error in
                 if let self = self {
