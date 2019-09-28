@@ -22,12 +22,14 @@ final class CourseListViewModel: BaseViewModel {
     // MARK: output
 
     let courses = BehaviorRelay<CoursesByRoles>(value: CoursesByRoles(student: [], teacher: []))
+    let dataSource = BehaviorSubject<CoursesByRoles>(value: CoursesByRoles(student: [], teacher: []))
     let isFetchingCourses = BehaviorSubject<Bool>(value: false)
     let coursesError = BehaviorSubject<Error?>(value: nil)
 
     // MARK: input
 
     let refresh = BehaviorSubject<Void>(value: ())
+    let hiddenCourses = BehaviorSubject<[IndexPath]>(value: [IndexPath(item: 1, section: 0)])
 
     // MARK: initialization
 
@@ -43,14 +45,34 @@ final class CourseListViewModel: BaseViewModel {
         dependencies.coursesRepository.userCourses
             .bind(to: courses)
             .disposed(by: bag)
-
-        dependencies.coursesRepository.isFetching.bind(to: isFetchingCourses).disposed(by: bag)
-        dependencies.coursesRepository.error.bind(to: coursesError).disposed(by: bag)
     }
 
     // MARK: methods
 
     func bindOutput() {
+        hiddenCourses
+            .flatMap { [weak self] hiddenCourses -> Observable<CoursesByRoles> in
+                // Return filtered user courses
+                self?.courses
+                    .map { courses in
+                        var filteredCourses = courses
+
+                        for indexPath in hiddenCourses {
+                            if indexPath.section == 0, !filteredCourses.student.isEmpty {
+                                filteredCourses.student.remove(at: indexPath.item)
+                            } else if indexPath.section == 1, !filteredCourses.teacher.isEmpty {
+                                filteredCourses.teacher.remove(at: indexPath.item)
+                            }
+                        }
+                        return filteredCourses
+                    } ?? Observable.empty()
+            }
+            .bind(to: dataSource)
+            .disposed(by: bag)
+
+        dependencies.coursesRepository.isFetching.bind(to: isFetchingCourses).disposed(by: bag)
+        dependencies.coursesRepository.error.bind(to: coursesError).disposed(by: bag)
+
         Observable.combineLatest(
             dependencies.userRepository.user.asObservable(),
             dependencies.settingsRepository.currentSettings.asObservable(),

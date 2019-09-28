@@ -12,8 +12,9 @@ import RxSwift
 import SnapKit
 import UIKit
 
-class CourseListViewController: BaseTableViewController, TableDataSource, BindableType {
+final class CourseListViewController: BaseTableViewController, TableDataSource, BindableType {
     var viewModel: CourseListViewModel!
+    private let isEditingSubject = BehaviorSubject<Bool>(value: false)
     private let bag = DisposeBag()
 
     internal var dataSource = configureDataSource()
@@ -24,8 +25,10 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
         super.loadView()
 
         navigationItem.title = L10n.Courses.title
+        navigationItem.rightBarButtonItem = editButtonItem
 
         loadRefreshControl()
+        tableView.allowsMultipleSelectionDuringEditing = true
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
     }
 
@@ -35,9 +38,17 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
         tableView.register(StudentCourseCell.self, forCellReuseIdentifier: "StudentCourseCell")
         tableView.register(TeacherCourseCell.self, forCellReuseIdentifier: "TeacherCourseCell")
 
+        dataSource.canEditRowAtIndexPath = { _, _ in
+            true
+        }
+
         tableView.rx.itemSelected.asDriver()
             .drive(onNext: { [weak self] indexPath in
-                self?.viewModel.onItemSelection(indexPath)
+                if let editing = self?.tableView.isEditing, !editing {
+                    self?.viewModel.onItemSelection(indexPath)
+                } else {
+                    Log.debug("Selected cell")
+                }
             })
             .disposed(by: bag)
 
@@ -63,9 +74,16 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
     // MARK: Bidning
 
     func bindViewModel() {
-        let coursesObservable = viewModel.courses.share()
+        let coursesObservable = viewModel.dataSource.share(replay: 1, scope: .whileConnected)
 
-        coursesObservable
+        isEditingSubject
+            .flatMap { [weak self] isEditing -> Observable<CoursesByRoles> in
+                if let self = self, isEditing {
+                    return self.viewModel.courses.asObservable()
+                }
+                return coursesObservable
+            }
+            .debug()
             .map { coursesByRoles in
                 var courses = [TableSection]()
 
@@ -112,6 +130,21 @@ class CourseListViewController: BaseTableViewController, TableDataSource, Bindab
             .drive(view.rx.errorMessage)
             .disposed(by: bag)
     }
+
+    // MARK: methods
+
+    override func setEditing(_: Bool, animated _: Bool) {
+        // Takes care of toggling the button's title.
+        super.setEditing(!isEditing, animated: true)
+
+        // Toggle table view editing.
+        tableView.setEditing(!tableView.isEditing, animated: true)
+        isEditingSubject.onNext(tableView.isEditing)
+
+//        tableView.selectRow(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .none)
+    }
+
+    // MARK: actions
 
     @objc private func refreshControlPulled(_: UIRefreshControl) {
         viewModel.refresh.onNext(())
