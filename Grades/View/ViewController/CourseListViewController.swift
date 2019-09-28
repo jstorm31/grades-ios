@@ -47,7 +47,15 @@ final class CourseListViewController: BaseTableViewController, TableDataSource, 
                 if let editing = self?.tableView.isEditing, !editing {
                     self?.viewModel.onItemSelection(indexPath)
                 } else {
-                    Log.debug("Selected cell")
+                    self?.viewModel.showCourse(for: indexPath)
+                }
+            })
+            .disposed(by: bag)
+
+        tableView.rx.itemDeselected.asDriver()
+            .drive(onNext: { [weak self] indexPath in
+                if let editing = self?.tableView.isEditing, editing {
+                    self?.viewModel.hideCourse(for: indexPath)
                 }
             })
             .disposed(by: bag)
@@ -74,17 +82,17 @@ final class CourseListViewController: BaseTableViewController, TableDataSource, 
     // MARK: Bidning
 
     func bindViewModel() {
-        let coursesObservable = viewModel.dataSource.share(replay: 1, scope: .whileConnected)
-        let isEditingShared = isEditingSubject.share(replay: 1, scope: .whileConnected)
+        let filteredCourses = viewModel.filteredCourses.share(replay: 1, scope: .whileConnected)
+        let isEditingShared = isEditingSubject.share()
 
         isEditingShared
             .flatMap { [weak self] isEditing -> Observable<CoursesByRoles> in
-                if let self = self, isEditing {
-                    return self.viewModel.courses.asObservable()
+                guard let self = self else { return Observable.empty() }
+
+                return Observable.combineLatest(self.viewModel.courses, filteredCourses) { courses, filteredCourses in
+                    isEditing ? courses : filteredCourses
                 }
-                return coursesObservable
             }
-            .debug()
             .map { coursesByRoles in
                 var courses = [TableSection]()
 
@@ -107,29 +115,34 @@ final class CourseListViewController: BaseTableViewController, TableDataSource, 
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
-        
+
         // Select unhidden cells
         isEditingShared
             .filter { $0 == true }
             .flatMap { [weak self] _ in
-                self?.viewModel.hiddenCourses ?? Observable.empty()
+                self?.viewModel.hiddenCourses
+                    .map { [weak self] hidden in
+                        hidden.map { [weak self] course in
+                            self?.viewModel.courses.value.indexPath(for: course)
+                        }
+                    }
+                    .asObservable() ?? Observable.just([])
             }
-            .subscribe(onNext: { [weak self] hiddenCourses in
+            .asDriver(onErrorJustReturn: [])
+            .drive(onNext: { [weak self] hiddenCourses in
                 guard let self = self else { return }
 
-                for hiddenIndexPath in hiddenCourses {
-                    for cell in self.tableView.visibleCells {
-                        let indexPath = self.tableView.indexPath(for: cell)!
+                for cell in self.tableView.visibleCells {
+                    let indexPath = self.tableView.indexPath(for: cell)!
 
-                        if indexPath != hiddenIndexPath {
-                            self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-                        }
+                    if !hiddenCourses.contains(indexPath) {
+                        self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
                     }
                 }
             })
             .disposed(by: bag)
 
-        coursesObservable
+        filteredCourses
             .map { !($0.student.isEmpty && $0.teacher.isEmpty) }
             .bind(to: noContentLabel.rx.isHidden)
             .disposed(by: bag)
@@ -162,8 +175,6 @@ final class CourseListViewController: BaseTableViewController, TableDataSource, 
         // Toggle table view editing.
         tableView.setEditing(!tableView.isEditing, animated: true)
         isEditingSubject.onNext(tableView.isEditing)
-
-//        tableView.selectRow(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .none)
     }
 
     // MARK: actions
