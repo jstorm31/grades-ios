@@ -130,8 +130,8 @@ internal enum L10n {
         /// User
         internal static let user = L10n.tr("Localizable", "settings.user")
         internal enum Student {
-            /// Hide courses with no data
-            internal static let hideEmptyCourses = L10n.tr("Localizable", "settings.student.hideEmptyCourses")
+            /// Hide undefined evaluation
+            internal static let undefinedEvaluationItemsHidden = L10n.tr("Localizable", "settings.student.undefinedEvaluationItemsHidden")
         }
 
         internal enum Teacher {

@@ -132,8 +132,8 @@ final class SettingsViewController: BaseTableViewController,
                     optionItems.append(SwitchCellConfigurator(item: notificationsEnabled))
                 }
 
-                if let emptyCoursesHidden = settings.emptyCoursesHidden {
-                    optionItems.append(SwitchCellConfigurator(item: emptyCoursesHidden))
+                if let undefinedEvaluationHidden = settings.undefinedEvaluationHidden {
+                    optionItems.append(SwitchCellConfigurator(item: undefinedEvaluationHidden))
                 }
 
                 return [

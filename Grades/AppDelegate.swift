@@ -67,7 +67,7 @@ private extension AppDelegate {
             let settings = Settings(language: .english,
                                     semester: "B182",
                                     sendingNotificationsEnabled: false,
-                                    emptyCoursesHidden: false)
+                                    undefinedEvaluationHidden: false)
 
             // Reset semester
             if let encoded = try? JSONEncoder().encode(settings) {

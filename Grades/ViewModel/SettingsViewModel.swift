@@ -23,7 +23,8 @@ final class SettingsViewModel: TablePickerViewModel {
 
     private let semesterCellViewModel = PickerCellViewModel(title: L10n.Settings.semester)
     private let enableNotificationsViewModel = SwitchCellViewModel(title: L10n.Settings.Teacher.sendNotifications, isEnabled: false)
-    private let emptyCoursesHiddenViewModel = SwitchCellViewModel(title: L10n.Settings.Student.hideEmptyCourses, isEnabled: false)
+    private let undefinedEvaluationViewModel = SwitchCellViewModel(title: L10n.Settings.Student.undefinedEvaluationItemsHidden,
+                                                                   isEnabled: false)
 
     // MARK: output
 
@@ -99,7 +100,7 @@ final class SettingsViewModel: TablePickerViewModel {
                                     roles: user.roles.map { $0.toString() }.joined(separator: ", "),
                                     options: self.semesterCellViewModel,
                                     sendingNotificationsEnabled: user.isTeacher ? self.enableNotificationsViewModel : nil,
-                                    emptyCoursesHidden: user.isStudent ? self.emptyCoursesHiddenViewModel : nil)
+                                    undefinedEvaluationHidden: user.isStudent ? self.undefinedEvaluationViewModel : nil)
             }
             .unwrap()
             .bind(to: settings)
@@ -124,11 +125,18 @@ final class SettingsViewModel: TablePickerViewModel {
             .bind(to: enableNotificationsViewModel.isEnabled)
             .disposed(by: bag)
 
-        enableNotificationsViewModel.isEnabled
-            .distinctUntilChanged()
-            .map { [weak self] isEnabled in
+        currentSettings
+            .map { $0.undefinedEvaluationHidden }
+            .bind(to: undefinedEvaluationViewModel.isEnabled)
+            .disposed(by: bag)
+
+        Observable.combineLatest(enableNotificationsViewModel.isEnabled, undefinedEvaluationViewModel.isEnabled) { ($0, $1) }
+            .distinctUntilChanged { $0 == $1 } // Stop the bi-binding cycle here
+            .map { [weak self] notificationsEnabled, undefinedEvaluationHidden in
                 var settings = self?.dependencies.settingsRepository.currentSettings.value
-                settings?.sendingNotificationsEnabled = isEnabled
+
+                settings?.sendingNotificationsEnabled = notificationsEnabled
+                settings?.undefinedEvaluationHidden = undefinedEvaluationHidden
                 return settings
             }
             .unwrap()

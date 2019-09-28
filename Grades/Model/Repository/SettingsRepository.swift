@@ -50,7 +50,7 @@ final class SettingsRepository: SettingsRepositoryProtocol {
         let defaultSettings = Settings(language: defaultLanguage,
                                        semester: currentSemesterCode,
                                        sendingNotificationsEnabled: true,
-                                       emptyCoursesHidden: false)
+                                       undefinedEvaluationHidden: false)
         currentSettings = BehaviorRelay<Settings>(value: defaultSettings)
 
         if let loadedSettings = loadSettings() {
