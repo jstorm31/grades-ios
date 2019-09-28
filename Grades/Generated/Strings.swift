@@ -68,6 +68,17 @@ internal enum L10n {
         }
     }
 
+    internal enum Gdpr {
+        /// Agree
+        internal static let agree = L10n.tr("Localizable", "gdpr.agree")
+        /// Disagree
+        internal static let disagree = L10n.tr("Localizable", "gdpr.disagree")
+        /// We need to store your user ID and type of the operating system to the external notification server to enable push notifications for the app. If you want to delete the data later, disable push notifications for this app in OS settings.
+        internal static let message = L10n.tr("Localizable", "gdpr.message")
+        /// Personal data processing consent
+        internal static let title = L10n.tr("Localizable", "gdpr.title")
+    }
+
     internal enum Labels {
         /// Nothing to display
         internal static let noContent = L10n.tr("Localizable", "labels.noContent")

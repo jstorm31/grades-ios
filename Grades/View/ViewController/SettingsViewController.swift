@@ -108,6 +108,13 @@ final class SettingsViewController: BaseTableViewController,
             .drive(pickerView.rx.itemTitles) { _, element in element }
             .disposed(by: bag)
 
+        viewModel.error
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onError: { [weak self] error in
+                self?.view.makeCustomToast(error.localizedDescription, type: .danger)
+            })
+            .disposed(by: bag)
+
         viewModel.selectedCellOptionIndex.asDriver(onErrorJustReturn: 0)
             .drive(onNext: { [weak self] index in
                 self?.pickerView.selectRow(index, inComponent: 0, animated: true)
@@ -157,7 +164,7 @@ final class SettingsViewController: BaseTableViewController,
     // MARK: events
 
     @objc func logOutButtonTapped(_: UIBarButtonItem) {
-        displayConfirmation(title: L10n.Settings.logoutConfirmTitle) { [weak self] in
+        displayConfirmation(title: L10n.Settings.logoutConfirmTitle, confirmIsPreffered: false) { [weak self] in
             self?.viewModel.logoutAction.execute()
         }
     }

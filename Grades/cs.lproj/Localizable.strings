@@ -56,8 +56,17 @@
 "students.search" = "Hledat studenta";
 "students.updateSuccess" = "Klasifikace byla úspěšně změněna.";
 
+"notification.request.title" = "";
+"notification.request.body" = "";
+"notification.request.cancel" = "";
+"notification.request.confirm" = "";
 "notification.title" = "Nová notifikace";
 "notification.StudentClassificationChange" = "Změna klasifikace";
+
+"gdpr.title" = "Souhlas se spracováním osobních údajů";
+"gdpr.message" = "Pro povolení notifikací je nutné uložit Vaše uživatelské ID a typ operačního systému na externí notifikační server. Pokud budete tyto data chtít později odstranit, zakažte push notifikace v nastavení OS u této aplikace.";
+"gdpr.agree" = "Souhlasím";
+"gdpr.disagree" = "Nesouhlasím";
 
 "about.title" = "O aplikaci";
 "about.text" = "Tato aplikace byla vyvinuta Jiřím Zdvomkou v rámci bakalářské práce na Fakultě informačních technologií ČVUT v Praze";

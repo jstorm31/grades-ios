@@ -63,6 +63,11 @@
 "notification.title" = "New notification";
 "notification.StudentClassificationChange" = "Grade change";
 
+"gdpr.title" = "Personal data processing consent";
+"gdpr.message" = "We need to store your user ID and type of the operating system to the external notification server to enable push notifications for the app. If you want to delete the data later, disable push notifications for this app in OS settings.";
+"gdpr.agree" = "Agree";
+"gdpr.disagree" = "Disagree";
+
 "about.title" = "Credits";
 "about.text" = "This app has been developed by Jiří Zdvomka at Faculty of Information Technology, Czech Technical University in Prague as his Bachelor's Thesis.";
 "license.title" = "License";
