@@ -25,6 +25,11 @@ final class SceneCoordinatorMock: SceneCoordinatorType {
 		popped = true
 		return Completable.empty()
 	}
+    
+    func popToRoot(animated: Bool) -> Completable {
+        popped = true
+        return Completable.empty()
+    }
 	
 	func didPop() -> Completable {
 		popped = true
