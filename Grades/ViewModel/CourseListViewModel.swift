@@ -22,6 +22,8 @@ final class CourseListViewModel: BaseViewModel {
     // MARK: output
 
     let courses = BehaviorRelay<CoursesByRoles>(value: CoursesByRoles(student: [], teacher: []))
+    let filteredCourses = BehaviorRelay<CoursesByRoles>(value: CoursesByRoles(student: [], teacher: []))
+    let hiddenCourses = BehaviorRelay<[String]>(value: [])
     let isFetchingCourses = BehaviorSubject<Bool>(value: false)
     let coursesError = BehaviorSubject<Error?>(value: nil)
 
@@ -43,14 +45,28 @@ final class CourseListViewModel: BaseViewModel {
         dependencies.coursesRepository.userCourses
             .bind(to: courses)
             .disposed(by: bag)
-
-        dependencies.coursesRepository.isFetching.bind(to: isFetchingCourses).disposed(by: bag)
-        dependencies.coursesRepository.error.bind(to: coursesError).disposed(by: bag)
     }
 
     // MARK: methods
 
     func bindOutput() {
+        loadFilters()
+
+        hiddenCourses
+            .flatMap { [weak self] hiddenCourses -> Observable<CoursesByRoles> in
+                // Return filtered user courses
+                self?.courses
+                    .map { courses in
+                        CoursesByRoles(student: courses.student.filter { !hiddenCourses.contains($0.code) },
+                                       teacher: courses.teacher.filter { !hiddenCourses.contains($0.code) })
+                    } ?? Observable.empty()
+            }
+            .bind(to: filteredCourses)
+            .disposed(by: bag)
+
+        dependencies.coursesRepository.isFetching.bind(to: isFetchingCourses).disposed(by: bag)
+        dependencies.coursesRepository.error.bind(to: coursesError).disposed(by: bag)
+
         Observable.combineLatest(
             dependencies.userRepository.user.asObservable(),
             dependencies.settingsRepository.currentSettings.asObservable(),
@@ -64,7 +80,7 @@ final class CourseListViewModel: BaseViewModel {
     }
 
     func onItemSelection(_ indexPath: IndexPath) {
-        let courses = self.courses.value
+        let courses = filteredCourses.value
 
         if courses.student.isEmpty, !courses.teacher.isEmpty {
             // Only student courses
@@ -84,6 +100,20 @@ final class CourseListViewModel: BaseViewModel {
         }
     }
 
+    func showCourse(for indexPath: IndexPath) {
+        if let course = courses.value.course(for: indexPath) {
+            hiddenCourses.accept(hiddenCourses.value.filter { $0 != course.code })
+        }
+    }
+
+    func hideCourse(for indexPath: IndexPath) {
+        guard let course = courses.value.course(for: indexPath) else { return }
+        var hidden = hiddenCourses.value
+
+        hidden.append(course.code)
+        hiddenCourses.accept(hidden)
+    }
+
     private func transitionToStudentCourse(_ course: StudentCourse) {
         let courseDetailVM = CourseDetailStudentViewModel(dependencies: AppDependency.shared, course: course)
         dependencies.coordinator.transition(to: .courseDetailStudent(courseDetailVM), type: .push)
@@ -92,5 +122,15 @@ final class CourseListViewModel: BaseViewModel {
     private func transitionToTeacherCourse(_ course: TeacherCourse) {
         let teacherClassificationVM = TeacherClassificationViewModel(dependencies: AppDependency.shared, course: course)
         dependencies.coordinator.transition(to: .teacherClassification(teacherClassificationVM), type: .push)
+    }
+
+    private func loadFilters() {
+        if let filters = UserDefaults.standard.stringArray(forKey: Constants.courseFilters) {
+            hiddenCourses.accept(filters)
+        }
+    }
+
+    func saveFilters() {
+        UserDefaults.standard.set(hiddenCourses.value, forKey: Constants.courseFilters)
     }
 }

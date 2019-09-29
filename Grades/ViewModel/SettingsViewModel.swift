@@ -48,6 +48,7 @@ final class SettingsViewModel: TablePickerViewModel {
         guard let self = self else { return Observable.empty() }
 
         self.dependencies.authService.logOut()
+        UserDefaults.standard.removeObject(forKey: Constants.courseFilters)
 
         return self.dependencies.pushNotificationsService.unregisterUserFromDevice()
             .do(onNext: { [weak self] in

@@ -71,8 +71,6 @@ class CourseRepositoryTests: XCTestCase {
         let classificationsObservable = repository.groupedClassifications(forStudent: username).subscribeOn(scheduler)
         let result = try! classificationsObservable.toBlocking(timeout: 2).first()!
         
-        Log.debug("\(result[0].items.map { ($0.id, $0.value) } )")
-        
         XCTAssertEqual(result[0].items.count, 2)
     }
 	
