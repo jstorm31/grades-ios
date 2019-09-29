@@ -194,6 +194,7 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
         incrementButton.titleLabel?.font = UIFont.Grades.boldLarge
         incrementButton.setTitleColor(UIColor.Theme.primary, for: .normal)
         incrementButton.setTitle("+", for: .normal)
+        incrementButton.titleEdgeInsets = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
         incrementButton.rx.action = incrementValue
         contentView.addSubview(incrementButton)
         incrementButton.snp.makeConstraints { make in
@@ -226,6 +227,7 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
         decrementButton.titleLabel?.font = UIFont.Grades.boldLarge
         decrementButton.setTitleColor(UIColor.Theme.primary, for: .normal)
         decrementButton.setTitle("−", for: .normal)
+        decrementButton.titleEdgeInsets = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
         decrementButton.rx.action = decrementValue
         contentView.addSubview(decrementButton)
         decrementButton.snp.makeConstraints { make in
