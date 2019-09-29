@@ -52,10 +52,10 @@ final class SettingsViewModel: TablePickerViewModel {
 
         return self.dependencies.pushNotificationsService.unregisterUserFromDevice()
             .do(onNext: { [weak self] in
-                self?.dependencies.coordinator.pop(animated: true, presented: true)
+                self?.dependencies.coordinator.popToRoot(animated: true)
             }, onError: { [weak self] error in
                 if case PushNotificationService.NotificationError.tokenIsNil = error {
-                    self?.dependencies.coordinator.pop(animated: true, presented: true)
+                    self?.dependencies.coordinator.popToRoot(animated: true)
                 } else {
                     self?.error.onError(error)
                 }

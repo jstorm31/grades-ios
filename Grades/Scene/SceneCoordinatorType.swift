@@ -24,6 +24,9 @@ protocol SceneCoordinatorType {
     @discardableResult
     func pop(animated: Bool, presented: Bool) -> Completable
 
+    @discardableResult
+    func popToRoot(animated: Bool) -> Completable
+
     /// Sets scene's current ViewController after poped from scene
     @discardableResult
     func didPop() -> Completable

@@ -10,10 +10,14 @@ import Foundation
 
 class BaseViewModel {
     init() {
-        NSLog("ℹ️ Allocated ViewModel: \(self)")
+        #if DEBUG
+            NSLog("ℹ️ Allocated ViewModel: \(self)")
+        #endif
     }
 
     deinit {
-        NSLog("ℹ️ Dealllocated ViewModel: \(self)")
+        #if DEBUG
+            NSLog("ℹ️ Dealllocated ViewModel: \(self)")
+        #endif
     }
 }

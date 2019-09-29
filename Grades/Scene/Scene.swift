@@ -25,14 +25,14 @@ extension Scene {
         switch self {
         case let .login(viewModel):
             var loginVC = LoginViewController()
+            let navController = UINavigationController(rootViewController: loginVC)
             loginVC.bindViewModel(to: viewModel)
-            return loginVC
+            return navController
 
         case let .courseList(viewModel):
             var courseListVC = CourseListViewController()
-            let navController = UINavigationController(rootViewController: courseListVC)
             courseListVC.bindViewModel(to: viewModel)
-            return navController
+            return courseListVC
 
         case let .courseDetailStudent(viewModel):
             var courseDetailStudentVC = CourseDetailStudentViewController()
