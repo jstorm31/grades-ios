@@ -92,7 +92,7 @@ internal enum L10n {
     }
 
     internal enum Notification {
-        /// Grade change
+        /// Evaluation change
         internal static let studentClassificationChange = L10n.tr("Localizable", "notification.StudentClassificationChange")
         /// New notification
         internal static let title = L10n.tr("Localizable", "notification.title")

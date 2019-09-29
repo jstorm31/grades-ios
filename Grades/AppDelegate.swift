@@ -59,6 +59,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tokenObservable = AppDependency.shared.pushNotificationsService.deviceToken
         tokenObservable.onError(error)
     }
+
+    func applicationDidBecomeActive(_: UIApplication) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+    }
 }
 
 private extension AppDelegate {

@@ -62,7 +62,7 @@
 "notification.request.cancel" = "";
 "notification.request.confirm" = "";
 "notification.title" = "New notification";
-"notification.StudentClassificationChange" = "Grade change";
+"notification.StudentClassificationChange" = "Evaluation change";
 
 "gdpr.title" = "Personal data processing consent";
 "gdpr.message" = "We need to store your user ID and type of the operating system to the external notification server to enable push notifications for the app. If you want to delete the data later, disable push notifications for this app in OS settings.";
