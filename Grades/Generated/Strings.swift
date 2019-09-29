@@ -58,7 +58,7 @@ internal enum L10n {
 
     internal enum Error {
         internal enum Api {
-            /// Fetch data error
+            /// Network request error
             internal static let generic = L10n.tr("Localizable", "error.api.generic")
         }
 
@@ -92,7 +92,7 @@ internal enum L10n {
     }
 
     internal enum Notification {
-        /// Grade change
+        /// Evaluation change
         internal static let studentClassificationChange = L10n.tr("Localizable", "notification.StudentClassificationChange")
         /// New notification
         internal static let title = L10n.tr("Localizable", "notification.title")

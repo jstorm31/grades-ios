@@ -1083,6 +1083,9 @@
 					964CDE14228828330093CB3C = {
 						CreatedOnToolsVersion = 10.2;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
 							com.apple.Keychain = {
 								enabled = 1;
 							};
@@ -1637,7 +1640,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades.NotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "FIT Grades Notification Extension -ad hoc";
+				PROVISIONING_PROFILE_SPECIFIER = "Grades Notification Extension - Ad Hoc";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1667,7 +1670,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades.NotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "FIT Grades Notification Extension -ad hoc";
+				PROVISIONING_PROFILE_SPECIFIER = "Grades Notification Extension - Ad Hoc";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1697,7 +1700,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades.NotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "FIT Grades Notification Extension - App Store";
+				PROVISIONING_PROFILE_SPECIFIER = "Grades Notification Extension - App Store";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1831,7 +1834,7 @@
 				APP_VERSION = 0.1.3;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Grades/GradesDev.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Quanti s.r.o. (2PY9RKK8A7)";
 				CODE_SIGN_STYLE = Manual;
 				CONFIG_ENVIRONMENT = Debug;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1855,7 +1858,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades;
 				PRODUCT_NAME = GradesDev;
-				PROVISIONING_PROFILE_SPECIFIER = "FIT Grades - ad hoc";
+				PROVISIONING_PROFILE_SPECIFIER = "Grades - Ad Hoc";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1868,7 +1871,7 @@
 				APP_VERSION = 0.1.3;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Grades/GradesDev.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Quanti s.r.o. (2PY9RKK8A7)";
 				CODE_SIGN_STYLE = Manual;
 				CONFIG_ENVIRONMENT = Release;
 				DEVELOPMENT_TEAM = 2PY9RKK8A7;
@@ -1891,7 +1894,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Grades AppStore";
+				PROVISIONING_PROFILE_SPECIFIER = "Grades - App Store";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2023,7 +2026,7 @@
 				APP_VERSION = 0.1.3;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Grades/GradesDev.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Quanti s.r.o. (2PY9RKK8A7)";
 				CODE_SIGN_STYLE = Manual;
 				CONFIG_ENVIRONMENT = Test;
 				DEVELOPMENT_TEAM = 2PY9RKK8A7;
@@ -2046,7 +2049,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades;
 				PRODUCT_NAME = GradesDev;
-				PROVISIONING_PROFILE_SPECIFIER = "FIT Grades - ad hoc";
+				PROVISIONING_PROFILE_SPECIFIER = "Grades - Ad Hoc";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

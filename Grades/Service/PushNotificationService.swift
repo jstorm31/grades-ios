@@ -35,11 +35,11 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
 
     var isUserRegisteredForNotifications: Bool {
         get {
-            return UserDefaults.standard.bool(forKey: "IsUserRegisteredForNotifications")
+            return UserDefaults.standard.bool(forKey: Constants.userRegisteredForNotifications)
         }
 
         set {
-            UserDefaults.standard.set(newValue, forKey: "IsUserRegisteredForNotifications")
+            UserDefaults.standard.set(newValue, forKey: Constants.userRegisteredForNotifications)
         }
     }
 
@@ -111,12 +111,14 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
         isUserRegisteredForNotifications = false
 
         return deviceToken
+            .unwrap()
+            .take(1)
             .flatMap { [weak self] token -> Observable<Void> in
-                guard let token = token, let self = self else {
+                guard let self = self else {
                     return Observable.error(NotificationError.tokenIsNil)
                 }
 
-                let body = NotificationRegistration(token: token, type: "IOS")
+                let body = NotificationRegistration(token: token, type: Constants.iosDeviceType)
                 return self.dependencies.httpService.delete(url: self.tokenUrl, parameters: nil, body: body)
             }
     }
@@ -146,11 +148,13 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
     /// Register user with app's notification token
     private func registerUserForNotifications(token: String) -> Observable<Void> {
         return deviceToken
+            .unwrap()
+            .take(1)
             .flatMap { [weak self] token -> Observable<Void> in
-                guard let token = token, let self = self else {
+                guard let self = self else {
                     return Observable.error(NotificationError.tokenIsNil)
                 }
-                let body = NotificationRegistration(token: token, type: "IOS")
+                let body = NotificationRegistration(token: token, type: Constants.iosDeviceType)
                 return self.dependencies.httpService.post(url: self.tokenUrl, parameters: nil, body: body)
             }
             .do(onCompleted: { [weak self] in

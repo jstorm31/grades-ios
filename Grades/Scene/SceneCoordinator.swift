@@ -58,6 +58,24 @@ final class SceneCoordinator: SceneCoordinatorType {
 
     @discardableResult
     func pop(animated: Bool, presented: Bool = false) -> Completable {
+        return pop(animated: animated, presented: presented, toRoot: false)
+    }
+
+    func popToRoot(animated: Bool) -> Completable {
+        return pop(animated: animated, presented: false, toRoot: true)
+    }
+
+    @discardableResult
+    func didPop() -> Completable {
+        if let navigationController = currentViewController.navigationController {
+            currentViewController = SceneCoordinator
+                .actualViewController(for: navigationController.viewControllers.last!)
+        }
+
+        return Completable.empty()
+    }
+
+    private func pop(animated: Bool, presented: Bool = false, toRoot: Bool = false) -> Completable {
         let subject = PublishSubject<Void>()
 
         if presented, let presenter = currentViewController.presentingViewController {
@@ -75,9 +93,17 @@ final class SceneCoordinator: SceneCoordinatorType {
                 .sentMessage(#selector(UINavigationControllerDelegate.navigationController(_:didShow:animated:)))
                 .map { _ in }
                 .bind(to: subject)
-            if navigationController.popViewController(animated: animated) == nil {
-                Log.error("can't navigate back from \(String(describing: currentViewController))")
-                return Observable.just(()).ignoreElements()
+
+            if toRoot {
+                if navigationController.popToRootViewController(animated: animated) == nil {
+                    Log.error("Can't navigate to the root ViewController from: \(String(describing: currentViewController))")
+                    return Observable.just(()).ignoreElements()
+                }
+            } else {
+                if navigationController.popViewController(animated: animated) == nil {
+                    Log.error("can't navigate back from \(String(describing: currentViewController))")
+                    return Observable.just(()).ignoreElements()
+                }
             }
             currentViewController = SceneCoordinator
                 .actualViewController(for: navigationController.viewControllers.last!)
@@ -87,15 +113,5 @@ final class SceneCoordinator: SceneCoordinatorType {
         return subject.asObservable()
             .take(1)
             .ignoreElements()
-    }
-
-    @discardableResult
-    func didPop() -> Completable {
-        if let navigationController = currentViewController.navigationController {
-            currentViewController = SceneCoordinator
-                .actualViewController(for: navigationController.viewControllers.last!)
-        }
-
-        return Completable.empty()
     }
 }

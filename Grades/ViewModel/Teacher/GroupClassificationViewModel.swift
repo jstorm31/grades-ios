@@ -136,6 +136,8 @@ final class GroupClassificationViewModel: TablePickerViewModel, SortableDataView
     private func studentClassifications(_ classification: Classification,
                                         _ groupIndex: Int,
                                         _ classificationIndex: Int) -> Observable<[DynamicValueCellViewModel]> {
+        guard groupIndex < teacherRepository.groups.value.count else { return Observable.just([]) }
+
         let groupCode = teacherRepository.groups.value[groupIndex]
         let classificationId = teacherRepository.classifications.value[classificationIndex]
 

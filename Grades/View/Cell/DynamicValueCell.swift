@@ -17,17 +17,32 @@ typealias DynamicValueCellConfigurator = TableCellConfigurator<DynamicValueCell,
 final class DynamicValueCell: BasicCell, ConfigurableCell {
     typealias DataType = DynamicValueCellViewModel
 
-    private var fieldLabel: UILabel!
     private var valueTextField: UITextField!
     private var valueSwitch: UISwitch!
+    private var incrementButton: UIButton!
+    private var decrementButton: UIButton!
 
     var viewModel: DynamicValueCellViewModel!
     private(set) var bag = DisposeBag()
+
+    var incrementValue: CocoaAction!
+    var decrementValue: CocoaAction!
 
     // MARK: initialization
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        incrementValue = CocoaAction { [weak self] _ in
+            self?.changeValue(increment: true)
+            return Observable.empty()
+        }
+
+        decrementValue = CocoaAction { [weak self] _ in
+            self?.changeValue(increment: false)
+            return Observable.empty()
+        }
+
         loadUI()
     }
 
@@ -53,6 +68,7 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
 
     private func bindOutput() {
         valueTextField.rx.text
+            .debug()
             .skip(1)
             .unwrap()
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
@@ -110,21 +126,36 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
         )
     }
 
+    private func changeValue(increment: Bool) {
+        let value = valueTextField.text
+
+        if value != nil, let newValue = Double(value!) {
+            valueTextField.text = "\(increment ? newValue + 1 : newValue - 1)"
+        }
+
+        if value == nil || value == "" {
+            valueTextField.text = "\(increment ? 1 : -1)"
+        }
+
+        valueTextField.sendActions(for: .valueChanged)
+    }
+
     /// Show right controls for type
     private func displayControl() {
         switch viewModel.valueType {
         case .string:
             valueTextField.isHidden = false
-            fieldLabel.isHidden = true
             valueSwitch.isHidden = true
+            incrementButton.isHidden = true
+            decrementButton.isHidden = true
         case .number:
             valueTextField.isHidden = false
-            fieldLabel.isHidden = false
             valueSwitch.isHidden = true
         case .bool:
             valueSwitch.isHidden = false
             valueTextField.isHidden = true
-            fieldLabel.isHidden = true
+            incrementButton.isHidden = true
+            decrementButton.isHidden = true
         }
     }
 
@@ -136,12 +167,16 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
         case .manual:
             valueTextField.isUserInteractionEnabled = true
             valueSwitch.isUserInteractionEnabled = true
+            incrementButton.isUserInteractionEnabled = true
+            decrementButton.isUserInteractionEnabled = true
             valueTextField.textColor = UIColor.Theme.text
             valueSwitch.onTintColor = UIColor.Theme.primary
             valueSwitch.tintColor = UIColor.Theme.primary
         default:
             valueTextField.isUserInteractionEnabled = false
             valueSwitch.isUserInteractionEnabled = false
+            incrementButton.isUserInteractionEnabled = false
+            decrementButton.isUserInteractionEnabled = false
             valueTextField.textColor = UIColor.Theme.grayText
             valueSwitch.onTintColor = disabledPrimary
             valueSwitch.tintColor = disabledPrimary
@@ -150,21 +185,25 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
 
     // MARK: UI setup
 
+    // swiftlint:disable function_body_length
     private func loadUI() {
         selectionStyle = .none
 
-        let fieldLabel = UILabel()
-        fieldLabel.font = UIFont.Grades.body
-        fieldLabel.textColor = UIColor.Theme.text
-        fieldLabel.text = L10n.Courses.points
-        fieldLabel.isHidden = true
-        contentView.addSubview(fieldLabel)
-        fieldLabel.snp.makeConstraints { make in
+        // Increment button
+        var incrementButton = UIButton()
+        incrementButton.titleLabel?.font = UIFont.Grades.boldLarge
+        incrementButton.setTitleColor(UIColor.Theme.primary, for: .normal)
+        incrementButton.setTitle("+", for: .normal)
+        incrementButton.titleEdgeInsets = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
+        incrementButton.rx.action = incrementValue
+        contentView.addSubview(incrementButton)
+        incrementButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().inset(20)
         }
-        self.fieldLabel = fieldLabel
+        self.incrementButton = incrementButton
 
+        // Textfield
         let textField = UITextField()
         textField.font = UIFont.Grades.body
         textField.textColor = UIColor.Theme.text
@@ -179,10 +218,25 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
             make.width.equalTo(50)
             make.height.equalTo(20)
             make.centerY.equalToSuperview()
-            make.trailing.equalTo(fieldLabel.snp.leading).inset(-8)
+            make.trailing.equalTo(incrementButton.snp.leading).offset(-4)
         }
         valueTextField = textField
 
+        // Decrement button
+        var decrementButton = UIButton()
+        decrementButton.titleLabel?.font = UIFont.Grades.boldLarge
+        decrementButton.setTitleColor(UIColor.Theme.primary, for: .normal)
+        decrementButton.setTitle("−", for: .normal)
+        decrementButton.titleEdgeInsets = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
+        decrementButton.rx.action = decrementValue
+        contentView.addSubview(decrementButton)
+        decrementButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalTo(textField.snp.leading).offset(-4)
+        }
+        self.decrementButton = decrementButton
+
+        // Switch
         let valueSwitch = UIPrimarySwitch()
         valueSwitch.isHidden = true
         contentView.addSubview(valueSwitch)

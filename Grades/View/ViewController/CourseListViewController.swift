@@ -32,6 +32,7 @@ final class CourseListViewController: BaseTableViewController, TableDataSource, 
 
         navigationItem.title = L10n.Courses.title
         navigationItem.rightBarButtonItems = [settingsButton, editButtonItem]
+        navigationItem.setHidesBackButton(true, animated: false)
 
         loadRefreshControl()
         tableView.allowsMultipleSelectionDuringEditing = true
