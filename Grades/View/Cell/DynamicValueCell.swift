@@ -25,10 +25,24 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
     var viewModel: DynamicValueCellViewModel!
     private(set) var bag = DisposeBag()
 
+    var incrementValue: CocoaAction!
+    var decrementValue: CocoaAction!
+
     // MARK: initialization
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        incrementValue = CocoaAction { [weak self] _ in
+            self?.changeValue(increment: true)
+            return Observable.empty()
+        }
+
+        decrementValue = CocoaAction { [weak self] _ in
+            self?.changeValue(increment: false)
+            return Observable.empty()
+        }
+
         loadUI()
     }
 
@@ -111,6 +125,18 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
         )
     }
 
+    private func changeValue(increment: Bool) {
+        let value = valueTextField.text
+
+        if value != nil, let newValue = Double(value!) {
+            valueTextField.rx.value.onNext("\(increment ? newValue + 1 : newValue - 1)")
+        }
+
+        if value == nil || value == "" {
+            valueTextField.rx.value.onNext("\(increment ? 1 : -1)")
+        }
+    }
+
     /// Show right controls for type
     private func displayControl() {
         switch viewModel.valueType {
@@ -161,10 +187,11 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
         selectionStyle = .none
 
         // Increment button
-        let incrementButton = UIButton()
+        var incrementButton = UIButton()
         incrementButton.titleLabel?.font = UIFont.Grades.boldLarge
         incrementButton.setTitleColor(UIColor.Theme.primary, for: .normal)
         incrementButton.setTitle("+", for: .normal)
+        incrementButton.rx.action = incrementValue
         contentView.addSubview(incrementButton)
         incrementButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
@@ -192,10 +219,11 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
         valueTextField = textField
 
         // Decrement button
-        let decrementButton = UIButton()
+        var decrementButton = UIButton()
         decrementButton.titleLabel?.font = UIFont.Grades.boldLarge
         decrementButton.setTitleColor(UIColor.Theme.primary, for: .normal)
         decrementButton.setTitle("−", for: .normal)
+        decrementButton.rx.action = decrementValue
         contentView.addSubview(decrementButton)
         decrementButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
