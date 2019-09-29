@@ -24,8 +24,14 @@ final class CourseListViewController: BaseTableViewController, TableDataSource, 
     override func loadView() {
         super.loadView()
 
+        let icon = UIImage(named: "Settings")
+        var settingsButton = UIBarButtonItem(image: icon, style: .plain, target: self, action: nil)
+        settingsButton.accessibilityIdentifier = "Settings button"
+        settingsButton.rx.action = viewModel.openSettings
+        settingsButton.tag = 1
+
         navigationItem.title = L10n.Courses.title
-        navigationItem.rightBarButtonItem = editButtonItem
+        navigationItem.rightBarButtonItems = [settingsButton, editButtonItem]
 
         loadRefreshControl()
         tableView.allowsMultipleSelectionDuringEditing = true
@@ -63,24 +69,9 @@ final class CourseListViewController: BaseTableViewController, TableDataSource, 
         viewModel.bindOutput()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        let icon = UIImage(named: "Settings")
-        var settingsButton = UIButton()
-        settingsButton.accessibilityIdentifier = "Settings button"
-        settingsButton.setImage(icon, for: .normal)
-        settingsButton.rx.action = viewModel.openSettings
-        navigationController?.navigationBar.addSubview(settingsButton)
-        settingsButton.tag = 1
-        settingsButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview().inset(13)
-        }
-    }
-
     // MARK: Bidning
 
+    // swiftlint:disable function_body_length
     func bindViewModel() {
         let filteredCourses = viewModel.filteredCourses.share(replay: 1, scope: .whileConnected)
         let isEditingShared = isEditingSubject.share()
