@@ -16,6 +16,7 @@ class CourseRepositoryTests: XCTestCase {
 	var scheduler: ConcurrentDispatchQueueScheduler!
 	var repository: CourseRepositoryProtocol!
 	var gradesApi = AppDependencyMock.shared._gradesApi
+    var settings = AppDependencyMock.shared.settingsRepository
 	let username = "testuser"
 
     override func setUp() {
@@ -58,6 +59,21 @@ class CourseRepositoryTests: XCTestCase {
 		} catch {
 			XCTFail(error.localizedDescription)
 		}
+    }
+    
+    func testUndefinedEvaluationHidden() {
+        gradesApi.result = .success
+        
+        var newSettings = settings.currentSettings.value
+        newSettings.undefinedEvaluationHidden = true
+        settings.currentSettings.accept(newSettings)
+        
+        let classificationsObservable = repository.groupedClassifications(forStudent: username).subscribeOn(scheduler)
+        let result = try! classificationsObservable.toBlocking(timeout: 2).first()!
+        
+        Log.debug("\(result[0].items.map { ($0.id, $0.value) } )")
+        
+        XCTAssertEqual(result[0].items.count, 2)
     }
 	
 	func testOverview() {

@@ -37,6 +37,7 @@
 "settings.about" = "Credits";
 "settings.license" = "License";
 "settings.teacher.sendNotifications" = "Send notifications to students";
+"settings.student.undefinedEvaluationItemsHidden" = "Hide undefined evaluation";
 
 "teacher.tab.group" = "Detail";
 "teacher.tab.student" = "Student";

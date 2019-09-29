@@ -10,7 +10,8 @@
 struct Settings: Codable {
     var language: Language
     var semester: String?
-    var sendingNotificationsEnabled: Bool
+    var sendingNotificationsEnabled: Bool = false
+    var undefinedEvaluationHidden: Bool = false
 }
 
 /// Struct for settings view
@@ -19,4 +20,5 @@ struct SettingsView {
     let roles: String
     let options: PickerCellViewModel
     let sendingNotificationsEnabled: SwitchCellViewModel?
+    let undefinedEvaluationHidden: SwitchCellViewModel?
 }

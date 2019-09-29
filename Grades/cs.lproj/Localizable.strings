@@ -37,6 +37,7 @@
 "settings.about" = "O aplikaci";
 "settings.license" = "Licence";
 "settings.teacher.sendNotifications" = "Odesílat notifikace studentům";
+"settings.student.undefinedEvaluationItemsHidden" = "Skrýt nedefinované hodnocení";
 
 "teacher.tab.group" = "Detail";
 "teacher.students.group" = "Skupina";

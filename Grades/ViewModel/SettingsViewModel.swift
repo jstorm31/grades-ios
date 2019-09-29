@@ -18,9 +18,13 @@ final class SettingsViewModel: TablePickerViewModel {
     private let bag = DisposeBag()
 
     private let semesterSelectedIndex = BehaviorRelay<Int>(value: 0)
+
+    // MARK: cell view models
+
     private let semesterCellViewModel = PickerCellViewModel(title: L10n.Settings.semester)
-    private let enableNotificationsViewModel = SwitchCellViewModel(title: L10n.Settings.Teacher.sendNotifications,
-                                                                   isEnabled: BehaviorRelay<Bool>(value: false))
+    private let enableNotificationsViewModel = SwitchCellViewModel(title: L10n.Settings.Teacher.sendNotifications, isEnabled: false)
+    private let undefinedEvaluationViewModel = SwitchCellViewModel(title: L10n.Settings.Student.undefinedEvaluationItemsHidden,
+                                                                   isEnabled: false)
 
     // MARK: output
 
@@ -92,12 +96,11 @@ final class SettingsViewModel: TablePickerViewModel {
             .map { [weak self] user, _ in
                 guard let self = self else { return nil }
 
-                let isTeacher = user.roles.contains(.teacher)
-
                 return SettingsView(name: user.toString,
                                     roles: user.roles.map { $0.toString() }.joined(separator: ", "),
                                     options: self.semesterCellViewModel,
-                                    sendingNotificationsEnabled: isTeacher ? self.enableNotificationsViewModel : nil)
+                                    sendingNotificationsEnabled: user.isTeacher ? self.enableNotificationsViewModel : nil,
+                                    undefinedEvaluationHidden: user.isStudent ? self.undefinedEvaluationViewModel : nil)
             }
             .unwrap()
             .bind(to: settings)
@@ -122,11 +125,18 @@ final class SettingsViewModel: TablePickerViewModel {
             .bind(to: enableNotificationsViewModel.isEnabled)
             .disposed(by: bag)
 
-        enableNotificationsViewModel.isEnabled
-            .distinctUntilChanged()
-            .map { [weak self] isEnabled in
+        currentSettings
+            .map { $0.undefinedEvaluationHidden }
+            .bind(to: undefinedEvaluationViewModel.isEnabled)
+            .disposed(by: bag)
+
+        Observable.combineLatest(enableNotificationsViewModel.isEnabled, undefinedEvaluationViewModel.isEnabled) { ($0, $1) }
+            .distinctUntilChanged { $0 == $1 } // Stop the bi-binding cycle here
+            .map { [weak self] notificationsEnabled, undefinedEvaluationHidden in
                 var settings = self?.dependencies.settingsRepository.currentSettings.value
-                settings?.sendingNotificationsEnabled = isEnabled
+
+                settings?.sendingNotificationsEnabled = notificationsEnabled
+                settings?.undefinedEvaluationHidden = undefinedEvaluationHidden
                 return settings
             }
             .unwrap()

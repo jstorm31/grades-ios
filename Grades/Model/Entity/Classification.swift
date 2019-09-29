@@ -19,6 +19,10 @@ struct Classification {
     var parentId: Int?
     var isHidden: Bool = false
 
+    var isDefined: Bool {
+        return value != nil
+    }
+
     func getLocalizedText() -> String {
         if text.isEmpty {
             return ""

@@ -8,7 +8,12 @@
 
 import RxCocoa
 
-struct SwitchCellViewModel {
+final class SwitchCellViewModel {
     let title: String
     let isEnabled: BehaviorRelay<Bool>
+
+    init(title: String, isEnabled: Bool) {
+        self.title = title
+        self.isEnabled = BehaviorRelay<Bool>(value: isEnabled)
+    }
 }

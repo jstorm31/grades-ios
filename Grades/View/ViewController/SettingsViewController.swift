@@ -132,6 +132,10 @@ final class SettingsViewController: BaseTableViewController,
                     optionItems.append(SwitchCellConfigurator(item: notificationsEnabled))
                 }
 
+                if let undefinedEvaluationHidden = settings.undefinedEvaluationHidden {
+                    optionItems.append(SwitchCellConfigurator(item: undefinedEvaluationHidden))
+                }
+
                 return [
                     TableSection(header: L10n.Settings.user, items: [
                         SettingsCellConfigurator(item: (title: L10n.Settings.User.name, content: settings.name)),
