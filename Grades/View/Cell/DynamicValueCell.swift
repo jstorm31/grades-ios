@@ -68,6 +68,7 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
 
     private func bindOutput() {
         valueTextField.rx.text
+            .debug()
             .skip(1)
             .unwrap()
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
@@ -129,12 +130,14 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
         let value = valueTextField.text
 
         if value != nil, let newValue = Double(value!) {
-            valueTextField.rx.value.onNext("\(increment ? newValue + 1 : newValue - 1)")
+            valueTextField.text = "\(increment ? newValue + 1 : newValue - 1)"
         }
 
         if value == nil || value == "" {
-            valueTextField.rx.value.onNext("\(increment ? 1 : -1)")
+            valueTextField.text = "\(increment ? 1 : -1)"
         }
+
+        valueTextField.sendActions(for: .valueChanged)
     }
 
     /// Show right controls for type
