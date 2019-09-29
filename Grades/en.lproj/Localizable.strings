@@ -1,7 +1,7 @@
 "appVersion" = "App version";
 
 "error.auth.generic" = "Authentication error";
-"error.api.generic" = "Fetch data error";
+"error.api.generic" = "Network request error";
 
 "labels.noContent" = "Nothing to display";
 

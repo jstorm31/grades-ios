@@ -58,7 +58,7 @@ internal enum L10n {
 
     internal enum Error {
         internal enum Api {
-            /// Fetch data error
+            /// Network request error
             internal static let generic = L10n.tr("Localizable", "error.api.generic")
         }
 

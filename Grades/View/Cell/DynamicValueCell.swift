@@ -17,9 +17,10 @@ typealias DynamicValueCellConfigurator = TableCellConfigurator<DynamicValueCell,
 final class DynamicValueCell: BasicCell, ConfigurableCell {
     typealias DataType = DynamicValueCellViewModel
 
-    private var fieldLabel: UILabel!
     private var valueTextField: UITextField!
     private var valueSwitch: UISwitch!
+    private var incrementButton: UIButton!
+    private var decrementButton: UIButton!
 
     var viewModel: DynamicValueCellViewModel!
     private(set) var bag = DisposeBag()
@@ -115,16 +116,17 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
         switch viewModel.valueType {
         case .string:
             valueTextField.isHidden = false
-            fieldLabel.isHidden = true
             valueSwitch.isHidden = true
+            incrementButton.isHidden = true
+            decrementButton.isHidden = true
         case .number:
             valueTextField.isHidden = false
-            fieldLabel.isHidden = false
             valueSwitch.isHidden = true
         case .bool:
             valueSwitch.isHidden = false
             valueTextField.isHidden = true
-            fieldLabel.isHidden = true
+            incrementButton.isHidden = true
+            decrementButton.isHidden = true
         }
     }
 
@@ -136,12 +138,16 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
         case .manual:
             valueTextField.isUserInteractionEnabled = true
             valueSwitch.isUserInteractionEnabled = true
+            incrementButton.isUserInteractionEnabled = true
+            decrementButton.isUserInteractionEnabled = true
             valueTextField.textColor = UIColor.Theme.text
             valueSwitch.onTintColor = UIColor.Theme.primary
             valueSwitch.tintColor = UIColor.Theme.primary
         default:
             valueTextField.isUserInteractionEnabled = false
             valueSwitch.isUserInteractionEnabled = false
+            incrementButton.isUserInteractionEnabled = false
+            decrementButton.isUserInteractionEnabled = false
             valueTextField.textColor = UIColor.Theme.grayText
             valueSwitch.onTintColor = disabledPrimary
             valueSwitch.tintColor = disabledPrimary
@@ -150,21 +156,23 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
 
     // MARK: UI setup
 
+    // swiftlint:disable function_body_length
     private func loadUI() {
         selectionStyle = .none
 
-        let fieldLabel = UILabel()
-        fieldLabel.font = UIFont.Grades.body
-        fieldLabel.textColor = UIColor.Theme.text
-        fieldLabel.text = L10n.Courses.points
-        fieldLabel.isHidden = true
-        contentView.addSubview(fieldLabel)
-        fieldLabel.snp.makeConstraints { make in
+        // Increment button
+        let incrementButton = UIButton()
+        incrementButton.titleLabel?.font = UIFont.Grades.boldLarge
+        incrementButton.setTitleColor(UIColor.Theme.primary, for: .normal)
+        incrementButton.setTitle("+", for: .normal)
+        contentView.addSubview(incrementButton)
+        incrementButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().inset(20)
         }
-        self.fieldLabel = fieldLabel
+        self.incrementButton = incrementButton
 
+        // Textfield
         let textField = UITextField()
         textField.font = UIFont.Grades.body
         textField.textColor = UIColor.Theme.text
@@ -179,10 +187,23 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
             make.width.equalTo(50)
             make.height.equalTo(20)
             make.centerY.equalToSuperview()
-            make.trailing.equalTo(fieldLabel.snp.leading).inset(-8)
+            make.trailing.equalTo(incrementButton.snp.leading).offset(-4)
         }
         valueTextField = textField
 
+        // Decrement button
+        let decrementButton = UIButton()
+        decrementButton.titleLabel?.font = UIFont.Grades.boldLarge
+        decrementButton.setTitleColor(UIColor.Theme.primary, for: .normal)
+        decrementButton.setTitle("−", for: .normal)
+        contentView.addSubview(decrementButton)
+        decrementButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalTo(textField.snp.leading).offset(-4)
+        }
+        self.decrementButton = decrementButton
+
+        // Switch
         let valueSwitch = UIPrimarySwitch()
         valueSwitch.isHidden = true
         contentView.addSubview(valueSwitch)
