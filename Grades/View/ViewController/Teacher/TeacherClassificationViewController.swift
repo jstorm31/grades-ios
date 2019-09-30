@@ -33,11 +33,6 @@ final class TeacherClassificationViewController: BaseViewController, BindableTyp
         displayTab(forIndex: viewModel.defaultScene.rawValue)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        removeRightButton()
-    }
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 

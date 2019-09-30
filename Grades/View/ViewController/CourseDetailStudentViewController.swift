@@ -53,11 +53,6 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
         loadUI()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        removeRightButton()
-    }
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.bindOutput()
