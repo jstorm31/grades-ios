@@ -69,7 +69,12 @@ final class TeacherClassificationViewController: BaseViewController, BindableTyp
         let segmented = UISegmentedControl(items: [L10n.Teacher.Tab.group, L10n.Teacher.Tab.student])
         segmented.selectedSegmentIndex = viewModel.defaultScene.rawValue
         segmented.center = view.center
-        segmented.tintColor = UIColor.Theme.primary
+        if #available(iOS 13.0, *) {
+            segmented.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+            segmented.selectedSegmentTintColor = UIColor.Theme.primary
+        } else {
+            segmented.tintColor = UIColor.Theme.primary
+        }
         segmented.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.Grades.body], for: .normal)
         segmented.addTarget(self, action: #selector(segmentedControlIndexChanged(_:)), for: .valueChanged)
         view.addSubview(segmented)
