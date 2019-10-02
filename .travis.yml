@@ -15,6 +15,6 @@ before_script:
 - git secret reveal -p "$GIT_SECRET_PASSPHRASE"
 script:
 - set -o pipefail
-- xcodebuild clean test -project Grades.xcodeproj -scheme Debug -destination 'platform=iOS Simulator,name=iPhone 11,OS=13' | xcpretty --test -f `xcpretty-travis-formatter`
+- xcodebuild clean test -project Grades.xcodeproj -scheme Debug -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.0' | xcpretty --test -f `xcpretty-travis-formatter`
 after_failure:
   - cat $TMPDIR/carthage-*.log
