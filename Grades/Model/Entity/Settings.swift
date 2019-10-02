@@ -10,7 +10,7 @@
 struct Settings: Codable {
     var language: Language
     var semester: String?
-    var sendingNotificationsEnabled: Bool = false
+    var sendingNotificationsEnabled: Bool = true
     var undefinedEvaluationHidden: Bool = false
 }
 

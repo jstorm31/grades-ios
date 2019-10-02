@@ -59,7 +59,6 @@ final class SettingsViewController: BaseTableViewController,
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        removeRightButton()
         viewModel.bindOutput()
     }
 

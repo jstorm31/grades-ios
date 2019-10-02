@@ -33,11 +33,6 @@ final class TeacherClassificationViewController: BaseViewController, BindableTyp
         displayTab(forIndex: viewModel.defaultScene.rawValue)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        removeRightButton()
-    }
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
@@ -74,8 +69,13 @@ final class TeacherClassificationViewController: BaseViewController, BindableTyp
         let segmented = UISegmentedControl(items: [L10n.Teacher.Tab.group, L10n.Teacher.Tab.student])
         segmented.selectedSegmentIndex = viewModel.defaultScene.rawValue
         segmented.center = view.center
-        segmented.tintColor = UIColor.Theme.primary
-        segmented.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.Grades.body], for: .normal)
+        if #available(iOS 13.0, *) {
+            segmented.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+            segmented.selectedSegmentTintColor = UIColor.Theme.primary
+        } else {
+            segmented.tintColor = UIColor.Theme.primary
+        }
+        segmented.setTitleTextAttributes([.font: UIFont.Grades.body, .foregroundColor: UIColor.Theme.text], for: .normal)
         segmented.addTarget(self, action: #selector(segmentedControlIndexChanged(_:)), for: .valueChanged)
         view.addSubview(segmented)
         segmented.snp.makeConstraints { make in

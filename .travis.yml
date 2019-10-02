@@ -1,4 +1,4 @@
-osx_image: xcode10.3
+osx_image: xcode11
 language: objective-c
 cache:
   directories:
@@ -9,12 +9,12 @@ before_install:
 - brew install git-secret carthage swiftlint swiftgen swiftformat || true
 - gem install xcpretty-travis-formatter
 install:
-- carthage bootstrap --platform iOS --no-use-binaries --cache-builds
+- carthage bootstrap --new-resolver --platform iOS --no-use-binaries --cache-builds
 before_script:
 - gpg --batch --import grades_private_key.txt
 - git secret reveal -p "$GIT_SECRET_PASSPHRASE"
 script:
 - set -o pipefail
-- xcodebuild clean test -project Grades.xcodeproj -scheme Debug -destination 'platform=iOS Simulator,name=iPhone Xs,OS=12.4' | xcpretty --test -f `xcpretty-travis-formatter`
+- xcodebuild clean test -project Grades.xcodeproj -scheme Debug -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.0' | xcpretty --test -f `xcpretty-travis-formatter`
 after_failure:
   - cat $TMPDIR/carthage-*.log

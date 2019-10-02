@@ -5,7 +5,6 @@
 //  Created by Jiří Zdvomka on 02/03/2019.
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
-
 import ToastSwiftFramework
 import UIKit
 
@@ -16,7 +15,6 @@ class BaseViewController: UIViewController {
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-
         #if DEBUG
             NSLog("ℹ️ Allocated ViewController: \(self)")
         #endif
@@ -37,23 +35,42 @@ class BaseViewController: UIViewController {
 
         view.backgroundColor = .white
 
-        // Style navigation bar
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.setBarTintColor(
-            gradient: UIColor.Theme.primaryGradient,
-            size: CGSize(width: UIScreen.main.bounds.size.width, height: 1)
-        )
-
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.white,
-            NSAttributedString.Key.font: UIFont.Grades.navigationBarTitle
-        ]
-        navigationController?.navigationBar.largeTitleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.white,
-            NSAttributedString.Key.font: UIFont.Grades.navigationBarLargeTitle
-        ]
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.tintColor = .white
+
+        // Style navigation bar for iOS 13
+        if #available(iOS 13.0, *) {
+            let navBarAppearance = UINavigationBarAppearance()
+            navBarAppearance.configureWithOpaqueBackground()
+            navBarAppearance.titleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.white,
+                NSAttributedString.Key.font: UIFont.Grades.navigationBarTitle
+            ]
+            navBarAppearance.largeTitleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.white,
+                NSAttributedString.Key.font: UIFont.Grades.navigationBarLargeTitle
+            ]
+            navBarAppearance.backgroundColor = UIColor.Theme.primary
+            navigationController?.navigationBar.standardAppearance = navBarAppearance
+            navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        } else {
+            // Style navigation bar
+            navigationController?.navigationBar.setBarTintColor(
+                gradient: UIColor.Theme.primaryGradient,
+                size: CGSize(width: UIScreen.main.bounds.size.width, height: 1)
+            )
+
+            navigationController?.navigationBar.prefersLargeTitles = true
+            navigationController?.navigationBar.titleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.white,
+                NSAttributedString.Key.font: UIFont.Grades.navigationBarTitle
+            ]
+            navigationController?.navigationBar.largeTitleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.white,
+                NSAttributedString.Key.font: UIFont.Grades.navigationBarLargeTitle
+            ]
+        }
 
         navigationItem.largeTitleDisplayMode = .always
         extendedLayoutIncludesOpaqueBars = true
@@ -66,12 +83,5 @@ class BaseViewController: UIViewController {
 
     open override var shouldAutorotate: Bool {
         return false
-    }
-
-    func removeRightButton() {
-        guard let subviews = navigationController?.navigationBar.subviews else { return }
-        for view in subviews where view.tag != 0 {
-            view.removeFromSuperview()
-        }
     }
 }

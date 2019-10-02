@@ -111,10 +111,9 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
         isUserRegisteredForNotifications = false
 
         return deviceToken
-            .unwrap()
             .take(1)
             .flatMap { [weak self] token -> Observable<Void> in
-                guard let self = self else {
+                guard let self = self, let token = token else {
                     return Observable.error(NotificationError.tokenIsNil)
                 }
 

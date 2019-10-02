@@ -1,4 +1,4 @@
-github "SnapKit/SnapKit" ~> 4.0.0
+github "SnapKit/SnapKit" ~> 5.0.1
 github "OAuthSwift/OAuthSwift" ~> 1.2.0
 github "ReactiveX/RxSwift" ~> 5.0.0
 github "RxSwiftCommunity/RxDataSources" ~> 4.0.1
