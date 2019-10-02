@@ -31,8 +31,7 @@ class GradesUITests: XCTestCase {
 	}
 
     func testCourseList() {
-		app.buttons["Login"].tap()
-        app.buttons["Disagree"].tap()
+        login()
 
 		let jsCell = app.staticTexts["BI-PJS.1"]
 		let iosCell = app.staticTexts["MI-IOS"]
@@ -46,7 +45,7 @@ class GradesUITests: XCTestCase {
     }
 	
 	func testSemesterChange() {
-		app.buttons["Login"].tap()
+        login()
 		chooseSemester("B181")
 		
 		let jsCell = app.staticTexts["BI-PJS.1"]
@@ -61,7 +60,7 @@ class GradesUITests: XCTestCase {
 	}
 	
     func testCourseDetail() {
-		app.buttons["Login"].tap()
+        login()
 		let tablesQuery = app.tables
 		let teacherCell = tablesQuery.cells.containing(.staticText, identifier:"28 p").staticTexts["BI-PJS.1"]
 		XCTAssert(teacherCell.waitForExistence(timeout: 7))
@@ -71,7 +70,7 @@ class GradesUITests: XCTestCase {
 	}
 	
 	func testTeacherDetail() {
-		app.buttons["Login"].tap()
+        login()
 		let teacherCell = app.tables.children(matching: .cell).element(boundBy: 2).staticTexts["BI-PJS.1"]
 		XCTAssert(teacherCell.waitForExistence(timeout: 7))
 		teacherCell.tap()
@@ -89,7 +88,7 @@ class GradesUITests: XCTestCase {
 	}
 
 	func testTeacherStudent() {
-		app.buttons["Login"].tap()
+        login()
 		let teacherCell = app.tables.children(matching: .cell).element(boundBy: 2).staticTexts["BI-PJS.1"]
 		XCTAssert(teacherCell.waitForExistence(timeout: 7))
 		teacherCell.tap()
@@ -107,7 +106,7 @@ class GradesUITests: XCTestCase {
 	}
 	
 	func testChangeStudent() {
-		app.buttons["Login"].tap()
+        login()
 		let teacherCell = app.tables.children(matching: .cell).element(boundBy: 2).staticTexts["BI-PJS.1"]
 		XCTAssert(teacherCell.waitForExistence(timeout: 7))
 		teacherCell.tap()
@@ -122,21 +121,32 @@ class GradesUITests: XCTestCase {
 	}
     
     func testLogout() {
-        app.buttons["Login"].tap()
+        login()
         app.buttons["Settings button"].tap()
         app.buttons["Log out"].tap()
         app.buttons["Yes"].tap()
         
         XCTAssert(app.buttons["Login"].waitForExistence(timeout: 5))
     }
-	
-	private func chooseSemester(_ semester: String) {
-		app.buttons["Settings button"].tap()
-		let picker = app.tables.children(matching: .cell).element(boundBy: 2).staticTexts["Semester"]
-		XCTAssert(picker.waitForExistence(timeout: 7))
-		picker.tap()
-		app.pickers.pickerWheels["B182"].adjust(toPickerWheelValue: semester)
-		app.toolbars["Toolbar"].buttons["Done"].tap()
-		app.navigationBars["Settings"].buttons["Courses"].tap()
-	}
+}
+
+private extension GradesUITests {
+    func login() {
+        app.buttons["Login"].tap()
+        
+        let disagreeButton = app.buttons["Disagree"]
+        if disagreeButton.exists {
+            disagreeButton.tap()
+        }
+    }
+    
+    func chooseSemester(_ semester: String) {
+        app.buttons["Settings button"].tap()
+        let picker = app.tables.children(matching: .cell).element(boundBy: 2).staticTexts["Semester"]
+        XCTAssert(picker.waitForExistence(timeout: 7))
+        picker.tap()
+        app.pickers.pickerWheels["B182"].adjust(toPickerWheelValue: semester)
+        app.toolbars["Toolbar"].buttons["Done"].tap()
+        app.navigationBars["Settings"].buttons["Courses"].tap()
+    }
 }
