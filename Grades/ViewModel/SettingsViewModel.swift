@@ -51,6 +51,7 @@ final class SettingsViewModel: TablePickerViewModel {
         UserDefaults.standard.removeObject(forKey: Constants.courseFilters)
 
         return self.dependencies.pushNotificationsService.unregisterUserFromDevice()
+            .debug()
             .do(onNext: { [weak self] in
                 self?.dependencies.coordinator.popToRoot(animated: true)
             }, onError: { [weak self] error in

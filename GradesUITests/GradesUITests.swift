@@ -31,8 +31,8 @@ class GradesUITests: XCTestCase {
 	}
 
     func testCourseList() {
-		XCTAssertTrue(app.otherElements.containing(.image, identifier:"FullTextLogo").element.exists)
 		app.buttons["Login"].tap()
+        app.buttons["Disagree"].tap()
 
 		let jsCell = app.staticTexts["BI-PJS.1"]
 		let iosCell = app.staticTexts["MI-IOS"]
