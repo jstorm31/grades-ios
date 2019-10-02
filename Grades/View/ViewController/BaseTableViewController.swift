@@ -59,6 +59,7 @@ extension BaseTableViewController: UITableViewDelegate {
     func tableView(_: UITableView, willDisplayHeaderView view: UIView, forSection _: Int) {
         guard let headerView = view as? UITableViewHeaderFooterView else { return }
 
+        headerView.tintColor = UIColor.Theme.tableHeaderBackground
         headerView.textLabel?.font = UIFont.Grades.body
         headerView.textLabel?.textColor = UIColor.Theme.sectionGrayText
     }

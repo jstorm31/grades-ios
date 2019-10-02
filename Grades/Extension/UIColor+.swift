@@ -20,6 +20,7 @@ extension UIColor {
         static let borderGray = UIColor(hex: 0xD8D8D8)
         static let textFieldWhiteOpaciy = UIColor(red: 255, green: 255, blue: 255, a: 0.2)
         static let lightGrayBackground = UIColor(hex: 0xFBFBFB)
+        static let tableHeaderBackground = UIColor(hex: 0xF3F3F3)
         static let sectionGrayText = UIColor(hex: 0x7A7A7A)
 
         static let success = UIColor(hex: 0x73C0A2)

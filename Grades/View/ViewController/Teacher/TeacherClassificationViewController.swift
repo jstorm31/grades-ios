@@ -75,7 +75,7 @@ final class TeacherClassificationViewController: BaseViewController, BindableTyp
         } else {
             segmented.tintColor = UIColor.Theme.primary
         }
-        segmented.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.Grades.body], for: .normal)
+        segmented.setTitleTextAttributes([.font: UIFont.Grades.body, .foregroundColor: UIColor.Theme.text], for: .normal)
         segmented.addTarget(self, action: #selector(segmentedControlIndexChanged(_:)), for: .valueChanged)
         view.addSubview(segmented)
         segmented.snp.makeConstraints { make in
