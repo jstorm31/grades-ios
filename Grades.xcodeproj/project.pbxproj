@@ -424,7 +424,6 @@
 		96C61EE3233CB9E200EA0FB2 /* SwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
 		96C61EE5233CBB7E00EA0FB2 /* UIPrimarySwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPrimarySwitch.swift; sourceTree = "<group>"; };
 		96C61EE7233CBD8E00EA0FB2 /* PickerCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCellViewModel.swift; sourceTree = "<group>"; };
-		96C61EEF233CE9E600EA0FB2 /* RxBiBinding.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = RxBiBinding.framework.dSYM; path = Carthage/Build/iOS/RxBiBinding.framework.dSYM; sourceTree = "<group>"; };
 		96C61EF1233CE9F800EA0FB2 /* RxBiBinding.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBiBinding.framework; path = Carthage/Build/iOS/RxBiBinding.framework; sourceTree = "<group>"; };
 		96C61EF3233CEA9E00EA0FB2 /* SwitchCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCellViewModel.swift; sourceTree = "<group>"; };
 		96C61EF5233CF3C800EA0FB2 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/iOS/RxRelay.framework; sourceTree = "<group>"; };
@@ -689,7 +688,6 @@
 			children = (
 				96C61EF5233CF3C800EA0FB2 /* RxRelay.framework */,
 				96C61EF1233CE9F800EA0FB2 /* RxBiBinding.framework */,
-				96C61EEF233CE9E600EA0FB2 /* RxBiBinding.framework.dSYM */,
 				962A67A3229521B9008CF643 /* Sentry.framework */,
 				968EC1D22282DC1100241F51 /* SwiftKeychainWrapper.framework */,
 				96F220DE227B67670078AD2A /* Swifter.framework */,

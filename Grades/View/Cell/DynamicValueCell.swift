@@ -68,7 +68,6 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
 
     private func bindOutput() {
         valueTextField.rx.text
-            .debug()
             .skip(1)
             .unwrap()
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
