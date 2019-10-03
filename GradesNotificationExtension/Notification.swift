@@ -15,6 +15,7 @@ struct Notification {
 	var courseCode: String = ""
 	var texts: [NotificationText] = []
 	var url: String?
+    var badgeCount: Int = 1
 	
 	/// Extract content from notification
 	func getContent() -> NotificationContent {

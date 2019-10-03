@@ -34,6 +34,7 @@ final class NotificationService: UNNotificationServiceExtension {
 				let (title, text) = notification.getContent()
 				bestAttemptContent.title = title
 				bestAttemptContent.body = text
+                bestAttemptContent.badge = NSNumber(integerLiteral: notification.badgeCount)
 				bestAttemptContent.userInfo["courseCode"] = notification.courseCode
 			}
 			contentHandler(bestAttemptContent)
@@ -86,14 +87,16 @@ private extension NotificationService {
 		
 		// Make request
 		let task = URLSession.shared.dataTask(with: request) { data, response, error in
-			guard error == nil, let data = data, let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            guard error == nil, let data = data, let response = response as? HTTPURLResponse, response.statusCode == 200 else {
 				completion(nil)
 				return
 			}
 
 			do {
 				let wrapper = try JSONDecoder().decode(Notifications.self, from: data)
-				if let notification = wrapper.notifications.first(where: { $0.id == notificationId }) {
+                
+				if var notification = wrapper.notifications.first(where: { $0.id == notificationId }) {
+                    notification.badgeCount = wrapper.notifications.count
 					completion(notification)
 				} else {
 					completion(nil)
