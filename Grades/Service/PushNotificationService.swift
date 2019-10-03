@@ -18,6 +18,7 @@ protocol PushNotificationServiceProtocol {
     func start() -> Observable<Void>
     func stop()
     func unregisterUserFromDevice() -> Observable<Void>
+    func processNotification(_ userInfo: [AnyHashable: Any])
 }
 
 protocol HasPushNotificationService {
@@ -122,6 +123,33 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
             }
     }
 
+    /// Process notification after it was tapped by user
+    func processNotification(_ userInfo: [AnyHashable: Any]) {
+        // Get username and mark the notification as read
+        if let id = userInfo["notificationId"] as? String, let notificationId = Int(id) {
+            dependencies.userRepository.user.asObservable()
+                .unwrap()
+                .take(1)
+                .map { $0.username }
+                .flatMap { [weak self] username -> Observable<Void> in
+                    self?.dependencies.gradesApi.markNotificationRead(username: username, notificationId: notificationId)
+                        ?? Observable.empty()
+                }
+                .subscribe(onNext: { _ in }).disposed(by: bag)
+        }
+
+        // Present course detail screne
+        if let courseCode = userInfo["courseCode"] as? String {
+            let courseDetailVM = CourseDetailStudentViewModel(dependencies: AppDependency.shared, course: Course(code: courseCode))
+            dependencies.coordinator.transition(to: .courseDetailStudent(courseDetailVM), type: .push)
+        }
+
+        // Decrease badge count
+        UIApplication.shared.applicationIconBadgeNumber = UIApplication.shared.applicationIconBadgeNumber > 0
+            ? UIApplication.shared.applicationIconBadgeNumber - 1
+            : 0
+    }
+
     // MARK: Private methods
 
     /// Reactive wrapper over requestAuthorization
@@ -171,25 +199,7 @@ extension PushNotificationService: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-
-        // Get username and mark the notification as read
-        if let id = userInfo["notificationId"] as? String, let notificationId = Int(id) {
-            dependencies.userRepository.user.asObservable().unwrap()
-                .map { $0.username }
-                .flatMap { [weak self] username -> Observable<Void> in
-                    self?.dependencies.gradesApi.markNotificationRead(username: username, notificationId: notificationId)
-                        ?? Observable.empty()
-                }
-                .subscribe(onNext: { _ in }).disposed(by: bag)
-        }
-
-        // Present course detail screne
-        if let courseCode = userInfo["courseCode"] as? String {
-            let courseDetailVM = CourseDetailStudentViewModel(dependencies: AppDependency.shared, course: Course(code: courseCode))
-            dependencies.coordinator.transition(to: .courseDetailStudent(courseDetailVM), type: .push)
-        }
-
-        UIApplication.shared.applicationIconBadgeNumber = 0
+        processNotification(userInfo)
         completionHandler()
     }
 }

@@ -15,8 +15,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
-    func application(_: UIApplication,
-                     didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_: UIApplication, didFinishLaunchingWithOptions options: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         resetStateIfUITesting()
 
         // Initialize first scene
@@ -28,6 +27,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = loginScene.viewController()
         AppDependency.shared.coordinator.setRoot(viewController: window!.rootViewController!)
+
+        // Process notification
+        if let userInfo = options?[UIApplication.LaunchOptionsKey.remoteNotification] as? [AnyHashable: AnyObject] {
+            AppDependency.shared.pushNotificationsService.processNotification(userInfo)
+        }
 
         setupSentry()
 
