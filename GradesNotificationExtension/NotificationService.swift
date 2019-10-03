@@ -27,7 +27,7 @@ final class NotificationService: UNNotificationServiceExtension {
 		guard let bestAttemptContent = bestAttemptContent else { return }
 		guard let idString = bestAttemptContent.userInfo["notificationId"] as? String,
 			let notificationId = Int(idString) else { return }
-		
+        
 		loadCredentialsFromKeychain()
 		fetchNotification(withId: notificationId) { notification in
 			if let notification = notification {
