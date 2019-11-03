@@ -9,7 +9,8 @@
 import RxSwift
 @testable import GradesDev
 
-class GradesAPIMock: GradesAPIProtocol {
+final class GradesAPIMock: GradesAPIProtocol {
+    
 	// MARK: mock data with default values
 	var result = Result.success
 	
@@ -146,4 +147,8 @@ class GradesAPIMock: GradesAPIProtocol {
 	func markNotificationRead(username: String, notificationId: Int) -> Observable<Void> {
 		fatalError("markNotificationRead not implemented")
 	}
+    
+    func getNewNotifications(forUser: String) -> Observable<Notifications> {
+        fatalError("getNewNotifications not implemented")
+    }
 }
