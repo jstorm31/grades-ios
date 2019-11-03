@@ -14,10 +14,13 @@ import UserNotifications
 protocol PushNotificationServiceProtocol {
     var deviceToken: BehaviorSubject<String?> { get set }
     var isUserRegisteredForNotifications: Bool { get set }
+    var currentNotification: BehaviorRelay<PushNotification?> { get set }
 
     func start() -> Observable<Void>
     func stop()
     func unregisterUserFromDevice() -> Observable<Void>
+    func process(notification: PushNotification) -> Observable<StudentCourse?>
+    func decreaseNotificationCount()
 }
 
 protocol HasPushNotificationService {
@@ -32,6 +35,7 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
     private let bag = DisposeBag()
 
     var deviceToken = BehaviorSubject<String?>(value: nil)
+    var currentNotification = BehaviorRelay<PushNotification?>(value: nil)
 
     var isUserRegisteredForNotifications: Bool {
         get {
@@ -122,6 +126,44 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
             }
     }
 
+    /// Process notification after it was tapped by user
+    func process(notification: PushNotification) -> Observable<StudentCourse?> {
+        return dependencies.userRepository.user.asObservable().unwrap()
+            .take(1)
+            .map { $0.username }
+            // Fetch notification content if not available (e.g. only raw notification received)
+            .flatMap { [weak self] username -> Observable<(String, String?)> in
+                if notification.courseCode.isEmpty {
+                    return self?.dependencies.gradesApi.getNewNotifications(forUser: username)
+                        .map { wrapper in
+                            wrapper.notifications.first(where: { $0.id == notification.id })
+                        }
+                        .map { (username, $0?.courseCode) } ?? Observable.just((username, nil))
+                }
+                return Observable.just((username, notification.courseCode))
+            }
+            // Mark notification as red
+            .flatMap { [weak self] username, courseCode -> Observable<StudentCourse?> in
+                (self?.dependencies.gradesApi.markNotificationRead(username: username, notificationId: notification.id)
+                    ?? Observable.empty())
+                    .map { _ in
+                        if let code = courseCode {
+                            return StudentCourse(code: code)
+                        }
+                        return nil
+                    }
+            }
+            .do(onNext: { [weak self] _ in
+                self?.decreaseNotificationCount()
+            })
+    }
+
+    func decreaseNotificationCount() {
+        UIApplication.shared.applicationIconBadgeNumber = UIApplication.shared.applicationIconBadgeNumber > 0
+            ? UIApplication.shared.applicationIconBadgeNumber - 1
+            : 0
+    }
+
     // MARK: Private methods
 
     /// Reactive wrapper over requestAuthorization
@@ -150,6 +192,10 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
             .unwrap()
             .take(1)
             .flatMap { [weak self] token -> Observable<Void> in
+                #if DEBUG
+                    Log.info("Device token: \(token)")
+                #endif
+
                 guard let self = self else {
                     return Observable.error(NotificationError.tokenIsNil)
                 }
@@ -172,24 +218,9 @@ extension PushNotificationService: UNUserNotificationCenterDelegate {
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
 
-        // Get username and mark the notification as read
-        if let id = userInfo["notificationId"] as? String, let notificationId = Int(id) {
-            dependencies.userRepository.user.asObservable().unwrap()
-                .map { $0.username }
-                .flatMap { [weak self] username -> Observable<Void> in
-                    self?.dependencies.gradesApi.markNotificationRead(username: username, notificationId: notificationId)
-                        ?? Observable.empty()
-                }
-                .subscribe(onNext: { _ in }).disposed(by: bag)
+        if let notification = PushNotification.decode(from: userInfo) {
+            currentNotification.accept(notification)
         }
-
-        // Present course detail screne
-        if let courseCode = userInfo["courseCode"] as? String {
-            let courseDetailVM = CourseDetailStudentViewModel(dependencies: AppDependency.shared, course: Course(code: courseCode))
-            dependencies.coordinator.transition(to: .courseDetailStudent(courseDetailVM), type: .push)
-        }
-
-        UIApplication.shared.applicationIconBadgeNumber = 0
         completionHandler()
     }
 }

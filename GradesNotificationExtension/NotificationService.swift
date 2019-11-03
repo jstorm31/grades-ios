@@ -27,13 +27,14 @@ final class NotificationService: UNNotificationServiceExtension {
 		guard let bestAttemptContent = bestAttemptContent else { return }
 		guard let idString = bestAttemptContent.userInfo["notificationId"] as? String,
 			let notificationId = Int(idString) else { return }
-		
+        
 		loadCredentialsFromKeychain()
 		fetchNotification(withId: notificationId) { notification in
 			if let notification = notification {
 				let (title, text) = notification.getContent()
 				bestAttemptContent.title = title
 				bestAttemptContent.body = text
+                bestAttemptContent.badge = NSNumber(integerLiteral: notification.badgeCount)
 				bestAttemptContent.userInfo["courseCode"] = notification.courseCode
 			}
 			contentHandler(bestAttemptContent)
@@ -41,13 +42,15 @@ final class NotificationService: UNNotificationServiceExtension {
     }
 }
 
+// MARK: Private
+
 private extension NotificationService {
 	
 	/**
 		Checks accessToken, obtains a new one if expired and fetches notifications content
 		- Returns content of the notification as a parametr in the completion closure or nil if the fetch has been unsucessful
 	*/
-	func fetchNotification(withId id: Int, completion: @escaping (Notification?) -> Void) {
+	func fetchNotification(withId id: Int, completion: @escaping (PushNotification?) -> Void) {
 		guard let credentials = credentials else { return completion(nil) }
 		
 		if let expiresAt = credentials.expiresAt, expiresAt.timeIntervalSinceNow.sign == FloatingPointSign.plus {
@@ -70,7 +73,7 @@ private extension NotificationService {
 	}
 	
 	/// Makes notification HTTP content request
-	func fetchNotificationContent(_ notificationId: Int, completion: @escaping (Notification?) -> Void) {
+	func fetchNotificationContent(_ notificationId: Int, completion: @escaping (PushNotification?) -> Void) {
 		guard let credentials = credentials else {
 			completion(nil)
 			return
@@ -86,14 +89,16 @@ private extension NotificationService {
 		
 		// Make request
 		let task = URLSession.shared.dataTask(with: request) { data, response, error in
-			guard error == nil, let data = data, let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            guard error == nil, let data = data, let response = response as? HTTPURLResponse, response.statusCode == 200 else {
 				completion(nil)
 				return
 			}
 
 			do {
 				let wrapper = try JSONDecoder().decode(Notifications.self, from: data)
-				if let notification = wrapper.notifications.first(where: { $0.id == notificationId }) {
+                
+				if var notification = wrapper.notifications.first(where: { $0.id == notificationId }) {
+                    notification.badgeCount = wrapper.notifications.count
 					completion(notification)
 				} else {
 					completion(nil)

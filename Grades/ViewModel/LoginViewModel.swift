@@ -56,8 +56,10 @@ final class LoginViewModel: BaseViewModel {
             .authenticate(useBuiltInSafari: true, viewController: viewController)
             .flatMap(postAuthSetup)
     }
+}
 
-    private func postAuthSetup(_ success: Bool) -> Observable<Void> {
+private extension LoginViewModel {
+    func postAuthSetup(_ success: Bool) -> Observable<Void> {
         guard success == true else {
             return Observable.empty()
         }
@@ -85,7 +87,7 @@ final class LoginViewModel: BaseViewModel {
     }
 
     /// Show GDPR and notification alerts if user is a student
-    private func handleGdpr(user: User, gdprState: GdprState?) -> Observable<Void> {
+    func handleGdpr(user: User, gdprState: GdprState?) -> Observable<Void> {
         guard let gdprState = gdprState, user.isStudent else {
             return Observable.just(())
         }
@@ -109,7 +111,7 @@ final class LoginViewModel: BaseViewModel {
             }
     }
 
-    private func gdprSetup(for user: User) -> GdprState {
+    func gdprSetup(for user: User) -> GdprState {
         let gdprValue = UserDefaults.standard.integer(forKey: Constants.gdprCompliantKey(for: user.username))
         let gdprState = GdprState(rawValue: gdprValue) ?? .unset
 
@@ -125,7 +127,7 @@ final class LoginViewModel: BaseViewModel {
         return gdprState
     }
 
-    private func transitionToCourseList() {
+    func transitionToCourseList() {
         let courseListViewModel = CourseListViewModel(dependencies: AppDependency.shared)
         dependencies.coordinator.transition(to: .courseList(courseListViewModel), type: .push)
     }

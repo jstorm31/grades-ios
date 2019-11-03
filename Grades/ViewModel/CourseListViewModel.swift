@@ -12,14 +12,15 @@ import RxCocoa
 import RxSwift
 
 final class CourseListViewModel: BaseViewModel {
-    typealias Dependencies = HasSceneCoordinator & HasCoursesRepository & HasUserRepository & HasSettingsRepository
+    typealias Dependencies = HasSceneCoordinator & HasCoursesRepository & HasUserRepository
+        & HasSettingsRepository & HasPushNotificationService
 
     private let dependencies: Dependencies
     private let bag = DisposeBag()
 
     var openSettings: CocoaAction
 
-    // MARK: output
+    // MARK: Output
 
     let courses = BehaviorRelay<CoursesByRoles>(value: CoursesByRoles(student: [], teacher: []))
     let filteredCourses = BehaviorRelay<CoursesByRoles>(value: CoursesByRoles(student: [], teacher: []))
@@ -27,11 +28,11 @@ final class CourseListViewModel: BaseViewModel {
     let isFetchingCourses = BehaviorSubject<Bool>(value: false)
     let coursesError = BehaviorSubject<Error?>(value: nil)
 
-    // MARK: input
+    // MARK: Input
 
     let refresh = BehaviorSubject<Void>(value: ())
 
-    // MARK: initialization
+    // MARK: Initialization
 
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
@@ -47,9 +48,10 @@ final class CourseListViewModel: BaseViewModel {
             .disposed(by: bag)
     }
 
-    // MARK: methods
+    // MARK: Methods
 
     func bindOutput() {
+        processNotification()
         loadFilters()
 
         hiddenCourses
@@ -67,6 +69,7 @@ final class CourseListViewModel: BaseViewModel {
         dependencies.coursesRepository.isFetching.bind(to: isFetchingCourses).disposed(by: bag)
         dependencies.coursesRepository.error.bind(to: coursesError).disposed(by: bag)
 
+        // Fetch courses
         Observable.combineLatest(
             dependencies.userRepository.user.asObservable(),
             dependencies.settingsRepository.currentSettings.asObservable(),
@@ -114,23 +117,41 @@ final class CourseListViewModel: BaseViewModel {
         hiddenCourses.accept(hidden)
     }
 
-    private func transitionToStudentCourse(_ course: StudentCourse) {
+    func saveFilters() {
+        UserDefaults.standard.set(hiddenCourses.value, forKey: Constants.courseFilters)
+    }
+}
+
+// MARK: Private
+
+private extension CourseListViewModel {
+    func transitionToStudentCourse(_ course: StudentCourse) {
         let courseDetailVM = CourseDetailStudentViewModel(dependencies: AppDependency.shared, course: course)
         dependencies.coordinator.transition(to: .courseDetailStudent(courseDetailVM), type: .push)
     }
 
-    private func transitionToTeacherCourse(_ course: TeacherCourse) {
+    func transitionToTeacherCourse(_ course: TeacherCourse) {
         let teacherClassificationVM = TeacherClassificationViewModel(dependencies: AppDependency.shared, course: course)
         dependencies.coordinator.transition(to: .teacherClassification(teacherClassificationVM), type: .push)
     }
 
-    private func loadFilters() {
+    func loadFilters() {
         if let filters = UserDefaults.standard.stringArray(forKey: Constants.courseFilters) {
             hiddenCourses.accept(filters)
         }
     }
 
-    func saveFilters() {
-        UserDefaults.standard.set(hiddenCourses.value, forKey: Constants.courseFilters)
+    /// Process notificaton if present and transition to course detail
+    func processNotification() {
+        dependencies.pushNotificationsService.currentNotification.unwrap()
+            .debug()
+            .flatMap { [weak self] notification in
+                self?.dependencies.pushNotificationsService.process(notification: notification) ?? Observable.empty()
+            }
+            .unwrap()
+            .subscribe(onNext: { [weak self] course in
+                self?.transitionToStudentCourse(course)
+            })
+            .disposed(by: bag)
     }
 }

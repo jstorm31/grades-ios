@@ -69,7 +69,6 @@
 		964CDE2B228829AE0093CB3C /* Test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96F220F1227B785F0078AD2A /* Test.plist */; };
 		964CDE2D22882C400093CB3C /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE6A2270ADDF009C35A9 /* String+.swift */; };
 		964CDE2F228832C60093CB3C /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964CDE2E228832C60093CB3C /* Credentials.swift */; };
-		964CDE312288486A0093CB3C /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964CDE302288486A0093CB3C /* Notification.swift */; };
 		964CDE342288C5CE0093CB3C /* AuthTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE682270AAA1009C35A9 /* AuthTokenResponse.swift */; };
 		964CDE352288C6F90093CB3C /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966BCCBA22881F6C00171B71 /* Date+.swift */; };
 		96520E952223D65F00AB6499 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96520E942223D65F00AB6499 /* AppDelegate.swift */; };
@@ -84,6 +83,8 @@
 		9658071922304B420065E23D /* Action.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658071822304B420065E23D /* Action.framework */; };
 		965ADAEB223569C500AA8CF4 /* CourseListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965ADAEA223569C500AA8CF4 /* CourseListCell.swift */; };
 		965ADAF32235976300AA8CF4 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965ADAF22235976300AA8CF4 /* Result.swift */; };
+		965E3291234691EE002F2211 /* PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964CDE302288486A0093CB3C /* PushNotification.swift */; };
+		965E3292234692A9002F2211 /* PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964CDE302288486A0093CB3C /* PushNotification.swift */; };
 		96672003230DE3D300B1EF85 /* SortableDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96672002230DE3D300B1EF85 /* SortableDataViewModel.swift */; };
 		966ABB57222D986A007DD046 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB56222D986A007DD046 /* Course.swift */; };
 		966ABB59222DA2DF007DD046 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB58222DA2DF007DD046 /* User.swift */; };
@@ -308,7 +309,7 @@
 		964CDE212288289B0093CB3C /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		964CDE23228828EE0093CB3C /* GradesNotificationExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GradesNotificationExtension.entitlements; sourceTree = "<group>"; };
 		964CDE2E228832C60093CB3C /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
-		964CDE302288486A0093CB3C /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		964CDE302288486A0093CB3C /* PushNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotification.swift; sourceTree = "<group>"; };
 		96520E912223D65F00AB6499 /* GradesDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GradesDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96520E942223D65F00AB6499 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96520E962223D65F00AB6499 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -606,7 +607,6 @@
 				964CDE212288289B0093CB3C /* NotificationService.swift */,
 				964CDE19228828330093CB3C /* Info.plist */,
 				964CDE2E228832C60093CB3C /* Credentials.swift */,
-				964CDE302288486A0093CB3C /* Notification.swift */,
 			);
 			path = GradesNotificationExtension;
 			sourceTree = "<group>";
@@ -953,6 +953,7 @@
 		96F3A37622390F2B00FB63EF /* Type */ = {
 			isa = PBXGroup;
 			children = (
+				964CDE302288486A0093CB3C /* PushNotification.swift */,
 				96F3A3802239A84F00FB63EF /* DynamicValue.swift */,
 				96861084222AF2630069B81B /* BindableType.swift */,
 				96939EE5223BB97500A49E57 /* ClassificationType.swift */,
@@ -1352,9 +1353,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				965E3292234692A9002F2211 /* PushNotification.swift in Sources */,
 				964CDE2A228829AB0093CB3C /* PlistDocument.swift in Sources */,
 				964CDE252288299F0093CB3C /* EnvironmentConfiguration.swift in Sources */,
-				964CDE312288486A0093CB3C /* Notification.swift in Sources */,
 				964CDE2F228832C60093CB3C /* Credentials.swift in Sources */,
 				964CDE2D22882C400093CB3C /* String+.swift in Sources */,
 				964CDE342288C5CE0093CB3C /* AuthTokenResponse.swift in Sources */,
@@ -1468,6 +1469,7 @@
 				968D05C422637F36003F7D49 /* DynamicValueCell.swift in Sources */,
 				96A8AEF5227469E90076CCD2 /* PushNotificationService.swift in Sources */,
 				96068D39227A12BA00890EF6 /* StudentClassifications.swift in Sources */,
+				965E3291234691EE002F2211 /* PushNotification.swift in Sources */,
 				96939EF0223C1FEE00A49E57 /* Unwrap+.swift in Sources */,
 				964181722247A7BB0019CABD /* StudentClassificationViewModel.swift in Sources */,
 				96C0A843226C78DC00AE733A /* StudentSearchViewController.swift in Sources */,
@@ -1572,7 +1574,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = GradesUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1599,7 +1601,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = GradesUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1619,8 +1621,8 @@
 			buildSettings = {
 				APP_VERSION = 0.1.3;
 				CODE_SIGN_ENTITLEMENTS = GradesNotificationExtension/GradesNotificationExtension.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CONFIG_ENVIRONMENT = Debug;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 2PY9RKK8A7;
@@ -1640,7 +1642,7 @@
 				MARKETING_VERSION = 0.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades.NotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Grades Notification Extension - Ad Hoc";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1652,8 +1654,8 @@
 			buildSettings = {
 				APP_VERSION = 0.1.3;
 				CODE_SIGN_ENTITLEMENTS = GradesNotificationExtension/GradesNotificationExtension.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CONFIG_ENVIRONMENT = Test;
 				DEVELOPMENT_TEAM = 2PY9RKK8A7;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1672,7 +1674,7 @@
 				MARKETING_VERSION = 0.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades.NotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Grades Notification Extension - Ad Hoc";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1838,8 +1840,8 @@
 				APP_VERSION = 0.1.3;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Grades/GradesDev.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Quanti s.r.o. (2PY9RKK8A7)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CONFIG_ENVIRONMENT = Debug;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 2PY9RKK8A7;
@@ -1863,7 +1865,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades;
 				PRODUCT_NAME = GradesDev;
-				PROVISIONING_PROFILE_SPECIFIER = "Grades - Ad Hoc";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1919,7 +1921,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = GradesTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1947,7 +1949,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = GradesTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2032,8 +2034,8 @@
 				APP_VERSION = 0.1.3;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Grades/GradesDev.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Quanti s.r.o. (2PY9RKK8A7)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CONFIG_ENVIRONMENT = Test;
 				DEVELOPMENT_TEAM = 2PY9RKK8A7;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2056,7 +2058,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades;
 				PRODUCT_NAME = GradesDev;
-				PROVISIONING_PROFILE_SPECIFIER = "Grades - Ad Hoc";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2075,7 +2077,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = GradesTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2102,7 +2104,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = GradesUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

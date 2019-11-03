@@ -26,6 +26,7 @@ protocol GradesAPIProtocol {
     func getClassifications(forCourse: String) -> Observable<[Classification]>
     func getGroupClassifications(courseCode: String, groupCode: String, classificationId: String) -> Observable<[StudentClassification]>
     func getTeacherStudents(courseCode: String) -> Observable<[User]>
+    func getNewNotifications(forUser: String) -> Observable<Notifications>
 
     // MARK: PUT
 
@@ -75,6 +76,7 @@ final class GradesAPI: GradesAPIProtocol {
         case courseStudents(String, String)
         case studentsClassifications(String)
         case markNotificationRead(String, Int)
+        case newNotifications(String)
     }
 
     // MARK: GET requests
@@ -174,6 +176,11 @@ final class GradesAPI: GradesAPIProtocol {
         }
     }
 
+    func getNewNotifications(forUser username: String) -> Observable<Notifications> {
+        let url = createURL(from: .newNotifications(username))
+        return httpService.get(url: url, parameters: defaultParameters)
+    }
+
     // MARK: PUT requests
 
     func putStudentsClassifications(courseCode: String, data: [StudentClassification], notify: Bool = true) -> Observable<Void> {
@@ -237,6 +244,8 @@ final class GradesAPI: GradesAPIProtocol {
             endpointValue = config["MarkNotificationRead"]!
                 .replacingOccurrences(of: ":username", with: username)
                 .replacingOccurrences(of: ":id", with: String(notificationId))
+        case let .newNotifications(username):
+            endpointValue = config["UserNewNotifications"]!.replacingOccurrences(of: ":username", with: username)
         }
 
         return URL(string: "\(baseUrl)\(endpointValue)")!
