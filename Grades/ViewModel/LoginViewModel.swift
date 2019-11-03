@@ -6,6 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import Action
 import Foundation
 import RxCocoa
 import RxSwift
@@ -21,6 +22,13 @@ final class LoginViewModel: BaseViewModel {
     // MARK: output
 
     let displayGdprAlert = BehaviorSubject<Bool>(value: false)
+
+    var openPrivacyPolicyLink = CocoaAction { _ in
+        if let url = URL(string: EnvironmentConfiguration.shared.termsAndConditionsLink), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+        return Observable<Void>.empty()
+    }
 
     // MARK: input
 

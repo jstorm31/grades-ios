@@ -14,6 +14,7 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
     // MARK: UI elements
 
     var loginButton: UIButton!
+    var privacyButton: UIButton!
 
     // MARK: properties
 
@@ -49,16 +50,17 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
         }
         loginButton = button
 
-        let privacyLabel = UILabel()
-        privacyLabel.text = L10n.Button.privacy
-        privacyLabel.font = UIFont.Grades.body
-        privacyLabel.textColor = UIColor.Theme.secondary
-        privacyLabel.textAlignment = .center
-        view.addSubview(privacyLabel)
-        privacyLabel.snp.makeConstraints { make in
+        let privacyButton = UIButton()
+        privacyButton.setTitle(L10n.Button.privacy, for: .normal)
+        privacyButton.setTitleColor(UIColor.Theme.secondary, for: .normal)
+        privacyButton.titleLabel?.font = UIFont.Grades.body
+        privacyButton.titleLabel?.textAlignment = .center
+        view.addSubview(privacyButton)
+        privacyButton.snp.makeConstraints { make in
             make.top.equalTo(button.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
         }
+        self.privacyButton = privacyButton
     }
 
     // MARK: methods
@@ -109,6 +111,9 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
                 })
             })
             .disposed(by: bag)
+
+        // Privacy button
+        privacyButton.rx.action = viewModel.openPrivacyPolicyLink
     }
 
     // MARK: events
