@@ -140,7 +140,7 @@ private extension CourseListViewModel {
             hiddenCourses.accept(filters)
         }
     }
-    
+
     /// Process notificaton if present and transition to course detail
     func processNotification() {
         dependencies.pushNotificationsService.currentNotification.unwrap()

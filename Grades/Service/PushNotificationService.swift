@@ -218,11 +218,9 @@ extension PushNotificationService: UNUserNotificationCenterDelegate {
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
 
-        guard let notification = PushNotification.decode(from: userInfo) else {
-            completionHandler()
-            return
+        if let notification = PushNotification.decode(from: userInfo) {
+            currentNotification.accept(notification)
         }
-
-        process(notification: notification).subscribe(onNext: { _ in completionHandler() }).disposed(by: bag)
+        completionHandler()
     }
 }
