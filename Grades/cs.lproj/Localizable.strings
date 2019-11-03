@@ -33,8 +33,11 @@
 "settings.options" = "Možnosti";
 "settings.language" = "Jazyk";
 "settings.semester" = "Semestr";
-"settings.other" = "Ostatní";
 "settings.about" = "O aplikaci";
+"settings.credits" = "O aplikaci";
+"settings.termsAndConditions" = "Podmínky užití";
+"settings.sendFeedback" = "Poslat zpětnou vazbu";
+"settings.rate" = "Ohodnotit aplikaci";
 "settings.license" = "Licence";
 "settings.teacher.sendNotifications" = "Odesílat notifikace studentům";
 "settings.student.undefinedEvaluationItemsHidden" = "Skrýt nedefinované hodnocení";

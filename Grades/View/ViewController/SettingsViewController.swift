@@ -141,9 +141,11 @@ final class SettingsViewController: BaseTableViewController,
                         SettingsCellConfigurator(item: (title: L10n.Settings.User.roles, content: settings.roles))
                     ]),
                     TableSection(header: L10n.Settings.options, items: optionItems),
-                    TableSection(header: L10n.Settings.other, items: [
-                        LinkCellConfigurator(item: L10n.Settings.about),
-                        LinkCellConfigurator(item: L10n.Settings.license)
+                    TableSection(header: L10n.Settings.about, items: [
+                        LinkCellConfigurator(item: L10n.Settings.termsAndConditions),
+                        LinkCellConfigurator(item: L10n.Settings.credits),
+                        LinkCellConfigurator(item: L10n.Settings.sendFeedback),
+                        LinkCellConfigurator(item: L10n.Settings.rate)
                     ])
                 ]
             }

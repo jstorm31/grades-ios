@@ -33,9 +33,11 @@
 "settings.options" = "Options";
 "settings.language" = "Language";
 "settings.semester" = "Semester";
-"settings.other" = "Other";
-"settings.about" = "Credits";
-"settings.license" = "License";
+"settings.about" = "About";
+"settings.credits" = "Credits";
+"settings.termsAndConditions" = "Terms and Conditions";
+"settings.sendFeedback" = "Send feedback";
+"settings.rate" = "Rate app";
 "settings.teacher.sendNotifications" = "Send notifications to students";
 "settings.student.undefinedEvaluationItemsHidden" = "Hide undefined evaluation";
 

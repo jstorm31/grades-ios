@@ -96,6 +96,21 @@ extension EnvironmentConfiguration: NSClassificationConfiguration {
     var sentryUrl: String {
         return config["SentryUrl"] as! String
     }
+
+    var feedbackLink: String {
+        return config["FeedbackLink"] as! String
+    }
+
+    var termsAndConditionsLink: String {
+        return config["TermsAndConditionsLink"] as! String
+    }
+
+    var rateAppLink: String {
+        if let bundleIdentifier = Bundle.main.bundleIdentifier {
+            return (config["RateAppLink"] as! String) + bundleIdentifier
+        }
+        return config["RateAppLink"] as! String
+    }
 }
 
 struct KeychainCredentials {
