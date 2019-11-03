@@ -20,9 +20,9 @@ struct PushNotification {
     /// Extract content from notification
     func getContent() -> NotificationContent {
         if let locale = Locale.current.languageCode, let item = texts.first(where: { $0.identifier == locale }) {
-            return (title: item.title, text: item.text)
+            return (title: item.title, text: adjustContent(item.text))
         } else if let item = texts.first(where: { $0.identifier == "en" }) {
-            return (title: item.title, text: item.text)
+            return (title: item.title, text: adjustContent(item.text))
         }
         return !texts.isEmpty ? (title: texts[0].title, text: texts[0].text) : (title: "", text: "")
     }
@@ -38,6 +38,24 @@ struct PushNotification {
         }
 
         return PushNotification(id: id)
+    }
+}
+
+private extension PushNotification {
+    func adjustContent(_ text: String) -> String {
+        var mutableText = text
+
+        // Remove asterisks
+        while let range = mutableText.range(of: "*") {
+            mutableText.removeSubrange(range.lowerBound ... range.upperBound)
+        }
+
+        // Remove first line
+        var lines = mutableText.split(separator: "\n")
+        lines.removeFirst()
+        let last = lines.removeLast()
+
+        return lines.joined(separator: ", ") + "\n" + last
     }
 }
 
