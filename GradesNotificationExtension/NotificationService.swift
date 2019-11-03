@@ -42,13 +42,15 @@ final class NotificationService: UNNotificationServiceExtension {
     }
 }
 
+// MARK: Private
+
 private extension NotificationService {
 	
 	/**
 		Checks accessToken, obtains a new one if expired and fetches notifications content
 		- Returns content of the notification as a parametr in the completion closure or nil if the fetch has been unsucessful
 	*/
-	func fetchNotification(withId id: Int, completion: @escaping (Notification?) -> Void) {
+	func fetchNotification(withId id: Int, completion: @escaping (PushNotification?) -> Void) {
 		guard let credentials = credentials else { return completion(nil) }
 		
 		if let expiresAt = credentials.expiresAt, expiresAt.timeIntervalSinceNow.sign == FloatingPointSign.plus {
@@ -71,7 +73,7 @@ private extension NotificationService {
 	}
 	
 	/// Makes notification HTTP content request
-	func fetchNotificationContent(_ notificationId: Int, completion: @escaping (Notification?) -> Void) {
+	func fetchNotificationContent(_ notificationId: Int, completion: @escaping (PushNotification?) -> Void) {
 		guard let credentials = credentials else {
 			completion(nil)
 			return

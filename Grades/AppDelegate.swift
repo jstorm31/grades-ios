@@ -6,7 +6,10 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
-import Bagel
+#if DEBUG
+    import Bagel
+#endif
+
 import OAuthSwift
 import Sentry
 import UIKit
@@ -29,10 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppDependency.shared.coordinator.setRoot(viewController: window!.rootViewController!)
 
         // Process notification
-        if let userInfo = options?[UIApplication.LaunchOptionsKey.remoteNotification] as? [AnyHashable: AnyObject] {
-            AppDependency.shared.pushNotificationsService.processNotification(userInfo)
-        }
-
+        processNotification(options)
         setupSentry()
 
         #if DEBUG
@@ -91,5 +91,18 @@ private extension AppDelegate {
         } catch {
             Log.error("Sentry initialization: \(error.localizedDescription)")
         }
+    }
+
+    func processNotification(_ options: [UIApplication.LaunchOptionsKey: Any]?) {
+        let service = AppDependency.shared.pushNotificationsService
+
+        // Get username and mark the notification as read
+        guard let userInfo = options?[UIApplication.LaunchOptionsKey.remoteNotification] as? [AnyHashable: AnyObject],
+            let notification = PushNotification.decode(from: userInfo) else {
+            service.decreaseNotificationCount()
+            return
+        }
+
+        service.currentNotification.accept(notification)
     }
 }

@@ -14,11 +14,13 @@ import UserNotifications
 protocol PushNotificationServiceProtocol {
     var deviceToken: BehaviorSubject<String?> { get set }
     var isUserRegisteredForNotifications: Bool { get set }
+    var currentNotification: BehaviorRelay<PushNotification?> { get set }
 
     func start() -> Observable<Void>
     func stop()
     func unregisterUserFromDevice() -> Observable<Void>
-    func processNotification(_ userInfo: [AnyHashable: Any])
+    func process(notification: PushNotification) -> Observable<StudentCourse?>
+    func decreaseNotificationCount()
 }
 
 protocol HasPushNotificationService {
@@ -33,6 +35,7 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
     private let bag = DisposeBag()
 
     var deviceToken = BehaviorSubject<String?>(value: nil)
+    var currentNotification = BehaviorRelay<PushNotification?>(value: nil)
 
     var isUserRegisteredForNotifications: Bool {
         get {
@@ -124,27 +127,38 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
     }
 
     /// Process notification after it was tapped by user
-    func processNotification(_ userInfo: [AnyHashable: Any]) {
-        // Get username and mark the notification as read
-        if let id = userInfo["notificationId"] as? String, let notificationId = Int(id) {
-            dependencies.userRepository.user.asObservable()
-                .unwrap()
-                .take(1)
-                .map { $0.username }
-                .flatMap { [weak self] username -> Observable<Void> in
-                    self?.dependencies.gradesApi.markNotificationRead(username: username, notificationId: notificationId)
-                        ?? Observable.empty()
+    func process(notification: PushNotification) -> Observable<StudentCourse?> {
+        return dependencies.userRepository.user.asObservable().unwrap()
+            .take(1)
+            .map { $0.username }
+            // Fetch notification content if not available (e.g. only raw notification received)
+            .flatMap { [weak self] username -> Observable<(String, String?)> in
+                if notification.courseCode.isEmpty {
+                    return self?.dependencies.gradesApi.getNewNotifications(forUser: username)
+                        .map { wrapper in
+                            wrapper.notifications.first(where: { $0.id == notification.id })
+                        }
+                        .map { (username, $0?.courseCode) } ?? Observable.just((username, nil))
                 }
-                .subscribe(onNext: { _ in }).disposed(by: bag)
-        }
+                return Observable.just((username, notification.courseCode))
+            }
+            // Mark notification as red
+            .flatMap { [weak self] username, courseCode -> Observable<StudentCourse?> in
+                (self?.dependencies.gradesApi.markNotificationRead(username: username, notificationId: notification.id)
+                    ?? Observable.empty())
+                    .map { _ in
+                        if let code = courseCode {
+                            return StudentCourse(code: code)
+                        }
+                        return nil
+                    }
+            }
+            .do(onNext: { [weak self] _ in
+                self?.decreaseNotificationCount()
+            })
+    }
 
-        // Present course detail screne
-        if let courseCode = userInfo["courseCode"] as? String {
-            let courseDetailVM = CourseDetailStudentViewModel(dependencies: AppDependency.shared, course: Course(code: courseCode))
-            dependencies.coordinator.transition(to: .courseDetailStudent(courseDetailVM), type: .push)
-        }
-
-        // Decrease badge count
+    func decreaseNotificationCount() {
         UIApplication.shared.applicationIconBadgeNumber = UIApplication.shared.applicationIconBadgeNumber > 0
             ? UIApplication.shared.applicationIconBadgeNumber - 1
             : 0
@@ -178,6 +192,10 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
             .unwrap()
             .take(1)
             .flatMap { [weak self] token -> Observable<Void> in
+                #if DEBUG
+                    Log.info("Device token: \(token)")
+                #endif
+
                 guard let self = self else {
                     return Observable.error(NotificationError.tokenIsNil)
                 }
@@ -199,7 +217,12 @@ extension PushNotificationService: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-        processNotification(userInfo)
-        completionHandler()
+
+        guard let notification = PushNotification.decode(from: userInfo) else {
+            completionHandler()
+            return
+        }
+
+        process(notification: notification).subscribe(onNext: { _ in completionHandler() }).disposed(by: bag)
     }
 }
