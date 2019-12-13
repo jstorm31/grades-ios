@@ -8,22 +8,7 @@
 
 import Action
 import RxSwift
-
-enum TextScene: Int {
-    case about = 0
-    case license = 1
-
-    static func text(forIndex index: Int) -> TextScene {
-        switch index {
-        case 0:
-            return .about
-        case 1:
-            return .license
-        default:
-            return .about
-        }
-    }
-}
+import UIKit
 
 final class TextViewModel {
     typealias Dependencies = HasSceneCoordinator
@@ -38,17 +23,16 @@ final class TextViewModel {
             .asObservable().map { _ in } ?? Observable.empty()
     }
 
-    init(dependencies: Dependencies, type: TextScene) {
+    init(dependencies: Dependencies, type: TextScene) throws {
         self.type = type
         self.dependencies = dependencies
 
         switch type {
-        case .about:
+        case .credits:
             title = L10n.About.title
             text = L10n.About.text
         default:
-            title = L10n.License.title
-            text = L10n.License.text
+            throw AppError.undefinedTextScene
         }
     }
 }

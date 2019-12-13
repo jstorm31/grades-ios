@@ -9,6 +9,7 @@
 import Action
 import RxCocoa
 import RxSwift
+import UIKit
 
 final class SettingsViewModel: TablePickerViewModel {
     typealias Dependencies = HasSettingsRepository & HasPushNotificationService & HasUserRepository
@@ -70,9 +71,36 @@ final class SettingsViewModel: TablePickerViewModel {
     lazy var onLinkSelectedAction = Action<Int, Void> { [weak self] index in
         guard let self = self else { return Observable.empty() }
 
-        let viewModel = TextViewModel(dependencies: AppDependency.shared, type: TextScene.text(forIndex: index))
-        return self.dependencies.coordinator.transition(to: .text(viewModel), type: .push)
-            .asObservable().map { _ in }
+        do {
+            let scene = try TextScene.text(forIndex: index)
+
+            switch scene {
+            case .credits:
+                do {
+                    let viewModel = try TextViewModel(dependencies: AppDependency.shared, type: scene)
+                    return self.dependencies.coordinator.transition(to: .text(viewModel), type: .push)
+                        .asObservable().map { _ in }
+                } catch {
+                    Log.error("\(AppError.undefinedTextScene)")
+                    return Observable.empty()
+                }
+            case .termsAndConditions, .feedback, .rateApp:
+                if let url = try TextScene.url(forScene: scene) {
+                    if UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url, options: [:]) { _ in
+                            Observable<Void>.empty()
+                        }
+                    }
+                } else {
+                    Log.error("\(AppError.invalidUrl)")
+                    return Observable.empty()
+                }
+            }
+        } catch {
+            Log.error("\(AppError.undefinedTextScene)")
+            return Observable.empty()
+        }
+        return Observable.empty()
     }
 
     // MARK: initialization
