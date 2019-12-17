@@ -7,7 +7,7 @@
 //
 
 import RxCocoa
-@testable import GradesDev
+@testable import Grades
 
 final class UserRepositoryMock: UserRepositoryProtocol {
 	typealias Dependencies = HasNoDependency

@@ -9,7 +9,7 @@
 import RxSwift
 import Action
 import OAuthSwift
-@testable import GradesDev
+@testable import Grades
 
 extension AuthenticationServiceProtocol {
 	

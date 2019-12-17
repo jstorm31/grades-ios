@@ -8,7 +8,7 @@
 
 import Foundation
 import RxSwift
-@testable import GradesDev
+@testable import Grades
 
 class HttpServiceMock: HttpServiceProtocol {
 	func delete<T>(url: URL, parameters: HttpServiceProtocol.HttpParameters?, body: T) -> Observable<Void> where T : Encodable {

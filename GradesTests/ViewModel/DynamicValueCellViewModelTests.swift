@@ -9,7 +9,7 @@
 import XCTest
 import RxSwift
 import RxTest
-@testable import GradesDev
+@testable import Grades
 
 class DynamicValueCellViewModelTests: XCTestCase {
 	var scheduler: TestScheduler!

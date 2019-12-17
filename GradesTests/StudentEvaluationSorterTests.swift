@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import GradesDev
+@testable import Grades
 
 class StudentEvaluationSorterTest: XCTestCase {
 	var items: [StudentClassification]!

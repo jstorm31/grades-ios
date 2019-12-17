@@ -7,7 +7,7 @@
 //
 
 import RxSwift
-@testable import GradesDev
+@testable import Grades
 
 final class GradesAPIMock: GradesAPIProtocol {
     

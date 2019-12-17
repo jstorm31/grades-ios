@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import GradesDev
+@testable import Grades
 
 class StudentClassificationTests: XCTestCase {
     func testLessThan() {

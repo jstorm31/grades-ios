@@ -6,7 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
-@testable import GradesDev
+@testable import Grades
 
 final class AppDependencyMock: HasNoDependency {
 	private init() {}

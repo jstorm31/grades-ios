@@ -8,7 +8,7 @@
 
 import RxSwift
 import UIKit
-@testable import GradesDev
+@testable import Grades
 
 final class SceneCoordinatorMock: SceneCoordinatorType {
 	func setRoot(viewController: UIViewController) {}

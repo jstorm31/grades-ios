@@ -7,7 +7,7 @@
 //
 
 import OAuthSwift
-@testable import GradesDev
+@testable import Grades
 
 enum AuthClientResult {
 	case success, failure, expires

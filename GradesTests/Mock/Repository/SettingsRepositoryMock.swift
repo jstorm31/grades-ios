@@ -8,7 +8,7 @@
 
 import RxSwift
 import RxCocoa
-@testable import GradesDev
+@testable import Grades
 
 final class SettingsRepositoryMock: SettingsRepositoryProtocol {
 	private var semesterOptionIndex = 0

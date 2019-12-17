@@ -10,7 +10,7 @@ import XCTest
 import RxSwift
 import RxCocoa
 import RxTest
-@testable import GradesDev
+@testable import Grades
 
 class StudentSearchViewModelTests: XCTestCase {
 	var scheduler: ConcurrentDispatchQueueScheduler!

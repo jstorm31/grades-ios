@@ -8,7 +8,7 @@
 
 import RxSwift
 import RxCocoa
-@testable import GradesDev
+@testable import Grades
 
 final class CoursesRepositoryMock: CoursesRepositoryProtocol {
 	private let courses = CoursesByRoles(student: [

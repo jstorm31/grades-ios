@@ -9,7 +9,7 @@
 import XCTest
 import RxSwift
 import RxBlocking
-@testable import GradesDev
+@testable import Grades
 
 class SettingsViewModelTests: XCTestCase {
 	var scheduler: ConcurrentDispatchQueueScheduler!
