@@ -312,7 +312,7 @@
 		964CDE23228828EE0093CB3C /* GradesNotificationExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GradesNotificationExtension.entitlements; sourceTree = "<group>"; };
 		964CDE2E228832C60093CB3C /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		964CDE302288486A0093CB3C /* PushNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotification.swift; sourceTree = "<group>"; };
-		96520E912223D65F00AB6499 /* GradesDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GradesDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		96520E912223D65F00AB6499 /* Grades.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grades.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96520E942223D65F00AB6499 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96520E962223D65F00AB6499 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		96520E9B2223D66000AB6499 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -630,7 +630,7 @@
 		96520E922223D65F00AB6499 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				96520E912223D65F00AB6499 /* GradesDev.app */,
+				96520E912223D65F00AB6499 /* Grades.app */,
 				961BCE76222C3D8E00BD6663 /* GradesUITests.xctest */,
 				9682A6AD222D1ABC00773E28 /* GradesTests.xctest */,
 				964CDE15228828330093CB3C /* GradesNotificationExtension.appex */,
@@ -1049,7 +1049,7 @@
 			);
 			name = Grades;
 			productName = Classification;
-			productReference = 96520E912223D65F00AB6499 /* GradesDev.app */;
+			productReference = 96520E912223D65F00AB6499 /* Grades.app */;
 			productType = "com.apple.product-type.application";
 		};
 		9682A6AC222D1ABC00773E28 /* GradesTests */ = {
@@ -1634,7 +1634,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CONFIG_ENVIRONMENT = Debug;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = LK4H72N842;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1666,7 +1666,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CONFIG_ENVIRONMENT = Test;
-				DEVELOPMENT_TEAM = LK4H72N842;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1853,7 +1853,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CONFIG_ENVIRONMENT = Debug;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = LK4H72N842;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1873,7 +1873,7 @@
 					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.grades;
-				PRODUCT_NAME = GradesDev;
+				PRODUCT_NAME = Grades;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1910,7 +1910,7 @@
 					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.grades;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Grades;
 				PROVISIONING_PROFILE_SPECIFIER = "Grades - AppStore";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2046,7 +2046,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CONFIG_ENVIRONMENT = Test;
-				DEVELOPMENT_TEAM = LK4H72N842;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -2066,7 +2066,7 @@
 					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.grades;
-				PRODUCT_NAME = GradesDev;
+				PRODUCT_NAME = Grades;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
