@@ -144,7 +144,6 @@ private extension CourseListViewModel {
     /// Process notificaton if present and transition to course detail
     func processNotification() {
         dependencies.pushNotificationsService.currentNotification.unwrap()
-            .debug()
             .flatMap { [weak self] notification in
                 self?.dependencies.pushNotificationsService.process(notification: notification) ?? Observable.empty()
             }

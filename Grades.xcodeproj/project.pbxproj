@@ -405,7 +405,7 @@
 		96A8AEE6227464990076CCD2 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		96A8AEF2227466440076CCD2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		96A8AEF4227469E90076CCD2 /* PushNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationService.swift; sourceTree = "<group>"; };
-		96A8AEF6227479860076CCD2 /* GradesDev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GradesDev.entitlements; sourceTree = "<group>"; };
+		96A8AEF6227479860076CCD2 /* Grades.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Grades.entitlements; sourceTree = "<group>"; };
 		96A8AEF72274AE400076CCD2 /* NotificationRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRegistration.swift; sourceTree = "<group>"; };
 		96B101FA2276004F00E7FA98 /* PickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 		96B20DA22236692E004794BE /* CourseDetailStudentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewModel.swift; sourceTree = "<group>"; };
@@ -642,7 +642,7 @@
 			isa = PBXGroup;
 			children = (
 				9603041D232C14AF005074C9 /* StudentGroups.strings */,
-				96A8AEF6227479860076CCD2 /* GradesDev.entitlements */,
+				96A8AEF6227479860076CCD2 /* Grades.entitlements */,
 				96861087222B1A670069B81B /* Scene */,
 				9699AB9A22326506006D2F73 /* Utilities */,
 				96861086222B15B40069B81B /* Model */,
@@ -1574,9 +1574,11 @@
 		961BCE7E222C3D8E00BD6663 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2PY9RKK8A7;
+				DEVELOPMENT_TEAM = LK4H72N842;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1589,9 +1591,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades;
+				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.grades;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Grades;
@@ -1601,9 +1604,11 @@
 		961BCE7F222C3D8E00BD6663 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2PY9RKK8A7;
+				DEVELOPMENT_TEAM = LK4H72N842;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1616,9 +1621,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades;
+				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.grades;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Grades;
@@ -1848,7 +1854,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APP_VERSION = 0.1.3;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Grades/GradesDev.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Grades/Grades.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CONFIG_ENVIRONMENT = Debug;
@@ -1886,7 +1892,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APP_VERSION = 0.1.3;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Grades/GradesDev.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Grades/Grades.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CONFIG_ENVIRONMENT = Release;
@@ -1923,7 +1929,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2PY9RKK8A7;
+				DEVELOPMENT_TEAM = LK4H72N842;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1941,7 +1947,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GradesDev.app/GradesDev";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Grades.app/Grades";
 			};
 			name = Debug;
 		};
@@ -1951,7 +1957,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2PY9RKK8A7;
+				DEVELOPMENT_TEAM = LK4H72N842;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1969,7 +1975,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GradesDev.app/GradesDev";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Grades.app/Grades";
 			};
 			name = Release;
 		};
@@ -2042,7 +2048,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APP_VERSION = 0.1.3;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Grades/GradesDev.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Grades/Grades.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CONFIG_ENVIRONMENT = Test;
@@ -2079,7 +2085,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2PY9RKK8A7;
+				DEVELOPMENT_TEAM = LK4H72N842;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2097,16 +2103,18 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GradesDev.app/GradesDev";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Grades.app/Grades";
 			};
 			name = Test;
 		};
 		96F220F0227B78480078AD2A /* Test */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2PY9RKK8A7;
+				DEVELOPMENT_TEAM = LK4H72N842;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2119,9 +2127,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = cz.quanti.cvut.fit.grades;
+				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.grades;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Grades;
