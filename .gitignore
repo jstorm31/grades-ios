@@ -79,3 +79,5 @@ grades_private_key.txt
 .vscode
 .env
 **/.DS_Store
+
+PrivacyPolicy.html
