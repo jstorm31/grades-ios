@@ -48,6 +48,7 @@ final class CourseRepository: CourseRepositoryProtocol {
 
         activityIndicator
             .distinctUntilChanged()
+            .debug()
             .asObservable()
             .bind(to: isFetching)
             .disposed(by: bag)
@@ -96,7 +97,7 @@ final class CourseRepository: CourseRepositoryProtocol {
 
     @discardableResult
     func groupedClassifications(forStudent username: String) -> Observable<[GroupedClassification]> {
-        return classifications(forStudent: username).map(groupClassifications)
+        return classifications(forStudent: username).map(groupClassifications).trackActivity(activityIndicator)
     }
 
     @discardableResult
