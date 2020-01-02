@@ -6,6 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import Foundation
 import RxSwift
 
 typealias StudentOverview = (totalPoints: Double?, finalGrade: String?)
@@ -65,6 +66,18 @@ final class CourseRepository: CourseRepositoryProtocol {
             return Observable.just([])
         }
 
+        #if DEBUG
+            // Return mock data in Debug
+            // swiftlint:disable force_cast
+            if let environment = Bundle.main.infoDictionary!["ConfigEnvironment"], (environment as! String) == "Debug" {
+                // swiftlint:disable line_length
+                return Observable<[Classification]>.just([
+                    Classification(id: 1, identifier: "1", text: [ClassificationText(identifier: "1", name: "Assignment 1")], evaluationType: .manual, type: "number", valueType: .number, value: .number(22.5), parentId: nil, isHidden: false),
+                    Classification(id: 2, identifier: "2", text: [ClassificationText(identifier: "1", name: "Assignment 2")], evaluationType: .manual, type: "number", valueType: .number, value: nil, parentId: nil, isHidden: false)
+                ]).delaySubscription(.seconds(1), scheduler: MainScheduler.instance)
+            }
+        #endif
+
         return dependencies.gradesApi.getCourseStudentClassification(username: username, code: course.code)
             .map { [weak self] classifications in
                 if let hidden = self?.dependencies.settingsRepository.currentSettings.value.undefinedEvaluationHidden, hidden == true {
@@ -88,6 +101,12 @@ final class CourseRepository: CourseRepositoryProtocol {
 
     @discardableResult
     func overview(forStudent username: String) -> Observable<StudentOverview> {
+        #if DEBUG
+            if let environment = Bundle.main.infoDictionary!["ConfigEnvironment"], (environment as! String) == "Debug" {
+                return Observable<StudentOverview>.just((22.5, "D")).delaySubscription(.seconds(1), scheduler: MainScheduler.instance)
+            }
+        #endif
+
         let classifications = self.classifications(forStudent: username).share()
 
         let pointsTotal = classifications

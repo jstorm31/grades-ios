@@ -161,19 +161,21 @@ final class GradesAPI: GradesAPIProtocol {
 
     /// Fetch all students for logged user with role teacher
     func getTeacherStudents(courseCode: String) -> Observable<[User]> {
-        // swiftlint:disable force_cast
-        if let environment = Bundle.main.infoDictionary!["ConfigEnvironment"], (environment as! String) == "Debug" {
-            // Return mock data in Debug
-            return Observable<[User]>.just([
-                User(id: 2, username: "janatpa3", firstName: "Pavel", lastName: "Janata"),
-                User(id: 1, username: "rousemat", firstName: "Matyáš", lastName: "Rousek"),
-                User(id: 3, username: "ottastep", firstName: "Štěpán", lastName: "Otta")
-            ]).delaySubscription(.seconds(1), scheduler: MainScheduler.instance)
-        } else {
-            // Get from API in Release
-            let url = createURL(from: .courseStudents(courseCode, "MY_PARALLELS"))
-            return httpService.get(url: url, parameters: defaultParameters)
-        }
+        #if DEBUG
+            // swiftlint:disable force_cast
+            if let environment = Bundle.main.infoDictionary!["ConfigEnvironment"], (environment as! String) == "Debug" {
+                // Return mock data in Debug
+                return Observable<[User]>.just([
+                    User(id: 2, username: "janatpa3", firstName: "Pavel", lastName: "Janata"),
+                    User(id: 1, username: "rousemat", firstName: "Matyáš", lastName: "Rousek"),
+                    User(id: 3, username: "ottastep", firstName: "Štěpán", lastName: "Otta")
+                ]).delaySubscription(.seconds(1), scheduler: MainScheduler.instance)
+            }
+        #endif
+
+        // Get from API in Release
+        let url = createURL(from: .courseStudents(courseCode, "MY_PARALLELS"))
+        return httpService.get(url: url, parameters: defaultParameters)
     }
 
     func getNewNotifications(forUser username: String) -> Observable<Notifications> {
