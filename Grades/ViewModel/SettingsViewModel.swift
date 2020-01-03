@@ -84,17 +84,25 @@ final class SettingsViewModel: TablePickerViewModel {
                     Log.error("\(AppError.undefinedTextScene)")
                     return Observable.empty()
                 }
-            case .termsAndConditions, .feedback, .rateApp:
+            case .termsAndConditions, .feedback:
                 if let url = try TextScene.url(forScene: scene) {
                     if UIApplication.shared.canOpenURL(url) {
-                        UIApplication.shared.open(url, options: [:]) { _ in
-                            Observable<Void>.empty()
-                        }
+                        return Observable<Void>.empty().do(onCompleted: {
+                            UIApplication.shared.open(url, options: [:])
+                        })
                     }
                 } else {
                     Log.error("\(AppError.invalidUrl)")
                     return Observable.empty()
                 }
+            case .rateApp:
+                return Observable.empty().do(onCompleted: {
+                    do {
+                        try scene.rateApp()
+                    } catch {
+                        Log.error("Error opening rating link: \(error)")
+                    }
+                })
             }
         } catch {
             Log.error("\(AppError.undefinedTextScene)")

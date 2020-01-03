@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import StoreKit
 
 enum TextScene: Int {
     case termsAndConditions = 0
@@ -35,10 +36,30 @@ enum TextScene: Int {
             return URL(string: EnvironmentConfiguration.shared.feedbackLink)
         case .termsAndConditions:
             return URL(string: EnvironmentConfiguration.shared.termsAndConditionsLink)
-        case .rateApp:
-            return URL(string: EnvironmentConfiguration.shared.rateAppLink)
         default:
-            throw AppError.undefinedUrlForScene
+            throw TextSceneError.undefinedUrlForScene
         }
     }
+
+    /// Opens review action for the app in AppStore
+    func rateApp() throws {
+        if case .rateApp = self {
+            if #available(iOS 10.3, *) {
+                SKStoreReviewController.requestReview()
+            } else {
+                guard let appId = Bundle.main.bundleIdentifier else { return }
+                let urlStr = EnvironmentConfiguration.shared.rateAppLink.replacingOccurrences(of: ":appId", with: appId)
+
+                guard let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) else { return }
+                UIApplication.shared.open(url, options: [:])
+            }
+        } else {
+            throw TextSceneError.notRateAppCase
+        }
+    }
+}
+
+enum TextSceneError: Error {
+    case undefinedUrlForScene
+    case notRateAppCase
 }

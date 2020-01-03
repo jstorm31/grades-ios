@@ -10,5 +10,4 @@ enum AppError: Error {
     case generic
     case undefinedTextScene
     case invalidUrl
-    case undefinedUrlForScene
 }
