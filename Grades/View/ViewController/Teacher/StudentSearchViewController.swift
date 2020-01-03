@@ -9,14 +9,6 @@
 import RxSwift
 import UIKit
 
-extension UISearchBar {
-    var textField: UITextField? {
-        return subviews.map { $0.subviews.first(where: { $0 is UITextInputTraits }) as? UITextField }
-            .compactMap { $0 }
-            .first
-    }
-}
-
 final class StudentSearchViewController: BaseTableViewController, BindableType, TableDataSource {
     var viewModel: StudentSearchViewModel!
     let dataSource = configureDataSource()
@@ -27,11 +19,11 @@ final class StudentSearchViewController: BaseTableViewController, BindableType, 
     override func loadView() {
         super.loadView()
         navigationItem.title = L10n.Students.title
-        setupSearchBar()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupSearchBar()
         tableView.register(UserCell.self, forCellReuseIdentifier: "UserCell")
     }
 
@@ -74,12 +66,8 @@ final class StudentSearchViewController: BaseTableViewController, BindableType, 
         search.searchResultsUpdater = self
         search.obscuresBackgroundDuringPresentation = false
         search.searchBar.placeholder = L10n.Students.search
-        search.searchBar.barStyle = .black
-        search.searchBar.searchBarStyle = .default
-        search.searchBar.tintColor = .white
-        search.searchBar.barTintColor = UIColor.Theme.textFieldWhiteOpaciy
-        search.searchBar.textField?.textColor = .white
-        search.searchBar.textField?.backgroundColor = UIColor.Theme.textFieldWhiteOpaciy
+        search.searchBar.searchTextField.backgroundColor = .white
+        search.searchBar.searchTextField.textColor = UIColor.Theme.text
 
         navigationItem.searchController = search
         navigationItem.hidesSearchBarWhenScrolling = false
