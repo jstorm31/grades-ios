@@ -200,7 +200,12 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
                     return Observable.error(NotificationError.tokenIsNil)
                 }
                 let body = NotificationRegistration(token: token, type: Constants.iosDeviceType)
-                return self.dependencies.httpService.post(url: self.tokenUrl, parameters: nil, body: body)
+
+                if AppDependency.shared.mockData {
+                    return Observable.empty()
+                } else {
+                    return self.dependencies.httpService.post(url: self.tokenUrl, parameters: nil, body: body)
+                }
             }
             .do(onCompleted: { [weak self] in
                 self?.isUserRegisteredForNotifications = true

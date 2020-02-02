@@ -11,56 +11,58 @@
 import RxSwift
 
 final class GradesAPIMock: GradesAPIProtocol {
+    let delay: RxTimeInterval = .milliseconds(200)
+
     func getUser() -> Observable<User> {
-        return Observable.just(User(id: 1, username: "testuser", firstName: "Test", lastName: "User"))
+        return Observable.just(User(id: 1, username: "testuser", firstName: "Test", lastName: "User")).delaySubscription(delay, scheduler: MainScheduler.asyncInstance)
     }
 
     func getTeacherCourses(username _: String) -> Observable<[TeacherCourse]> {
         return Observable.just([
             TeacherCourse(fromCourse: Course(code: "BI-ZMA", name: "Základy matematické analýzy")),
             TeacherCourse(fromCourse: Course(code: "BI-PST", name: "Pravděpodobnost a statistika"))
-        ])
+        ]).delaySubscription(delay, scheduler: MainScheduler.asyncInstance)
     }
 
     func getStudentCourses(username _: String) -> Observable<[StudentCourse]> {
         return Observable.just([
             StudentCourse(code: "BI-PJS", name: "Programování v Javascriptu", finalValue: .string("C")),
             StudentCourse(code: "BI-IOS", name: "Základy programování pro iOS", finalValue: .number(35.0))
-        ])
+        ]).delaySubscription(delay, scheduler: MainScheduler.asyncInstance)
     }
 
     func getCourse(code _: String) -> Observable<Course> {
-        return Observable.just(Course(code: "BI-PJS", name: "Programování v Javascriptu"))
+        return Observable.just(Course(code: "BI-PJS", name: "Programování v Javascriptu")).delaySubscription(delay, scheduler: MainScheduler.asyncInstance)
     }
 
     func getCourseStudentClassification(username _: String, code _: String) -> Observable<[Classification]> {
-        return Observable.just(GradesAPIMock.classifications)
+        return Observable.just(GradesAPIMock.classifications).delaySubscription(delay, scheduler: MainScheduler.asyncInstance)
     }
 
     func getCurrentSemestrCode() -> Observable<String> {
-        return Observable.just("B182")
+        return Observable.just("B182").delaySubscription(delay, scheduler: MainScheduler.asyncInstance)
     }
 
     func getStudentGroups(forCourse _: String, username _: String?) -> Observable<[StudentGroup]> {
         return Observable.just([
             StudentGroup(id: "A145", name: "Cvičení 1", description: "Cvič 1"),
             StudentGroup(id: "A146", name: "Cvičení 2", description: "Cvič 2")
-        ])
+        ]).delaySubscription(delay, scheduler: MainScheduler.asyncInstance)
     }
 
     func getClassifications(forCourse _: String) -> Observable<[Classification]> {
         return Observable.just([
             Classification(id: 1, identifier: "test_1", text: [ClassificationText(identifier: "cs", name: "Test 1")], evaluationType: .manual, type: "TEST", valueType: .number, value: .number(3.5), parentId: nil, isHidden: false),
-            Classification(id: 2, identifier: "homework", text: [ClassificationText(identifier: "cs", name: "Homework")], evaluationType: .manual, type: "HOMEWORK", valueType: .string, value: .string("Good"), parentId: nil, isHidden: false)
-        ])
+            Classification(id: 2, identifier: "homework", text: [ClassificationText(identifier: "cs", name: "Homework")], evaluationType: .manual, type: "HOMEWORK", valueType: .bool, value: .bool(true), parentId: nil, isHidden: false)
+        ]).delaySubscription(delay, scheduler: MainScheduler.asyncInstance)
     }
 
     func getGroupClassifications(courseCode _: String, groupCode _: String, classificationId _: String) -> Observable<[StudentClassification]> {
         return Observable.just([
-            StudentClassification(identifier: "item1", username: "novtom", value: .number(4.5)),
-            StudentClassification(identifier: "item2", username: "kobljan", value: .number(1)),
-            StudentClassification(identifier: "item3", username: "ivtjir", value: nil)
-        ])
+            StudentClassification(ident: "item1", firstName: "Tomáš", lastName: "Novák", username: "novtom", value: .number(13.5)),
+            StudentClassification(ident: "item2", firstName: "Jan", lastName: "Kobl", username: "kobljan", value: .number(4.0)),
+            StudentClassification(ident: "item3", firstName: "Jiří", lastName: "Ivan", username: "ivtjir", value: .number(1))
+        ]).delaySubscription(delay, scheduler: MainScheduler.asyncInstance)
     }
 
     func getTeacherStudents(courseCode _: String) -> Observable<[User]> {
@@ -68,21 +70,21 @@ final class GradesAPIMock: GradesAPIProtocol {
             User(id: 1, username: "kucerj48", firstName: "Jan", lastName: "Kučera"),
             User(id: 2, username: "janatpa3", firstName: "Pavel", lastName: "Janata"),
             User(id: 3, username: "ottastep", firstName: "Štěpán", lastName: "Otta")
-        ])
+        ]).delaySubscription(delay, scheduler: MainScheduler.asyncInstance)
     }
 
     func getNewNotifications(forUser _: String) -> Observable<Notifications> {
         return Observable.just(Notifications(notifications: [
             PushNotification(id: 1, courseCode: "BI-PJS", texts: [NotificationText(identifier: "test", title: "Test evaluation", text: "Test result 10 points")], url: nil, badgeCount: 1)
-        ]))
+        ])).delaySubscription(delay, scheduler: MainScheduler.asyncInstance)
     }
 
     func putStudentsClassifications(courseCode _: String, data _: [StudentClassification], notify _: Bool) -> Observable<Void> {
-        return Observable.empty()
+        return Observable.empty().delaySubscription(delay, scheduler: MainScheduler.asyncInstance)
     }
 
     func markNotificationRead(username _: String, notificationId _: Int) -> Observable<Void> {
-        return Observable.empty()
+        return Observable.empty().delaySubscription(delay, scheduler: MainScheduler.asyncInstance)
     }
 }
 

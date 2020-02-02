@@ -47,7 +47,7 @@ final class LoginViewModel: BaseViewModel {
     // MARK: methods
 
     func authenticateWithRefresToken() -> Observable<Void> {
-        if CommandLine.arguments.contains("--stub-authentication") {
+        if AppDependency.shared.mockData || CommandLine.arguments.contains("--stub-authentication") {
             return Observable.empty()
         }
 
@@ -56,7 +56,7 @@ final class LoginViewModel: BaseViewModel {
     }
 
     func authenticate(viewController: UIViewController) -> Observable<Void> {
-        if CommandLine.arguments.contains("--stub-authentication") {
+        if AppDependency.shared.mockData || CommandLine.arguments.contains("--stub-authentication") {
             return postAuthSetup(true)
         }
 

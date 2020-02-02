@@ -21,13 +21,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_: UIApplication, didFinishLaunchingWithOptions options: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         resetStateIfUITesting()
 
-        // Initialize first scene
-        let loginViewModel = LoginViewModel(dependencies: AppDependency.shared)
-        let loginScene = Scene.login(loginViewModel)
-
         // Window
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
+
+        AppDependency.shared.mockData = false
+
+        // Initialize first scene
+        let loginViewModel = LoginViewModel(dependencies: AppDependency.shared)
+        let loginScene = Scene.login(loginViewModel)
         window?.rootViewController = loginScene.viewController()
         AppDependency.shared.coordinator.setRoot(viewController: window!.rootViewController!)
 
