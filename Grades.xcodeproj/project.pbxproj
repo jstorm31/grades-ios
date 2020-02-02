@@ -55,6 +55,8 @@
 		9641817A2247BE6C0019CABD /* StudentGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964181792247BE6C0019CABD /* StudentGroup.swift */; };
 		964181802247C5570019CABD /* TeacherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9641817F2247C5570019CABD /* TeacherRepository.swift */; };
 		964181822247E8B20019CABD /* UIViewController+PickerPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964181812247E8B20019CABD /* UIViewController+PickerPresentable.swift */; };
+		964457EA23E6C9980099E326 /* GradesAPIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964457E923E6C9980099E326 /* GradesAPIProtocol.swift */; };
+		964457EC23E6CB840099E326 /* GradesAPIMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964457EB23E6CB840099E326 /* GradesAPIMock.swift */; };
 		96447793224249CD00E960F4 /* UIPickerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96447792224249CD00E960F4 /* UIPickerLabel.swift */; };
 		9644779522427B3100E960F4 /* UIViewController+ConfirmationModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9644779422427B3100E960F4 /* UIViewController+ConfirmationModal.swift */; };
 		96456456227D84EC00E48FC1 /* CourseDetailStudentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96456455227D84EB00E48FC1 /* CourseDetailStudentViewModelTests.swift */; };
@@ -303,6 +305,8 @@
 		964181792247BE6C0019CABD /* StudentGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentGroup.swift; sourceTree = "<group>"; };
 		9641817F2247C5570019CABD /* TeacherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherRepository.swift; sourceTree = "<group>"; };
 		964181812247E8B20019CABD /* UIViewController+PickerPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PickerPresentable.swift"; sourceTree = "<group>"; };
+		964457E923E6C9980099E326 /* GradesAPIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesAPIProtocol.swift; sourceTree = "<group>"; };
+		964457EB23E6CB840099E326 /* GradesAPIMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesAPIMock.swift; sourceTree = "<group>"; };
 		96447792224249CD00E960F4 /* UIPickerLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerLabel.swift; sourceTree = "<group>"; };
 		9644779422427B3100E960F4 /* UIViewController+ConfirmationModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ConfirmationModal.swift"; sourceTree = "<group>"; };
 		96456455227D84EB00E48FC1 /* CourseDetailStudentViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentViewModelTests.swift; sourceTree = "<group>"; };
@@ -532,8 +536,8 @@
 		961A2FDF222988C500A624DC /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				964457ED23E6CB890099E326 /* GradesAPI */,
 				961A2FE0222988D700A624DC /* AuthenticationService.swift */,
-				961BCE80222C515700BD6663 /* GradesAPI.swift */,
 				963C62832233B7C000B01818 /* HttpService.swift */,
 				961FC4F72244118B000A4CDA /* AppDependency.swift */,
 				96A8AEF4227469E90076CCD2 /* PushNotificationService.swift */,
@@ -602,6 +606,16 @@
 				96C0A842226C78DC00AE733A /* StudentSearchViewController.swift */,
 			);
 			path = Teacher;
+			sourceTree = "<group>";
+		};
+		964457ED23E6CB890099E326 /* GradesAPI */ = {
+			isa = PBXGroup;
+			children = (
+				964457EB23E6CB840099E326 /* GradesAPIMock.swift */,
+				964457E923E6C9980099E326 /* GradesAPIProtocol.swift */,
+				961BCE80222C515700BD6663 /* GradesAPI.swift */,
+			);
+			path = GradesAPI;
 			sourceTree = "<group>";
 		};
 		964CDE16228828330093CB3C /* GradesNotificationExtension */ = {
@@ -1375,6 +1389,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				964457EA23E6C9980099E326 /* GradesAPIProtocol.swift in Sources */,
 				963C62942234328900B01818 /* AuthenticationError.swift in Sources */,
 				96B20DA32236692E004794BE /* CourseDetailStudentViewModel.swift in Sources */,
 				9682E5802266253100687A66 /* DynamicValueCellViewModel.swift in Sources */,
@@ -1454,6 +1469,7 @@
 				9641817022478C900019CABD /* TeacherClassificationViewModel.swift in Sources */,
 				96C0A845226C832D00AE733A /* UserCell.swift in Sources */,
 				96C61EE8233CBD8E00EA0FB2 /* PickerCellViewModel.swift in Sources */,
+				964457EC23E6CB840099E326 /* GradesAPIMock.swift in Sources */,
 				9639AE672270989C009C35A9 /* KeyboardChangeFrameObserver.swift in Sources */,
 				964181802247C5570019CABD /* TeacherRepository.swift in Sources */,
 				961A878F2240484200846538 /* Language.swift in Sources */,
