@@ -17,7 +17,6 @@ protocol HasRemoteConfigService {
 protocol RemoteConfigServiceProtocol {
     var config: BehaviorRelay<RemoteConfig> { get }
     var mockData: BehaviorRelay<Bool> { get }
-    var fetching: BehaviorSubject<Bool> { get }
 
     func fetchConfig()
 }
@@ -26,7 +25,6 @@ final class RemoteConfigService: RemoteConfigServiceProtocol {
     typealias Dependencies = HasHttpService
 
     var config = BehaviorRelay<RemoteConfig>(value: RemoteConfig())
-    let fetching = BehaviorSubject<Bool>(value: false)
     var mockData = BehaviorRelay<Bool>(value: false)
 
     private let dependencies: Dependencies
@@ -43,19 +41,16 @@ final class RemoteConfigService: RemoteConfigServiceProtocol {
             "Cache-Control": "no-cache"
         ]
 
-        fetching.onNext(true)
         let fetchedConfig: Observable<RemoteConfig> = dependencies.httpService
             .get(url: url, parameters: nil, headers: headers).share()
 
-        fetchedConfig.map { _ in false }.bind(to: fetching).disposed(by: bag)
         fetchedConfig.bind(to: config).disposed(by: bag)
-
         fetchedConfig
             .map { config in
                 if let mockDataForVersion = config.mockDataForVersion,
                     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
                     mockDataForVersion == appVersion {
-                    Log.info("Mocking data for this version")
+                    Log.info("Mocking data for this version \(appVersion)")
                     return true
                 }
                 return false

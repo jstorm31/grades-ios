@@ -24,7 +24,6 @@ final class LoginViewModel: BaseViewModel {
 
     let displayGdprAlert = BehaviorSubject<Bool>(value: false)
     let fetching = BehaviorSubject<Bool>(value: false)
-    let fetchingConfig = BehaviorSubject<Bool>(value: false)
 
     var openPrivacyPolicyLink = CocoaAction { _ in
         if let url = URL(string: EnvironmentConfiguration.shared.termsAndConditionsLink), UIApplication.shared.canOpenURL(url) {
@@ -41,7 +40,6 @@ final class LoginViewModel: BaseViewModel {
 
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
-        self.dependencies.remoteConfigService.fetching.bind(to: fetchingConfig).disposed(by: bag)
     }
 
     deinit {

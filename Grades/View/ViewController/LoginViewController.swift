@@ -93,11 +93,6 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
             })
             .disposed(by: bag)
 
-        // Config
-        let fetchingConfig = viewModel.fetchingConfig.distinctUntilChanged().share()
-        fetchingConfig.map { !$0 }.asDriver(onErrorJustReturn: false).drive(loginButton.rx.isEnabled).disposed(by: bag)
-        fetchingConfig.asDriver(onErrorJustReturn: false).drive(view.rx.refreshing).disposed(by: bag)
-
         // GDPR compliance
         viewModel.displayGdprAlert
             .filter { $0 == true }
