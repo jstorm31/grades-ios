@@ -16,6 +16,7 @@ protocol HasRemoteConfigService {
 
 protocol RemoteConfigServiceProtocol {
     var config: BehaviorRelay<RemoteConfig> { get }
+    var mockData: BehaviorRelay<Bool> { get }
     var fetching: BehaviorSubject<Bool> { get }
 
     func fetchConfig()
@@ -26,6 +27,7 @@ final class RemoteConfigService: RemoteConfigServiceProtocol {
 
     var config = BehaviorRelay<RemoteConfig>(value: RemoteConfig())
     let fetching = BehaviorSubject<Bool>(value: false)
+    var mockData = BehaviorRelay<Bool>(value: false)
 
     private let dependencies: Dependencies
     private let bag = DisposeBag()
@@ -42,5 +44,18 @@ final class RemoteConfigService: RemoteConfigServiceProtocol {
 
         fetchedConfig.map { _ in false }.bind(to: fetching).disposed(by: bag)
         fetchedConfig.bind(to: config).disposed(by: bag)
+
+        fetchedConfig
+            .map { config in
+                if let mockDataForVersion = config.mockDataForVersion,
+                    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
+                    mockDataForVersion == appVersion {
+                    Log.info("Mocking data for this version")
+                    return true
+                }
+                return false
+            }
+            .bind(to: mockData)
+            .disposed(by: bag)
     }
 }

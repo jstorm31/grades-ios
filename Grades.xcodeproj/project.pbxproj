@@ -90,6 +90,7 @@
 		96672003230DE3D300B1EF85 /* SortableDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96672002230DE3D300B1EF85 /* SortableDataViewModel.swift */; };
 		966ABB57222D986A007DD046 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB56222D986A007DD046 /* Course.swift */; };
 		966ABB59222DA2DF007DD046 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ABB58222DA2DF007DD046 /* User.swift */; };
+		966B3ECE23E842C800C96604 /* RemoteConfigServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B3ECD23E842C800C96604 /* RemoteConfigServiceMock.swift */; };
 		966BCCBB22881F6C00171B71 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966BCCBA22881F6C00171B71 /* Date+.swift */; };
 		96758423228549F9006C401E /* GroupClassificationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96758422228549F9006C401E /* GroupClassificationViewModelTests.swift */; };
 		9675842522854A8B006C401E /* TeacherRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9675842422854A8B006C401E /* TeacherRepositoryMock.swift */; };
@@ -272,7 +273,6 @@
 		9608B9B02224149700E1CEAF /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		9608B9BD22241B9100E1CEAF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9608B9BE22241BCD00E1CEAF /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
-		9608B9C022241BE000E1CEAF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9608B9C82224364200E1CEAF /* EnvironmentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentConfiguration.swift; sourceTree = "<group>"; };
 		9614CF0D2228669F00FB4A05 /* Bagel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bagel.framework; path = Carthage/Build/iOS/Bagel.framework; sourceTree = "<group>"; };
 		9614CF0F2228687400FB4A05 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
@@ -347,6 +347,8 @@
 		96672002230DE3D300B1EF85 /* SortableDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortableDataViewModel.swift; sourceTree = "<group>"; };
 		966ABB56222D986A007DD046 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		966ABB58222DA2DF007DD046 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		966B3ECC23E8405600C96604 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		966B3ECD23E842C800C96604 /* RemoteConfigServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigServiceMock.swift; sourceTree = "<group>"; };
 		966BCCBA22881F6C00171B71 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		96758422228549F9006C401E /* GroupClassificationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupClassificationViewModelTests.swift; sourceTree = "<group>"; };
 		9675842422854A8B006C401E /* TeacherRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherRepositoryMock.swift; sourceTree = "<group>"; };
@@ -949,6 +951,7 @@
 				963C6295223432FD00B01818 /* AuthenticationServiceMock.swift */,
 				963C62972234542E00B01818 /* HttpServiceMock.swift */,
 				9639AE6E2270FF89009C35A9 /* AuthClientMock.swift */,
+				966B3ECD23E842C800C96604 /* RemoteConfigServiceMock.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1171,6 +1174,7 @@
 			knownRegions = (
 				cs,
 				en,
+				Base,
 			);
 			mainGroup = 96520E882223D65E00AB6499;
 			productRefGroup = 96520E922223D65F00AB6499 /* Products */;
@@ -1561,6 +1565,7 @@
 				963C628B22341FDC00B01818 /* GradesAPIMock.swift in Sources */,
 				963C62982234542E00B01818 /* HttpServiceMock.swift in Sources */,
 				96E8C644224BE8BA005F32F8 /* SettingsRepositoryMock.swift in Sources */,
+				966B3ECE23E842C800C96604 /* RemoteConfigServiceMock.swift in Sources */,
 				96D3CB02233BA3A900A5A469 /* StudentClassificationTests.swift in Sources */,
 				96580714222FFA810065E23D /* CourseListViewModelTests.swift in Sources */,
 				963C62922234314200B01818 /* SceneCoordinatorMock.swift in Sources */,
@@ -1614,7 +1619,7 @@
 		96520E9D2223D66000AB6499 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				9608B9C022241BE000E1CEAF /* en */,
+				966B3ECC23E8405600C96604 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

@@ -11,6 +11,8 @@
 final class AppDependencyMock: HasNoDependency {
 	private init() {}
 	static let shared = AppDependencyMock()
+    
+    var mockData = false
 	
 	let _authService = AuthenticationServiceMock()
 	lazy var authService: AuthenticationServiceProtocol = { return _authService }()
@@ -18,6 +20,8 @@ final class AppDependencyMock: HasNoDependency {
 	let _coordinator = SceneCoordinatorMock()
 	lazy var coordinator: SceneCoordinatorType = { _coordinator }()
 	
+    var remoteConfigService: RemoteConfigServiceProtocol = RemoteConfigServiceMock()
+    
 	lazy var httpService: HttpServiceProtocol = HttpServiceMock()
 	lazy var pushNotificationsService: PushNotificationServiceProtocol = PushNotificationService(dependencies: self)
 	
@@ -41,6 +45,7 @@ extension AppDependencyMock: HasAuthenticationService {}
 extension AppDependencyMock: HasHttpService {}
 extension AppDependencyMock: HasGradesAPI {}
 extension AppDependencyMock: HasPushNotificationService {}
+extension AppDependencyMock: HasRemoteConfigService {}
 
 extension AppDependencyMock: HasUserRepository {}
 extension AppDependencyMock: HasSettingsRepository {}

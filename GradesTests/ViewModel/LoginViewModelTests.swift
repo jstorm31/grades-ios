@@ -21,7 +21,7 @@ class LoginViewModelTests: XCTestCase {
 	
 	override func setUp() {
 		scheduler = ConcurrentDispatchQueueScheduler(qos: .default)
-		viewModel = LoginViewModel(dependencies: AppDependencyMock.shared)
+        viewModel = LoginViewModel(dependencies: AppDependencyMock.shared)
 		sceneMock.targetScene = nil
 	}
 
@@ -47,7 +47,7 @@ class LoginViewModelTests: XCTestCase {
 		let userObservable = viewModel.authenticate(viewController: UIViewController())
 		
 		do {
-			guard let _ = try userObservable.toBlocking(timeout: 2.0).first() else { return }
+			guard let _ = try userObservable.toBlocking(timeout: 2.5).first() else { return }
 			XCTFail("should throw error")
 			
 		} catch {
@@ -58,13 +58,13 @@ class LoginViewModelTests: XCTestCase {
 	
 	func testAuthenticationFailed() {
 		authService.result = .failure
-		
+
 		let userObservable = viewModel.authenticate(viewController: UIViewController())
-		
+
 		do {
 			guard let _ = try userObservable.toBlocking(timeout: 2.0).first() else { return }
 			XCTFail("should throw error")
-			
+
 		} catch {
 			XCTAssertEqual(error as! AuthenticationError, .generic)
 			XCTAssertNil(sceneMock.targetScene)

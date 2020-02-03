@@ -14,14 +14,12 @@ final class AppDependency: HasNoDependency {
     private init() {}
     static let shared = AppDependency()
 
-    var mockData = false
-
     lazy var coordinator: SceneCoordinatorType = SceneCoordinator() // Do not forget to set root view controller in AppDelegate
 
     lazy var remoteConfigService: RemoteConfigServiceProtocol = RemoteConfigService(self)
     lazy var authService: AuthenticationServiceProtocol = AuthenticationService(dependencies: self)
     lazy var httpService: HttpServiceProtocol = HttpService(dependencies: self)
-    lazy var gradesApi: GradesAPIProtocol = mockData ? GradesAPIMock() : GradesAPI(dependencies: self)
+    lazy var gradesApi: GradesAPIProtocol = remoteConfigService.mockData.value ? GradesAPIMock() : GradesAPI(dependencies: self)
     lazy var pushNotificationsService: PushNotificationServiceProtocol = PushNotificationService(dependencies: self)
 
     lazy var userRepository: UserRepositoryProtocol = UserRepository(dependencies: self)

@@ -28,7 +28,7 @@ protocol HasPushNotificationService {
 }
 
 final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
-    typealias Dependencies = HasHttpService & HasGradesAPI & HasUserRepository & HasSceneCoordinator
+    typealias Dependencies = HasHttpService & HasGradesAPI & HasUserRepository & HasSceneCoordinator & HasRemoteConfigService
 
     private let dependencies: Dependencies
     private let tokenUrl = URL(string: "\(EnvironmentConfiguration.shared.notificationServerUrl)/token")!
@@ -191,7 +191,15 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
         return deviceToken
             .unwrap()
             .take(1)
-            .flatMap { [weak self] token -> Observable<Void> in
+            .flatMap { [weak self] token -> Observable<(String, Bool)> in
+                self?.dependencies.remoteConfigService.mockData
+                    .map { (token, $0) } ?? Observable.empty()
+            }
+            .flatMap { [weak self] token, mockData -> Observable<Void> in
+                if mockData {
+                    return Observable.empty()
+                }
+
                 #if DEBUG
                     Log.info("Device token: \(token)")
                 #endif
@@ -199,13 +207,9 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
                 guard let self = self else {
                     return Observable.error(NotificationError.tokenIsNil)
                 }
-                let body = NotificationRegistration(token: token, type: Constants.iosDeviceType)
 
-                if AppDependency.shared.mockData {
-                    return Observable.empty()
-                } else {
-                    return self.dependencies.httpService.post(url: self.tokenUrl, parameters: nil, body: body)
-                }
+                let body = NotificationRegistration(token: token, type: Constants.iosDeviceType)
+                return self.dependencies.httpService.post(url: self.tokenUrl, parameters: nil, body: body)
             }
             .do(onCompleted: { [weak self] in
                 self?.isUserRegisteredForNotifications = true
