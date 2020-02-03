@@ -13,10 +13,6 @@ import RxSwift
 final class GradesAPIMock: GradesAPIProtocol {
     let delay: RxTimeInterval = .milliseconds(200)
 
-    init() {
-        print("Initializing GradesAPIMock")
-    }
-
     func getUser() -> Observable<User> {
         return Observable.just(User(id: 1, username: "testuser", firstName: "Test", lastName: "User")).delaySubscription(delay, scheduler: MainScheduler.asyncInstance)
     }
