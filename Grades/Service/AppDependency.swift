@@ -6,8 +6,6 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
-import FirebaseRemoteConfig
-
 protocol HasNoDependency {}
 
 final class AppDependency: HasNoDependency {

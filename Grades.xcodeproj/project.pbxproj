@@ -409,17 +409,6 @@
 		96A80A6E222F191F00986A90 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		96A80A70222F1B3000986A90 /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
 		96A80A74222F1D0400986A90 /* CourseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewController.swift; sourceTree = "<group>"; };
-		96A8AECC22745DB70076CCD2 /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCore.framework; path = Carthage/Build/iOS/FirebaseCore.framework; sourceTree = "<group>"; };
-		96A8AECE22745DBC0076CCD2 /* FirebaseMessaging.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseMessaging.framework; path = Carthage/Build/iOS/FirebaseMessaging.framework; sourceTree = "<group>"; };
-		96A8AED022745F1F0076CCD2 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Carthage/Build/iOS/FirebaseAnalytics.framework; sourceTree = "<group>"; };
-		96A8AED222745F700076CCD2 /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = Carthage/Build/iOS/GoogleUtilities.framework; sourceTree = "<group>"; };
-		96A8AED422745FB20076CCD2 /* GoogleAppMeasurement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleAppMeasurement.framework; path = Carthage/Build/iOS/GoogleAppMeasurement.framework; sourceTree = "<group>"; };
-		96A8AED622745FD00076CCD2 /* FIRAnalyticsConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FIRAnalyticsConnector.framework; path = Carthage/Build/iOS/FIRAnalyticsConnector.framework; sourceTree = "<group>"; };
-		96A8AED822745FE00076CCD2 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = Carthage/Build/iOS/FirebaseInstanceID.framework; sourceTree = "<group>"; };
-		96A8AEDA2274603B0076CCD2 /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCoreDiagnostics.framework; path = Carthage/Build/iOS/FirebaseCoreDiagnostics.framework; sourceTree = "<group>"; };
-		96A8AEDC227460490076CCD2 /* nanopb.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = nanopb.framework; path = Carthage/Build/iOS/nanopb.framework; sourceTree = "<group>"; };
-		96A8AEE1227461CF0076CCD2 /* Protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Protobuf.framework; path = Carthage/Build/iOS/Protobuf.framework; sourceTree = "<group>"; };
-		96A8AEE32274620B0076CCD2 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = Carthage/Build/iOS/Firebase.framework; sourceTree = "<group>"; };
 		96A8AEE6227464990076CCD2 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		96A8AEF2227466440076CCD2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		96A8AEF4227469E90076CCD2 /* PushNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationService.swift; sourceTree = "<group>"; };
@@ -460,12 +449,6 @@
 		96D19CCB23E832DB003996C8 /* RemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfig.swift; sourceTree = "<group>"; };
 		96D3CB01233BA3A900A5A469 /* StudentClassificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassificationTests.swift; sourceTree = "<group>"; };
 		96D3CB03233BAFB500A5A469 /* Optional+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+.swift"; sourceTree = "<group>"; };
-		96D4A65123E718FB00AFD100 /* FirebaseRemoteConfig.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseRemoteConfig.framework; path = Carthage/Build/iOS/FirebaseRemoteConfig.framework; sourceTree = "<group>"; };
-		96D4A66123E71B5300AFD100 /* FirebaseInstallations.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstallations.framework; path = Carthage/Build/iOS/FirebaseInstallations.framework; sourceTree = "<group>"; };
-		96D4A66823E71B6200AFD100 /* GoogleDataTransportCCTSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleDataTransportCCTSupport.framework; path = Carthage/Build/iOS/GoogleDataTransportCCTSupport.framework; sourceTree = "<group>"; };
-		96D4A66923E71B6200AFD100 /* GoogleDataTransport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleDataTransport.framework; path = Carthage/Build/iOS/GoogleDataTransport.framework; sourceTree = "<group>"; };
-		96D4A67523E71B9B00AFD100 /* FirebaseABTesting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseABTesting.framework; path = Carthage/Build/iOS/FirebaseABTesting.framework; sourceTree = "<group>"; };
-		96D4A67823E71BAC00AFD100 /* PromisesObjC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromisesObjC.framework; path = Carthage/Build/iOS/PromisesObjC.framework; sourceTree = "<group>"; };
 		96D4A67F23E71F6700AFD100 /* RemoteConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigService.swift; sourceTree = "<group>"; };
 		96DE85B2230C7F2100586193 /* StudentClassificationSorter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassificationSorter.swift; sourceTree = "<group>"; };
 		96DE85B5230C829D00586193 /* StudentEvaluationSorterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentEvaluationSorterTests.swift; sourceTree = "<group>"; };
@@ -727,12 +710,6 @@
 		967D1E3F2223DDD3007E5217 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				96D4A67823E71BAC00AFD100 /* PromisesObjC.framework */,
-				96D4A67523E71B9B00AFD100 /* FirebaseABTesting.framework */,
-				96D4A66923E71B6200AFD100 /* GoogleDataTransport.framework */,
-				96D4A66823E71B6200AFD100 /* GoogleDataTransportCCTSupport.framework */,
-				96D4A66123E71B5300AFD100 /* FirebaseInstallations.framework */,
-				96D4A65123E718FB00AFD100 /* FirebaseRemoteConfig.framework */,
 				96C61EF5233CF3C800EA0FB2 /* RxRelay.framework */,
 				96C61EF1233CE9F800EA0FB2 /* RxBiBinding.framework */,
 				962A67A3229521B9008CF643 /* Sentry.framework */,
@@ -740,17 +717,6 @@
 				96F220DE227B67670078AD2A /* Swifter.framework */,
 				96A8AEF2227466440076CCD2 /* StoreKit.framework */,
 				96A8AEE6227464990076CCD2 /* libc++.tbd */,
-				96A8AEE32274620B0076CCD2 /* Firebase.framework */,
-				96A8AEE1227461CF0076CCD2 /* Protobuf.framework */,
-				96A8AEDC227460490076CCD2 /* nanopb.framework */,
-				96A8AEDA2274603B0076CCD2 /* FirebaseCoreDiagnostics.framework */,
-				96A8AED822745FE00076CCD2 /* FirebaseInstanceID.framework */,
-				96A8AED622745FD00076CCD2 /* FIRAnalyticsConnector.framework */,
-				96A8AED422745FB20076CCD2 /* GoogleAppMeasurement.framework */,
-				96A8AED222745F700076CCD2 /* GoogleUtilities.framework */,
-				96A8AED022745F1F0076CCD2 /* FirebaseAnalytics.framework */,
-				96A8AECE22745DBC0076CCD2 /* FirebaseMessaging.framework */,
-				96A8AECC22745DB70076CCD2 /* FirebaseCore.framework */,
 				961789302232F65D007006E8 /* RxBlocking.framework */,
 				9699ABA12232902A006D2F73 /* ToastSwiftFramework.framework */,
 				9658071A22304D5B0065E23D /* RxAtomic.framework */,
