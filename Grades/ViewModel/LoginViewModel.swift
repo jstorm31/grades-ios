@@ -14,14 +14,17 @@ import UIKit
 
 final class LoginViewModel: BaseViewModel {
     typealias Dependencies = HasSceneCoordinator & HasAuthenticationService & HasGradesAPI & HasSettingsRepository
-        & HasPushNotificationService & HasUserRepository
+        & HasPushNotificationService & HasUserRepository & HasRemoteConfigService
 
     private let dependencies: Dependencies
     private let config = EnvironmentConfiguration.shared
+    private let bag = DisposeBag()
 
     // MARK: output
 
     let displayGdprAlert = BehaviorSubject<Bool>(value: false)
+    let fetching = BehaviorSubject<Bool>(value: false)
+    let fetchingConfig = BehaviorSubject<Bool>(value: false)
 
     var openPrivacyPolicyLink = CocoaAction { _ in
         if let url = URL(string: EnvironmentConfiguration.shared.termsAndConditionsLink), UIApplication.shared.canOpenURL(url) {
@@ -38,6 +41,7 @@ final class LoginViewModel: BaseViewModel {
 
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
+        self.dependencies.remoteConfigService.fetching.bind(to: fetchingConfig).disposed(by: bag)
     }
 
     deinit {
@@ -51,7 +55,16 @@ final class LoginViewModel: BaseViewModel {
             return Observable.empty()
         }
 
-        return dependencies.authService.authenticateWitRefreshToken()
+        fetching.onNext(true)
+        return dependencies.remoteConfigService.mockData.skip(1)
+            .flatMap { [weak self] mockData -> Observable<Bool> in
+                if mockData {
+                    return Observable.just(false)
+                }
+
+                self?.fetching.onNext(true)
+                return self?.dependencies.authService.authenticateWitRefreshToken() ?? Observable.just(false)
+            }
             .flatMap(postAuthSetup)
     }
 
@@ -60,18 +73,32 @@ final class LoginViewModel: BaseViewModel {
             return postAuthSetup(true)
         }
 
-        return dependencies.authService
-            .authenticate(useBuiltInSafari: true, viewController: viewController)
+        fetching.onNext(true)
+        return dependencies.remoteConfigService.mockData.take(1)
+            .flatMap { [weak self] mockData -> Observable<Bool> in
+                if mockData {
+                    return Observable.just(true)
+                }
+
+                return self?.dependencies.authService
+                    .authenticate(useBuiltInSafari: true, viewController: viewController) ?? Observable.just(false)
+            }
             .flatMap(postAuthSetup)
+    }
+
+    func fetchRemoteConfig() {
+        dependencies.remoteConfigService.fetchConfig()
     }
 }
 
 private extension LoginViewModel {
     func postAuthSetup(_ success: Bool) -> Observable<Void> {
         guard success == true else {
+            fetching.onNext(false)
             return Observable.empty()
         }
 
+        fetching.onNext(true)
         return dependencies.gradesApi.getUser()
             .do(onNext: { [weak self] user in
                 // Save fetched user data
@@ -91,6 +118,7 @@ private extension LoginViewModel {
             .map { _ in }
             .do(onNext: { [weak self] _ in
                 self?.transitionToCourseList()
+                self?.fetching.onNext(false)
             })
     }
 

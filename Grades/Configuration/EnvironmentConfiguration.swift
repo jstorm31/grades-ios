@@ -111,6 +111,10 @@ extension EnvironmentConfiguration: NSClassificationConfiguration {
         }
         return config["RateAppLink"] as! String
     }
+
+    var remoteConfigUrl: String {
+        return config["RemoteConfigUrl"] as! String
+    }
 }
 
 struct KeychainCredentials {

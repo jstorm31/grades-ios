@@ -150,6 +150,8 @@ final class DynamicValueCell: BasicCell, ConfigurableCell {
         case .number:
             valueTextField.isHidden = false
             valueSwitch.isHidden = true
+            incrementButton.isHidden = false
+            decrementButton.isHidden = false
         case .bool:
             valueSwitch.isHidden = false
             valueTextField.isHidden = true

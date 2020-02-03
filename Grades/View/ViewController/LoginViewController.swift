@@ -19,7 +19,6 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
     // MARK: properties
 
     var viewModel: LoginViewModel!
-    private let activityIndicator = ActivityIndicator()
     private let bag = DisposeBag()
 
     // MARK: lifecycle methods
@@ -67,10 +66,7 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let refreshing = activityIndicator.asSharedSequence()
-        refreshing.asDriver().drive(view.rx.refreshing).disposed(by: bag)
-        refreshing.map { !$0 }.asDriver().drive(loginButton.rx.isEnabled).disposed(by: bag)
+        viewModel.fetchRemoteConfig()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -86,13 +82,21 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
     func bindViewModel() {
         guard let viewModel = viewModel else { return }
 
+        let fetching = viewModel.fetching.distinctUntilChanged().debug().share()
+        fetching.asDriver(onErrorJustReturn: false).drive(view.rx.refreshing).disposed(by: bag)
+        fetching.map { !$0 }.asDriver(onErrorJustReturn: false).drive(loginButton.rx.isEnabled).disposed(by: bag)
+
         viewModel.authenticateWithRefresToken()
-            .trackActivity(activityIndicator)
             .subscribeOn(MainScheduler.instance)
             .subscribe(onError: { [weak self] error in
                 self?.view.makeCustomToast(error.localizedDescription, type: .danger)
             })
             .disposed(by: bag)
+
+        // Config
+        let fetchingConfig = viewModel.fetchingConfig.distinctUntilChanged().share()
+        fetchingConfig.map { !$0 }.asDriver(onErrorJustReturn: false).drive(loginButton.rx.isEnabled).disposed(by: bag)
+        fetchingConfig.asDriver(onErrorJustReturn: false).drive(view.rx.refreshing).disposed(by: bag)
 
         // GDPR compliance
         viewModel.displayGdprAlert
@@ -120,7 +124,6 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
 
     @objc private func authButtonTapped(_: UIButton) {
         viewModel.authenticate(viewController: self)
-            .trackActivity(activityIndicator)
             .subscribeOn(MainScheduler.instance)
             .subscribe(onError: { [weak self] error in
                 self?.view.makeCustomToast(error.localizedDescription, type: .danger)

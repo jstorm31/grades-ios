@@ -48,7 +48,6 @@ final class CourseRepository: CourseRepositoryProtocol {
 
         activityIndicator
             .distinctUntilChanged()
-            .debug()
             .asObservable()
             .bind(to: isFetching)
             .disposed(by: bag)

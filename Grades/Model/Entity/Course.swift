@@ -42,9 +42,10 @@ struct StudentCourseRaw: Decodable {
 class StudentCourse: Course {
     var finalValue: DynamicValue?
 
-    init(code: String, finalValue: DynamicValue? = nil) {
+    init(code: String, name: String? = nil, finalValue: DynamicValue? = nil) {
         super.init(code: code)
         self.code = code
+        self.name = name
         self.finalValue = finalValue
     }
 
