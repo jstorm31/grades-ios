@@ -190,7 +190,6 @@
 		96D19CCC23E832DB003996C8 /* RemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D19CCB23E832DB003996C8 /* RemoteConfig.swift */; };
 		96D3CB02233BA3A900A5A469 /* StudentClassificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D3CB01233BA3A900A5A469 /* StudentClassificationTests.swift */; };
 		96D3CB04233BAFB500A5A469 /* Optional+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D3CB03233BAFB500A5A469 /* Optional+.swift */; };
-		96D4A67E23E71D4000AFD100 /* RemoteConfigDefault.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96D4A67D23E71D4000AFD100 /* RemoteConfigDefault.plist */; };
 		96D4A68023E71F6700AFD100 /* RemoteConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D4A67F23E71F6700AFD100 /* RemoteConfigService.swift */; };
 		96DE85B3230C7F2100586193 /* StudentClassificationSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE85B2230C7F2100586193 /* StudentClassificationSorter.swift */; };
 		96DE85B6230C829D00586193 /* StudentEvaluationSorterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE85B5230C829D00586193 /* StudentEvaluationSorterTests.swift */; };
@@ -467,7 +466,6 @@
 		96D4A66923E71B6200AFD100 /* GoogleDataTransport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleDataTransport.framework; path = Carthage/Build/iOS/GoogleDataTransport.framework; sourceTree = "<group>"; };
 		96D4A67523E71B9B00AFD100 /* FirebaseABTesting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseABTesting.framework; path = Carthage/Build/iOS/FirebaseABTesting.framework; sourceTree = "<group>"; };
 		96D4A67823E71BAC00AFD100 /* PromisesObjC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromisesObjC.framework; path = Carthage/Build/iOS/PromisesObjC.framework; sourceTree = "<group>"; };
-		96D4A67D23E71D4000AFD100 /* RemoteConfigDefault.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = RemoteConfigDefault.plist; sourceTree = "<group>"; };
 		96D4A67F23E71F6700AFD100 /* RemoteConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigService.swift; sourceTree = "<group>"; };
 		96DE85B2230C7F2100586193 /* StudentClassificationSorter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentClassificationSorter.swift; sourceTree = "<group>"; };
 		96DE85B5230C829D00586193 /* StudentEvaluationSorterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentEvaluationSorterTests.swift; sourceTree = "<group>"; };
@@ -553,7 +551,6 @@
 				961A2FD722293AEA00A624DC /* Common.plist */,
 				961A2FDD22294F4500A624DC /* PlistDocument.swift */,
 				96F220F1227B785F0078AD2A /* Test.plist */,
-				96D4A67D23E71D4000AFD100 /* RemoteConfigDefault.plist */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -1224,7 +1221,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96D4A67E23E71D4000AFD100 /* RemoteConfigDefault.plist in Resources */,
 				96520E9F2223D66000AB6499 /* LaunchScreen.storyboard in Resources */,
 				96C9D80E228ADB4D00BFA119 /* Test.plist in Resources */,
 				9608B9AD2223F10F00E1CEAF /* Localizable.strings in Resources */,
