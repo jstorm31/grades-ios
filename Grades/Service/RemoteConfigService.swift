@@ -38,9 +38,14 @@ final class RemoteConfigService: RemoteConfigServiceProtocol {
 
     func fetchConfig() {
         let url = URL(string: EnvironmentConfiguration.shared.remoteConfigUrl)!
-        fetching.onNext(true)
+        let headers = [
+            "Content-Type": "application/json;charset=UTF-8",
+            "Cache-Control": "no-cache"
+        ]
 
-        let fetchedConfig: Observable<RemoteConfig> = dependencies.httpService.get(url: url, parameters: nil).share()
+        fetching.onNext(true)
+        let fetchedConfig: Observable<RemoteConfig> = dependencies.httpService
+            .get(url: url, parameters: nil, headers: headers).share()
 
         fetchedConfig.map { _ in false }.bind(to: fetching).disposed(by: bag)
         fetchedConfig.bind(to: config).disposed(by: bag)

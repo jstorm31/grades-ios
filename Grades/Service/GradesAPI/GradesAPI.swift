@@ -59,8 +59,8 @@ final class GradesAPI: GradesAPIProtocol {
     /// Fetch user info and roles
     func getUser() -> Observable<User> {
         return Observable.zip(
-            httpService.get(url: createURL(from: .userInfo), parameters: defaultParameters),
-            httpService.get(url: createURL(from: .roles), parameters: defaultParameters)
+            httpService.get(url: createURL(from: .userInfo), parameters: defaultParameters, headers: nil),
+            httpService.get(url: createURL(from: .roles), parameters: defaultParameters, headers: nil)
         ) { (user: User, roles: CoursesByRolesRaw) -> User in
             var userWithRoles = User(fromUser: user)
 
@@ -78,7 +78,7 @@ final class GradesAPI: GradesAPIProtocol {
 
     /// Fetch user courses by their roles
     func getTeacherCourses(username _: String) -> Observable<[TeacherCourse]> {
-        return httpService.get(url: createURL(from: .roles), parameters: defaultParameters)
+        return httpService.get(url: createURL(from: .roles), parameters: defaultParameters, headers: nil)
             .map { (raw: CoursesByRolesRaw) -> [TeacherCourse] in
                 raw.teacherCourses.map { (courseCode: String) -> TeacherCourse in TeacherCourse(code: courseCode) }
             }
@@ -86,7 +86,7 @@ final class GradesAPI: GradesAPIProtocol {
 
     /// Fetch courses for current user
     func getStudentCourses(username: String) -> Observable<[StudentCourse]> {
-        return httpService.get(url: createURL(from: .courses(username)), parameters: defaultParameters)
+        return httpService.get(url: createURL(from: .courses(username)), parameters: defaultParameters, headers: nil)
             .map { (rawCourses: [StudentCourseRaw]) -> [StudentCourse] in
                 rawCourses.map { (course: StudentCourseRaw) -> StudentCourse in StudentCourse(fromRawCourse: course) }
             }
@@ -94,7 +94,7 @@ final class GradesAPI: GradesAPIProtocol {
 
     /// Fetch course detail
     func getCourse(code: String) -> Observable<Course> {
-        return httpService.get(url: createURL(from: .course(code)), parameters: defaultParameters)
+        return httpService.get(url: createURL(from: .course(code)), parameters: defaultParameters, headers: nil)
     }
 
     /// Fetch course classification for student
@@ -102,7 +102,7 @@ final class GradesAPI: GradesAPIProtocol {
         var parameters = defaultParameters
         parameters["showHidden"] = false
 
-        return httpService.get(url: createURL(from: .studentCourse(username, code)), parameters: parameters)
+        return httpService.get(url: createURL(from: .studentCourse(username, code)), parameters: parameters, headers: nil)
             .map { (raw: StudentClassifications) in raw.classifications }
     }
 
@@ -119,19 +119,19 @@ final class GradesAPI: GradesAPIProtocol {
             parameters["teacherUsername"] = username
         }
 
-        return httpService.get(url: url, parameters: parameters)
+        return httpService.get(url: url, parameters: parameters, headers: nil)
     }
 
     /// Fetch classifications for course
     func getClassifications(forCourse course: String) -> Observable<[Classification]> {
         let url = createURL(from: .courseClassifications(course))
-        return httpService.get(url: url, parameters: defaultParameters)
+        return httpService.get(url: url, parameters: defaultParameters, headers: nil)
     }
 
     /// Fetch items for student grou and classification
     func getGroupClassifications(courseCode: String, groupCode: String, classificationId: String) -> Observable<[StudentClassification]> {
         let url = createURL(from: .groupClassifications(courseCode, groupCode, classificationId))
-        return httpService.get(url: url, parameters: defaultParameters)
+        return httpService.get(url: url, parameters: defaultParameters, headers: nil)
     }
 
     /// Fetch all students for logged user with role teacher
@@ -150,12 +150,12 @@ final class GradesAPI: GradesAPIProtocol {
 
         // Get from API in Release
         let url = createURL(from: .courseStudents(courseCode, "MY_PARALLELS"))
-        return httpService.get(url: url, parameters: defaultParameters)
+        return httpService.get(url: url, parameters: defaultParameters, headers: nil)
     }
 
     func getNewNotifications(forUser username: String) -> Observable<Notifications> {
         let url = createURL(from: .newNotifications(username))
-        return httpService.get(url: url, parameters: defaultParameters)
+        return httpService.get(url: url, parameters: defaultParameters, headers: nil)
     }
 
     // MARK: PUT requests
@@ -181,6 +181,7 @@ final class GradesAPI: GradesAPIProtocol {
     // MARK: helpers
 
     // swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable function_body_length
     private func createURL(from endpoint: Endpoint) -> URL {
         var endpointValue = ""
 

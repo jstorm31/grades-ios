@@ -82,7 +82,7 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
     func bindViewModel() {
         guard let viewModel = viewModel else { return }
 
-        let fetching = viewModel.fetching.distinctUntilChanged().debug().share()
+        let fetching = viewModel.fetching.distinctUntilChanged().share()
         fetching.asDriver(onErrorJustReturn: false).drive(view.rx.refreshing).disposed(by: bag)
         fetching.map { !$0 }.asDriver(onErrorJustReturn: false).drive(loginButton.rx.isEnabled).disposed(by: bag)
 

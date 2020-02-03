@@ -19,7 +19,7 @@ protocol HttpServiceProtocol {
     typealias HttpParameters = OAuthSwift.Parameters
 
     @discardableResult
-    func get<T: Decodable>(url: URL, parameters: HttpParameters?) -> Observable<T>
+    func get<T: Decodable>(url: URL, parameters: HttpParameters?, headers: [String: String]?) -> Observable<T>
 
     @discardableResult
     func get(url: URL, parameters: HttpParameters?) -> Observable<String>
@@ -45,7 +45,7 @@ final class HttpService: NSObject, HttpServiceProtocol {
 
     private let dependencies: Dependencies
     private let client: AuthClientProtocol
-    private let defaultHeaders = [
+    private let defaultHeaders: Dictionary = [
         "Content-Type": "application/json;charset=UTF-8"
     ]
     private let bag = DisposeBag()
@@ -56,8 +56,8 @@ final class HttpService: NSObject, HttpServiceProtocol {
     }
 
     /// Make HTTP GET request and return Observable of given type that emits request reuslt
-    func get<T>(url: URL, parameters: HttpParameters? = nil) -> Observable<T> where T: Decodable {
-        return request(url, method: .GET, parameters: parameters, headers: defaultHeaders)
+    func get<T>(url: URL, parameters: HttpParameters? = nil, headers: [String: String]? = nil) -> Observable<T> where T: Decodable {
+        return request(url, method: .GET, parameters: parameters, headers: headers ?? defaultHeaders)
     }
 
     var i = 0
