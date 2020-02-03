@@ -33,6 +33,8 @@
 	<string>BUILD_NUMBER</string>
 	<key>ConfigEnvironment</key>
 	<string>$(CONFIG_ENVIRONMENT)</string>
+	<key>FirebaseScreenReportingEnabled</key>
+	<false/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>

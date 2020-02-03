@@ -32,6 +32,7 @@ final class GradesAPI: GradesAPIProtocol {
     }
 
     init(dependencies: Depencencies) {
+        print("Initializing GradesAPI")
         self.dependencies = dependencies
         httpService = dependencies.httpService
     }

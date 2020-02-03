@@ -71,6 +71,8 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
         let refreshing = activityIndicator.asSharedSequence()
         refreshing.asDriver().drive(view.rx.refreshing).disposed(by: bag)
         refreshing.map { !$0 }.asDriver().drive(loginButton.rx.isEnabled).disposed(by: bag)
+
+        viewModel.fetchRemoteConfig()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -93,6 +95,12 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
                 self?.view.makeCustomToast(error.localizedDescription, type: .danger)
             })
             .disposed(by: bag)
+
+        let fetchingConfig = viewModel.fetchingConfig.share()
+
+        // Login button
+        fetchingConfig.map { !$0 }.asDriver(onErrorJustReturn: false).drive(loginButton.rx.isEnabled).disposed(by: bag)
+        fetchingConfig.asDriver(onErrorJustReturn: false).drive(view.rx.refreshing).disposed(by: bag)
 
         // GDPR compliance
         viewModel.displayGdprAlert

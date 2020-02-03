@@ -25,17 +25,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
 
-        AppDependency.shared.mockData = false
-
         // Initialize first scene
         let loginViewModel = LoginViewModel(dependencies: AppDependency.shared)
         let loginScene = Scene.login(loginViewModel)
         window?.rootViewController = loginScene.viewController()
         AppDependency.shared.coordinator.setRoot(viewController: window!.rootViewController!)
 
+        setupSentry()
+
         // Process notification
         processNotification(options)
-        setupSentry()
 
         #if DEBUG
             Bagel.start()

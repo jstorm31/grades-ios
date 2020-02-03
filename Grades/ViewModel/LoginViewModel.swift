@@ -14,14 +14,16 @@ import UIKit
 
 final class LoginViewModel: BaseViewModel {
     typealias Dependencies = HasSceneCoordinator & HasAuthenticationService & HasGradesAPI & HasSettingsRepository
-        & HasPushNotificationService & HasUserRepository
+        & HasPushNotificationService & HasUserRepository & HasRemoteConfigService
 
     private let dependencies: Dependencies
     private let config = EnvironmentConfiguration.shared
+    private let bag = DisposeBag()
 
     // MARK: output
 
     let displayGdprAlert = BehaviorSubject<Bool>(value: false)
+    let fetchingConfig = BehaviorSubject<Bool>(value: false)
 
     var openPrivacyPolicyLink = CocoaAction { _ in
         if let url = URL(string: EnvironmentConfiguration.shared.termsAndConditionsLink), UIApplication.shared.canOpenURL(url) {
@@ -38,6 +40,16 @@ final class LoginViewModel: BaseViewModel {
 
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
+        self.dependencies.remoteConfigService.fetching.bind(to: fetchingConfig).disposed(by: bag)
+
+        self.dependencies.remoteConfigService.config.subscribe(onNext: { remoteConfig in
+            if let mockDataForVersion = remoteConfig.mockDataForVersion,
+                let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
+                mockDataForVersion == appVersion {
+                Log.info("Mocking data for this version")
+                AppDependency.shared.mockData = true
+            }
+        }).disposed(by: bag)
     }
 
     deinit {
@@ -60,9 +72,12 @@ final class LoginViewModel: BaseViewModel {
             return postAuthSetup(true)
         }
 
-        return dependencies.authService
-            .authenticate(useBuiltInSafari: true, viewController: viewController)
+        return dependencies.authService.authenticate(useBuiltInSafari: true, viewController: viewController)
             .flatMap(postAuthSetup)
+    }
+
+    func fetchRemoteConfig() {
+        dependencies.remoteConfigService.fetchConfig()
     }
 }
 

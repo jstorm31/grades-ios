@@ -6,6 +6,8 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import FirebaseRemoteConfig
+
 protocol HasNoDependency {}
 
 final class AppDependency: HasNoDependency {
@@ -16,6 +18,7 @@ final class AppDependency: HasNoDependency {
 
     lazy var coordinator: SceneCoordinatorType = SceneCoordinator() // Do not forget to set root view controller in AppDelegate
 
+    lazy var remoteConfigService: RemoteConfigServiceProtocol = RemoteConfigService(self)
     lazy var authService: AuthenticationServiceProtocol = AuthenticationService(dependencies: self)
     lazy var httpService: HttpServiceProtocol = HttpService(dependencies: self)
     lazy var gradesApi: GradesAPIProtocol = mockData ? GradesAPIMock() : GradesAPI(dependencies: self)
@@ -30,6 +33,7 @@ final class AppDependency: HasNoDependency {
 
 extension AppDependency: HasSceneCoordinator {}
 
+extension AppDependency: HasRemoteConfigService {}
 extension AppDependency: HasAuthenticationService {}
 extension AppDependency: HasHttpService {}
 extension AppDependency: HasGradesAPI {}
