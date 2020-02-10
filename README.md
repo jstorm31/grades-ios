@@ -1,8 +1,8 @@
 # Grades iOS
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-![Swift](https://img.shields.io/badge/Swift-5.0-orange.svg)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Build Status](https://travis-ci.com/jstorm31/grades-ios.svg?branch=master)](https://travis-ci.com/jstorm31/grades-ios)
+![Swift](https://img.shields.io/badge/Swift-5.1-orange.svg)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 <p align="center">
   <img height="150" src="grades_logo.png">
@@ -40,3 +40,11 @@ All configuration related files are located in `Configuration` folder. There are
  2. Add correct string to `$(CONFIG_ENVIRONMENT)` in app's build settings
  3. Add `ENVIRONMENT_NAME.plist` file (replace `ENVIRONMENT_NAME` it with real environment name)
  4. `EnvironmentConfiguration` class may need update
+ 
+ ## 📦 Deploy
+ 
+The app is deployed manually through AppStore Connect.
+
+### AppStore review
+
+In order to allow a review of the app before a new release, a version must be set (matching the new release version) in a remote configuration file (hosted by the project maintainer). That version will than have all in-app data mocked instead of real data. **It is important to change the version in the configuration file** after the review has been completed so real data are fetched to regular users.
