@@ -9,25 +9,25 @@
 import UIKit
 
 extension UINavigationController {
-    open override var preferredStatusBarStyle: UIStatusBarStyle {
+    override open var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
 
-    open override var shouldAutorotate: Bool {
+    override open var shouldAutorotate: Bool {
         if let visibleVC = visibleViewController {
             return visibleVC.shouldAutorotate
         }
         return super.shouldAutorotate
     }
 
-    open override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+    override open var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
         if let visibleVC = visibleViewController {
             return visibleVC.preferredInterfaceOrientationForPresentation
         }
         return super.preferredInterfaceOrientationForPresentation
     }
 
-    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if let visibleVC = visibleViewController {
             return visibleVC.supportedInterfaceOrientations
         }

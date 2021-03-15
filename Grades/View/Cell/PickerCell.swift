@@ -25,10 +25,6 @@ final class PickerCell: BasicCell, ConfigurableCell {
         loadUI()
     }
 
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     override func prepareForReuse() {
         super.prepareForReuse()
         bag = DisposeBag()

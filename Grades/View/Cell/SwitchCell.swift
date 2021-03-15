@@ -25,10 +25,6 @@ final class SwitchCell: BasicCell, ConfigurableCell {
         selectionStyle = .none
     }
 
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     func configure(data switchViewModel: SwitchCellViewModel) {
         viewModel = switchViewModel
         bindViewModel()

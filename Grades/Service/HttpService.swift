@@ -7,6 +7,7 @@
 //
 
 import Action
+import Foundation
 import OAuthSwift
 import RxSwift
 
@@ -65,21 +66,21 @@ final class HttpService: NSObject, HttpServiceProtocol {
     /// Make HTTP GET request and return Observable string
     func get(url: URL, parameters: HttpParameters? = nil) -> Observable<String> {
         let request = Observable<String>.create { [weak self] observer in
-            _ = self?.client.request(
-                url,
-                method: .GET,
-                parameters: parameters ?? [:],
-                headers: self?.defaultHeaders ?? [:],
-                body: nil,
-                success: { response in
+            _ = self?.client.request(url, method: .GET,
+                                     parameters: parameters ?? [:],
+                                     headers: self?.defaultHeaders ?? [:],
+                                     body: nil) { result in
+                switch result {
+                case let .success(response):
                     let data = response.data
                     let decodedResponse = String(decoding: data, as: UTF8.self)
+
                     observer.onNext(decodedResponse)
                     observer.onCompleted()
-                }, failure: { error in
+                case let .failure(error):
                     observer.onError(error)
                 }
-            )
+            }
             return Disposables.create()
         }
 
@@ -130,13 +131,9 @@ final class HttpService: NSObject, HttpServiceProtocol {
         headers: OAuthSwift.Headers? = nil
     ) -> Observable<T> where T: Decodable {
         let request = Observable<T>.create { [weak self] observer in
-            _ = self?.client.request(
-                url,
-                method: method,
-                parameters: parameters ?? [:],
-                headers: headers,
-                body: nil,
-                success: { response in
+            _ = self?.client.request(url, method: method, parameters: parameters ?? [:], headers: headers, body: nil) { result in
+                switch result {
+                case let .success(response):
                     let data = response.data
 
                     do {
@@ -147,10 +144,11 @@ final class HttpService: NSObject, HttpServiceProtocol {
                         Log.error("HttpService.request: Could not proccess response data to JSON.\n\(error)\n")
                         observer.onError(ApiError.unprocessableData)
                     }
-                }, failure: { error in
+
+                case let .failure(error):
                     observer.onError(error)
                 }
-            )
+            }
 
             return Disposables.create()
         }
@@ -184,19 +182,16 @@ final class HttpService: NSObject, HttpServiceProtocol {
                 observer.onError(ApiError.unprocessableData)
             }
 
-            _ = self?.client.request(
-                url,
-                method: method,
-                parameters: parameters ?? [:],
-                headers: headers,
-                body: data,
-                success: { _ in
+            _ = self?.client.request(url, method: method, parameters: parameters ?? [:], headers: headers, body: data) { result in
+                switch result {
+                case .success:
                     observer.onNext(())
                     observer.onCompleted()
-                }, failure: { error in
+
+                case let .failure(error):
                     observer.onError(error)
                 }
-            )
+            }
 
             return Disposables.create()
         }

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 extension UIColor {
-    struct Theme {
+    enum Theme {
         static let background = UIColor.white
         static let primary = UIColor(hex: 0x9776C1)
         static let secondary = UIColor(hex: 0x6763CE)
@@ -32,7 +32,7 @@ extension UIColor {
         static let darkOrange = UIColor(hex: 0xBA6D00)
 
         static var primaryGradient: CAGradientLayer {
-            let gradient: CAGradientLayer = CAGradientLayer()
+            let gradient = CAGradientLayer()
             let startColor = UIColor(hex: 0x8C72C4).cgColor
             let endColor = UIColor(hex: 0x7468CA).cgColor
 

@@ -25,7 +25,8 @@ extension ConfirmationModalPresentable {
                              confirmTitle: String? = nil,
                              confirmIsPreffered: Bool = true,
                              cancelHandler: (() -> Void)? = nil,
-                             confirmedHandler: @escaping () -> Void) {
+                             confirmedHandler: @escaping () -> Void)
+    {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
         let cancelAction: UIAlertAction

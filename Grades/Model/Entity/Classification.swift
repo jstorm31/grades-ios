@@ -6,6 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import Foundation
 import RxDataSources
 
 struct Classification {

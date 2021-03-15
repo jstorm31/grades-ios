@@ -22,10 +22,6 @@ final class LinkCell: BasicCell, ConfigurableCell {
         loadUI()
     }
 
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     func configure(data title: String) {
         self.title = title
     }

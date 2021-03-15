@@ -16,7 +16,8 @@ final class SettingsViewController: BaseTableViewController,
     BindableType,
     TableDataSource,
     ConfirmationModalPresentable,
-    PickerPresentable {
+    PickerPresentable
+{
     var pickerView: UIPickerView!
     var pickerTextField: UITextField!
 

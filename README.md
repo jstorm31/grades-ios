@@ -1,7 +1,6 @@
 # Grades iOS
 [![Build Status](https://travis-ci.com/jstorm31/grades-ios.svg?branch=master)](https://travis-ci.com/jstorm31/grades-ios)
-![Swift](https://img.shields.io/badge/Swift-5.1-orange.svg)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+![Swift](https://img.shields.io/badge/Swift-5.3-orange.svg)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 <p align="center">
@@ -12,11 +11,10 @@ Client iOS application for [student evaluation management server](https://grades
 
 ## 🛠 Setup
 1. Clone the repository.
-2. Run `carthage bootstrap && carthage update`
-3. Request access to configuration files encrypted with [git-secret](https://git-scm.com) from the repository owner.
+2. Request access to configuration files encrypted with [git-secret](https://git-scm.com) from the repository owner.
 
 ## 🔗 Dependency management
-The app uses [Carthage](https://github.com/Carthage/Carthage) package manager for dependency management. After cloning the repo, run `carthage bootstrap` to correctly install required frameworks.
+The app uses Swift Package Manager for dependency management. In XCode 12+ the packages should be installed automatically.
 
 Additionally, you should have following frameworks installed system-wide:
 

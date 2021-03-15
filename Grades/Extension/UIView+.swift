@@ -6,7 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
-import ToastSwiftFramework
+import Toast
 import UIKit
 
 extension UIView {

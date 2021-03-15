@@ -107,7 +107,7 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
                                               self?.viewModel.gdprCompliant.onNext(false)
                                           }, confirmedHandler: { [weak self] in
                                               self?.viewModel.gdprCompliant.onNext(true)
-                })
+                                          })
             })
             .disposed(by: bag)
 

@@ -6,6 +6,8 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import Sentry
+
 // swiftlint:disable type_name
 class Log {
     static func info(_ message: String) {
@@ -18,5 +20,6 @@ class Log {
 
     static func error(_ message: String) {
         print("⛔️ \(message)")
+        SentrySDK.capture(message: message)
     }
 }

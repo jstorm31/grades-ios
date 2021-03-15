@@ -32,9 +32,9 @@ public extension KeyboardChangeFrameObserver {
 
     private func sendDelegate(notification: Notification, willHide: Bool) {
         guard let userInfo = notification.userInfo,
-            let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
-            let keyboardEndFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
-            let rawAnimationCurveNumber = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber else { return }
+              let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+              let keyboardEndFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
+              let rawAnimationCurveNumber = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber else { return }
 
         let rawAnimationCurve = rawAnimationCurveNumber.uint32Value << 16
         let animationCurve = UIView.AnimationOptions(rawValue: UInt(rawAnimationCurve))

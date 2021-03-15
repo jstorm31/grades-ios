@@ -11,6 +11,7 @@ import Foundation
 import OAuthSwift
 import RxSwift
 import SwiftKeychainWrapper
+import UIKit
 
 protocol HasAuthenticationService {
     var authService: AuthenticationServiceProtocol { get }
@@ -77,22 +78,23 @@ final class AuthenticationService: AuthenticationServiceProtocol {
             }
 
             // Authorize
-            let handle = self.handler
-                .authorize(withCallbackURL: self.callbackUrl,
-                           scope: self.scope,
-                           state: "",
-                           headers: ["Authorization": self.authorizationHeader],
-                           success: { [weak self] _, _, _ in
-                               self?.saveCredentialsToKeychain()
-                               observer.onNext(true)
-                               observer.onCompleted()
-                           }, failure: { error in
-                               Log.error("AuthenticationService.authenticate: Authentication error. \(error.localizedDescription)")
-                               #if DEBUG
-                                   observer.onError(error)
-                               #endif
-                               observer.onError(AuthenticationError.generic)
-                })
+            let handle = self.handler.authorize(withCallbackURL: self.callbackUrl,
+                                                scope: self.scope,
+                                                state: "",
+                                                headers: ["Authorization": self.authorizationHeader]) { [weak self] result in
+                switch result {
+                case .success:
+                    self?.saveCredentialsToKeychain()
+                    observer.onNext(true)
+                    observer.onCompleted()
+                case let .failure(error):
+                    Log.error("AuthenticationService.authenticate: Authentication error. \(error.localizedDescription)")
+                    #if DEBUG
+                        observer.onError(error)
+                    #endif
+                    observer.onError(AuthenticationError.generic)
+                }
+            }
 
             return Disposables.create {
                 handle?.cancel()
