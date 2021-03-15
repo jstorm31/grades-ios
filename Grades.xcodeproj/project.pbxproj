@@ -37,7 +37,6 @@
 		9639A80025FF9A1800EE3913 /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = 9639A7FF25FF9A1800EE3913 /* Swifter */; };
 		9639A80525FF9A7900EE3913 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 9639A80425FF9A7900EE3913 /* SwiftKeychainWrapper */; };
 		9639A80A25FF9ABA00EE3913 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 9639A80925FF9ABA00EE3913 /* Sentry */; };
-		9639A81025FF9B6100EE3913 /* RxBiBinding in Frameworks */ = {isa = PBXBuildFile; productRef = 9639A80F25FF9B6100EE3913 /* RxBiBinding */; };
 		9639A81625FF9BD900EE3913 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 9639A81525FF9BD900EE3913 /* SwiftKeychainWrapper */; };
 		9639AE662270989B009C35A9 /* ModifableInsetsOnKeyboardFrameChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE642270989B009C35A9 /* ModifableInsetsOnKeyboardFrameChanges.swift */; };
 		9639AE672270989C009C35A9 /* KeyboardChangeFrameObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE652270989B009C35A9 /* KeyboardChangeFrameObserver.swift */; };
@@ -188,12 +187,11 @@
 		96DDBDE025FFAE6900A6F90D /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 96DDBDDF25FFAE6900A6F90D /* RxRelay */; };
 		96DDBDE225FFAE6900A6F90D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 96DDBDE125FFAE6900A6F90D /* RxCocoa */; };
 		96DDBE1125FFB6CB00A6F90D /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = 96DDBE1025FFB6CB00A6F90D /* Swifter */; };
-		96DDBE2025FFB93200A6F90D /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 96DDBE1F25FFB93200A6F90D /* RxTest */; };
-		96DDBE2225FFB93900A6F90D /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 96DDBE2125FFB93900A6F90D /* RxBlocking */; };
 		96DE85B3230C7F2100586193 /* StudentClassificationSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE85B2230C7F2100586193 /* StudentClassificationSorter.swift */; };
 		96DE85B6230C829D00586193 /* StudentEvaluationSorterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE85B5230C829D00586193 /* StudentEvaluationSorterTests.swift */; };
 		96E8C642224BE60C005F32F8 /* AppDependencyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */; };
 		96E8C644224BE8BA005F32F8 /* SettingsRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C643224BE8BA005F32F8 /* SettingsRepositoryMock.swift */; };
+		96F2172D25FFCF66007EAFAC /* RxBiBinding in Frameworks */ = {isa = PBXBuildFile; productRef = 96F2172C25FFCF66007EAFAC /* RxBiBinding */; };
 		96F220D6227B62C10078AD2A /* HTTPDynamicStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F220D5227B62C10078AD2A /* HTTPDynamicStubs.swift */; };
 		96F220EC227B72790078AD2A /* course-name.json in Resources */ = {isa = PBXBuildFile; fileRef = 96F220EB227B72790078AD2A /* course-name.json */; };
 		96F3A3732239080B00FB63EF /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A3722239080B00FB63EF /* BaseViewModel.swift */; };
@@ -474,18 +472,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96DDBE2025FFB93200A6F90D /* RxTest in Frameworks */,
 				9639A80525FF9A7900EE3913 /* SwiftKeychainWrapper in Frameworks */,
 				9639A80025FF9A1800EE3913 /* Swifter in Frameworks */,
+				96F2172D25FFCF66007EAFAC /* RxBiBinding in Frameworks */,
 				9639A7FB25FF99E600EE3913 /* Toast in Frameworks */,
-				96DDBE2225FFB93900A6F90D /* RxBlocking in Frameworks */,
 				96DDBDE225FFAE6900A6F90D /* RxCocoa in Frameworks */,
 				9639A7D825FF984B00EE3913 /* SnapKit in Frameworks */,
 				9639A7F125FF991600EE3913 /* Differentiator in Frameworks */,
 				9639A7DD25FF989100EE3913 /* OAuthSwift in Frameworks */,
 				96DDBDE025FFAE6900A6F90D /* RxRelay in Frameworks */,
 				9639A80A25FF9ABA00EE3913 /* Sentry in Frameworks */,
-				9639A81025FF9B6100EE3913 /* RxBiBinding in Frameworks */,
 				9639A7EF25FF991600EE3913 /* RxDataSources in Frameworks */,
 				9639A7F625FF997D00EE3913 /* Action in Frameworks */,
 				96DDBDDC25FFAE6900A6F90D /* RxSwift in Frameworks */,
@@ -1059,12 +1055,10 @@
 				9639A7FF25FF9A1800EE3913 /* Swifter */,
 				9639A80425FF9A7900EE3913 /* SwiftKeychainWrapper */,
 				9639A80925FF9ABA00EE3913 /* Sentry */,
-				9639A80F25FF9B6100EE3913 /* RxBiBinding */,
 				96DDBDDB25FFAE6900A6F90D /* RxSwift */,
 				96DDBDDF25FFAE6900A6F90D /* RxRelay */,
 				96DDBDE125FFAE6900A6F90D /* RxCocoa */,
-				96DDBE1F25FFB93200A6F90D /* RxTest */,
-				96DDBE2125FFB93900A6F90D /* RxBlocking */,
+				96F2172C25FFCF66007EAFAC /* RxBiBinding */,
 			);
 			productName = Classification;
 			productReference = 96520E912223D65F00AB6499 /* Grades.app */;
@@ -2297,11 +2291,6 @@
 			package = 9639A80825FF9AB900EE3913 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
 			productName = Sentry;
 		};
-		9639A80F25FF9B6100EE3913 /* RxBiBinding */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9639A80E25FF9B6100EE3913 /* XCRemoteSwiftPackageReference "RxBiBinding" */;
-			productName = RxBiBinding;
-		};
 		9639A81525FF9BD900EE3913 /* SwiftKeychainWrapper */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9639A80325FF9A7900EE3913 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
@@ -2327,15 +2316,10 @@
 			package = 9639A7FE25FF9A1800EE3913 /* XCRemoteSwiftPackageReference "swifter" */;
 			productName = Swifter;
 		};
-		96DDBE1F25FFB93200A6F90D /* RxTest */ = {
+		96F2172C25FFCF66007EAFAC /* RxBiBinding */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 96DDBDDA25FFAE6900A6F90D /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxTest;
-		};
-		96DDBE2125FFB93900A6F90D /* RxBlocking */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 96DDBDDA25FFAE6900A6F90D /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxBlocking;
+			package = 9639A80E25FF9B6100EE3913 /* XCRemoteSwiftPackageReference "RxBiBinding" */;
+			productName = RxBiBinding;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
