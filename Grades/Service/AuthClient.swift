@@ -14,7 +14,7 @@ protocol AuthClientProtocol {
     var credential: OAuthSwiftCredential { get }
 
     func request(_ url: URLConvertible, method: OAuthSwiftHTTPRequest.Method, parameters: OAuthSwift.Parameters,
-                 headers: OAuthSwift.Headers?, body: Data?, completionHandler: @escaping OAuthSwiftHTTPRequest.CompletionHandler) -> OAuthSwiftRequestHandle?
+                 headers: OAuthSwift.Headers?, body: Data?, completionHandler: OAuthSwiftHTTPRequest.CompletionHandler?) -> OAuthSwiftRequestHandle?
 }
 
 final class AuthClient: AuthClientProtocol {
@@ -29,7 +29,7 @@ final class AuthClient: AuthClientProtocol {
 
     @discardableResult
     func request(_ url: URLConvertible, method: OAuthSwiftHTTPRequest.Method, parameters: OAuthSwift.Parameters = [:],
-                 headers: OAuthSwift.Headers? = nil, body: Data? = nil, completionHandler: @escaping OAuthSwiftHTTPRequest.CompletionHandler) -> OAuthSwiftRequestHandle?
+                 headers: OAuthSwift.Headers? = nil, body: Data? = nil, completionHandler: OAuthSwiftHTTPRequest.CompletionHandler?) -> OAuthSwiftRequestHandle?
     {
         return client.request(url, method: method, parameters: parameters, headers: headers, body: body, completionHandler: completionHandler)
     }
