@@ -111,7 +111,13 @@ final class SettingsViewController: BaseTableViewController,
         viewModel.error
             .subscribeOn(MainScheduler.instance)
             .subscribe(onError: { [weak self] error in
-                self?.view.makeCustomToast(error.localizedDescription, type: .danger)
+                Log.report(error)
+
+                DispatchQueue.main.async {
+                    if let view = self?.view {
+                        view.makeCustomToast(error.localizedDescription, type: .danger)
+                    }
+                }
             })
             .disposed(by: bag)
 

@@ -105,8 +105,15 @@ class CourseDetailStudentViewController: BaseTableViewController, BindableType {
 
         viewModel.error.asObserver()
             .subscribe(onNext: { [weak self] error in
-                self?.navigationController?.view
-                    .makeCustomToast(error?.localizedDescription, type: .danger, position: .center)
+                if let error = error {
+                    Log.report(error)
+                }
+
+                DispatchQueue.main.async {
+                    if let view = self?.navigationController?.view {
+                        view.makeCustomToast(error?.localizedDescription, type: .danger, position: .center)
+                    }
+                }
             })
             .disposed(by: bag)
 

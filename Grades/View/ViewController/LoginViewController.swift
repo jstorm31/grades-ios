@@ -89,7 +89,13 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
         viewModel.authenticateWithRefresToken()
             .subscribeOn(MainScheduler.instance)
             .subscribe(onError: { [weak self] error in
-                self?.view.makeCustomToast(error.localizedDescription, type: .danger)
+                Log.report(error)
+
+                DispatchQueue.main.async {
+                    if let view = self?.view {
+                        view.makeCustomToast(error.localizedDescription, type: .danger)
+                    }
+                }
             })
             .disposed(by: bag)
 
@@ -121,10 +127,12 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
         viewModel.authenticate(viewController: self)
             .subscribeOn(MainScheduler.instance)
             .subscribe(onError: { [weak self] error in
-                Log.error(error.localizedDescription)
+                Log.report(error)
 
-                if let view = self?.view {
-                    view.makeCustomToast(error.localizedDescription, type: .danger)
+                DispatchQueue.main.async {
+                    if let view = self?.view {
+                        view.makeCustomToast(error.localizedDescription, type: .danger)
+                    }
                 }
             })
             .disposed(by: bag)
