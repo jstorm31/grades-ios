@@ -217,7 +217,7 @@ final class SettingsViewModel: TablePickerViewModel {
 
     /// Submit current value for current index path
     func submitSelectedValue() {
-        guard let index = self.selectedCellIndex.value else { return }
+        guard let index = selectedCellIndex.value else { return }
 
         // Semester
         if index.section == 1, index.item == 0 {

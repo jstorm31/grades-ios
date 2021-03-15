@@ -219,12 +219,14 @@ final class PushNotificationService: NSObject, PushNotificationServiceProtocol {
 
 extension PushNotificationService: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_: UNUserNotificationCenter, willPresent _: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
+    {
         completionHandler([.badge, .alert, .sound])
     }
 
     func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse,
-                                withCompletionHandler completionHandler: @escaping () -> Void) {
+                                withCompletionHandler completionHandler: @escaping () -> Void)
+    {
         let userInfo = response.notification.request.content.userInfo
 
         if let notification = PushNotification.decode(from: userInfo) {

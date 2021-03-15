@@ -10,10 +10,11 @@ protocol ModifableInsetsOnKeyboardFrameChanges: KeyboardChangeFrameObserver {
 extension ModifableInsetsOnKeyboardFrameChanges where Self: UIViewController {
     func willChangeKeyboardFrame(height: CGFloat, offset: CGFloat,
                                  animationDuration: TimeInterval,
-                                 animationOptions _: UIView.AnimationOptions) {
+                                 animationOptions _: UIView.AnimationOptions)
+    {
         var adjustedHeight = height
 
-        if let tabBarHeight = self.tabBarController?.tabBar.frame.height {
+        if let tabBarHeight = tabBarController?.tabBar.frame.height {
             adjustedHeight -= tabBarHeight
         } else if let toolbarHeight = navigationController?.toolbar.frame.height, navigationController?.isToolbarHidden == false {
             adjustedHeight -= toolbarHeight

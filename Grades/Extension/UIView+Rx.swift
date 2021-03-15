@@ -10,9 +10,9 @@ import RxCocoa
 import RxSwift
 import UIKit
 
-extension Reactive where Base: UIView {
+public extension Reactive where Base: UIView {
     /// Bindable sink for toast activity indicator
-    public var refreshing: Binder<Bool> {
+    var refreshing: Binder<Bool> {
         return Binder(base) { view, active in
             if active {
                 view.makeToastActivity(.center)
@@ -22,7 +22,7 @@ extension Reactive where Base: UIView {
         }
     }
 
-    public var errorMessage: Binder<Error?> {
+    var errorMessage: Binder<Error?> {
         return Binder(base) { view, error in
             if let error = error {
                 view.makeCustomToast(error.localizedDescription, type: .danger)
@@ -30,7 +30,7 @@ extension Reactive where Base: UIView {
         }
     }
 
-    public var successMessage: Binder<String> {
+    var successMessage: Binder<String> {
         return Binder(base) { view, message in
             view.makeCustomToast(message, type: .success)
         }

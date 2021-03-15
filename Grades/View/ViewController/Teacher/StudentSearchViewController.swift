@@ -66,8 +66,11 @@ final class StudentSearchViewController: BaseTableViewController, BindableType, 
         search.searchResultsUpdater = self
         search.obscuresBackgroundDuringPresentation = false
         search.searchBar.placeholder = L10n.Students.search
-        search.searchBar.searchTextField.backgroundColor = .white
-        search.searchBar.searchTextField.textColor = UIColor.Theme.text
+
+        if #available(iOS 13.0, *) {
+            search.searchBar.searchTextField.backgroundColor = .white
+            search.searchBar.searchTextField.textColor = UIColor.Theme.text
+        }
 
         navigationItem.searchController = search
         navigationItem.hidesSearchBarWhenScrolling = false

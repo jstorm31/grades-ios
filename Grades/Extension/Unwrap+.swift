@@ -8,13 +8,13 @@
 import Foundation
 import RxSwift
 
-extension ObservableType {
+public extension ObservableType {
     /**
      Takes a sequence of optional elements and returns a sequence of non-optional elements, filtering out any nil values.
      - returns: An observable sequence of non-optional elements
      */
 
-    public func unwrap<T>() -> Observable<T> where Element == T? {
+    func unwrap<T>() -> Observable<T> where Element == T? {
         return filter { $0 != nil }.map { $0! }
     }
 }

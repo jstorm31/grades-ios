@@ -48,8 +48,9 @@ final class RemoteConfigService: RemoteConfigServiceProtocol {
         fetchedConfig
             .map { config in
                 if let mockDataForVersion = config.mockDataForVersion,
-                    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
-                    mockDataForVersion == appVersion {
+                   let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
+                   mockDataForVersion == appVersion
+                {
                     Log.info("Mocking data for this version \(appVersion)")
                     return true
                 }

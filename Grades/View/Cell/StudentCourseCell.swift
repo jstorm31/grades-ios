@@ -65,10 +65,6 @@ final class StudentCourseCell: CourseListCell, ConfigurableCell {
             .disposed(by: bag)
     }
 
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     func configure(data course: StudentCourse) {
         self.course = course
     }

@@ -3,14 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		9603041F232C14AF005074C9 /* StudentGroups.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9603041D232C14AF005074C9 /* StudentGroups.strings */; };
 		96030420232C14AF005074C9 /* StudentGroups.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9603041D232C14AF005074C9 /* StudentGroups.strings */; };
-		96030426232C1C26005074C9 /* Bagel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0D2228669F00FB4A05 /* Bagel.framework */; };
-		96030427232C1C63005074C9 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9614CF0F2228687400FB4A05 /* CocoaAsyncSocket.framework */; };
 		96068D39227A12BA00890EF6 /* StudentClassifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96068D38227A12BA00890EF6 /* StudentClassifications.swift */; };
 		9608B9AD2223F10F00E1CEAF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9608B9AB2223F10F00E1CEAF /* Localizable.strings */; };
 		9608B9B12224149700E1CEAF /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9608B9B02224149700E1CEAF /* Strings.swift */; };
@@ -29,8 +27,18 @@
 		961BCE79222C3D8E00BD6663 /* GradesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BCE78222C3D8E00BD6663 /* GradesUITests.swift */; };
 		961BCE81222C515700BD6663 /* GradesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BCE80222C515700BD6663 /* GradesAPI.swift */; };
 		961FC4F82244118B000A4CDA /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961FC4F72244118B000A4CDA /* AppDependency.swift */; };
-		962A67A4229521B9008CF643 /* Sentry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962A67A3229521B9008CF643 /* Sentry.framework */; };
 		9636E8AC22775FE200727AE5 /* EvaluationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9636E8AB22775FE200727AE5 /* EvaluationType.swift */; };
+		9639A7D825FF984B00EE3913 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9639A7D725FF984B00EE3913 /* SnapKit */; };
+		9639A7DD25FF989100EE3913 /* OAuthSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9639A7DC25FF989100EE3913 /* OAuthSwift */; };
+		9639A7EF25FF991600EE3913 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 9639A7EE25FF991600EE3913 /* RxDataSources */; };
+		9639A7F125FF991600EE3913 /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = 9639A7F025FF991600EE3913 /* Differentiator */; };
+		9639A7F625FF997D00EE3913 /* Action in Frameworks */ = {isa = PBXBuildFile; productRef = 9639A7F525FF997D00EE3913 /* Action */; };
+		9639A7FB25FF99E600EE3913 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 9639A7FA25FF99E600EE3913 /* Toast */; };
+		9639A80025FF9A1800EE3913 /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = 9639A7FF25FF9A1800EE3913 /* Swifter */; };
+		9639A80525FF9A7900EE3913 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 9639A80425FF9A7900EE3913 /* SwiftKeychainWrapper */; };
+		9639A80A25FF9ABA00EE3913 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 9639A80925FF9ABA00EE3913 /* Sentry */; };
+		9639A81025FF9B6100EE3913 /* RxBiBinding in Frameworks */ = {isa = PBXBuildFile; productRef = 9639A80F25FF9B6100EE3913 /* RxBiBinding */; };
+		9639A81625FF9BD900EE3913 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 9639A81525FF9BD900EE3913 /* SwiftKeychainWrapper */; };
 		9639AE662270989B009C35A9 /* ModifableInsetsOnKeyboardFrameChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE642270989B009C35A9 /* ModifableInsetsOnKeyboardFrameChanges.swift */; };
 		9639AE672270989C009C35A9 /* KeyboardChangeFrameObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE652270989B009C35A9 /* KeyboardChangeFrameObserver.swift */; };
 		9639AE692270AAA1009C35A9 /* AuthTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639AE682270AAA1009C35A9 /* AuthTokenResponse.swift */; };
@@ -62,7 +70,6 @@
 		96456456227D84EC00E48FC1 /* CourseDetailStudentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96456455227D84EB00E48FC1 /* CourseDetailStudentViewModelTests.swift */; };
 		964CDE1C228828330093CB3C /* GradesNotificationExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 964CDE15228828330093CB3C /* GradesNotificationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		964CDE222288289B0093CB3C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964CDE212288289B0093CB3C /* NotificationService.swift */; };
-		964CDE24228829270093CB3C /* SwiftKeychainWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 968EC1D22282DC1100241F51 /* SwiftKeychainWrapper.framework */; };
 		964CDE252288299F0093CB3C /* EnvironmentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9608B9C82224364200E1CEAF /* EnvironmentConfiguration.swift */; };
 		964CDE26228829A10093CB3C /* Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD322293AD000A624DC /* Debug.plist */; };
 		964CDE28228829A40093CB3C /* Release.plist in Resources */ = {isa = PBXBuildFile; fileRef = 961A2FD522293AE000A624DC /* Release.plist */; };
@@ -82,7 +89,6 @@
 		9654A4FB22469D0500778ED1 /* StudentCourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9654A4FA22469D0500778ED1 /* StudentCourseCell.swift */; };
 		9654A4FD2246A02200778ED1 /* TeacherCourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9654A4FC2246A02200778ED1 /* TeacherCourseCell.swift */; };
 		96580714222FFA810065E23D /* CourseListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96580713222FFA810065E23D /* CourseListViewModelTests.swift */; };
-		9658071922304B420065E23D /* Action.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658071822304B420065E23D /* Action.framework */; };
 		965ADAEB223569C500AA8CF4 /* CourseListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965ADAEA223569C500AA8CF4 /* CourseListCell.swift */; };
 		965ADAF32235976300AA8CF4 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965ADAF22235976300AA8CF4 /* Result.swift */; };
 		965E3291234691EE002F2211 /* PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964CDE302288486A0093CB3C /* PushNotification.swift */; };
@@ -99,15 +105,10 @@
 		9675842B22855D57006C401E /* TeacherRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9675842A22855D57006C401E /* TeacherRepositoryTests.swift */; };
 		96777FD2227F31B700520ABF /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96777FD1227F31B700520ABF /* UserRepository.swift */; };
 		96777FD4227F39E200520ABF /* UserRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96777FD3227F39E200520ABF /* UserRepositoryMock.swift */; };
-		967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967D1E402223DDD3007E5217 /* SnapKit.framework */; };
-		9682A6BB222D1EAA00773E28 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96861076222AAE6C0069B81B /* RxSwift.framework */; };
-		9682A6BC222D1EAA00773E28 /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9682A6A7222D19E800773E28 /* RxTest.framework */; };
 		9682A6BE222D1F7600773E28 /* CourseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9682A6BD222D1F7600773E28 /* CourseListViewModel.swift */; };
 		9682E5802266253100687A66 /* DynamicValueCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9682E57F2266253100687A66 /* DynamicValueCellViewModel.swift */; };
 		96861070222AA4550069B81B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686106F222AA4550069B81B /* BaseViewController.swift */; };
 		96861073222AA55F0069B81B /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96861072222AA55F0069B81B /* UIColor+.swift */; };
-		96861077222AAE6C0069B81B /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96861076222AAE6C0069B81B /* RxSwift.framework */; };
-		96861079222AAE6F0069B81B /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96861078222AAE6F0069B81B /* RxCocoa.framework */; };
 		9686107C222AAED50069B81B /* UIPrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686107B222AAED50069B81B /* UIPrimaryButton.swift */; };
 		9686107E222AB4D40069B81B /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686107D222AB4D40069B81B /* UIView+.swift */; };
 		96861080222AEC680069B81B /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686107F222AEC680069B81B /* UIFont+.swift */; };
@@ -120,7 +121,6 @@
 		968D05BE2261F289003F7D49 /* TableSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D05BD2261F289003F7D49 /* TableSection.swift */; };
 		968D05C222625CC2003F7D49 /* StudentClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D05C122625CC2003F7D49 /* StudentClassification.swift */; };
 		968D05C422637F36003F7D49 /* DynamicValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D05C322637F36003F7D49 /* DynamicValueCell.swift */; };
-		968EC1D32282DC1100241F51 /* SwiftKeychainWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 968EC1D22282DC1100241F51 /* SwiftKeychainWrapper.framework */; };
 		968EC1D52283361D00241F51 /* user-info.json in Resources */ = {isa = PBXBuildFile; fileRef = 968EC1D42283361C00241F51 /* user-info.json */; };
 		968EC1D82283421400241F51 /* classification-overview-B182.json in Resources */ = {isa = PBXBuildFile; fileRef = 968EC1D62283421400241F51 /* classification-overview-B182.json */; };
 		968EC1D92283421400241F51 /* classification-overview-B181.json in Resources */ = {isa = PBXBuildFile; fileRef = 968EC1D72283421400241F51 /* classification-overview-B181.json */; };
@@ -133,24 +133,19 @@
 		968EC1E722836B1200241F51 /* XCUIElement+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968EC1E622836B1200241F51 /* XCUIElement+.swift */; };
 		968EC1E92283712500241F51 /* student-classifications-put.json in Resources */ = {isa = PBXBuildFile; fileRef = 968EC1E82283712400241F51 /* student-classifications-put.json */; };
 		968EC1EB22837E4A00241F51 /* my-paralels.json in Resources */ = {isa = PBXBuildFile; fileRef = 968EC1EA22837E4A00241F51 /* my-paralels.json */; };
-		969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 969398A92226D4A700841818 /* OAuthSwift.framework */; };
 		96939EDD223AD8A500A49E57 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EDC223AD8A500A49E57 /* Double+.swift */; };
 		96939EE1223B970600A49E57 /* CourseRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EE0223B970600A49E57 /* CourseRepositoryTests.swift */; };
 		96939EE4223B98BA00A49E57 /* CourseStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EE3223B98BA00A49E57 /* CourseStudent.swift */; };
 		96939EE6223BB97500A49E57 /* ClassificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EE5223BB97500A49E57 /* ClassificationType.swift */; };
-		96939EE7223BC61900A49E57 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961789302232F65D007006E8 /* RxBlocking.framework */; };
 		96939EEB223BDAE600A49E57 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EEA223BDAE600A49E57 /* ActivityIndicator.swift */; };
 		96939EF0223C1FEE00A49E57 /* Unwrap+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EEF223C1FEE00A49E57 /* Unwrap+.swift */; };
 		96939EF4223C274C00A49E57 /* CourseStudentRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96939EF3223C274C00A49E57 /* CourseStudentRepositoryMock.swift */; };
 		9699AB99223256D2006D2F73 /* OverviewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699AB98223256D2006D2F73 /* OverviewItem.swift */; };
 		9699AB9C22326512006D2F73 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699AB9B22326512006D2F73 /* Log.swift */; };
-		9699ABA22232902A006D2F73 /* ToastSwiftFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9699ABA12232902A006D2F73 /* ToastSwiftFramework.framework */; };
 		9699ABA42232A2C7006D2F73 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699ABA32232A2C7006D2F73 /* ApiError.swift */; };
 		9699ABA82232C091006D2F73 /* UIView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699ABA72232C091006D2F73 /* UIView+Rx.swift */; };
 		969A23FC236F6A4300E56F1A /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A23FB236F6A4300E56F1A /* AppError.swift */; };
 		969A23FE236F6A8200E56F1A /* TextScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A23FD236F6A8200E56F1A /* TextScene.swift */; };
-		96A80A6F222F191F00986A90 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A80A6E222F191F00986A90 /* RxDataSources.framework */; };
-		96A80A71222F1B3000986A90 /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A80A70222F1B3000986A90 /* Differentiator.framework */; };
 		96A80A75222F1D0400986A90 /* CourseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A80A74222F1D0400986A90 /* CourseListViewController.swift */; };
 		96A8AEF5227469E90076CCD2 /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8AEF4227469E90076CCD2 /* PushNotificationService.swift */; };
 		96A8AEF82274AE400076CCD2 /* NotificationRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8AEF72274AE400076CCD2 /* NotificationRegistration.swift */; };
@@ -176,9 +171,7 @@
 		96C61EE4233CB9E200EA0FB2 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C61EE3233CB9E200EA0FB2 /* SwitchCell.swift */; };
 		96C61EE6233CBB7E00EA0FB2 /* UIPrimarySwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C61EE5233CBB7E00EA0FB2 /* UIPrimarySwitch.swift */; };
 		96C61EE8233CBD8E00EA0FB2 /* PickerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C61EE7233CBD8E00EA0FB2 /* PickerCellViewModel.swift */; };
-		96C61EF2233CE9F800EA0FB2 /* RxBiBinding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96C61EF1233CE9F800EA0FB2 /* RxBiBinding.framework */; };
 		96C61EF4233CEA9E00EA0FB2 /* SwitchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C61EF3233CEA9E00EA0FB2 /* SwitchCellViewModel.swift */; };
-		96C61EF6233CF3C800EA0FB2 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96C61EF5233CF3C800EA0FB2 /* RxRelay.framework */; };
 		96C61EFE233E39FA00EA0FB2 /* GdprState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C61EFD233E39FA00EA0FB2 /* GdprState.swift */; };
 		96C61F02233F5EA500EA0FB2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C61F01233F5EA400EA0FB2 /* Constants.swift */; };
 		96C7B9CA226069FA00E39F9A /* CoursesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C7B9C9226069FA00E39F9A /* CoursesRepositoryTests.swift */; };
@@ -191,13 +184,17 @@
 		96D3CB02233BA3A900A5A469 /* StudentClassificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D3CB01233BA3A900A5A469 /* StudentClassificationTests.swift */; };
 		96D3CB04233BAFB500A5A469 /* Optional+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D3CB03233BAFB500A5A469 /* Optional+.swift */; };
 		96D4A68023E71F6700AFD100 /* RemoteConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D4A67F23E71F6700AFD100 /* RemoteConfigService.swift */; };
+		96DDBDDC25FFAE6900A6F90D /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 96DDBDDB25FFAE6900A6F90D /* RxSwift */; };
+		96DDBDE025FFAE6900A6F90D /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 96DDBDDF25FFAE6900A6F90D /* RxRelay */; };
+		96DDBDE225FFAE6900A6F90D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 96DDBDE125FFAE6900A6F90D /* RxCocoa */; };
+		96DDBE1125FFB6CB00A6F90D /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = 96DDBE1025FFB6CB00A6F90D /* Swifter */; };
+		96DDBE2025FFB93200A6F90D /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 96DDBE1F25FFB93200A6F90D /* RxTest */; };
+		96DDBE2225FFB93900A6F90D /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 96DDBE2125FFB93900A6F90D /* RxBlocking */; };
 		96DE85B3230C7F2100586193 /* StudentClassificationSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE85B2230C7F2100586193 /* StudentClassificationSorter.swift */; };
 		96DE85B6230C829D00586193 /* StudentEvaluationSorterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE85B5230C829D00586193 /* StudentEvaluationSorterTests.swift */; };
 		96E8C642224BE60C005F32F8 /* AppDependencyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C641224BE60C005F32F8 /* AppDependencyMock.swift */; };
 		96E8C644224BE8BA005F32F8 /* SettingsRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8C643224BE8BA005F32F8 /* SettingsRepositoryMock.swift */; };
 		96F220D6227B62C10078AD2A /* HTTPDynamicStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F220D5227B62C10078AD2A /* HTTPDynamicStubs.swift */; };
-		96F220DF227B67670078AD2A /* Swifter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F220DE227B67670078AD2A /* Swifter.framework */; };
-		96F220E2227B68B80078AD2A /* Swifter.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 96F220DE227B67670078AD2A /* Swifter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96F220EC227B72790078AD2A /* course-name.json in Resources */ = {isa = PBXBuildFile; fileRef = 96F220EB227B72790078AD2A /* course-name.json */; };
 		96F3A3732239080B00FB63EF /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A3722239080B00FB63EF /* BaseViewModel.swift */; };
 		96F3A37B22390FF200FB63EF /* Classification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3A37A22390FF200FB63EF /* Classification.swift */; };
@@ -251,16 +248,6 @@
 			files = (
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		96F220E1227B68960078AD2A /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				96F220E2227B68B80078AD2A /* Swifter.framework in CopyFiles */,
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -471,7 +458,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96F220DF227B67670078AD2A /* Swifter.framework in Frameworks */,
+				96DDBE1125FFB6CB00A6F90D /* Swifter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,7 +466,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				964CDE24228829270093CB3C /* SwiftKeychainWrapper.framework in Frameworks */,
+				9639A81625FF9BD900EE3913 /* SwiftKeychainWrapper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,20 +474,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96030427232C1C63005074C9 /* CocoaAsyncSocket.framework in Frameworks */,
-				96030426232C1C26005074C9 /* Bagel.framework in Frameworks */,
-				9658071922304B420065E23D /* Action.framework in Frameworks */,
-				967D1E512223E20B007E5217 /* SnapKit.framework in Frameworks */,
-				969398AB2226DC7600841818 /* OAuthSwift.framework in Frameworks */,
-				96C61EF2233CE9F800EA0FB2 /* RxBiBinding.framework in Frameworks */,
-				96C61EF6233CF3C800EA0FB2 /* RxRelay.framework in Frameworks */,
-				96861077222AAE6C0069B81B /* RxSwift.framework in Frameworks */,
-				96861079222AAE6F0069B81B /* RxCocoa.framework in Frameworks */,
-				96A80A6F222F191F00986A90 /* RxDataSources.framework in Frameworks */,
-				96A80A71222F1B3000986A90 /* Differentiator.framework in Frameworks */,
-				9699ABA22232902A006D2F73 /* ToastSwiftFramework.framework in Frameworks */,
-				968EC1D32282DC1100241F51 /* SwiftKeychainWrapper.framework in Frameworks */,
-				962A67A4229521B9008CF643 /* Sentry.framework in Frameworks */,
+				96DDBE2025FFB93200A6F90D /* RxTest in Frameworks */,
+				9639A80525FF9A7900EE3913 /* SwiftKeychainWrapper in Frameworks */,
+				9639A80025FF9A1800EE3913 /* Swifter in Frameworks */,
+				9639A7FB25FF99E600EE3913 /* Toast in Frameworks */,
+				96DDBE2225FFB93900A6F90D /* RxBlocking in Frameworks */,
+				96DDBDE225FFAE6900A6F90D /* RxCocoa in Frameworks */,
+				9639A7D825FF984B00EE3913 /* SnapKit in Frameworks */,
+				9639A7F125FF991600EE3913 /* Differentiator in Frameworks */,
+				9639A7DD25FF989100EE3913 /* OAuthSwift in Frameworks */,
+				96DDBDE025FFAE6900A6F90D /* RxRelay in Frameworks */,
+				9639A80A25FF9ABA00EE3913 /* Sentry in Frameworks */,
+				9639A81025FF9B6100EE3913 /* RxBiBinding in Frameworks */,
+				9639A7EF25FF991600EE3913 /* RxDataSources in Frameworks */,
+				9639A7F625FF997D00EE3913 /* Action in Frameworks */,
+				96DDBDDC25FFAE6900A6F90D /* RxSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,9 +496,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9682A6BB222D1EAA00773E28 /* RxSwift.framework in Frameworks */,
-				9682A6BC222D1EAA00773E28 /* RxTest.framework in Frameworks */,
-				96939EE7223BC61900A49E57 /* RxBlocking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1008,7 +993,6 @@
 			buildPhases = (
 				961BCE72222C3D8E00BD6663 /* Sources */,
 				961BCE74222C3D8E00BD6663 /* Resources */,
-				96F220E1227B68960078AD2A /* CopyFiles */,
 				961BCE73222C3D8E00BD6663 /* Frameworks */,
 			);
 			buildRules = (
@@ -1017,6 +1001,9 @@
 				961BCE7C222C3D8E00BD6663 /* PBXTargetDependency */,
 			);
 			name = GradesUITests;
+			packageProductDependencies = (
+				96DDBE1025FFB6CB00A6F90D /* Swifter */,
+			);
 			productName = GradesUITests;
 			productReference = 961BCE76222C3D8E00BD6663 /* GradesUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -1034,6 +1021,9 @@
 			dependencies = (
 			);
 			name = GradesNotificationExtension;
+			packageProductDependencies = (
+				9639A81525FF9BD900EE3913 /* SwiftKeychainWrapper */,
+			);
 			productName = GradesNotificationExtension;
 			productReference = 964CDE15228828330093CB3C /* GradesNotificationExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1042,10 +1032,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 96520EA32223D66000AB6499 /* Build configuration list for PBXNativeTarget "Grades" */;
 			buildPhases = (
-				967D1E522223E2F3007E5217 /* SwiftLint */,
 				9608B9C122241EC700E1CEAF /* SwiftGen */,
 				961A2FEE2229C59400A624DC /* SwiftFormat */,
-				967D1E3E2223DCEE007E5217 /* Carthage */,
+				967D1E522223E2F3007E5217 /* SwiftLint */,
 				9608B9A82223EB0900E1CEAF /* Generate preprocess header */,
 				96520E8D2223D65F00AB6499 /* Sources */,
 				96520E8E2223D65F00AB6499 /* Frameworks */,
@@ -1060,6 +1049,23 @@
 				964CDE1B228828330093CB3C /* PBXTargetDependency */,
 			);
 			name = Grades;
+			packageProductDependencies = (
+				9639A7D725FF984B00EE3913 /* SnapKit */,
+				9639A7DC25FF989100EE3913 /* OAuthSwift */,
+				9639A7EE25FF991600EE3913 /* RxDataSources */,
+				9639A7F025FF991600EE3913 /* Differentiator */,
+				9639A7F525FF997D00EE3913 /* Action */,
+				9639A7FA25FF99E600EE3913 /* Toast */,
+				9639A7FF25FF9A1800EE3913 /* Swifter */,
+				9639A80425FF9A7900EE3913 /* SwiftKeychainWrapper */,
+				9639A80925FF9ABA00EE3913 /* Sentry */,
+				9639A80F25FF9B6100EE3913 /* RxBiBinding */,
+				96DDBDDB25FFAE6900A6F90D /* RxSwift */,
+				96DDBDDF25FFAE6900A6F90D /* RxRelay */,
+				96DDBDE125FFAE6900A6F90D /* RxCocoa */,
+				96DDBE1F25FFB93200A6F90D /* RxTest */,
+				96DDBE2125FFB93900A6F90D /* RxBlocking */,
+			);
 			productName = Classification;
 			productReference = 96520E912223D65F00AB6499 /* Grades.app */;
 			productType = "com.apple.product-type.application";
@@ -1078,6 +1084,8 @@
 				9682A6B3222D1ABC00773E28 /* PBXTargetDependency */,
 			);
 			name = GradesTests;
+			packageProductDependencies = (
+			);
 			productName = GradesTests;
 			productReference = 9682A6AD222D1ABC00773E28 /* GradesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -1089,7 +1097,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = jiri.zdovmka;
 				TargetAttributes = {
 					961BCE75222C3D8E00BD6663 = {
@@ -1140,6 +1148,18 @@
 				Base,
 			);
 			mainGroup = 96520E882223D65E00AB6499;
+			packageReferences = (
+				9639A7D625FF984B00EE3913 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				9639A7DB25FF989100EE3913 /* XCRemoteSwiftPackageReference "OAuthSwift" */,
+				9639A7ED25FF991600EE3913 /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				9639A7F425FF997D00EE3913 /* XCRemoteSwiftPackageReference "Action" */,
+				9639A7F925FF99E600EE3913 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				9639A7FE25FF9A1800EE3913 /* XCRemoteSwiftPackageReference "swifter" */,
+				9639A80325FF9A7900EE3913 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
+				9639A80825FF9AB900EE3913 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+				9639A80E25FF9B6100EE3913 /* XCRemoteSwiftPackageReference "RxBiBinding" */,
+				96DDBDDA25FFAE6900A6F90D /* XCRemoteSwiftPackageReference "RxSwift" */,
+			);
 			productRefGroup = 96520E922223D65F00AB6499 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1246,7 +1266,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Generate strings\nswiftgen strings -t structured-swift4 ${SCRIPT_INPUT_FILE_0} -o \"$SRCROOT/Grades/Generated/Strings.swift\"\n";
+			shellScript = "# Generate strings\nswiftgen run strings -t structured-swift4 ${SCRIPT_INPUT_FILE_0} -o \"$SRCROOT/Grades/Generated/Strings.swift\"\n";
 			showEnvVarsInLog = 0;
 		};
 		961A2FEE2229C59400A624DC /* SwiftFormat */ = {
@@ -1276,6 +1296,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/.env",
+				"{DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
 			);
 			name = "Sentry Upload Symbols";
 			outputFileListPaths = (
@@ -1284,58 +1305,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\necho \"$CONFIGURATION\"\nif [ \"$CONFIGURATION\" == \"Release\" ]; then\nif which sentry-cli >/dev/null; then\n\nif test -f .env; then\n    source .env\nfi\n\n\nERROR=$(sentry-cli upload-dif \"$DWARF_DSYM_FOLDER_PATH\" 2>&1 >/dev/null)\nif [ ! $? -eq 0 ]; then\necho \"warning: sentry-cli - $ERROR\"\nfi\nelse\necho \"warning: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"\nfi\nfi\n\n";
-		};
-		967D1E3E2223DCEE007E5217 /* Carthage */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/OAuthSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxTest.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Differentiator.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Action.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/ToastSwiftFramework.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SwiftKeychainWrapper.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Sentry.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Bagel.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/CocoaAsyncSocket.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxBiBinding.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxRelay.framework",
-			);
-			name = Carthage;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SnapKit.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/OAuthSwift.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxCocoa.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxTest.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxDataSources.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Differentiator.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Action.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/ToastSwiftFramework.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxBlocking.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftKeychainWrapper.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Sentry.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Bagel.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CocoaAsyncSocket.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxBiBinding.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxRelay.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
-			showEnvVarsInLog = 0;
+			shellScript = "\nif which sentry-cli >/dev/null; then\n\n# Load env variables from .env\nif [ ! -f .env ]\nthen\n  export $(cat .env | xargs)\nfi\n\nERROR=$(sentry-cli upload-dif \"$DWARF_DSYM_FOLDER_PATH\" 2>&1 >/dev/null)\nif [ ! $? -eq 0 ]; then\necho \"warning: sentry-cli - $ERROR\"\nfi\nelse\necho \"warning: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"\nfi\n";
 		};
 		967D1E522223E2F3007E5217 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1598,10 +1568,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LK4H72N842;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GradesUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1628,10 +1595,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LK4H72N842;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GradesUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1659,10 +1623,8 @@
 				CONFIG_ENVIRONMENT = Debug;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = LK4H72N842;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GradesNotificationExtension/Info.plist;
 				INFOPLIST_PREFIX_HEADER = "$(PROJECT_DIR)/info_preprocess_header.h";
 				INFOPLIST_PREPROCESS = YES;
@@ -1673,9 +1635,10 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0.4;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.grades.NotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Grades Notification Extension - App Store";
+				PROVISIONING_PROFILE_SPECIFIER = "Grades Notification Extension - AppStore";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1691,10 +1654,8 @@
 				CODE_SIGN_STYLE = Manual;
 				CONFIG_ENVIRONMENT = Test;
 				DEVELOPMENT_TEAM = LK4H72N842;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GradesNotificationExtension/Info.plist;
 				INFOPLIST_PREFIX_HEADER = "$(PROJECT_DIR)/info_preprocess_header.h";
 				INFOPLIST_PREPROCESS = YES;
@@ -1705,9 +1666,10 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0.4;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.grades.NotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Grades Notification Extension - App Store";
+				PROVISIONING_PROFILE_SPECIFIER = "Grades Notification Extension - AppStore";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1723,10 +1685,8 @@
 				CODE_SIGN_STYLE = Manual;
 				CONFIG_ENVIRONMENT = Release;
 				DEVELOPMENT_TEAM = LK4H72N842;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GradesNotificationExtension/Info.plist;
 				INFOPLIST_PREFIX_HEADER = "$(PROJECT_DIR)/info_preprocess_header.h";
 				INFOPLIST_PREPROCESS = YES;
@@ -1737,9 +1697,10 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0.4;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.grades.NotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Grades Notification Extension - App Store";
+				PROVISIONING_PROFILE_SPECIFIER = "Grades Notification Extension - AppStore";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1773,6 +1734,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1836,6 +1798,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1870,6 +1833,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				APP_VERSION = 0.1.3;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Grades/Grades.entitlements;
@@ -1878,10 +1842,9 @@
 				CONFIG_ENVIRONMENT = Debug;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = LK4H72N842;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				ENABLE_BITCODE = NO;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Grades/Info.plist;
 				INFOPLIST_PREFIX_HEADER = "$(PROJECT_DIR)/info_preprocess_header.h";
 				INFOPLIST_PREPROCESS = YES;
@@ -1896,11 +1859,13 @@
 					"$(OTHER_LDFLAGS)",
 					"-ObjC",
 				);
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.grades;
 				PRODUCT_NAME = Grades;
-				PROVISIONING_PROFILE_SPECIFIER = "Grades - AppStore";
+				PROVISIONING_PROFILE_SPECIFIER = "Grades AppStore";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Debug;
 		};
@@ -1908,6 +1873,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				APP_VERSION = 0.1.3;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Grades/Grades.entitlements;
@@ -1915,10 +1881,9 @@
 				CODE_SIGN_STYLE = Manual;
 				CONFIG_ENVIRONMENT = Release;
 				DEVELOPMENT_TEAM = LK4H72N842;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				ENABLE_BITCODE = NO;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Grades/Info.plist;
 				INFOPLIST_PREFIX_HEADER = "$(PROJECT_DIR)/info_preprocess_header.h";
 				INFOPLIST_PREPROCESS = YES;
@@ -1933,11 +1898,13 @@
 					"$(OTHER_LDFLAGS)",
 					"-ObjC",
 				);
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.grades;
 				PRODUCT_NAME = Grades;
-				PROVISIONING_PROFILE_SPECIFIER = "Grades - AppStore";
+				PROVISIONING_PROFILE_SPECIFIER = "Grades AppStore";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Release;
 		};
@@ -1949,10 +1916,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LK4H72N842;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GradesTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1977,10 +1941,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LK4H72N842;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GradesTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2024,6 +1985,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -2064,6 +2026,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				APP_VERSION = 0.1.3;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Grades/Grades.entitlements;
@@ -2071,10 +2034,9 @@
 				CODE_SIGN_STYLE = Manual;
 				CONFIG_ENVIRONMENT = Test;
 				DEVELOPMENT_TEAM = LK4H72N842;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				ENABLE_BITCODE = NO;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Grades/Info.plist;
 				INFOPLIST_PREFIX_HEADER = "$(PROJECT_DIR)/info_preprocess_header.h";
 				INFOPLIST_PREPROCESS = YES;
@@ -2089,11 +2051,13 @@
 					"$(OTHER_LDFLAGS)",
 					"-ObjC",
 				);
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cz.cvut.fit.grades;
 				PRODUCT_NAME = Grades;
-				PROVISIONING_PROFILE_SPECIFIER = "Grades - AppStore";
+				PROVISIONING_PROFILE_SPECIFIER = "Grades AppStore";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Test;
 		};
@@ -2105,10 +2069,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LK4H72N842;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GradesTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2134,10 +2095,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LK4H72N842;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GradesUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2209,6 +2167,177 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9639A7D625FF984B00EE3913 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+		9639A7DB25FF989100EE3913 /* XCRemoteSwiftPackageReference "OAuthSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OAuthSwift/OAuthSwift";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 2.1.2;
+			};
+		};
+		9639A7ED25FF991600EE3913 /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 4.0.1;
+			};
+		};
+		9639A7F425FF997D00EE3913 /* XCRemoteSwiftPackageReference "Action" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/Action";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 4.1.0;
+			};
+		};
+		9639A7F925FF99E600EE3913 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+		9639A7FE25FF9A1800EE3913 /* XCRemoteSwiftPackageReference "swifter" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/httpswift/swifter";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.0;
+			};
+		};
+		9639A80325FF9A7900EE3913 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.1;
+			};
+		};
+		9639A80825FF9AB900EE3913 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.2.1;
+			};
+		};
+		9639A80E25FF9B6100EE3913 /* XCRemoteSwiftPackageReference "RxBiBinding" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxBiBinding";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 0.2.5;
+			};
+		};
+		96DDBDDA25FFAE6900A6F90D /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 5.1.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9639A7D725FF984B00EE3913 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9639A7D625FF984B00EE3913 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		9639A7DC25FF989100EE3913 /* OAuthSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9639A7DB25FF989100EE3913 /* XCRemoteSwiftPackageReference "OAuthSwift" */;
+			productName = OAuthSwift;
+		};
+		9639A7EE25FF991600EE3913 /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9639A7ED25FF991600EE3913 /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
+		};
+		9639A7F025FF991600EE3913 /* Differentiator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9639A7ED25FF991600EE3913 /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = Differentiator;
+		};
+		9639A7F525FF997D00EE3913 /* Action */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9639A7F425FF997D00EE3913 /* XCRemoteSwiftPackageReference "Action" */;
+			productName = Action;
+		};
+		9639A7FA25FF99E600EE3913 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9639A7F925FF99E600EE3913 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
+		9639A7FF25FF9A1800EE3913 /* Swifter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9639A7FE25FF9A1800EE3913 /* XCRemoteSwiftPackageReference "swifter" */;
+			productName = Swifter;
+		};
+		9639A80425FF9A7900EE3913 /* SwiftKeychainWrapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9639A80325FF9A7900EE3913 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			productName = SwiftKeychainWrapper;
+		};
+		9639A80925FF9ABA00EE3913 /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9639A80825FF9AB900EE3913 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
+		};
+		9639A80F25FF9B6100EE3913 /* RxBiBinding */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9639A80E25FF9B6100EE3913 /* XCRemoteSwiftPackageReference "RxBiBinding" */;
+			productName = RxBiBinding;
+		};
+		9639A81525FF9BD900EE3913 /* SwiftKeychainWrapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9639A80325FF9A7900EE3913 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			productName = SwiftKeychainWrapper;
+		};
+		96DDBDDB25FFAE6900A6F90D /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 96DDBDDA25FFAE6900A6F90D /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		96DDBDDF25FFAE6900A6F90D /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 96DDBDDA25FFAE6900A6F90D /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		96DDBDE125FFAE6900A6F90D /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 96DDBDDA25FFAE6900A6F90D /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		96DDBE1025FFB6CB00A6F90D /* Swifter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9639A7FE25FF9A1800EE3913 /* XCRemoteSwiftPackageReference "swifter" */;
+			productName = Swifter;
+		};
+		96DDBE1F25FFB93200A6F90D /* RxTest */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 96DDBDDA25FFAE6900A6F90D /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxTest;
+		};
+		96DDBE2125FFB93900A6F90D /* RxBlocking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 96DDBDDA25FFAE6900A6F90D /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxBlocking;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 96520E892223D65F00AB6499 /* Project object */;
 }

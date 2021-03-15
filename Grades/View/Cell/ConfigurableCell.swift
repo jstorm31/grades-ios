@@ -21,7 +21,8 @@ protocol CellConfigurator {
 }
 
 class TableCellConfigurator<CellType: ConfigurableCell, DataType>: CellConfigurator
-    where CellType.DataType == DataType, CellType: UITableViewCell {
+    where CellType.DataType == DataType, CellType: UITableViewCell
+{
     static var reuseId: String { return String(describing: CellType.self) }
 
     let item: DataType

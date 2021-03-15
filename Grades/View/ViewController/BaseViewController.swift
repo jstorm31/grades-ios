@@ -5,7 +5,7 @@
 //  Created by Jiří Zdvomka on 02/03/2019.
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
-import ToastSwiftFramework
+import Toast
 import UIKit
 
 class BaseViewController: UIViewController {
@@ -81,7 +81,7 @@ class BaseViewController: UIViewController {
         ToastManager.shared.style = toastStyle
     }
 
-    open override var shouldAutorotate: Bool {
+    override open var shouldAutorotate: Bool {
         return false
     }
 }

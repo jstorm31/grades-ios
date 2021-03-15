@@ -135,7 +135,8 @@ final class GroupClassificationViewModel: TablePickerViewModel, SortableDataView
     /// Initialize and bind CellViewModel for each item
     private func studentClassifications(_ classification: Classification,
                                         _ groupIndex: Int,
-                                        _ classificationIndex: Int) -> Observable<[DynamicValueCellViewModel]> {
+                                        _ classificationIndex: Int) -> Observable<[DynamicValueCellViewModel]>
+    {
         guard groupIndex < teacherRepository.groups.value.count else { return Observable.just([]) }
 
         let groupCode = teacherRepository.groups.value[groupIndex]
@@ -152,7 +153,7 @@ final class GroupClassificationViewModel: TablePickerViewModel, SortableDataView
 
                 return Observable.combineLatest(self.activeSorterIndex, self.isAscending) { [weak self] sorterIndex, isAscending in
                     guard let sorters = try self?.sorters.value(),
-                        sorters.indices.contains(sorterIndex) else { return [] }
+                          sorters.indices.contains(sorterIndex) else { return [] }
 
                     let sorted = sorters[sorterIndex].sort(classifications, ascending: isAscending)
                     return sorted
@@ -223,7 +224,7 @@ final class GroupClassificationViewModel: TablePickerViewModel, SortableDataView
 
     /// Submit current value for current index path
     func submitSelectedValue() {
-        guard let index = self.selectedCellIndex.value else { return }
+        guard let index = selectedCellIndex.value else { return }
 
         if index.section == 0, index.item == 0 {
             groupSelectedIndex.accept(selectedOptionIndex.value)

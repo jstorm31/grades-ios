@@ -6,6 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import Foundation
 import OAuthSwift
 
 /// Wrapper around OAuthSwiftClient to make it testable
@@ -13,8 +14,7 @@ protocol AuthClientProtocol {
     var credential: OAuthSwiftCredential { get }
 
     func request(_ url: URLConvertible, method: OAuthSwiftHTTPRequest.Method, parameters: OAuthSwift.Parameters,
-                 headers: OAuthSwift.Headers?, body: Data?, success: OAuthSwiftHTTPRequest.SuccessHandler?,
-                 failure: OAuthSwiftHTTPRequest.FailureHandler?) -> OAuthSwiftRequestHandle?
+                 headers: OAuthSwift.Headers?, body: Data?, completionHandler: OAuthSwiftHTTPRequest.CompletionHandler?) -> OAuthSwiftRequestHandle?
 }
 
 final class AuthClient: AuthClientProtocol {
@@ -29,8 +29,8 @@ final class AuthClient: AuthClientProtocol {
 
     @discardableResult
     func request(_ url: URLConvertible, method: OAuthSwiftHTTPRequest.Method, parameters: OAuthSwift.Parameters = [:],
-                 headers: OAuthSwift.Headers? = nil, body: Data? = nil, success: OAuthSwiftHTTPRequest.SuccessHandler?,
-                 failure: OAuthSwiftHTTPRequest.FailureHandler?) -> OAuthSwiftRequestHandle? {
-        return client.request(url, method: method, parameters: parameters, headers: headers, body: body, success: success, failure: failure)
+                 headers: OAuthSwift.Headers? = nil, body: Data? = nil, completionHandler: OAuthSwiftHTTPRequest.CompletionHandler?) -> OAuthSwiftRequestHandle?
+    {
+        return client.request(url, method: method, parameters: parameters, headers: headers, body: body, completionHandler: completionHandler)
     }
 }

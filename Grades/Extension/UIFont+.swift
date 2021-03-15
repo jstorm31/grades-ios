@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 extension UIFont {
-    struct Grades {
+    enum Grades {
         static let primaryButton = UIFont(name: "Avenir-Roman", size: 24) ?? UIFont.systemFont(ofSize: 24)
         static let cellTitle = UIFont(name: "Avenir-Black", size: 18) ?? UIFont.boldSystemFont(ofSize: 18)
         static let body = UIFont(name: "Avenir-Roman", size: 16) ?? UIFont.systemFont(ofSize: 16)

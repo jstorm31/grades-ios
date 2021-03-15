@@ -6,6 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import Foundation
 import RxDataSources
 
 class Course: Decodable {
@@ -62,10 +63,12 @@ class StudentCourse: Course {
         super.init(code: rawCourse.code)
 
         if let overviewItem = rawCourse.items.first(where: { $0.type == "POINTS_TOTAL" }),
-            let value = overviewItem.value {
+           let value = overviewItem.value
+        {
             finalValue = value
         } else if let overviewItem = rawCourse.items.first(where: { $0.type == "FINAL_SCORE" }),
-            let value = overviewItem.value {
+                  let value = overviewItem.value
+        {
             finalValue = value
         }
     }

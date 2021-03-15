@@ -6,6 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import Foundation
 import OAuthSwift
 @testable import Grades
 
@@ -18,9 +19,8 @@ final class AuthClientMock: AuthClientProtocol {
 	var called = 0;
 	var credential = OAuthSwiftCredential(consumerKey: "asdf", consumerSecret: "asdf")
 	
-	func request(_ url: URLConvertible, method: OAuthSwiftHTTPRequest.Method, parameters: OAuthSwift.Parameters = [:],
-				 headers: OAuthSwift.Headers? = nil, body: Data? = nil, success: OAuthSwiftHTTPRequest.SuccessHandler?,
-				 failure: OAuthSwiftHTTPRequest.FailureHandler?) -> OAuthSwiftRequestHandle? {
+    func request(_ url: URLConvertible, method: OAuthSwiftHTTPRequest.Method, parameters: OAuthSwift.Parameters = [:],
+                 headers: OAuthSwift.Headers? = nil, body: Data? = nil, completionHandler: OAuthSwiftHTTPRequest.CompletionHandler?) -> OAuthSwiftRequestHandle? {
 		if called > 0 {
 			result = .success
 		}
@@ -30,11 +30,12 @@ final class AuthClientMock: AuthClientProtocol {
 		case .success:
 			let data = Data(base64Encoded: "dGVzdA==")!
 			let response = HTTPURLResponse(url: URL(string: "http://google.com")!, mimeType: nil, expectedContentLength: 0, textEncodingName: nil)
-			success?(OAuthSwiftResponse(data: data, response: response, request: nil))
+            
+            completionHandler?(.success(.init(data: data, response: response, request: nil)))
 		case .failure:
-			failure?(OAuthSwiftError.encodingError(urlString: url.string))
+            completionHandler?(.failure(OAuthSwiftError.encodingError(urlString: url.string)))
 		case .expires:
-			failure?(OAuthSwiftError.tokenExpired(error: nil))
+            completionHandler?(.failure(OAuthSwiftError.tokenExpired(error: nil)))
 		}
 		
 		return nil
