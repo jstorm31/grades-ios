@@ -121,7 +121,11 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
         viewModel.authenticate(viewController: self)
             .subscribeOn(MainScheduler.instance)
             .subscribe(onError: { [weak self] error in
-                self?.view.makeCustomToast(error.localizedDescription, type: .danger)
+                Log.error(error.localizedDescription)
+
+                if let view = self?.view {
+                    view.makeCustomToast(error.localizedDescription, type: .danger)
+                }
             })
             .disposed(by: bag)
     }
