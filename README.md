@@ -39,10 +39,6 @@ All configuration related files are located in `Configuration` folder. There are
  3. Add `ENVIRONMENT_NAME.plist` file (replace `ENVIRONMENT_NAME` it with real environment name)
  4. `EnvironmentConfiguration` class may need update
  
- ## 📦 Deploy
+ ## 📦 Deploy & Release
  
-The app is deployed manually through AppStore Connect.
-
-### AppStore review
-
-In order to allow a review of the app before a new release, a version must be set (matching the new release version) in a remote configuration file (hosted by the project maintainer). That version will than have all in-app data mocked instead of real data. **It is important to change the version in the configuration file** after the review has been completed so real data are fetched to regular users.
+The app is deployed manually through AppStore Connect. See [Release guide](https://github.com/jstorm31/grades-ios/wiki/Release) for more info.
