@@ -114,7 +114,18 @@ final class AuthenticationService: AuthenticationServiceProtocol {
         if handler.client.credential.oauthRefreshToken.isEmpty {
             return Observable.just(false)
         }
-        return renewAccessToken.execute().map { _ in true }
+
+        return renewAccessToken.execute()
+            .catchError { [weak self] error in
+                if case let ActionError.underlyingError(underlyingError) = error,
+                   case AuthenticationError.invalidRefreshToken = underlyingError
+                {
+                    Log.debug("Removed credentials")
+                    self?.removeCredentialsFromKeychain()
+                }
+                throw error
+            }
+            .map { _ in true }
     }
 
     func logOut() {
@@ -154,7 +165,19 @@ final class AuthenticationService: AuthenticationServiceProtocol {
                             observer.onNext(())
                             observer.onCompleted()
                         } catch {
-                            observer.onError(ApiError.unprocessableData)
+                            if let errorDict: [String: String] = try? JSONDecoder().decode([String: String].self, from: data),
+                               let errorType = errorDict["error"]
+                            {
+                                if errorType == "invalid_grant" {
+                                    observer.onError(AuthenticationError.invalidRefreshToken)
+                                } else {
+                                    observer.onError(AuthenticationError.generic)
+                                }
+                            } else {
+                                let errorDescription = String(decoding: data, as: UTF8.self)
+                                Log.error("AuthenticationService: unprocessable data: \(errorDescription)")
+                                observer.onError(ApiError.unprocessableData)
+                            }
                         }
                     }
                 }

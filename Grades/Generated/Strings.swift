@@ -64,6 +64,8 @@ internal enum L10n {
         internal enum Auth {
             /// Authentication error
             internal static let generic = L10n.tr("Localizable", "error.auth.generic")
+            /// Invalid refresh token
+            internal static let invalidRefreshToken = L10n.tr("Localizable", "error.auth.invalidRefreshToken")
         }
     }
 

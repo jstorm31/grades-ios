@@ -61,7 +61,16 @@ final class LoginViewModel: BaseViewModel {
                 }
 
                 self?.fetching.onNext(true)
-                return self?.dependencies.authService.authenticateWitRefreshToken() ?? Observable.just(false)
+
+                self?.fetching.onNext(false)
+                return self?.dependencies.authService.authenticateWitRefreshToken().catchError { error in
+
+                    guard case AuthenticationError.invalidRefreshToken = error else {
+                        throw error
+                    }
+
+                    return Observable.just(false)
+                } ?? Observable.just(false)
             }
             .flatMap(postAuthSetup)
     }

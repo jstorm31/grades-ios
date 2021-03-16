@@ -6,6 +6,7 @@
 //  Copyright © 2019 jiri.zdovmka. All rights reserved.
 //
 
+import Action
 import RxSwift
 import SnapKit
 import UIKit
@@ -93,7 +94,11 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
 
                 DispatchQueue.main.async {
                     if let view = self?.view {
-                        view.makeCustomToast(error.localizedDescription, type: .danger)
+                        if case let ActionError.underlyingError(underlyingError) = error {
+                            view.makeCustomToast(underlyingError.localizedDescription, type: .danger)
+                        } else {
+                            view.makeCustomToast(error.localizedDescription, type: .danger)
+                        }
                     }
                 }
             })
@@ -127,8 +132,6 @@ class LoginViewController: BaseViewController, BindableType, ConfirmationModalPr
         viewModel.authenticate(viewController: self)
             .subscribeOn(MainScheduler.instance)
             .subscribe(onError: { [weak self] error in
-                Log.report(error)
-
                 DispatchQueue.main.async {
                     if let view = self?.view {
                         view.makeCustomToast(error.localizedDescription, type: .danger)

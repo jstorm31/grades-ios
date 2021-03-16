@@ -20,11 +20,17 @@ class Log {
 
     static func error(_ message: String) {
         print("⛔️ \(message)")
-        SentrySDK.capture(message: message)
+
+        #if !DEBUG
+            SentrySDK.capture(message: message)
+        #endif
     }
 
     static func report(_ error: Error) {
         print("⛔️ \(error) \(error.localizedDescription)")
-        SentrySDK.capture(error: error)
+
+        #if !DEBUG
+            SentrySDK.capture(error: error)
+        #endif
     }
 }

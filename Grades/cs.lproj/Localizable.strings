@@ -1,6 +1,7 @@
 "appVersion" = "Verze aplikace";
 
 "error.auth.generic" = "Nastala chyba při autentizaci";
+"error.auth.invalidRefreshToken" = "Neplatný refresh token";
 "error.api.generic" = "Nastala chyba při stahování dat.";
 
 "labels.noContent" = "Není co zobrazit";

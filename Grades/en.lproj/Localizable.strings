@@ -1,6 +1,7 @@
 "appVersion" = "App version";
 
 "error.auth.generic" = "Authentication error";
+"error.auth.invalidRefreshToken" = "Invalid refresh token";
 "error.api.generic" = "Network request error";
 
 "labels.noContent" = "Nothing to display";
